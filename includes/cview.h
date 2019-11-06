@@ -10,6 +10,8 @@ struct Graph;
 
 struct SGraphNode; // структура, соответсвтующая комнате
 struct SGraphConnection; // структура, соответствующая соединению
+namespace Polaris 
+{
 
 class CGraphicConnection : public QGraphicsLineItem
 {
@@ -31,7 +33,12 @@ class CGraphicsView : public QGraphicsView
     Q_OBJECT
 
 public:
-    explicit CGraphicsView( QObject *parent = nullptr );
+    explicit CGraphicsView( QWidget *parent = nullptr );
+
+    CGraphicsView() = delete;
+    CGraphicsView( const CGraphicsView& ) = delete;
+    CGraphicsView& operator=( const CGraphicsView& ) = delete;
+    ~CGraphicsView() = default;
 
 private:
     QVector<CGraphicRoom> rooms_;
@@ -56,5 +63,8 @@ public slots:
     void ChangeRoomMeta();
 
 };
+
+
+}
 
 #endif // CVIEW_H

@@ -8,18 +8,34 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package( GTest REQUIRED )
+find_package( Threads REQUIRED )
 
-add_executable(CView
+set(SOURCES executions/cview.cpp)
+set(HEADERS includes/cview.h)
+add_library(CView STATIC ${SOURCES} ${HEADERS})
+target_include_directories(CView PUBLIC .)
+target_link_libraries(CView PRIVATE Qt5::Widgets)
+
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(CView_test
+    test/tests_gtest.cpp
+)
+
+target_link_libraries(CView_test PRIVATE CView Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
+
+add_executable(CView_dev
   main.cpp
   capp.cpp
   capp.h
   capp.ui
-  cview.cpp
-  cview.h
+  executions/cview.cpp
+  includes/cview.h
 )
-
-target_link_libraries(CView PRIVATE Qt5::Widgets)
+target_link_libraries(CView_dev PRIVATE Qt5::Widgets)
