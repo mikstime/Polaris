@@ -3,19 +3,19 @@
 
 #include <QMainWindow>
 
-struct SGraphNode {}; // Структура комнаты
-struct SGraphConnection {}; // Структура соединения
+struct GraphNode {}; // Структура комнаты
+struct GraphConnection {}; // Структура соединения
 
 namespace Polaris
 {
 
-class CMainWindow : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    CMainWindow(QWidget *parent = nullptr);
-    ~CMainWindow();
+    MainWindow( QWidget *parent = nullptr );
+    ~MainWindow();
 
 signals:
 

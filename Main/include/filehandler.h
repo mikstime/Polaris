@@ -7,12 +7,12 @@
 namespace Polaris
 {
 
-class CFileHandler
+class FileHandler
 {
 public:
-    CFileHandler();
-    bool FileRead(QVector<SGraphNode> *graph);
-    bool FileWrite(QVector<SGraphNode> *graph);
+    FileHandler();
+    bool FileRead( QVector< GraphNode > *graph );
+    bool FileWrite( QVector< GraphNode > *graph );
 };
 
 }
