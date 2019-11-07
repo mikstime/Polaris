@@ -15,12 +15,12 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_executable(polaris
   main.cpp
-  mainwindow.cpp
-  mainwindow.h
-  controller.cpp
-  controller.h
-  filehandler.cpp
-  filehandler.h
+  lib/mainwindow.cpp
+  include/mainwindow.h
+  lib/controller.cpp
+  include/controller.h
+  lib/filehandler.cpp
+  include/filehandler.h
 )
 
 target_link_libraries(polaris PRIVATE Qt5::Widgets)
