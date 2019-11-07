@@ -15,7 +15,7 @@ void CGraphicsView::BuildItems( const Meta & new_meta, const Graph & new_graph )
 }
 
 void CGraphicsView::RefreshItems( const Meta & new_meta, const Graph & new_graph,
-                   QVector< int > rooms_change_list)
+                   QVector< int > rooms_change_list )
 {
 
 }

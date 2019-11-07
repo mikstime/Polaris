@@ -1,18 +1,64 @@
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <memory>
+#include <QApplication>
+#include <QObject>
+#include "../include/cview.h"
+#include "../../mainwindow/include/mainwindow.h"
 
-using ::testing::AtLeast;
-using ::testing::DoAll;
-using ::testing::Return;
-using ::testing::SetArgReferee;
+using Polaris::CGraphicsView;
+using std::shared_ptr;
 
+struct GraphNode {};
+struct GraphConnection {};
 
+class MockCController : public QObject
+{
+    Q_OBJECT
+ public slots:
+    void SetSelectedNodes( int node_id ) { return; }
+    void SetSelectedConnection( int connection_id ) { return; }
+    void SaveChangedData( GraphNode node ) { return; }
+    void SaveConnection( GraphConnection connection ) { return; }
+};
 
-TEST(TestStatic, HelloWorld) {
+//TEST( ControllerIntegration, ConnectChooseRoom )
+//{
+//    std::shared_ptr< MockCController > mock_controller( new MockCController );
+//    std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
 
-}
+//    ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( int ) ),
+//                                   mock_controller.get(), SLOT( SetSelectedNodes( int ) ) ) );
+//}
+
+//TEST( ControllerIntegration, ConnectChooseConnection )
+//{
+//    std::shared_ptr< MockCController > mock_controller( new MockCController );
+//    std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
+
+//    ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseConnection( int ) ),
+//                                   mock_controller.get(), SLOT( SetSelectedConnection( int ) ) ) );
+//}
+
+//TEST( ControllerIntegration, ConnectSaveChangeData )
+//{
+//    std::shared_ptr< MockCController > mock_controller( new MockCController );
+//    std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
+
+//    ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( GraphNode ) ),
+//                                   mock_controller.get(), SLOT( SaveChangedData( GraphNode ) ) ) );
+//}
+
+//TEST( ControllerIntegration, ConnectSaveConnection )
+//{
+//    std::shared_ptr< MockCController > mock_controller( new MockCController );
+//    std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
+
+//    ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( GraphConnection ) ),
+//                                   mock_controller.get(), SLOT( SaveConnection( GraphConnection ) ) ) );
+//}
 
 int main(int argc, char** argv) {
-//  ::testing::InitGoogleMock(&argc, argv);
-  return RUN_ALL_TESTS();
+    QApplication a(argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

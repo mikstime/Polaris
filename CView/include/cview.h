@@ -8,8 +8,9 @@
 struct Meta;
 struct Graph;
 
-struct SGraphNode; // структура, соответсвтующая комнате
-struct SGraphConnection; // структура, соответствующая соединению
+struct GraphNode; // структура, соответсвтующая комнате
+struct GraphConnection; // структура, соответствующая соединению
+
 namespace Polaris 
 {
 
@@ -41,12 +42,12 @@ public:
     ~CGraphicsView() = default;
 
 private:
-    QVector<CGraphicRoom> rooms_;
-    QVector<CGraphicConnection> connections_;
+    QVector< CGraphicRoom > rooms_;
+    QVector< CGraphicConnection > connections_;
 
 signals:
-    void SaveNewRoom( SGraphNode & new_room );
-    void SaveNewConnection( SGraphConnection & new_connection );
+    void SaveNewRoom( GraphNode & new_room );
+    void SaveNewConnection( GraphConnection & new_connection );
 
     void ChooseRoom( int room_id );
     void ChooseConnection( int connection_id );
@@ -54,7 +55,7 @@ signals:
 public slots:
     void BuildItems( const Meta & new_meta, const Graph & new_graph );
     void RefreshItems( const Meta & new_meta, const Graph & new_graph,
-                       QVector< int > rooms_change_list);
+                       QVector< int > rooms_change_list );
 
     void DrawThePath( QVector< int > path );
 
@@ -64,7 +65,6 @@ public slots:
 
 };
 
-
-}
+} // namespace Polaris
 
 #endif // CVIEW_H
