@@ -15,8 +15,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
 
-set(SOURCES executions/cview.cpp)
-set(HEADERS includes/cview.h)
+set(SOURCES lib/cview.cpp)
+set(HEADERS include/cview.h)
 add_library(CView STATIC ${SOURCES} ${HEADERS})
 target_include_directories(CView PUBLIC .)
 target_link_libraries(CView PRIVATE Qt5::Widgets)
@@ -35,7 +35,5 @@ add_executable(CView_dev
   capp.cpp
   capp.h
   capp.ui
-  executions/cview.cpp
-  includes/cview.h
 )
-target_link_libraries(CView_dev PRIVATE Qt5::Widgets)
+target_link_libraries(CView_dev PRIVATE CView Qt5::Widgets)

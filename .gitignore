@@ -1,4 +1,4 @@
-main.cpp
-capp.cpp
-capp.h
-capp.ui
+CView/main.cpp
+CView/capp.cpp
+CView/capp.h
+CView/capp.ui

@@ -6,6 +6,8 @@ using ::testing::DoAll;
 using ::testing::Return;
 using ::testing::SetArgReferee;
 
+
+
 TEST(TestStatic, HelloWorld) {
 
 }

@@ -1,4 +1,4 @@
-#include "includes/cview.h"
+#include "include/cview.h"
 
 using namespace Polaris;
 
@@ -25,7 +25,7 @@ void CGraphicsView::DrawThePath( QVector< int > path )
 
 }
 
-void CGraphicsView::CreateNewConnectin()
+void CGraphicsView::CreateNewConnection()
 {
 
 }

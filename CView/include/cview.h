@@ -58,7 +58,7 @@ public slots:
 
     void DrawThePath( QVector< int > path );
 
-    void CreateNewConnectin();
+    void CreateNewConnection();
     void CreateNewRoomMeta();
     void ChangeRoomMeta();
 
