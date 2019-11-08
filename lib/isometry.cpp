@@ -13,7 +13,8 @@ Isometry< C3V, C2V >::~Isometry()
 }
 
 template < typename C3V, typename C2V >
-void Isometry< C3V, C2V >::TransformCoordinates( std::vector< C3V > coordinates, std::vector< C2V > flat_coordinates )
+void Isometry< C3V, C2V >::TransformCoordinates( std::vector< C3V > & coordinates,
+                                                std::vector< C2V > & flat_coordinates )
 {
 }
 
