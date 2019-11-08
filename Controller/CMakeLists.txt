@@ -25,5 +25,5 @@ target_include_directories(ControllerLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} incl
 target_link_libraries(ControllerLib PRIVATE Qt5::Widgets)
 
 include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(ControllerLibTests tests/tests.cpp)
+add_executable(ControllerLibTests tests/controller_tests.cpp)
 target_link_libraries(ControllerLibTests ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})

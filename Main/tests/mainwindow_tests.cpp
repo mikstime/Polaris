@@ -2,7 +2,7 @@
 
 TEST( Test, TestName )
 {
-    ASSERT_EQ( 2 + 2, 4 );
+    EXPECT_EQ( 0, 0 );
 }
 
 int main( int argc, char** argv ) {

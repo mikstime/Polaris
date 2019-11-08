@@ -1,7 +1,8 @@
 #ifndef FILEHANDLER_H
 #define FILEHANDLER_H
 
-#include <QVector>
+#include <vector>
+#include <string>
 
 struct GraphNode {}; // Структура комнаты
 
@@ -12,8 +13,8 @@ class FileHandler
 {
 public:
     FileHandler();
-    bool FileRead( QVector< GraphNode > * graph );
-    bool FileWrite( QVector< GraphNode > * graph );
+    bool FileRead( std::vector< GraphNode > & graph, std::string file_name );
+    bool FileWrite( std::vector< GraphNode > & graph, std::string file_name );
 };
 
 } // namespace Polaris

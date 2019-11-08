@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include <gtest/gtest_prod.h>
 
 struct GraphNode {}; // Структура комнаты
 struct GraphConnection {}; // Структура соединения
@@ -12,13 +13,16 @@ namespace Polaris
 class Controller : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Controller( QObject * parent = nullptr );
 
 private:
-    GraphNode a_selected_node_;
-    GraphNode b_selected_node_;
-    GraphConnection selected_connection_;
+    FRIEND_TEST( Controller, SetSelectedNode );
+    FRIEND_TEST( Controller, SetSelectedConnection );
+    int a_selected_node_id_;
+    int b_selected_node_id_;
+    int selected_connection_id_;
 
 signals:
     void AddNode( GraphNode node ); // Сигналы для Model
@@ -31,8 +35,8 @@ signals:
 public slots:
     void SetSelectedNode( int node_id ); // Обработка сигналов из View
     void SetSelectedConnection( int connection_id );
-    void SaveNewNode( GraphNode node );
-    void SaveNewConnection( GraphConnection connection );
+    void SaveNewNode( GraphNode & node );
+    void SaveNewConnection( GraphConnection & connection );
 };
 
 } // namespace Polaris
