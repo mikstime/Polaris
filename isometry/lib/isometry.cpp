@@ -19,7 +19,7 @@ void Isometry< C3V, C2V >::TransformCoordinates( std::vector< C3V > & coordinate
 }
 
 template < typename C3V, typename C2V >
-void Isometry< C3V, C2V >::Zooming( double scale );
+void Isometry< C3V, C2V >::Zooming( double scale )
 {
 }
 
