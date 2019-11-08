@@ -15,8 +15,8 @@ public:
 	~Isometry();
 
 	// Трехмерные координаы в двухмерные
-	void TransformCoordinates( std::vector< C3V > & coordinates, std::vector< C2V > &
-				  flat_coordinates );
+	void TransformCoordinates( std::vector< C3V > & coordinates,
+				  std::vector< C2V > & flat_coordinates );
 	void Zooming( double scale ); // Изменение коэффицента масштабирования
 	void Scaling( double scale ); // Изменение угла поворота
 
