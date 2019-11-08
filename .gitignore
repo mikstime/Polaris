@@ -1,3 +1,38 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# IDE files
+*.user
+*.autosave
+
+# CView ignores
 CView/.idea/
 CView/cmake-build-debug/
 CView/main.cpp
@@ -7,5 +42,3 @@ CView/capp.ui
 CView/CMakeLists.txt.user
 mainwindow/
 tests_CView/
-*.autosave
-
