@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.10.0, 2019-11-08T00:19:16. -->
+<!-- Written by QtCreator 4.10.0, 2019-11-08T12:52:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -72,7 +72,7 @@
     <valuelist type="QVariantList" key="CMake.Configuration">
      <value type="QString">CMAKE_BUILD_TYPE:STRING=Debug</value>
     </valuelist>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/polaris/build-Main-Desktop-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/build-polaris-Desktop-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -116,7 +116,7 @@
     <valuelist type="QVariantList" key="CMake.Configuration">
      <value type="QString">CMAKE_BUILD_TYPE:STRING=Release</value>
     </valuelist>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/polaris/build-Main-Desktop-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/build-polaris-Desktop-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -160,7 +160,7 @@
     <valuelist type="QVariantList" key="CMake.Configuration">
      <value type="QString">CMAKE_BUILD_TYPE:STRING=RelWithDebInfo</value>
     </valuelist>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/polaris/build-Main-Desktop-Release-with-Debug-Information</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/build-polaris-Desktop-Release-with-Debug-Information</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -204,7 +204,7 @@
     <valuelist type="QVariantList" key="CMake.Configuration">
      <value type="QString">CMAKE_BUILD_TYPE:STRING=MinSizeRel</value>
     </valuelist>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/polaris/build-Main-Desktop-Minimum-Size-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/marat/CppProjects/build-polaris-Desktop-Minimum-Size-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -313,7 +313,7 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Main</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration./home/marat/CppProjects/polaris/Main///::///Main</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration./home/marat/CppProjects/polaris///::///Main</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -322,7 +322,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/marat/CppProjects/build-polaris-Desktop-Debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

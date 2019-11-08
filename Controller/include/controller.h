@@ -2,7 +2,9 @@
 #define CONTROLLER_H
 
 #include <QObject>
-#include <include/mainwindow.h>
+
+struct GraphNode {}; // Структура комнаты
+struct GraphConnection {}; // Структура соединения
 
 namespace Polaris
 {
@@ -23,15 +25,16 @@ signals:
     void AddConnection( GraphNode a_node, GraphNode b_node );
     void MoveNode( GraphNode node );
     void DeleteNode( GraphNode node );
-    void DeleteConnection( GraphConnection connection );
+    void DeleteConnection( GraphNode a_node, GraphNode b_node );
     void FindRoute( GraphNode a_node, GraphNode b_node );
 
 public slots:
-    void SetSelectedNodes( int node_id ); // Обработка сигналов из View
+    void SetSelectedNode( int node_id ); // Обработка сигналов из View
     void SetSelectedConnection( int connection_id );
-    void SaveChangedData( GraphNode node );
+    void SaveNewNode( GraphNode node );
+    void SaveNewConnection( GraphConnection connection );
 };
 
-}
+} // namespace Polaris
 
 #endif // CONTROLLER_H

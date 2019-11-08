@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(Main LANGUAGES CXX)
+project(MainApp LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -13,14 +13,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-set(SOURCES lib/controller.cpp lib/filehandler.cpp lib/mainwindow.cpp)
-set(HEADERS include/controller.h include/filehandler.h include/mainwindow.h)
-add_library(MainLib STATIC ${SOURCES} ${HEADERS})
-target_include_directories(MainLib PUBLIC .)
+set(HEADERS include/filehandler.h include/mainwindow.h)
+set(SOURCES lib/filehandler.cpp lib/mainwindow.cpp)
+
+add_library(MainLib STATIC ${HEADERS} ${SOURCES})
+
+target_include_directories(MainLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
+
 target_link_libraries(MainLib PRIVATE Qt5::Widgets)
-
-add_executable(Main
-  main.cpp
-)
-
-target_link_libraries(Main PRIVATE MainLib Qt5::Widgets)

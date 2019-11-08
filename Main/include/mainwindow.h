@@ -3,9 +3,6 @@
 
 #include <QMainWindow>
 
-struct GraphNode {}; // Структура комнаты
-struct GraphConnection {}; // Структура соединения
-
 namespace Polaris
 {
 
@@ -27,6 +24,6 @@ public slots:
     void ChangeFloorButtonClick();
 };
 
-}
+} // namespace Polaris
 
 #endif // MAINWINDOW_H

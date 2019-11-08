@@ -31,5 +31,5 @@
 *.out
 *.app
 
-# Build files
-build-Main-Desktop-Debug/
+# IDE files
+*.user
