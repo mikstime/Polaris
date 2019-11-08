@@ -2,7 +2,7 @@
 
 using namespace Polaris;
 
-CGraphicsView::CGraphicsView( QWidget *parent )
+CGraphicsView::CGraphicsView( QWidget * parent )
     : QGraphicsView( parent )
 {
 

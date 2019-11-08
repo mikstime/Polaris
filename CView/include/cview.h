@@ -37,8 +37,8 @@ public:
     explicit CGraphicsView( QWidget *parent = nullptr );
 
     CGraphicsView() = delete;
-    CGraphicsView( const CGraphicsView& ) = delete;
-    CGraphicsView& operator=( const CGraphicsView& ) = delete;
+    CGraphicsView( const CGraphicsView & ) = delete;
+    CGraphicsView& operator=( const CGraphicsView & ) = delete;
     ~CGraphicsView() = default;
 
 private:

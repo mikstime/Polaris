@@ -1,6 +1,12 @@
 #include <gtest/gtest.h>
-#include "her.h"
+#include "gtest_cview.h"
 #include <QApplication>
+
+class tt : public QObject
+{
+    Q_OBJECT
+    tt(QObject *parent) : QObject(parent){}
+};
 
 her::her(QObject *parent) : QObject(parent)
 {
