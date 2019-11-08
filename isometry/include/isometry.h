@@ -11,7 +11,7 @@ class Isometry
 {
 public:
 	// Инициализация конструктора углом поворота и коэффицентом масштабирования
-	Isometry( double angle, double scale );
+	Isometry( double angle = 0.0 , double scale = 1.0 );
 	~Isometry();
 
 	// Трехмерные координаы в двухмерные
