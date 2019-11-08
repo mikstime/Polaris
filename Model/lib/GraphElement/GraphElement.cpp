@@ -6,7 +6,7 @@ using ID = size_t;
 
 GraphElement::GraphElement( GraphElement const &e )
 {
-    _id = e._id;
+    id_ = e.id_;
 }
 
 GraphElement::GraphElement( Polaris::GraphElement && ) noexcept
@@ -17,5 +17,5 @@ GraphElement::GraphElement( Polaris::GraphElement && ) noexcept
 GraphElement::GraphElement()
 {
     static ID cur_id = 0;
-    _id = cur_id++;
+    id_ = cur_id++;
 }

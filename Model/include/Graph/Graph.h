@@ -20,6 +20,8 @@ public:
 
     void AddNode( const GraphNode & );
     void RemoveNode( const GraphNode & );
+    void RemoveNode( ID );
+
     const GraphNode & getNode( ID );
     bool HasNode( ID );
 };

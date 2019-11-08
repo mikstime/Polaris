@@ -41,3 +41,8 @@ void Graph::RemoveNode( const GraphNode & )
 {
 
 }
+
+void Graph::RemoveNode(Polaris::Graph::ID)
+{
+
+}
