@@ -1,6 +1,6 @@
 #include "include/controller.h"
 
-Polaris::Controller::Controller( QObject *parent ) : QObject( parent )
+Polaris::Controller::Controller( QObject * parent ) : QObject( parent )
 {
 
 }

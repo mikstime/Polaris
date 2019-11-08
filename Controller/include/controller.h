@@ -13,7 +13,7 @@ class Controller : public QObject
 {
     Q_OBJECT
 public:
-    explicit Controller( QObject *parent = nullptr );
+    explicit Controller( QObject * parent = nullptr );
 
 private:
     GraphNode a_selected_node_;
