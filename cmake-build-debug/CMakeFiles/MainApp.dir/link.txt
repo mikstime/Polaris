@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/MainApp.dir/MainApp_autogen/mocs_compilation.cpp.o CMakeFiles/MainApp.dir/main.cpp.o  -o MainApp Main/libMainLib.a Controller/libControllerLib.a /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.5.1 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.5.1 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.5.1 
