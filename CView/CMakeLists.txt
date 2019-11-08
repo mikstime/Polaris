@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.15)
 
 project(CView LANGUAGES CXX)
 
@@ -25,14 +25,11 @@ include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${GMOCK_INCLUDE_DIRS})
 
 add_executable(CView_test
-    test/tests_gtest.cpp
-    ../mainwindow/include/controller.h
-    ../mainwindow/lib/controller.cpp
+    test/her.cpp
+    test/her.h
 )
 
-target_link_libraries(CView_test -lgmock CView
-    Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-
+target_link_libraries(CView_test Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}  -lgmock CView)
 
 add_executable(CView_dev
   main.cpp

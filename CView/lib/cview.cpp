@@ -3,8 +3,7 @@
 using namespace Polaris;
 
 CGraphicsView::CGraphicsView( QWidget *parent )
-    :
-      QGraphicsView( parent )
+    : QGraphicsView( parent )
 {
 
 }

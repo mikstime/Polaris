@@ -4,35 +4,34 @@
 #include <QObject>
 #include "../include/cview.h"
 
-
 using Polaris::CGraphicsView;
 using std::shared_ptr;
 
 struct GraphNode {};
 struct GraphConnection {};
 
-class MockCController : public QObject
+class MockController : public QObject
 {
     Q_OBJECT
  public slots:
     void SetSelectedNodes( int node_id ) {}
     void SetSelectedConnection( int connection_id ) {}
-    void SaveChangedData( GraphNode node ) {};
-    void SaveConnection( GraphConnection connection ) {};
+    void SaveChangedData( GraphNode node ) {}
+    void SaveConnection( GraphConnection connection ) {}
 };
 
 TEST( ControllerIntegration, ConnectChooseRoom )
 {
-    std::shared_ptr< MockCController > mock_controller( new MockCController );
+    std::shared_ptr< MockController > mock_controller( new MockController );
     std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
 
     ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( int ) ),
-                                   mock_controller.get(), SLOT( SetSelectedNodes( int ) ) ) );
+                                   graphics_view.get(), SLOT( CreateNewConnection() ) ) );
 }
 
 TEST( ControllerIntegration, ConnectChooseConnection )
 {
-    std::shared_ptr< MockCController > mock_controller( new MockCController );
+    std::shared_ptr< MockController > mock_controller( new MockController );
     std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
 
     ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseConnection( int ) ),
@@ -41,7 +40,7 @@ TEST( ControllerIntegration, ConnectChooseConnection )
 
 TEST( ControllerIntegration, ConnectSaveChangeData )
 {
-    std::shared_ptr< MockCController > mock_controller( new MockCController );
+    std::shared_ptr< MockController > mock_controller( new MockController );
     std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
 
     ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( GraphNode ) ),
@@ -50,7 +49,7 @@ TEST( ControllerIntegration, ConnectSaveChangeData )
 
 TEST( ControllerIntegration, ConnectSaveConnection )
 {
-    std::shared_ptr< MockCController > mock_controller( new MockCController );
+    std::shared_ptr< MockController > mock_controller( new MockController );
     std::shared_ptr< CGraphicsView > graphics_view( new CGraphicsView( nullptr ) );
 
     ASSERT_TRUE( QObject::connect( graphics_view.get(), SIGNAL( ChooseRoom( GraphConnection ) ),
@@ -59,6 +58,6 @@ TEST( ControllerIntegration, ConnectSaveConnection )
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
-    ::testing::InitGoogleMock(&argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
