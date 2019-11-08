@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(Isometry)
+project(isometry)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(Isometry isometry.cpp isometry.h)
+set(HEADERS include/isometry.h)
+set(SOURCES lib/isometry.cpp)
+
+add_library(${PROJECT_NAME}_lib STATIC ${SOURCES} ${HEADERS})
+target_include_directories(${PROJECT_NAME}_lib PUBLIC .)
