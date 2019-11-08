@@ -28,9 +28,12 @@
 *.out
 *.app
 
-# IDE files
+# Qt Creator files
 *.user
 *.autosave
+
+# Clion files
+.idea/
 
 # CView ignores
 CView/.idea/
