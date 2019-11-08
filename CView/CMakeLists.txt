@@ -30,11 +30,3 @@ add_executable(CView_test
 )
 
 target_link_libraries(CView_test Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}  -lgmock CView)
-
-add_executable(CView_dev
-  main.cpp
-  capp.cpp
-  capp.h
-  capp.ui
-)
-target_link_libraries(CView_dev PRIVATE CView Qt5::Widgets)
