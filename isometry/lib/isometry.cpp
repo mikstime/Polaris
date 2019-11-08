@@ -3,7 +3,7 @@
 using namespace Polaris;
 
 template < typename C3V, typename C2V >
-Isometry< C3V, C2V >::Isometry( double angle, double scale )
+Isometry< C3V, C2V >::Isometry( double angle = 0.0 , double scale = 1.0 )
 {
 }
 
