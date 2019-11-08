@@ -1,29 +1,27 @@
 #ifndef ISOMETRY_H
 #define ISOMETRY_H
+
 #include <vector>
 
-//C3V - трехмерные координаты, C2V - двухмерные координаты
-template <typename C3V, typename C2V>
+using namespace Polaris;
+{
+	
+template <typename C3V, typename C2V> // C3V - трехмерные координаты, C2V - двухмерные координаты
 class Isometry
 {
 public:
-	//Инициализация конструктора углом поворота и коэффицентом масштабирования
-	Isometry(double angle, double scale);
-
+	Isometry( double angle, double scale ); // Инициализация конструктора углом поворота и коэффицентом масштабирования
 	~Isometry();
 
-	//Перевод трехмерных координат в двухмерные с учетом угла и масштаба
-	void TransformCoordinates(std::vector<C3V> coordinates, std::vector<C2V> flat_coordinates);
-
-	//Изменение коэффицента масштабирования
-	void Zooming(double scale);
-	//Изменение угла поворота
-	void Scaling(double scale);
+	void TransformCoordinates( std::vector<C3V> & coordinates, std::vector<C2V> & flat_coordinates ); // Трехмерные координаы в двухмерные
+	void Zooming( double scale ); // Изменение коэффицента масштабирования
+	void Scaling( double scale ); // Изменение угла поворота
 
 private:
 	double angle;
 	double scale;
 
 };
-
-#endif // !ISOMETRY_H
+	
+} // namespace Polaris
+#endif // ISOMETRY_H
