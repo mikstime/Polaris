@@ -26,7 +26,7 @@ include_directories(${GMOCK_INCLUDE_DIRS})
 
 add_executable(CView_test
     test/gtest_cview.cpp
-    test/gtest_cview.h
+    test/mock_controller.h
 )
 
 target_link_libraries(CView_test Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}  -lgmock CView)

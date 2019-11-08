@@ -1,12 +1,7 @@
 #include <gtest/gtest.h>
-#include "gtest_cview.h"
+#include "mock_controller.h"
+#include "include/cview.h"
 #include <QApplication>
-
-class tt : public QObject
-{
-    Q_OBJECT
-    tt(QObject *parent) : QObject(parent){}
-};
 
 her::her(QObject *parent) : QObject(parent)
 {
