@@ -1,0 +1,6 @@
+/opt/clion-2019.2.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/marat/CppProjects/polaris
+CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  CMake 3.15 or higher is required.  You are running version 3.14.5
+
+
+-- Configuring incomplete, errors occurred!

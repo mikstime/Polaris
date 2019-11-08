@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMainLib.a  CMakeFiles/MainLib.dir/MainLib_autogen/mocs_compilation.cpp.o CMakeFiles/MainLib.dir/lib/filehandler.cpp.o CMakeFiles/MainLib.dir/lib/mainwindow.cpp.o
+/usr/bin/ranlib libMainLib.a
