@@ -10,10 +10,13 @@ template < typename C3V, typename C2V > // C3V - трехмерные коорд
 class Isometry
 {
 public:
-	Isometry( double angle, double scale ); // Инициализация конструктора углом поворота и коэффицентом масштабирования
+	// Инициализация конструктора углом поворота и коэффицентом масштабирования
+	Isometry( double angle, double scale );
 	~Isometry();
 
-	void TransformCoordinates( std::vector< C3V > & coordinates, std::vector< C2V > & flat_coordinates ); // Трехмерные координаы в двухмерные
+	// Трехмерные координаы в двухмерные
+	void TransformCoordinates( std::vector< C3V > & coordinates, std::vector< C2V > &
+				  flat_coordinates );
 	void Zooming( double scale ); // Изменение коэффицента масштабирования
 	void Scaling( double scale ); // Изменение угла поворота
 
