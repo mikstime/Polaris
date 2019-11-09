@@ -5,7 +5,6 @@
 
 namespace Polaris
 {
-
 	template < typename C3V, typename C2V > // C3V - трехмерные координаты, C2V - двухмерные координаты
 	class Isometry
 	{
