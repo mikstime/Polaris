@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include "../../CView/include/cview.h"
 
 namespace Polaris
 {
@@ -14,14 +16,18 @@ public:
     MainWindow( QWidget *parent = nullptr );
     ~MainWindow();
 
+private:
+    CGraphicsView * view;
+
+    QPushButton * add_button_;
+    QPushButton * delete_button_;
+    QPushButton * move_button_;
+    QPushButton * find_route_button_;
+    QPushButton * change_floor_button_;
+
 signals:
 
 public slots:
-    void AddButtonClick(); // Обработка сигналов нажатия на кнопки
-    void DeleteButtonClick();
-    void MoveButtonClick();
-    void FindRouteButtonClick();
-    void ChangeFloorButtonClick();
 };
 
 } // namespace Polaris

@@ -9,28 +9,3 @@ Polaris::MainWindow::~MainWindow()
 {
 
 }
-
-void Polaris::MainWindow::AddButtonClick()
-{
-
-}
-
-void Polaris::MainWindow::DeleteButtonClick()
-{
-
-}
-
-void Polaris::MainWindow::MoveButtonClick()
-{
-
-}
-
-void Polaris::MainWindow::FindRouteButtonClick()
-{
-
-}
-
-void Polaris::MainWindow::ChangeFloorButtonClick()
-{
-
-}

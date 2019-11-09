@@ -49,3 +49,28 @@ void Polaris::Controller::DeleteConnection(const GraphNode &a_node, const GraphN
 void Polaris::Controller::FindRoute(const GraphNode &a_node, const GraphNode &b_node) {
 
 }
+
+void Polaris::Controller::AddButtonClick()
+{
+
+}
+
+void Polaris::Controller::DeleteButtonClick()
+{
+
+}
+
+void Polaris::Controller::MoveButtonClick()
+{
+
+}
+
+void Polaris::Controller::FindRouteButtonClick()
+{
+
+}
+
+void Polaris::Controller::ChangeFloorButtonClick()
+{
+
+}

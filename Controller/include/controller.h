@@ -17,7 +17,7 @@ class Controller : public QObject
 public:
     explicit Controller( QObject * parent = nullptr );
 
-protected:
+private:
     FRIEND_TEST( ::Controller, SetSelectedNode );
     FRIEND_TEST( ::Controller, SetSelectedConnection );
     int a_selected_node_id_;
@@ -37,6 +37,12 @@ public slots:
     void SetSelectedConnection( int connection_id );
     void SaveNewNode( GraphNode & node );
     void SaveNewConnection( GraphConnection & connection );
+
+    void AddButtonClick(); // Обработка сигналов нажатия на кнопки
+    void DeleteButtonClick();
+    void MoveButtonClick();
+    void FindRouteButtonClick();
+    void ChangeFloorButtonClick();
 };
 
 } // namespace Polaris
