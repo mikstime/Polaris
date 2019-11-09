@@ -3,7 +3,7 @@
 using namespace Polaris;
 
 template < typename C3V, typename C2V >
-Isometry< C3V, C2V >::Isometry( double angle, double scale )
+Isometry< C3V, C2V >::Isometry( int angle, int scale )
 {
 }
 
@@ -19,11 +19,11 @@ void Isometry< C3V, C2V >::TransformCoordinates( std::vector< C3V > & coordinate
 }
 
 template < typename C3V, typename C2V >
-void Isometry< C3V, C2V >::Rotate( double angle )
+void Isometry< C3V, C2V >::Rotate( int angle )
 {
 }
 
 template < typename C3V, typename C2V >
-void Isometry< C3V, C2V >::Scaling( double scale )
+void Isometry< C3V, C2V >::Scaling( int scale )
 {
 }
