@@ -17,20 +17,20 @@ class Controller : public QObject
 public:
     explicit Controller( QObject * parent = nullptr );
 
-private:
-    FRIEND_TEST( Controller, SetSelectedNode );
-    FRIEND_TEST( Controller, SetSelectedConnection );
+protected:
+    FRIEND_TEST( ::Controller, SetSelectedNode );
+    FRIEND_TEST( ::Controller, SetSelectedConnection );
     int a_selected_node_id_;
     int b_selected_node_id_;
     int selected_connection_id_;
 
 signals:
-    void AddNode( GraphNode node ); // Сигналы для Model
-    void AddConnection( GraphNode a_node, GraphNode b_node );
-    void MoveNode( GraphNode node );
-    void DeleteNode( GraphNode node );
-    void DeleteConnection( GraphNode a_node, GraphNode b_node );
-    void FindRoute( GraphNode a_node, GraphNode b_node );
+    void AddNode( const GraphNode & node ); // Сигналы для Model
+    void AddConnection( const GraphNode & a_node, const GraphNode & b_node );
+    void MoveNode( const GraphNode & node );
+    void DeleteNode( const GraphNode & node );
+    void DeleteConnection( const GraphNode & a_node, const GraphNode & b_node );
+    void FindRoute( const GraphNode & a_node, const GraphNode & b_node );
 
 public slots:
     void SetSelectedNode( int node_id ); // Обработка сигналов из View

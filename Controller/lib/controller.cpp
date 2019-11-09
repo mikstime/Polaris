@@ -24,3 +24,28 @@ void Polaris::Controller::SaveNewConnection( GraphConnection & connection )
 {
 
 }
+
+void Polaris::Controller::AddNode(const GraphNode &node)
+{
+
+}
+
+void Polaris::Controller::AddConnection(const GraphNode &a_node, const GraphNode &b_node) {
+
+}
+
+void Polaris::Controller::MoveNode(const GraphNode &node) {
+
+}
+
+void Polaris::Controller::DeleteNode(const GraphNode &node) {
+
+}
+
+void Polaris::Controller::DeleteConnection(const GraphNode &a_node, const GraphNode &b_node) {
+
+}
+
+void Polaris::Controller::FindRoute(const GraphNode &a_node, const GraphNode &b_node) {
+
+}
