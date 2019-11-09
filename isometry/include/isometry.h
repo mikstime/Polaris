@@ -3,28 +3,28 @@
 
 #include <vector>
 
-namespace Polaris;
+namespace Polaris
 {
-	
-template < typename C3V, typename C2V > // C3V - С‚СЂРµС…РјРµСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹, C2V - РґРІСѓС…РјРµСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
-class Isometry
-{
-public:
-	// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° СѓРіР»РѕРј РїРѕРІРѕСЂРѕС‚Р° Рё РєРѕСЌС„С„РёС†РµРЅС‚РѕРј РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёСЏ
-	Isometry( double angle, double scale );
-	~Isometry();
 
-	// РўСЂРµС…РјРµСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‹ РІ РґРІСѓС…РјРµСЂРЅС‹Рµ
-	void TransformCoordinates( std::vector< C3V > & coordinates,
-				  std::vector< C2V > & flat_coordinates );
-	void Zooming( double scale ); // РР·РјРµРЅРµРЅРёРµ РєРѕСЌС„С„РёС†РµРЅС‚Р° РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёСЏ
-	void Scaling( double scale ); // РР·РјРµРЅРµРЅРёРµ СѓРіР»Р° РїРѕРІРѕСЂРѕС‚Р°
+	template < typename C3V, typename C2V > // C3V - трехмерные координаты, C2V - двухмерные координаты
+	class Isometry
+	{
+	public:
+		// Инициализация конструктора углом поворота и коэффицентом масштабирования
+		Isometry( double angle, double scale );
+		~Isometry();
 
-private:
-	double angle;
-	double scale;
+		// Трехмерные координаы в двухмерные
+		void TransformCoordinates( std::vector< C3V > & coordinates,
+			std::vector< C2V > & flat_coordinates );
+		void Rotate( double angle ); // Изменение коэффицента масштабирования
+		void Scaling( double scale ); // Изменение угла поворота
 
-};
-	
+	private:
+		double angle;
+		double scale;
+
+	};
+
 } // namespace Polaris
 #endif // ISOMETRY_H
