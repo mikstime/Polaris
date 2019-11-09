@@ -10,18 +10,18 @@ namespace Polaris
 	{
 	public:
 		// Инициализация конструктора углом поворота и коэффицентом масштабирования
-		Isometry( double angle, double scale );
+		Isometry( int angle, int scale );
 		~Isometry();
 
 		// Трехмерные координаы в двухмерные
 		void TransformCoordinates( std::vector< C3V > & coordinates,
 			std::vector< C2V > & flat_coordinates );
-		void Rotate( double angle ); // Изменение коэффицента масштабирования
-		void Scaling( double scale ); // Изменение угла поворота
+		void Rotate( int angle ); // Изменение коэффицента масштабирования
+		void Scaling( int scale ); // Изменение угла поворота
 
 	private:
-		double angle;
-		double scale;
+		int angle;
+		int scale;
 
 	};
 
