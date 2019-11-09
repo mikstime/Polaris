@@ -8,7 +8,7 @@ class TestClassXYZ
 public:
 	int x, y, z;
 
-	TestClassXYZ(int _x, int _y, int _z ) : x( _x ), y( _y ), z( _z ) {};
+	TestClassXYZ( int _x, int _y, int _z ) : x( _x ), y( _y ), z( _z ) {};
 };
 
 class TestClassXY
@@ -16,7 +16,7 @@ class TestClassXY
 public:
 	int x, y;
 
-	TestClassXY(int _x, int _y ) : x( _x ), y( _y ) {};
+	TestClassXY( int _x, int _y ) : x( _x ), y( _y ) {};
 };
 
 TEST( TestIsometry, TestAngle )
@@ -34,7 +34,7 @@ TEST( TestIsometry, TestAngle )
 		V3.push_back( tmp );
 	}
 
-	std::vector< TestClassXY > V2;
+	std::vector< TestClassXY > V2( 10 );
 
 	std::vector< TestClassXY > Ans;
 	for ( int i = 0; i < 10; i++ )
@@ -62,8 +62,8 @@ TEST( TestIsometry, TestScale )
 		TestClassXYZ tmp( 1, 1, 1 );
 		V3.push_back( tmp );
 	}
-
-	std::vector< TestClassXY > V2;
+	
+	std::vector< TestClassXY > V2( 10 );
 
 	std::vector< TestClassXY > Ans;
 	for ( int i = 0; i < 10; i++ )
@@ -92,7 +92,7 @@ TEST( TestIsometry, TestZeroCoordinates )
 		V3.push_back( tmp );
 	}
 
-	std::vector< TestClassXY > V2;
+	std::vector< TestClassXY > V2( 10 );
 
 	std::vector< TestClassXY > Ans;
 	for ( int i = 0; i < 10; i++ )
@@ -125,6 +125,64 @@ TEST( TestIsometry, TestNegativeScale )
 		EXPECT_TRUE( true );
 	}
 	EXPECT_FALSE( false );
+}
+
+TEST( TestIsometry, TestScale )
+{
+	int angle = 0;
+	int scale = 2;
+
+	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale );
+
+	std::vector< TestClassXYZ > V3;
+	for ( int i = 0; i < 10; i++ )
+	{
+		TestClassXYZ tmp( 1, 1, 1 );
+		V3.push_back( tmp );
+	}
+
+	std::vector< TestClassXY > V2( 10 );
+
+	std::vector< TestClassXY > Ans;
+	for ( int i = 0; i < 10; i++ )
+	{
+		TestClassXY tmp( 2, 2 );
+		V2.push_back( tmp );
+	}
+
+	isometry.TransformCoordinates( V3, V2 );
+	EXPECT_EQ( Ans, V2 );
+	EXPECT_TRUE( true );
+}
+
+TEST( TestIsometry, TestLotsOfCoordinates )
+{
+	int angle = 0;
+	int scale = 1;
+
+	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale );
+
+	int n = 1000000;
+
+	std::vector< TestClassXYZ > V3;
+	for ( int i = 0; i < n; i++ )
+	{
+		TestClassXYZ tmp( 1, 1, 1 );
+		V3.push_back( tmp );
+	}
+
+	std::vector< TestClassXY > V2( n );
+
+	std::vector< TestClassXY > Ans;
+	for ( int i = 0; i < n; i++ )
+	{
+		TestClassXY tmp( 1, 1 );
+		V2.push_back( tmp );
+	}
+
+	isometry.TransformCoordinates( V3, V2 );
+	EXPECT_EQ( Ans, V2 );
+	EXPECT_TRUE( true );
 }
 
 int main( int argc, char * argv[] )
