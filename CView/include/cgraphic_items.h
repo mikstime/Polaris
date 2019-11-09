@@ -18,8 +18,10 @@ class CGraphicConnection : public QGraphicsLineItem
 public:
     explicit CGraphicConnection( GraphConnection & connection_info, const QLineF & line,
                                  QGraphicsItem * parent = nullptr );
+    size_t GetId();
+    double GetPrice();
 
-protected:
+private:
     size_t id_;
     double price_;
 
@@ -31,8 +33,9 @@ class CGraphicRoom : public QGraphicsEllipseItem
 public:
     explicit CGraphicRoom( GraphNode & node_info, const QRectF & rect,
                            QGraphicsItem * parent = nullptr );
+    size_t GetId();
 
-protected:
+private:
     size_t id_;
 
     void mousePressEvent( QMoveEvent * event );

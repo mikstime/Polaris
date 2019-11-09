@@ -18,7 +18,7 @@ class CGraphicsScene : public QGraphicsScene
 public:
     explicit CGraphicsScene( const QRectF & rect, QObject * parent = nullptr );
 
-protected:
+private:
     void mousePressEvent( QMoveEvent * event );
 
 };

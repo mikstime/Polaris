@@ -141,6 +141,54 @@ TEST_F( ViewInvokeSlots, DrawThePath )
     // cmp res to meta and graph
 }
 
+TEST( CGraphicRoom, Init )
+{
+    GraphNode room_info {};
+    QRectF rect( 0, 0, 1, 1 );
+    CGraphicRoom some_room( room_info, rect );
+
+    // cmp new object and room_info
+}
+
+TEST( CGraphicConnection, Init )
+{
+    GraphConnection connection_info {};
+    QLineF line( 0, 0, 1, 1 );
+    CGraphicConnection some_connection( connection_info, line );
+
+    // cmp new object and connection_info
+}
+
+TEST( CGraphicRoom, GetId )
+{
+    GraphNode room_info {};
+    QRectF rect( 0, 0, 1, 1 );
+    CGraphicRoom some_room( room_info, rect );
+
+    // cmp new object and room_info
+    // EXPECT_EQ( some_room.GetId(), room_info.id_ );
+}
+
+TEST( CGraphicConnection, GetId )
+{
+    GraphConnection connection_info {};
+    QLineF line( 0, 0, 1, 1 );
+    CGraphicConnection some_connection( connection_info, line );
+
+    // cmp new object and connection_info
+    // EXPECT_EQ( some_connection.GetId(), connection_info.id_ );
+}
+
+TEST( CGraphicConnection, GetPrice )
+{
+    GraphConnection connection_info {};
+    QLineF line( 0, 0, 1, 1 );
+    CGraphicConnection some_connection( connection_info, line );
+
+    // cmp new object and connection_info
+    // EXPECT_EQ( some_connection.GetPrice(), connection_info.price_ );
+}
+
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
     ::testing::InitGoogleTest(&argc, argv);

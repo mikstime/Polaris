@@ -9,6 +9,16 @@ CGraphicConnection::CGraphicConnection( GraphConnection & connection_info, const
 
 }
 
+size_t CGraphicConnection::GetId()
+{
+    return id_;
+}
+
+double CGraphicConnection::GetPrice()
+{
+    return price_;
+}
+
 void CGraphicConnection::mousePressEvent( QMoveEvent * event )
 {
 
@@ -20,6 +30,12 @@ CGraphicRoom::CGraphicRoom( GraphNode & node_info, const QRectF &rect,
 {
 
 }
+
+size_t CGraphicRoom::GetId()
+{
+    return id_;
+}
+
 
 void CGraphicRoom::mousePressEvent( QMoveEvent * event )
 {
