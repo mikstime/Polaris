@@ -1,19 +1,17 @@
-#ifndef HER_H
-#define HER_H
+#ifndef MOCK_CONTROLLER_H
+#define MOCK_CONTROLLER_H
 
 #include <QObject>
+#include "include/cgraphics_view.h"
 
-struct GraphNode {};
-struct GraphConnection {};
-
-class her : public QObject
+class MockController : public QObject
 {
     Q_OBJECT
-public:
-    explicit her(QObject *parent = nullptr);
-
-public slots:
-   void SetSelectedNodes( int node_id );
+ public slots:
+    void SetSelectedNodes( int node_id );
+    void SetSelectedConnection( int connection_id );
+    void SaveChangedData( GraphNode node );
+    void SaveConnection( GraphConnection connection );
 };
 
-#endif // HER_H
+#endif // MOCK_CONTROLLER_H

@@ -39,7 +39,7 @@ CView/main.cpp
 CView/capp.cpp
 CView/capp.h
 CView/capp.ui
-CView/CMakeLists.txt.user
+MakeLists.txt.user
 mainwindow/
 tests_CView/
 *.autosave

@@ -4,31 +4,10 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
-struct Meta;
-struct Graph;
-
-struct GraphNode; // структура, соответсвтующая комнате
-struct GraphConnection; // структура, соответствующая соединению
+#include "cgraphic_items.h"
 
 namespace Polaris 
 {
-
-class CGraphicConnection : public QGraphicsLineItem
-{
-
-};
-
-class CGraphicRoom : public QGraphicsEllipseItem
-{
-
-};
-
-class CGraphicsScene : public QGraphicsScene
-{
-
-};
-
 class CGraphicsView : public QGraphicsView
 {
     Q_OBJECT
@@ -38,16 +17,19 @@ public:
 
     CGraphicsView() = delete;
     CGraphicsView( const CGraphicsView & ) = delete;
-    CGraphicsView& operator=( const CGraphicsView & ) = delete;
+    CGraphicsView & operator=( const CGraphicsView & ) = delete;
     ~CGraphicsView() = default;
+
+    QVector< CGraphicRoom > & GetRooms();
+    QVector< CGraphicConnection > & GetConnections();
 
 private:
     QVector< CGraphicRoom > rooms_;
     QVector< CGraphicConnection > connections_;
 
 signals:
-    void SaveNewRoom( GraphNode & new_room );
-    void SaveNewConnection( GraphConnection & new_connection );
+    void SaveNewRoom( GraphNode new_room );
+    void SaveNewConnection( GraphConnection new_connection );
 
     void ChooseRoom( int room_id );
     void ChooseConnection( int connection_id );
@@ -64,7 +46,6 @@ public slots:
     void ChangeRoomMeta();
 
 };
-
 } // namespace Polaris
 
 #endif // CVIEW_H
