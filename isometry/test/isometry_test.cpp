@@ -6,9 +6,9 @@ using namespace Polaris;
 class TestClassXYZ
 {
 public:
-	double x, y, z;
+	int x, y, z;
 
-	TestClassXYZ( double _x, double _y, double _z ) : x( _x ), y( _y ), z( _z ) {};
+	TestClassXYZ(int _x, int _y, int _z ) : x( _x ), y( _y ), z( _z ) {};
 };
 
 class TestClassXY
@@ -16,13 +16,13 @@ class TestClassXY
 public:
 	int x, y;
 
-	TestClassXY( double _x, double _y ) : x( _x ), y( _y ) {};
+	TestClassXY(int _x, int _y ) : x( _x ), y( _y ) {};
 };
 
 TEST( TestIsometry, TestAngle )
 {
-	double angle = 90;
-	double scale = 1;
+	int angle = 90;
+	int scale = 1;
 
 	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale );
 
@@ -50,8 +50,8 @@ TEST( TestIsometry, TestAngle )
 
 TEST( TestIsometry, TestScale )
 {
-	double angle = 0;
-	double scale = 2;
+	int angle = 0;
+	int scale = 2;
 
 	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale );
 
@@ -79,8 +79,8 @@ TEST( TestIsometry, TestScale )
 
 TEST( TestIsometry, TestZeroCoordinates )
 {
-	double angle = 10;
-	double scale = 3;
+	int angle = 10;
+	int scale = 3;
 
 	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale );
 
@@ -108,12 +108,12 @@ TEST( TestIsometry, TestZeroCoordinates )
 
 TEST( TestIsometry, TestNegativeScale )
 {
-	double angle = 0;
-	double scale1 = 2;
+	int angle = 0;
+	int scale1 = 2;
 
 	Isometry< TestClassXYZ, TestClassXY > isometry( angle, scale1 );
 
-	double scale2 = -2;
+	int scale2 = -2;
 
 	try
 	{
