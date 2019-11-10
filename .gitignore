@@ -43,3 +43,4 @@ MakeLists.txt.user
 mainwindow/
 tests_CView/
 *.autosave
+.idea/
