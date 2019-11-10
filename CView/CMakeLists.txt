@@ -15,10 +15,10 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
 
-set(SOURCES lib/cgraphics_view.cpp lib/cgraphic_items.cpp
-    lib/cgraphics_scene.cpp)
-set(HEADERS include/cgraphics_view.h include/cgraphic_items.h
-    include/cgraphics_scene.h)
+set(SOURCES lib/cgraphics_view.cpp lib/cgraphic_room.cpp
+    lib/cgraphic_connection.cpp lib/cgraphics_scene.cpp)
+set(HEADERS include/cgraphics_view.h include/cgraphic_room.h
+    include/cgraphic_connection.h include/cgraphics_scene.h)
 add_library(CView STATIC ${SOURCES} ${HEADERS})
 target_include_directories(CView PUBLIC .)
 target_link_libraries(CView PRIVATE Qt5::Widgets)

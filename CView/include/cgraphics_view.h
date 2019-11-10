@@ -4,7 +4,8 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include "cgraphic_items.h"
+#include "cgraphic_room.h"
+#include "cgraphic_connection.h"
 
 namespace Polaris 
 {

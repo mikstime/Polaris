@@ -1,6 +1,6 @@
-#include "include/cgraphic_items.h"
+#include "include/cgraphic_connection.h"
 
-using namespace Polaris;
+using Polaris::CGraphicConnection;
 
 CGraphicConnection::CGraphicConnection( GraphConnection & connection_info, const QLineF & line,
                                         QGraphicsItem * parent )
@@ -20,24 +20,6 @@ double CGraphicConnection::GetPrice()
 }
 
 void CGraphicConnection::mousePressEvent( QMoveEvent * event )
-{
-
-}
-
-CGraphicRoom::CGraphicRoom( GraphNode & node_info, const QRectF &rect,
-                                  QGraphicsItem * parent )
-    : QGraphicsEllipseItem( rect, parent )
-{
-
-}
-
-size_t CGraphicRoom::GetId()
-{
-    return id_;
-}
-
-
-void CGraphicRoom::mousePressEvent( QMoveEvent * event )
 {
 
 }

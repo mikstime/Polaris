@@ -1,4 +1,5 @@
-#include "include/cgraphic_items.h"
+#include "include/cgraphic_room.h"
+#include "include/cgraphic_connection.h"
 #include "include/cgraphics_view.h"
 
 using Polaris::CGraphicsView;
