@@ -1,36 +1,21 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "include/cgraphics_view.h"
 #include <memory>
 #include "mock_controller.h"
 #include <QApplication>
 #include <QMetaObject>
 #include <QObject>
-#include <QtTest/QtTest>
 
 using Polaris::CGraphicsView;
 using Polaris::CGraphicRoom;
 using Polaris::CGraphicConnection;
 using std::shared_ptr;
 
-void MockController::SetSelectedNodes( int node_id )
-{
-    return;
-}
-
-void MockController::SetSelectedConnection( int connection_id )
-{
-    return;
-}
-
-void MockController::SaveChangedData( GraphNode node )
-{
-    return;
-}
-
-void MockController::SaveConnection( GraphConnection connection )
-{
-    return;
-}
+using ::testing::AtLeast;
+using ::testing::DoAll;
+using ::testing::Return;
+using ::testing::SetArgReferee;
 
 class ControllerIntegration : public ::testing::Test
 {
@@ -58,26 +43,26 @@ protected:
 
 TEST_F( ControllerIntegration, ConnectChooseRoom )
 {
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), SIGNAL( ChooseRoom( int ) ),
-                                   mock_controller_.get(), SLOT( SetSelectedNodes( int ) ) ) );
+    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::ChooseRoom ,
+                                   mock_controller_.get(), &MockController::SetSelectedNodes ) );
 }
 
 TEST_F( ControllerIntegration, ConnectChooseConnection )
 {
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), SIGNAL( ChooseConnection( int ) ),
-                                   mock_controller_.get(), SLOT( SetSelectedConnection( int ) ) ) );
+    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::ChooseConnection,
+                                   mock_controller_.get(), &MockController::SetSelectedConnection ) );
 }
 
 TEST_F( ControllerIntegration, ConnectSaveChangeData )
 {
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), SIGNAL( SaveNewRoom( GraphNode ) ),
-                                   mock_controller_.get(), SLOT( SaveChangedData( GraphNode ) ) ) );
+    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::SaveNewRoom,
+                                   mock_controller_.get(), &MockController::SaveChangedData ) );
 }
 
 TEST_F( ControllerIntegration, ConnectSaveConnection )
 {
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), SIGNAL( SaveNewConnection( GraphConnection ) ),
-                                   mock_controller_.get(), SLOT( SaveConnection( GraphConnection ) ) ) );
+    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::SaveNewConnection,
+                                   mock_controller_.get(), &MockController::SaveConnection ) );
 }
 
 TEST_F( ViewInvokeSlots, BuildItems )
@@ -191,6 +176,7 @@ TEST( CGraphicConnection, GetPrice )
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
