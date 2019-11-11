@@ -12,7 +12,7 @@ set(HEADERS include/Graph/Graph.h
             include/GraphConnection/GraphConnection.h
             include/GraphElement/GraphElement.h
             include/GraphNode/GraphNode.h
-            include/Model.h
+        include/Model/Model.h
             include/ModelObserver/ModelObserver.h
             include/Search/Search.h)
 
@@ -20,8 +20,7 @@ set(SOURCE  lib/Graph/Graph.cpp
             lib/GraphConnection/GraphConnection.cpp
             lib/GraphElement/GraphElement.cpp
             lib/GraphNode/GraphNode.cpp
-            lib/Model.cpp
-            lib/ModelObserver/ModelObserver.cpp
+        lib/ModelObserver/ModelObserver.cpp
             lib/Search/Search.cpp)
 #Static library
 add_library(polarisModel_lib ${HEADERS} ${SOURCE})
