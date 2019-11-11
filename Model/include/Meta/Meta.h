@@ -17,7 +17,7 @@ public:
     size_t room_number;
     double x, y;
 public:
-    explicit Meta( Id a_graph_node_id, size_t a_room_number = 0,
+    explicit Meta( Id a_graph_node_id = 0, size_t a_room_number = 0,
             double a_x = 0, double a_y = 0 )
     : graph_node_id( a_graph_node_id ),
     room_number( a_room_number ),
