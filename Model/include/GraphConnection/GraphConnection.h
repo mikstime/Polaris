@@ -2,18 +2,19 @@
 #define GRAPHSEARCH_GRAPHCONNECTION_HPP
 
 #include "include/GraphElement/GraphElement.h"
+#include <cstddef> //std::size_t
 namespace Polaris
 {
+using Price = double;
+using Id = std::size_t;
+struct ConnectionParams
+{
+    Price cost;
+};
 struct GraphConnection: public GraphElement
 {
-using Price = double;
 public:
-    GraphConnection();
-    GraphConnection( GraphConnection const & );
-    GraphConnection( GraphConnection && ) noexcept;
-    ~GraphConnection();
-
-    GraphElement * Neighbor;
+    Id from, to;
     Price cost;
 };
 }//namespace Polaris
