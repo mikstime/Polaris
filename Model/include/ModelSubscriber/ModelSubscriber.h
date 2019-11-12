@@ -1,9 +1,14 @@
 #ifndef POLARISMODEL_MODELSUBSCRIBER_H
 #define POLARISMODEL_MODELSUBSCRIBER_H
 
+#include "include/GraphConnection/GraphConnection.h"
+#include "include/GraphNode/GraphNode.h"
+#include "include/Model/Model.h"
+#include "include/Meta/Meta.h"
 namespace Polaris
 {
 struct Meta;
+struct Model;
 struct GraphNode;
 struct GraphConnection;
 /******************************************************************************
@@ -20,42 +25,42 @@ public:
      * newMeta - meta object that was changed
      * modelState - current state of Model
      *************************************************************************/
-    virtual void onMetaChanged( const & Meta newMeta,
-                                const & Model modelState ) = 0;
+    virtual void onMetaChanged( const Meta & newMeta,
+                                const Model & modelState ) = 0;
     /**************************************************************************
      * onConnectionAdded
      * Arguments:
      * firstNode and lastNode - nodes that was connected
      * modelState - current state of Model
      *************************************************************************/
-    virtual void onConnectionAdded( const & GraphNode firstNode,
-                                    const & GraphNode lastNode,
-                                    const & Model modelState ) = 0;
+    virtual void onConnectionAdded( const GraphNode & firstNode,
+                                    const GraphNode & lastNode,
+                                    const Model & modelState ) = 0;
     /**************************************************************************
      * onConnectionRemoved
      * Arguments:
      * firstNode and lastNode - nodes, connection between which was deleted
      * modelState - current state of Model
      *************************************************************************/
-    virtual void onConnectionRemoved( const & GraphNode firstNode,
-                                      const & GraphNode lastNode,
-                                      const & Model modelState ) = 0;
+    virtual void onConnectionRemoved( const GraphNode & firstNode,
+                                      const GraphNode & lastNode,
+                                      const Model & modelState ) = 0;
     /**************************************************************************
      * onNodeAdded
      * Arguments:
      * node - node that was added
      * modelState - current state of Model
      *************************************************************************/
-    virtual void onNodeAdded( const & GraphNode node,
-                              const & Model modelState ) = 0;
+    virtual void onNodeAdded( const GraphNode & node,
+                              const Model & modelState ) = 0;
     /**************************************************************************
      * onNodeRemoved
      * Arguments:
      * node - node that was removed
      * modelState - current state of Model
      *************************************************************************/
-    virtual void onNodeRemoved( const & GraphNode node,
-                                const & Model modelState ) = 0;
+    virtual void onNodeRemoved( const GraphNode & node,
+                                const Model & modelState ) = 0;
 };
 } //namespace Polaris
 
