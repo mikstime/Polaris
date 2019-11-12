@@ -9,6 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Catch2 REQUIRED)
 
 set(HEADERS include/Graph/Graph.h
+            include/GraphInterface/GraphInterface.h
             include/GraphConnection/GraphConnection.h
             include/GraphElement/GraphElement.h
             include/GraphNode/GraphNode.h
@@ -19,8 +20,9 @@ set(HEADERS include/Graph/Graph.h
             include/ModelObserver/ModelObserver.h
             include/Search/Search.h)
 
-set(SOURCE  lib/Graph/Graph.cpp
+set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/GraphConnection/GraphConnection.cpp
+            lib/ModelProxy/ModelProxy.cpp
             lib/GraphElement/GraphElement.cpp
             lib/GraphNode/GraphNode.cpp
             lib/ModelObserver/ModelObserver.cpp
@@ -32,9 +34,9 @@ target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} i
 #Tests for GraphElement class
 add_executable(graph_element_tests lib/GraphElement/graph_element_tests.cpp)
 target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-#Tests for Graph class
-add_executable(graph_tests lib/Graph/graph_tests.cpp)
-target_link_libraries(graph_tests PUBLIC Catch2::Catch2 polarisModel_lib)
+##Tests for Graph class
+#add_executable(graph_tests lib/Graph/graph_tests.cpp)
+#target_link_libraries(graph_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 #Tests for GraphConnection class
 add_executable(graph_connection_tests lib/GraphConnection/graph_connection_tests.cpp)
 target_link_libraries(graph_connection_tests PUBLIC Catch2::Catch2 polarisModel_lib)
