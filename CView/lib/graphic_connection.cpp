@@ -1,4 +1,4 @@
-#include "include/cgraphic_connection.h"
+#include "include/graphic_connection.h"
 
 using Polaris::CGraphicConnection;
 

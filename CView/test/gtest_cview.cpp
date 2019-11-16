@@ -1,15 +1,21 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "include/cgraphics_view.h"
+#include "include/graphic_connection.h"
+#include "include/graph_parser.h"
+#include "include/graphic_item.h"
+#include "include/graphic_view.h"
+#include "include/graphic_room.h"
+#include "include/item_controller.h"
 #include <memory>
+#include "include/renderer.h"
+#include "include/view.h"
 #include "mock_controller.h"
 #include <QApplication>
-#include <QMetaObject>
-#include <QObject>
 
-using Polaris::CGraphicsView;
-using Polaris::CGraphicRoom;
-using Polaris::CGraphicConnection;
+
+using Polaris::GraphicView;
+using Polaris::GraphicRoom;
+using Polaris::GraphicConnection;
 using std::shared_ptr;
 
 using ::testing::AtLeast;
@@ -23,155 +29,137 @@ protected:
     void SetUp()
     {
         mock_controller_ = std::shared_ptr< MockController >( new MockController );
-        graphics_view_ = std::shared_ptr< CGraphicsView >( new CGraphicsView( nullptr ) );
+        graphics_view_ = std::shared_ptr< GraphicView >(new GraphicView() );
     }
 
     std::shared_ptr< MockController > mock_controller_;
-    std::shared_ptr< CGraphicsView > graphics_view_;
+    std::shared_ptr< GraphicView > graphics_view_;
 };
 
-class ViewInvokeSlots : public ::testing::Test
+class ViewInvoke : public ::testing::Test
 {
 protected:
     void SetUp()
     {
-        graphics_view_ = std::shared_ptr< CGraphicsView >( new CGraphicsView( nullptr ) );
+        graphics_view_ = std::shared_ptr< GraphicView >(new GraphicView() );
     }
 
-    std::shared_ptr< CGraphicsView > graphics_view_;
+    std::shared_ptr< GraphicView > graphics_view_;
 };
 
-TEST_F( ControllerIntegration, ConnectChooseRoom )
-{
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::ChooseRoom ,
-                                   mock_controller_.get(), &MockController::SetSelectedNodes ) );
-}
+//TEST_F( ControllerIntegration, ConnectChooseRoom )
+//{
+//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::ChooseRoom ,
+//                                   mock_controller_.get(), &MockController::SetSelectedNodes ) );
+//}
+//
+//TEST_F( ControllerIntegration, ConnectChooseConnection )
+//{
+//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::ChooseConnection,
+//                                   mock_controller_.get(), &MockController::SetSelectedConnection ) );
+//}
+//
+//TEST_F( ControllerIntegration, ConnectSaveChangeData )
+//{
+//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::SaveNewRoom,
+//                                   mock_controller_.get(), &MockController::SaveChangedData ) );
+//}
+//
+//TEST_F( ControllerIntegration, ConnectSaveConnection )
+//{
+//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::SaveNewConnection,
+//                                   mock_controller_.get(), &MockController::SaveConnection ) );
+//}
 
-TEST_F( ControllerIntegration, ConnectChooseConnection )
-{
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::ChooseConnection,
-                                   mock_controller_.get(), &MockController::SetSelectedConnection ) );
-}
-
-TEST_F( ControllerIntegration, ConnectSaveChangeData )
-{
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::SaveNewRoom,
-                                   mock_controller_.get(), &MockController::SaveChangedData ) );
-}
-
-TEST_F( ControllerIntegration, ConnectSaveConnection )
-{
-    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &CGraphicsView::SaveNewConnection,
-                                   mock_controller_.get(), &MockController::SaveConnection ) );
-}
-
-TEST_F( ViewInvokeSlots, BuildItems )
+TEST_F( ViewInvoke, BuildItems )
 {
     Meta meta;
-    Graph graph;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "BuildItems",
-                                          Q_ARG( Meta, meta ), Q_ARG( Graph, graph ) ), -1 );
+    GraphConnection graph;
+    graphics_view_.get()->BuildItems( meta, graph );
+
     // cmp res to meta and graph
 }
 
-TEST_F( ViewInvokeSlots, DeleteRoom )
+TEST_F( ViewInvoke, DeleteRoom )
 {
     Meta meta;
-    Graph graph;
-    QVector< int > change_list;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "RefreshItems",
-                                          Q_ARG( Meta, meta ), Q_ARG( Graph, graph ),
-                                          Q_ARG( QVector< int >, change_list ) ), -1 );
+    QVector< size_t > change_list;
+    graphics_view_.get()->RefreshItems( meta, change_list );
+
     // cmp res to meta and graph
 }
 
-TEST_F( ViewInvokeSlots, AddRoom )
+TEST_F( ViewInvoke, AddRoom )
 {
     Meta meta;
-    Graph graph;
-    QVector< int > change_list;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "RefreshItems",
-                                          Q_ARG( Meta, meta ), Q_ARG( Graph, graph ),
-                                          Q_ARG( QVector< int >, change_list ) ), -1 );
+    QVector< size_t > change_list;
+    graphics_view_.get()->RefreshItems( meta, change_list );
+
     // cmp res to meta and graph
 }
 
-TEST_F( ViewInvokeSlots, DeleteConnection )
+TEST_F( ViewInvoke, DeleteConnection )
 {
     Meta meta;
-    Graph graph;
-    QVector< int > change_list;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "RefreshItems",
-                                          Q_ARG( Meta, meta ), Q_ARG( Graph, graph ),
-                                          Q_ARG( QVector< int >, change_list ) ), -1 );
+    QVector< size_t > change_list;
+    graphics_view_.get()->RefreshItems( meta, change_list );
+
     // cmp res to meta and graph
 }
 
-TEST_F( ViewInvokeSlots, AddConnection )
+TEST_F( ViewInvoke, AddConnection )
 {
     Meta meta;
-    Graph graph;
-    QVector< int > change_list;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "RefreshItems",
-                                          Q_ARG( Meta, meta ), Q_ARG( Graph, graph ),
-                                          Q_ARG( QVector< int >, change_list ) ), -1 );
+    QVector< size_t > change_list;
+    graphics_view_.get()->RefreshItems( meta, change_list );
+
     // cmp res to meta and graph
 }
 
-TEST_F( ViewInvokeSlots, DrawThePath )
+TEST_F( ViewInvoke, DrawThePath )
 {
-    QVector< int > path;
-    EXPECT_GT( QMetaObject::invokeMethod( graphics_view_.get(), "DrawThePath",
-                                          Q_ARG( QVector< int >, path ) ), -1 );
+    QVector< size_t > path;
+    graphics_view_.get()->DrawThePath( path );
+
     // cmp res to meta and graph
 }
 
-TEST( CGraphicRoom, Init )
+TEST( GraphicRoom, Init )
 {
-    GraphNode room_info {};
+    Meta room_info {};
     QRectF rect( 0, 0, 1, 1 );
-    CGraphicRoom some_room( room_info, rect );
+    GraphicRoom some_room( room_info, rect );
 
     // cmp new object and room_info
 }
 
-TEST( CGraphicConnection, Init )
+TEST( GraphicConnection, Init )
 {
-    GraphConnection connection_info {};
-    QLineF line( 0, 0, 1, 1 );
-    CGraphicConnection some_connection( connection_info, line );
+    QPointF left( 0, 1 );
+    QPointF right( 1, 2 );
+    GraphicConnection some_connection( left, right );
 
     // cmp new object and connection_info
 }
 
-TEST( CGraphicRoom, GetId )
+TEST( GraphicRoom, GetId )
 {
-    GraphNode room_info {};
+    Meta room_info {};
     QRectF rect( 0, 0, 1, 1 );
-    CGraphicRoom some_room( room_info, rect );
+    GraphicRoom some_room( room_info, rect );
 
     // cmp new object and room_info
     // EXPECT_EQ( some_room.GetId(), room_info.id_ );
 }
 
-TEST( CGraphicConnection, GetId )
+TEST( GraphicConnection, GetId )
 {
-    GraphConnection connection_info {};
-    QLineF line( 0, 0, 1, 1 );
-    CGraphicConnection some_connection( connection_info, line );
+    QPointF left( 0, 1 );
+    QPointF right( 1, 2 );
+    GraphicConnection some_connection( left, right );
 
     // cmp new object and connection_info
     // EXPECT_EQ( some_connection.GetId(), connection_info.id_ );
-}
-
-TEST( CGraphicConnection, GetPrice )
-{
-    GraphConnection connection_info {};
-    QLineF line( 0, 0, 1, 1 );
-    CGraphicConnection some_connection( connection_info, line );
-
-    // cmp new object and connection_info
-    // EXPECT_EQ( some_connection.GetPrice(), connection_info.price_ );
 }
 
 int main(int argc, char** argv) {
