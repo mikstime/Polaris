@@ -15,8 +15,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
-set(HEADERS include/filehandler.h include/mainwindow.h)
-set(SOURCES lib/filehandler.cpp lib/mainwindow.cpp)
+set(HEADERS include/button_click_handler.h include/node_form.h include/mainwindow.h)
+set(SOURCES lib/button_click_handler.cpp lib/node_form.cpp lib/mainwindow.cpp)
 
 add_library(MainLib STATIC ${HEADERS} ${SOURCES})
 

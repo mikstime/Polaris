@@ -15,8 +15,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
-set(HEADERS include/controller.h)
-set(SOURCES lib/controller.cpp)
+set(HEADERS include/controller.h include/graph_controller.h include/view_controller.h)
+set(SOURCES lib/controller.cpp lib/graph_controller.cpp lib/view_controller.cpp)
 
 add_library(ControllerLib STATIC ${HEADERS} ${SOURCES})
 
