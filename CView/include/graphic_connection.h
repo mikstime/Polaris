@@ -4,15 +4,14 @@
 #include "graphic_item.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
-struct GraphConnection {}; // структура, соответствующая соединению
+#include "../Model/include/GraphConnection/GraphConnection.h"
 
 namespace Polaris
 {
 class GraphicConnection : public GraphicItem
 {
 public:
-    explicit GraphicConnection( const QPointF & left, const QPointF & right );
+    explicit GraphicConnection( const QPointF & left, const QPointF & right, const GraphConnection & connection );
     GraphicConnection( const GraphicConnection & ) = delete;
     GraphicConnection( const GraphicConnection && ) = delete;
     GraphicConnection & operator = ( const GraphicConnection & ) = delete;
@@ -21,12 +20,15 @@ public:
     double GetPrice() const;
     size_t GetId() const override;
     int8_t GetFloor() const override;
-    string GetRole() const override;
+    std::string GetRole() const override;
 
 private:
     double price_;
     QPointF left_;
     QPointF right_;
+    size_t id_;
+    int8_t floor_;
+    std::string role_;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
     QRectF boundingRect() const override final;

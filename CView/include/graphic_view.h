@@ -18,21 +18,18 @@ public:
     GraphicView & operator = ( const GraphicView && ) = delete;
     ~GraphicView() = default;
 
-    void DrawThePath( QVector< size_t > ) override;
+    void DrawThePath( std::vector< size_t > path ) override;
     void BuildItems( const Meta & meta, const GraphConnection & connection ) override;
-    void RefreshItems( const Meta & meta, QVector< size_t > change_list) override;
+    void RefreshItems( const Meta & meta, std::vector< size_t > change_list ) override;
 
-public slots:
-    void GetSelectedNode() const override;
-    void GetSelectedNodes() const override;
-    void GetNodeCoordinates() const override;
-    void GetFloorNumber() const override;
-
-signals:
-    void SetSelectedNode( const size_t node_id ) const override;
-    void SetSelectedNodes( const size_t a_node_id, const size_t b_node_id ) const override;
-    void SetNodeCoordinates( const QPoint point ) const override;
-    void SetFloorNumber( const short int floor ) const override;
+    // запрашивает выбранную ноду
+    size_t GetSelectedNode() const;
+    // запрашивает пару для соединения
+    std::pair< size_t, size_t > GetSelectedNodes() const;
+    // запрашивает место клика по экрану. Используется для перемещения ноды и для создания новой
+    QPoint GetNodeCoordinates() const;
+    // запрашивает текущий этаж
+    short int GetFloorNumber() const;
 };
 } // namespace Polaris
 

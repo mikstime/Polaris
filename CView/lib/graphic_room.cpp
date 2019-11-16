@@ -1,21 +1,27 @@
 #include "include/graphic_room.h"
-
 using Polaris::GraphicRoom;
 
-GraphicRoom::GraphicRoom(GraphNode & node_info, const QRectF &rect,
-                         QGraphicsItem * parent )
-    : QGraphicsEllipseItem( rect, parent )
+GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size )
+    : size_( size )
 {
-
 }
 
-size_t GraphicRoom::GetId()
+std::string GraphicRoom::GetInfo() const
+{
+    return info_;
+}
+
+size_t GraphicRoom::GetId() const
 {
     return id_;
 }
 
-
-void GraphicRoom::mousePressEvent(QMoveEvent * event )
+int8_t GraphicRoom::GetFloor() const
 {
+    return floor_;
+}
 
+std::string GraphicRoom::GetRole() const
+{
+    return role_;
 }

@@ -3,8 +3,7 @@
 
 #include "graphic_item.h"
 #include <QStyleOptionGraphicsItem>
-
-struct GraphNode {}; // структура, соответсвтующая комнате
+#include "../Model/include/Meta/Meta.h"
 
 namespace Polaris
 {
@@ -17,13 +16,16 @@ public:
     GraphicRoom & operator = ( const GraphicRoom & ) = delete;
     GraphicRoom & operator = ( const GraphicRoom && ) = delete;
 
-    string GetInfo();
+    std::string GetInfo() const;
     size_t GetId() const override;
     int8_t GetFloor() const override;
-    string GetRole() const override;
+    std::string GetRole() const override;
 private:
-    string info_;
+    std::string info_;
     QRectF size_;
+    size_t id_;
+    int8_t floor_;
+    std::string role_;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
     QRectF boundingRect() const override final;

@@ -4,51 +4,43 @@
 
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
-using Polaris::CGraphicConnection;
+using Polaris::GraphicConnection;
 
-GraphicView::GraphicView(QWidget * parent )
-    : QGraphicsView( parent )
+GraphicView::GraphicView()
+{
+}
+
+void GraphicView::DrawThePath( std::vector< size_t > path )
 {
 
 }
 
-QVector< GraphicRoom > & GraphicView::GetRooms()
-{
-    return rooms_;
-}
-
-QVector< CGraphicConnection > & GraphicView::GetConnections()
-{
-    return connections_;
-}
-
-void GraphicView::BuildItems(const Meta & new_meta, const Graph & new_graph )
+void GraphicView::BuildItems( const Meta & meta, const GraphConnection & connection )
 {
 
 }
 
-void GraphicView::RefreshItems(const Meta & new_meta, const Graph & new_graph,
-                               QVector< int > rooms_change_list )
+void GraphicView::RefreshItems( const Meta & meta, std::vector< size_t > change_list )
 {
 
 }
 
-void GraphicView::DrawThePath(QVector< int > path )
+size_t GraphicView::GetSelectedNode() const
 {
 
 }
 
-void GraphicView::CreateNewConnection()
+std::pair< size_t, size_t > GraphicView::GetSelectedNodes() const
 {
 
 }
 
-void GraphicView::CreateNewRoomMeta()
+QPoint GraphicView::GetNodeCoordinates() const
 {
 
 }
 
-void GraphicView::ChangeRoomMeta()
+short int GraphicView::GetFloorNumber() const
 {
 
 }

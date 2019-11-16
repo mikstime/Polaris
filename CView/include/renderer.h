@@ -15,7 +15,7 @@ namespace Polaris
         Renderer & operator = ( const Renderer && ) = delete;
 
         short int GetFloor() const;
-        void wheelEvent() override;
+        void wheelEvent( QWheelEvent * event ) override;
 
     private:
         short int currnet_floor_;

@@ -1,8 +1,6 @@
 #ifndef MAINAPP_VIEW_H
 #define MAINAPP_VIEW_H
 
-struct Meta{};
-
 namespace Polaris
 {
     class View
@@ -10,21 +8,18 @@ namespace Polaris
     public:
         virtual ~View() = 0;
 
-        virtual void DrawThePath( QVector< size_t > ) = 0;
+        virtual void DrawThePath( std::vector< size_t > ) = 0;
         virtual void BuildItems( const Meta & meta, const GraphConnection & connection ) = 0;
-        virtual void RefreshItems( const Meta & meta, QVector< size_t > change_list) = 0;
+        virtual void RefreshItems( const Meta & meta, std::vector< size_t > change_list) = 0;
 
-    public slots:
-        virtual void GetSelectedNode() const = 0;
-        virtual void GetSelectedNodes() const = 0;
-        virtual void GetNodeCoordinates() const = 0;
-        virtual void GetFloorNumber() const = 0;
-
-    signals:
-        virtual void SetSelectedNode( const size_t node_id ) const = 0;
-        virtual void SetSelectedNodes( const size_t a_node_id, const size_t b_node_id ) const = 0;
-        virtual void SetNodeCoordinates( const QPoint point ) const = 0;
-        virtual void SetFloorNumber( const short int floor ) const = 0;
+        // запрашивает выбранную ноду
+        virtual size_t GetSelectedNode() const = 0;
+        // запрашивает пару для соединения
+        virtual std::pair< size_t, size_t > GetSelectedNodes() const = 0;
+        // запрашивает место клика по экрану. Используется для перемещения ноды и для создания новой
+        virtual QPoint GetNodeCoordinates() const = 0;
+        // запрашивает текущий этаж
+        virtual short int GetFloorNumber() const = 0;
     };
 } // namespace Polaris
 

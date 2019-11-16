@@ -1,25 +1,28 @@
 #include "include/graphic_connection.h"
 
-using Polaris::CGraphicConnection;
+using Polaris::GraphicConnection;
 
-CGraphicConnection::CGraphicConnection( GraphConnection & connection_info, const QLineF & line,
-                                        QGraphicsItem * parent )
-    : QGraphicsLineItem( line, parent )
+GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const GraphConnection & connection )
+    : left_( left ), right_( right )
 {
-
 }
 
-size_t CGraphicConnection::GetId()
-{
-    return id_;
-}
-
-double CGraphicConnection::GetPrice()
+double GraphicConnection::GetPrice() const
 {
     return price_;
 }
 
-void CGraphicConnection::mousePressEvent( QMoveEvent * event )
+size_t GraphicConnection::GetId() const
 {
+    return id_;
+}
 
+int8_t GraphicConnection::GetFloor() const
+{
+    return floor_;
+}
+
+std::string GraphicConnection::GetRole() const
+{
+    return role_;
 }

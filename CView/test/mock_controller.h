@@ -6,8 +6,9 @@
 
 #include <QObject>
 
-class FakeController : public QObject
+class FakeController
 {
+public:
     virtual void GetSelectedNode() const = 0;
     virtual void GetSelectedNodes() const = 0;
     virtual void GetNodeCoordinates() const = 0;

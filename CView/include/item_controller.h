@@ -2,13 +2,14 @@
 #define MAINAPP_ITEM_CONTROLLER_H
 
 #include <QGraphicsScene>
+#include <QMouseEvent>
 
 namespace Polaris
 {
     class ItemController : public QGraphicsScene
     {
     public:
-        explicit ItemController( const QRectF & sceneRect, QObject * parent = nullptr );
+        explicit ItemController( const QRectF & scene_rect, QObject * parent = nullptr );
         ItemController( const ItemController & ) = delete;
         ItemController( const ItemController && ) = delete;
         ItemController & operator = ( const ItemController & ) = delete;
@@ -16,8 +17,8 @@ namespace Polaris
 
         size_t GetCurrentNode() const;
         size_t GetPreviousNode() const;
-        void mousePressEvent( QMouseEvent );
-        void mouseReleaseEvent( QMouseEvent );
+        void mousePressEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
+        void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
 
     private:
         size_t current_node_;

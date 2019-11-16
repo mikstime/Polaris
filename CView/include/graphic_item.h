@@ -6,8 +6,6 @@
 
 namespace Polaris
 {
-    using std::string;
-
     class GraphicItem : public QGraphicsItem
     {
     public:
@@ -15,7 +13,7 @@ namespace Polaris
 
         virtual size_t GetId() const = 0 ;
         virtual int8_t GetFloor() const = 0;
-        virtual string GetRole() const = 0;
+        virtual std::string GetRole() const = 0;
     };
 } // namespace Polaris
 

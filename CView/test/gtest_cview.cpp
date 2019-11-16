@@ -1,21 +1,26 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "include/graphic_connection.h"
 #include "include/graph_parser.h"
+#include "include/graphic_connection.h"
 #include "include/graphic_item.h"
-#include "include/graphic_view.h"
 #include "include/graphic_room.h"
+#include "include/graphic_view.h"
 #include "include/item_controller.h"
 #include <memory>
+#include "mock_controller.h"
 #include "include/renderer.h"
 #include "include/view.h"
-#include "mock_controller.h"
 #include <QApplication>
 
-
-using Polaris::GraphicView;
-using Polaris::GraphicRoom;
+using Polaris::GraphParser;
 using Polaris::GraphicConnection;
+using Polaris::GraphicItem;
+using Polaris::GraphicRoom;
+using Polaris::GraphicView;
+using Polaris::ItemController;
+using Polaris::Renderer;
+using Polaris::View;
+
 using std::shared_ptr;
 
 using ::testing::AtLeast;
@@ -47,29 +52,6 @@ protected:
     std::shared_ptr< GraphicView > graphics_view_;
 };
 
-//TEST_F( ControllerIntegration, ConnectChooseRoom )
-//{
-//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::ChooseRoom ,
-//                                   mock_controller_.get(), &MockController::SetSelectedNodes ) );
-//}
-//
-//TEST_F( ControllerIntegration, ConnectChooseConnection )
-//{
-//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::ChooseConnection,
-//                                   mock_controller_.get(), &MockController::SetSelectedConnection ) );
-//}
-//
-//TEST_F( ControllerIntegration, ConnectSaveChangeData )
-//{
-//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::SaveNewRoom,
-//                                   mock_controller_.get(), &MockController::SaveChangedData ) );
-//}
-//
-//TEST_F( ControllerIntegration, ConnectSaveConnection )
-//{
-//    ASSERT_TRUE( QObject::connect( graphics_view_.get(), &GraphicView::SaveNewConnection,
-//                                   mock_controller_.get(), &MockController::SaveConnection ) );
-//}
 
 TEST_F( ViewInvoke, BuildItems )
 {
@@ -137,7 +119,8 @@ TEST( GraphicConnection, Init )
 {
     QPointF left( 0, 1 );
     QPointF right( 1, 2 );
-    GraphicConnection some_connection( left, right );
+    GraphConnection connection_info{};
+    GraphicConnection some_connection( left, right, connection_info );
 
     // cmp new object and connection_info
 }
@@ -156,7 +139,8 @@ TEST( GraphicConnection, GetId )
 {
     QPointF left( 0, 1 );
     QPointF right( 1, 2 );
-    GraphicConnection some_connection( left, right );
+    GraphConnection connection_info{};
+    GraphicConnection some_connection( left, right, connection_info );
 
     // cmp new object and connection_info
     // EXPECT_EQ( some_connection.GetId(), connection_info.id_ );
