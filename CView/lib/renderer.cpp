@@ -13,7 +13,7 @@ short int Renderer::GetFloor() const
     return currnet_floor_;
 }
 
-void wheelEvent( QWheelEvent * event )
+void Renderer::wheelEvent( QWheelEvent * event )
 {
 
 }

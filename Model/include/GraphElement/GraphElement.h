@@ -9,13 +9,13 @@ class GraphElement
 {
 using ID = size_t;
 public:
-    GraphElement();
-    GraphElement( GraphElement const & );
-    GraphElement( GraphElement && ) noexcept;
-    ~GraphElement() = default;
-    ID getId() { return id_; }
-private:
-    ID id_;
+//    GraphElement();
+//    GraphElement( GraphElement const & );
+//    GraphElement( GraphElement && ) noexcept;
+//    ~GraphElement() = default;
+//    ID getId() { return id_; }
+//private:
+//    ID id_;
 };
 }//namespace Polaris
 

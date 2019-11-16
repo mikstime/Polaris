@@ -2,7 +2,7 @@
 #define CGRAPHICS_ITEMS_H
 
 #include "graphic_item.h"
-#include <QStyleOptionGraphicsItem>
+// TODO временный путь до заголовочных файлов
 #include "../Model/include/Meta/Meta.h"
 
 namespace Polaris
@@ -27,7 +27,7 @@ private:
     int8_t floor_;
     std::string role_;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
+    void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
 };
 } // namespace Polaris

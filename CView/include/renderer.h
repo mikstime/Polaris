@@ -9,6 +9,7 @@ namespace Polaris
     {
     public:
         explicit Renderer( QWidget * parent = nullptr );
+        ~Renderer() = default;
         Renderer( const Renderer & ) = delete;
         Renderer( const Renderer && ) = delete;
         Renderer & operator = ( const Renderer & ) = delete;

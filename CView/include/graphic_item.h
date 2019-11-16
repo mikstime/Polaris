@@ -3,13 +3,14 @@
 
 #include <string>
 #include <QGraphicsItem>
+#include <QStyleOptionGraphicsItem>
 
 namespace Polaris
 {
     class GraphicItem : public QGraphicsItem
     {
     public:
-        virtual ~GraphicItem() = 0;
+        virtual ~GraphicItem() = default;
 
         virtual size_t GetId() const = 0 ;
         virtual int8_t GetFloor() const = 0;

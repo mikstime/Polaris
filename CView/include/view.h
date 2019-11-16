@@ -1,16 +1,25 @@
 #ifndef MAINAPP_VIEW_H
 #define MAINAPP_VIEW_H
 
+// TODO временный путь до заголовочных файлов
+#include "../Model/include/GraphConnection/GraphConnection.h"
+#include "../Model/include/Meta/Meta.h"
+#include <QPoint>
+
 namespace Polaris
 {
     class View
     {
     public:
-        virtual ~View() = 0;
+        virtual ~View() = default;
 
-        virtual void DrawThePath( std::vector< size_t > ) = 0;
-        virtual void BuildItems( const Meta & meta, const GraphConnection & connection ) = 0;
-        virtual void RefreshItems( const Meta & meta, std::vector< size_t > change_list) = 0;
+        virtual void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) = 0;
+        virtual void DrawThePath( std::vector< size_t > path ) = 0;
+        virtual void OnMetaChanged( const Meta & meta ) = 0;
+        virtual void OnMetaAdded( const Meta & meta ) = 0;
+        virtual void OnMetaRemoved( const Meta & meta ) = 0;
+        virtual void OnConnectionAdded( const GraphConnection & connection ) = 0;
+        virtual void OnConnectionRemoved( const GraphConnection & connection ) = 0;
 
         // запрашивает выбранную ноду
         virtual size_t GetSelectedNode() const = 0;
@@ -19,7 +28,7 @@ namespace Polaris
         // запрашивает место клика по экрану. Используется для перемещения ноды и для создания новой
         virtual QPoint GetNodeCoordinates() const = 0;
         // запрашивает текущий этаж
-        virtual short int GetFloorNumber() const = 0;
+        virtual int8_t GetFloorNumber() const = 0;
     };
 } // namespace Polaris
 

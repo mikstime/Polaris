@@ -25,3 +25,13 @@ std::string GraphicRoom::GetRole() const
 {
     return role_;
 }
+
+void GraphicRoom::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+
+}
+
+QRectF GraphicRoom::boundingRect() const
+{
+
+}

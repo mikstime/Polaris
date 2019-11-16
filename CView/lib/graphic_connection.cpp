@@ -26,3 +26,13 @@ std::string GraphicConnection::GetRole() const
 {
     return role_;
 }
+
+void GraphicConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+
+}
+
+QRectF GraphicConnection::boundingRect() const
+{
+
+}

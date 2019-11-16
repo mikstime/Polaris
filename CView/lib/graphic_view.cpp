@@ -4,10 +4,17 @@
 
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
+using Polaris::GraphConnection;
 using Polaris::GraphicConnection;
+using Polaris::Meta;
 
 GraphicView::GraphicView()
 {
+}
+
+void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+{
+
 }
 
 void GraphicView::DrawThePath( std::vector< size_t > path )
@@ -15,12 +22,26 @@ void GraphicView::DrawThePath( std::vector< size_t > path )
 
 }
 
-void GraphicView::BuildItems( const Meta & meta, const GraphConnection & connection )
+void GraphicView::OnMetaChanged( const Meta & meta )
 {
 
 }
 
-void GraphicView::RefreshItems( const Meta & meta, std::vector< size_t > change_list )
+void GraphicView::OnMetaAdded( const Meta & meta )
+{
+
+}
+
+void GraphicView::OnMetaRemoved( const Meta & meta ) {
+
+}
+
+void GraphicView::OnConnectionAdded( const GraphConnection & connection )
+{
+
+}
+
+void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
 {
 
 }
@@ -40,7 +61,7 @@ QPoint GraphicView::GetNodeCoordinates() const
 
 }
 
-short int GraphicView::GetFloorNumber() const
+int8_t GraphicView::GetFloorNumber() const
 {
 
 }
