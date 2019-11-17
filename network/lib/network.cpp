@@ -1,5 +1,7 @@
 #include "network.h"
 
+using namespace Polaris;
+
 void Network::Open()
 {
 
@@ -30,17 +32,17 @@ void Writer::Write()
 
 }
 
-int Engine::CreateServerSocket(uint32_t port, uint32_t listen_queue_size)
+int Engine::CreateServerSocket( uint32_t port, uint32_t listen_queue_size )
 {
 
 }
 
-void Client::Connect(const std::string &host, int port)
+void Client::Connect( const std::string & host, int port )
 {
 
 }
 
-void Client::Send(const std::string &s)
+void Client::Send( const std::string & s )
 {
 
 }
@@ -50,12 +52,12 @@ std::string Client::Recv()
 
 }
 
-void Client::SetRcvTimeout(int sec, int microsec)
+void Client::SetRcvTimeout( int sec, int microsec )
 {
 
 }
 
-void Client::SetNonBlocked(bool opt)
+void Client::SetNonBlocked( bool opt )
 {
 
 }
@@ -75,22 +77,22 @@ void PollEngine::Run()
 
 }
 
-int PollEngine::Prepare(struct pollfd *fds)
+int PollEngine::Prepare( struct pollfd *fds )
 {
 
 }
 
-void Server::CreateServerSocket(uint32_t port, uint32_t queue_size)
+void Server::CreateServerSocket( uint32_t port, uint32_t queue_size )
 {
 
 }
 
-std::shared_ptr<Client> Server::Accept()
+std::shared_ptr< Client > Server::Accept()
 {
 
 }
 
-void Server::SetNonBlocked(bool opt)
+void Server::SetNonBlocked( bool opt )
 {
 
 }
