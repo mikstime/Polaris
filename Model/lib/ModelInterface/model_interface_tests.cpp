@@ -11,7 +11,7 @@ class MockModelInterface: public ModelInterface
     using Id = size_t;
 public:
 
-    MockModelInterface( const ModelObserver &){};
+    explicit MockModelInterface( const ModelObserver &){};
     MOCK_METHOD(void, AddNode, ( const GraphNode &), ());
     MOCK_METHOD(void, AddNode, (Id), ());
     MOCK_METHOD(void, AddConnection, ( const GraphNode &,
