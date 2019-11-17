@@ -52,41 +52,32 @@ public:
      * MetaChanged
      * Arguments:
      * newMeta - updated meta
-     * modelState - current state of model.
      *************************************************************************/
-    void MetaChanged( const Meta & newMeta, const Model & modelState );
+    void MetaChanged( const Meta & newMeta );
     /**************************************************************************
      * ConnectionAdded
      * Arguments:
      * first and last nodes - nodes that connected.
-     * modelState - current state of model.
      *************************************************************************/
-    void ConnectionAdded( const GraphNode & firstNode,
-                          const GraphNode & lastNode,
-                          const Model & modelState );
+    void ConnectionAdded( const GraphConnection & newConnection );
     /**************************************************************************
      * ConnectionRemoved
      * Arguments:
      * first and last nodes - nodes between whose connection was deleted
-     * modelState - current state of model.
      *************************************************************************/
-    void ConnectionRemoved( const GraphNode & firstNode,
-                            const GraphNode & lastNode,
-                            const Model & modelState );
+    void ConnectionRemoved( const GraphConnection & connection );
     /**************************************************************************
      * NodeAdded
      * Arguments:
      * node - node which was inserted in graph.
-     * modelState - current state of model.
      *************************************************************************/
-    void NodeAdded( const GraphNode & node, const Model & modelState );
+    void NodeAdded( const GraphNode & node );
     /**************************************************************************
      * NodeRemoved
      * Arguments:
      * node - node to be removed from graph
-     * modelState - current state of model.
      *************************************************************************/
-    void NodeRemoved( const GraphNode & node, const Model & modelState );
+    void NodeRemoved( const GraphNode & node );
 };
 } //namespace Polaris
 

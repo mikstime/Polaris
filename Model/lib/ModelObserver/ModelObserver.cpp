@@ -16,36 +16,31 @@ void Polaris::ModelObserver::unSubscribe(
 
 }
 
-void Polaris::ModelObserver::MetaChanged( const Polaris::Meta & newMeta,
-                                          const Polaris::Model & modelState )
+void Polaris::ModelObserver::MetaChanged( const Polaris::Meta & newMeta )
 {
 
 }
 
-void Polaris::ModelObserver::ConnectionAdded(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode,
-        const Polaris::Model & modelState )
+
+
+void Polaris::ModelObserver::NodeAdded( const Polaris::GraphNode & node )
+{
+
+}
+
+void Polaris::ModelObserver::NodeRemoved( const Polaris::GraphNode & node )
 {
 
 }
 
 void Polaris::ModelObserver::ConnectionRemoved(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode,
-        const Polaris::Model & modelState )
+        const Polaris::GraphConnection & connection )
 {
 
 }
 
-void Polaris::ModelObserver::NodeAdded( const Polaris::GraphNode & node,
-                                        const Polaris::Model & modelState )
-{
-
-}
-
-void Polaris::ModelObserver::NodeRemoved( const Polaris::GraphNode & node,
-                                          const Polaris::Model & modelState )
+void Polaris::ModelObserver::ConnectionAdded(
+        const Polaris::GraphConnection & newConnection )
 {
 
 }
