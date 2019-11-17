@@ -23,35 +23,30 @@ public:
      * onMetaChanged
      * Arguments:
      * newMeta - meta object that was changed
-     * modelState - current state of Model
      *************************************************************************/
     virtual void onMetaChanged( const Meta & newMeta ) = 0;
     /**************************************************************************
      * onConnectionAdded
      * Arguments:
      * firstNode and lastNode - nodes that was connected
-     * modelState - current state of Model
      *************************************************************************/
     virtual void onConnectionAdded( const GraphConnection & newConnection ) = 0;
     /**************************************************************************
      * onConnectionRemoved
      * Arguments:
      * firstNode and lastNode - nodes, connection between which was deleted
-     * modelState - current state of Model
      *************************************************************************/
     virtual void onConnectionRemoved( const GraphConnection & connection ) = 0;
     /**************************************************************************
      * onNodeAdded
      * Arguments:
      * node - node that was added
-     * modelState - current state of Model
      *************************************************************************/
     virtual void onNodeAdded( const GraphNode & node ) = 0;
     /**************************************************************************
      * onNodeRemoved
      * Arguments:
      * node - node that was removed
-     * modelState - current state of Model
      *************************************************************************/
     virtual void onNodeRemoved( const GraphNode & node ) = 0;
 };
