@@ -44,9 +44,10 @@ add_executable(graph_element_tests lib/GraphElement/graph_element_tests.cpp)
 target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 ##Tests for GraphInterface class
 add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp)
-target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES})
-#add_executable(graph_tests lib/Graph/graph_tests.cpp)
-#target_link_libraries(graph_tests PUBLIC Catch2::Catch2 polarisModel_lib)
+target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
+#Tests for ModelInterface class
+add_executable(model_interface_tests lib/ModelInterface/model_interface_tests.cpp)
+target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} lib/ModelObserver/model_observer_tests.cpp)
 #Tests for Model
 add_executable(model_tests model_tests.cpp)
 target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
