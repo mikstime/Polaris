@@ -10,10 +10,7 @@ class GraphElement
 using ID = size_t;
 public:
     GraphElement();
-    GraphElement( GraphElement const & );
-    GraphElement( GraphElement && ) noexcept;
-    ~GraphElement() = default;
-    ID getId() { return id_; }
+    [[nodiscard]] ID getId() const { return id_; };
 private:
     ID id_;
 };

@@ -4,16 +4,6 @@
 using namespace Polaris;
 using ID = size_t;
 
-GraphElement::GraphElement( GraphElement const &e )
-{
-    id_ = e.id_;
-}
-
-GraphElement::GraphElement( Polaris::GraphElement && ) noexcept
-{
-
-}
-
 GraphElement::GraphElement()
 {
     static ID cur_id = 0;

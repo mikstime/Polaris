@@ -67,13 +67,13 @@ void Polaris::ModelProxy::FindPath(
 
 }
 
-void Polaris::ModelProxy::Subscribe( const Subscriber & subscriber,
+void Polaris::ModelProxy::Subscribe( const ModelSubscriber & subscriber,
                                      const Polaris::Model & model )
 {
 
 }
 
-void Polaris::ModelProxy::Unsubscribe( const Subscriber & subscriber,
+void Polaris::ModelProxy::Unsubscribe( const ModelSubscriber & subscriber,
                                      const Polaris::Model & model )
 {
 

@@ -7,6 +7,9 @@ namespace Polaris
 {
 struct GraphNode: public GraphElement
 {
+//    bool operator < ( const GraphNode & a ) const {
+//        return getId() < a.getId();
+//    }
 };
 }//namespace Polaris
 
