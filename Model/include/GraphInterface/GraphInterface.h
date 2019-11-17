@@ -140,7 +140,7 @@ public:
      * ReturnValue:
      * Node with specified Id
      *************************************************************************/
-    const GraphNode & getNode( Id nodeId );
+    //@TODO const GraphNode & getNode( Id nodeId );
 };
 } //namespace Polaris
 

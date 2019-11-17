@@ -7,7 +7,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Catch2 REQUIRED)
+find_package(Boost REQUIRED)
+find_package(GTest REQUIRED)
 
+set(Boost_USE_STATIC_LIBS        ON)
 set(HEADERS include/Graph/Graph.h
             include/GraphInterface/GraphInterface.h
             include/GraphConnection/GraphConnection.h
@@ -21,28 +24,29 @@ set(HEADERS include/Graph/Graph.h
             include/Search/Search.h)
 
 set(SOURCE  lib/GraphInterface/GraphInterface.cpp
-            lib/GraphConnection/GraphConnection.cpp
             lib/ModelProxy/ModelProxy.cpp
             lib/GraphElement/GraphElement.cpp
-            lib/GraphNode/GraphNode.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
             lib/Search/Search.cpp)
 #Static library
 add_library(polarisModel_lib ${HEADERS} ${SOURCE})
+
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${GTEST_INCLUDE_DIRS})
+add_executable( tests_gtest tests_gtest.cpp )
+
+target_link_libraries(polarisModel_lib ${Boost_LIBRARIES})
+target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
 target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
 #Tests for GraphElement class
 add_executable(graph_element_tests lib/GraphElement/graph_element_tests.cpp)
 target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-##Tests for Graph class
+##Tests for GraphInterface class
+add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp)
+target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES})
 #add_executable(graph_tests lib/Graph/graph_tests.cpp)
 #target_link_libraries(graph_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-#Tests for GraphConnection class
-add_executable(graph_connection_tests lib/GraphConnection/graph_connection_tests.cpp)
-target_link_libraries(graph_connection_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-#Tests for GraphNode class
-add_executable(graph_node_tests lib/GraphNode/graph_node_tests.cpp)
-target_link_libraries(graph_node_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 #Tests for Model
 add_executable(model_tests model_tests.cpp)
 target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)

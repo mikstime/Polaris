@@ -6,12 +6,12 @@
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector
-
+#include <set>
 namespace Polaris
 {
-using ID = std::size_t;
+using Id = std::size_t;
 using GraphConnections = std::vector< GraphConnection >;
-using GraphNodes = std::vector< GraphNode >;
+using GraphNodes = std::set< GraphNode >;
 /******************************************************************************
  * Graph structure stores all verticles and connections in graph.
  * Connections are stored in adjacency matrix.
@@ -27,16 +27,20 @@ public:
     /**************************************************************************
      * default constructor
      *************************************************************************/
-     Graph(): connections(), nodes() {};
+     Graph() = default;
+//     Graph(): connections(), nodes(
+//             [](const GraphNode & a, const GraphNode & b)
+//             { return a.getId() < b.getId(); }, boost::container::new_allocator()
+//     ) {};
     /**************************************************************************
      * Graph( nodes, connections )
      * Arguments:
      * nodes - initial state of nodes
      * connections - initial state of connections
      *************************************************************************/
-    Graph( const GraphNodes & a_nodes,
-           const GraphConnections& a_connections )
-    : connections(a_connections), nodes( a_nodes) {};
+    Graph( GraphNodes  a_nodes,
+           GraphConnections  a_connections )
+    : connections( std::move(a_connections) ), nodes( std::move( a_nodes) ) {};
     /**************************************************************************
      * Graph( nodes )
      * Arguments:

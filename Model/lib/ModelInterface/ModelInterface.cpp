@@ -1,11 +1,5 @@
 #include "include/ModelInterface/ModelInterface.h"
 
-void Polaris::ModelInterface::GetMetaByNodeId(
-        Polaris::Id GraphNodeId )
-{
-    proxy_.GetMetaByNodeId( GraphNodeId, model_ );
-}
-
 void Polaris::ModelInterface::AddConnection(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )

@@ -1,4 +1,5 @@
 #include "include/GraphInterface/GraphInterface.h"
+#include <boost/container/flat_set.hpp>
 
 void Polaris::GraphInterface::AddConnection(
         const Polaris::GraphNode & firstNode,
@@ -30,7 +31,7 @@ void Polaris::GraphInterface::RemoveConnection(
 
 void Polaris::GraphInterface::AddNode( const Polaris::GraphNode & node )
 {
-
+//    graph_.nodes.insert(node);
 }
 
 void Polaris::GraphInterface::RemoveNode( const Polaris::GraphNode & node )
@@ -79,11 +80,11 @@ const Polaris::GraphConnection & Polaris::GraphInterface::getConnection(
     return graph_.connections[ 0 ];
 }
 
-const Polaris::GraphNode & Polaris::GraphInterface::getNode(
-        Polaris::Id nodeId )
-{
-    return graph_.nodes[ 0 ];
-}
+//const Polaris::GraphNode & Polaris::GraphInterface::getNode(
+//        Polaris::Id nodeId )
+//{
+//    return GraphNode();
+//}
 
 void Polaris::GraphInterface::SetConnectionParams(
         Polaris::Id firstNodeId,
