@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#define EMPTY -1
+
 namespace Polaris
 {
 

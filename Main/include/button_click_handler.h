@@ -2,6 +2,8 @@
 #define MAINAPP_BUTTON_CLICK_HANDLER_H
 
 #include <QtCore/QObject>
+#include "node_form.h"
+#include "../../Controller/include/view_controller.h"
 
 namespace Polaris
 {
@@ -11,16 +13,20 @@ class ButtonClickHandler : public QObject
     Q_OBJECT
 
 public:
-    ButtonClickHandler();
+    ButtonClickHandler( NodeForm * form, ViewController * controller );
+
+private:
+    NodeForm * form_;
+    ViewController * controller_;
 
 public slots:
     void AddButtonClick();
-    void DeleteButtonCLick();
+    void DeleteButtonClick();
     void MoveButtonClick();
     void ChangeButtonClick();
-    void FindRouteButtonCLick();
+    void FindRouteButtonClick();
     void FloorUpButtonClick();
-    void FloorDownButtonCLick();
+    void FloorDownButtonClick();
 };
 
 } // namespace Polaris

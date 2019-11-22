@@ -2,6 +2,7 @@
 #define MAINAPP_VIEW_CONTROLLER_H
 
 #include <QtCore/QObject>
+#include <utility>
 #include "node_data.h"
 
 namespace Polaris
@@ -13,6 +14,8 @@ class ViewController : public QObject
 
 public:
     ViewController();
+
+    std::pair< int, int > GetNodeIds();
 
 private:
     int floor_number_;
