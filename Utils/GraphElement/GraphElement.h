@@ -20,11 +20,11 @@ public:
     /**************************************************************************
      * GraphElement copy constructor. Copies id.
      *************************************************************************/
-     GraphElement( const GraphElement & g ) = default;
+     GraphElement( const GraphElement & g ){ id_ = g.id_; };
     /**************************************************************************
     * GraphElement mode constructor.
     *************************************************************************/
-     GraphElement( GraphElement && g ) = default;
+     GraphElement( GraphElement && g ) noexcept { id_ = g.id_; };
     /**************************************************************************
     * GraphElement mode constructor.
     *************************************************************************/

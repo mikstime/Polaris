@@ -1,4 +1,4 @@
-#include "GraphElement.h"
+#include "GraphElement/GraphElement.h"
 #include "typedefs.h"
 Polaris::GraphElement::GraphElement()
 {
