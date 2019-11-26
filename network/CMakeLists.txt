@@ -10,11 +10,11 @@ set( CMAKE_CXX_STANDARD_REQUIRED ON )
 
 find_package( GTest REQUIRED )
 
-set( HEADERS include/network.h )
-set( SOURCES lib/network.cpp )
+set( HEADERS include/Client.h )
+set( SOURCES lib/Client.cpp )
 
-add_executable(network network.cpp network.h)
+add_executable(network Client.cpp Client.h)
 
 include_directories( ${GTEST_INCLUDE_DIRS} )
 
-add_executable( NetworkTest test/test.cpp )
+add_executable( ClientTest test/test.cpp )
