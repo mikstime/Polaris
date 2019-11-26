@@ -14,9 +14,9 @@ class ModelSubscriber;
 class GraphNode;
 class Meta;
 class Model;
-using ModelSubscribers = std::vector < ModelSubscriber >;
+using ModelSubscribers = std::vector< const ModelSubscriber * >;
 /******************************************************************************
- * ModelObserver class provides subscribtions to Model
+ * ModelObserver class provides subscriptions to Model
  * and notifications for subscribers.
  *****************************************************************************/
 class ModelObserver
@@ -41,13 +41,13 @@ public:
      * Arguments:
      * subscriber - object to be subscribed. Must inherit from ModelSubscriber.
      *************************************************************************/
-    void Subscribe( const ModelSubscriber & subscriber );
+    void Subscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - subscriber to be removed.
      *************************************************************************/
-    void unSubscribe( const ModelSubscriber & subscriber );
+    void unSubscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * MetaChanged
      * Arguments:

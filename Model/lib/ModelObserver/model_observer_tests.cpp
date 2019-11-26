@@ -16,20 +16,18 @@ public:
     void, unSubscribe,( const ModelSubscriber & subscriber ), ()
     );
     MOCK_METHOD(
-    void, MetaChanged,( const Meta & newMeta, const Model & modelState ), ()
+    void, MetaChanged,( const Meta & newMeta ), ()
     );
     MOCK_METHOD(
     void, ConnectionAdded,( const GraphNode & firstNode,
-                          const GraphNode & lastNode,
-                          const Model & modelState ), ()
+                          const GraphNode & lastNode ), ()
     );
     MOCK_METHOD(
     void, ConnectionRemoved,( const GraphNode & firstNode,
-                            const GraphNode & lastNode,
-                            const Model & modelState ), ()
+                            const GraphNode & lastNode ), ()
     );
     MOCK_METHOD(
-    void, NodeAdded,( const GraphNode & node, const Model & modelState ), ());
+    void, NodeAdded,( const GraphNode & node ), ());
     MOCK_METHOD(
-    void, NodeRemoved,( const GraphNode & node, const Model & modelState ), ());
+    void, NodeRemoved,( const GraphNode & node ), ());
 };

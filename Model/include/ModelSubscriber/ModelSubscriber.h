@@ -24,31 +24,33 @@ public:
      * Arguments:
      * newMeta - meta object that was changed
      *************************************************************************/
-    virtual void onMetaChanged( const Meta & newMeta ) = 0;
+    virtual void onMetaChanged( const Meta & newMeta ) const = 0;
     /**************************************************************************
      * onConnectionAdded
      * Arguments:
      * firstNode and lastNode - nodes that was connected
      *************************************************************************/
-    virtual void onConnectionAdded( const GraphConnection & newConnection ) = 0;
+    virtual void onConnectionAdded( const GraphConnection & newConnection )
+    const = 0;
     /**************************************************************************
      * onConnectionRemoved
      * Arguments:
      * firstNode and lastNode - nodes, connection between which was deleted
      *************************************************************************/
-    virtual void onConnectionRemoved( const GraphConnection & connection ) = 0;
+    virtual void onConnectionRemoved( const GraphConnection & connection )
+    const = 0;
     /**************************************************************************
      * onNodeAdded
      * Arguments:
      * node - node that was added
      *************************************************************************/
-    virtual void onNodeAdded( const GraphNode & node ) = 0;
+    virtual void onNodeAdded( const GraphNode & node ) const = 0;
     /**************************************************************************
      * onNodeRemoved
      * Arguments:
      * node - node that was removed
      *************************************************************************/
-    virtual void onNodeRemoved( const GraphNode & node ) = 0;
+    virtual void onNodeRemoved( const GraphNode & node ) const = 0;
 };
 } //namespace Polaris
 

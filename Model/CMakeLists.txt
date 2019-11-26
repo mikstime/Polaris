@@ -29,6 +29,10 @@ set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
             lib/Search/Search.cpp)
+
+set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
+                    lib/ModelObserver/ModelObserver.cpp
+                    lib/ModelInterface/model_interface_tests.cpp)
 #Static library
 add_library(polarisModel_lib ${HEADERS} ${SOURCE})
 
@@ -37,7 +41,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 add_executable( tests_gtest tests_gtest.cpp )
 
 target_link_libraries(polarisModel_lib ${Boost_LIBRARIES})
-target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
+target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
 #Tests for GraphElement class
 add_executable(graph_element_tests lib/GraphElement/graph_element_tests.cpp)
@@ -47,7 +51,7 @@ add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cp
 target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
 #Tests for ModelInterface class
 add_executable(model_interface_tests lib/ModelInterface/model_interface_tests.cpp)
-target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} lib/ModelObserver/model_observer_tests.cpp)
+target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 #Tests for Model
 add_executable(model_tests model_tests.cpp)
 target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
