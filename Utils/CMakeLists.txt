@@ -17,8 +17,9 @@ set(HEADERS typedefs.h
 set(SOURCE  GraphConnection/GraphConnection.cpp
             GraphElement/GraphElement.cpp )
 #Static library
-add_library( polarisUtils_lib ${HEADERS} ${SOURCE} )
+add_library( polarisUtils_lib STATIC ${HEADERS} ${SOURCE} )
 include_directories(${GTEST_INCLUDE_DIRS})
 target_include_directories( polarisUtils_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+
 add_executable( graph_element_tests GraphElement/graph_element_tests.cpp )
 target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisUtils_lib )

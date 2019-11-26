@@ -30,9 +30,14 @@ public:
     *************************************************************************/
     ~GraphElement() = default;
     /**************************************************************************
+     * GraphElement constructor. Uses argument as an id.
+     * id shouldn't equal to zero.
+     *************************************************************************/
+    explicit GraphElement(const Id & id): id_( id ) {};
+    /**************************************************************************
      * GetId - returns id of element
      *************************************************************************/
-    Id GetId() { return id_; };
+    [[nodiscard]] Id GetId() const { return id_; };
 };
 }//namespace Polaris
 

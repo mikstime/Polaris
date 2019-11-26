@@ -27,6 +27,10 @@ struct GraphNode: public GraphElement
      * default destructor
      *************************************************************************/
      ~GraphNode() = default;
+    /**************************************************************************
+     * Create Node with specified Id.
+     *************************************************************************/
+    explicit GraphNode( const Id & id ): GraphElement( id ) {};
 };
 }//namespace Polaris
 
