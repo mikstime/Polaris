@@ -44,7 +44,7 @@ target_link_libraries(polarisModel_lib ${Boost_LIBRARIES})
 target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
 #Tests for GraphElement class
-add_executable(graph_element_tests lib/GraphElement/graph_element_tests.cpp)
+add_executable(graph_element_tests ../Utils/GraphElement/graph_element_tests.cpp)
 target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 ##Tests for GraphInterface class
 add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp)

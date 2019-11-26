@@ -1,17 +1,27 @@
 #include "include/GraphInterface/GraphInterface.h"
 #include <boost/container/flat_set.hpp>
-
+#include <utility> //std::pair
 void Polaris::GraphInterface::AddConnection(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-
+    //Delegate to AddConnection( Id, Id ).
+    AddConnection( firstNode.getId(), lastNode.getId() );
 }
 
 void Polaris::GraphInterface::AddConnection(
         Polaris::Id firstNodeId,
         Polaris::Id lastNodeId )
 {
+    if( AreConnected( firstNodeId, lastNodeId ) )
+    {
+        // Do nothing. Connection already exists.
+        return;
+    }
+    // Create connection object.
+    GraphConnection newConnection( firstNodeId, lastNodeId );
+    // Create a key ( pair ).
+    std::pair< Id, Id > key( firstNodeId, lastNodeId );
 
 }
 

@@ -35,14 +35,12 @@ TEST( GraphInterfaceTest, AddMethodsHandle )
     GraphNode testNode1 = GraphNode();
     GraphNode testNode2 = GraphNode();
 
-    EXPECT_CALL(mi, AddNode( testNode1 )).Times(AtLeast(1));
-    EXPECT_CALL(mi, AddNode( testNode2 )).Times(AtLeast(1));
-    //@TODO remove second arg from header.
-    EXPECT_CALL(mo, MetaChanged( Meta() )).Times(3);
-    EXPECT_CALL(mo, NodeAdded( testNode1)).Times(AtLeast(1));
-    EXPECT_CALL(mo, MetaChanged( testNode2)).Times(AtLeast(1));
-    EXPECT_CALL(mo, ConnectionAdded( testNode1, testNode2)).Times(AtLeast(2));
-    EXPECT_CALL(mo, ConnectionRemoved( testNode1, testNode2)).Times(AtLeast(2));
+    EXPECT_CALL(mo, NodeAdded( testNode1 )).Times(AtLeast(1));
+    EXPECT_CALL(mo, NodeAdded( testNode2 )).Times(AtLeast(1));
+    EXPECT_CALL(mo, ConnectionAdded( testNode1, testNode1 ))
+    .Times(AtLeast(2));
+    EXPECT_CALL(mo, ConnectionRemoved( testNode1, testNode2 ))
+    .Times(AtLeast(2));
 
     mi.AddNode(testNode1);
     mi.AddNode(testNode2);
@@ -69,7 +67,4 @@ TEST( GraphInterfaceTest, AddMethodsHandle )
     ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
     ASSERT_FALSE(mi.HasNode(testNode1));
     ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
-}
-int main() {
-
 }

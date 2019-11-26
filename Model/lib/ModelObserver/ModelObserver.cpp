@@ -1,14 +1,14 @@
 #include "include/ModelObserver/ModelObserver.h"
 
 void Polaris::ModelObserver::Subscribe(
-        const Polaris::ModelSubscriber * & subscriber )
+        const Polaris::ModelSubscriber * subscriber )
 {
     // just add subscriber at the end of the vector
     subscribers_.push_back( subscriber );
 }
 
 void Polaris::ModelObserver::unSubscribe(
-        const Polaris::ModelSubscriber * & subscriber )
+        const Polaris::ModelSubscriber * subscriber )
 {
     // find subscriber in vector
     auto it = std::find( subscribers_.begin(),

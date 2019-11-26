@@ -16,8 +16,8 @@ public:
     Search( Search const & );
     Search( Search && ) noexcept;
     ~Search();
-    GraphNode Find( const Graph &, const GraphNode &, const GraphNode & );
-    GraphNode Find( const Graph &, ID, ID );
+    Path FindPath( const Graph &, const GraphNode &, const GraphNode & );
+    Path FindPath( const Graph &, ID, ID );
 };
 }//namespace Polaris
 

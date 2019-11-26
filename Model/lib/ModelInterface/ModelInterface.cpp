@@ -8,10 +8,17 @@ void Polaris::ModelInterface::AddConnection(
 }
 
 void Polaris::ModelInterface::AddConnection(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+        const Polaris::Id & firstNodeId,
+        const Polaris::Id & lastNodeId,
+        const Polaris::ConnectionParams & params )
 {
     proxy_.AddConnection( firstNodeId, lastNodeId, model_ );
+}
+
+void Polaris::ModelInterface::AddConnection(
+        const Polaris::GraphConnection & graphConnection )
+{
+
 }
 
 void
@@ -23,8 +30,8 @@ Polaris::ModelInterface::RemoveConnection(
 }
 
 void Polaris::ModelInterface::RemoveConnection(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+        const Polaris::Id & firstNodeId,
+        const Polaris::Id & lastNodeId )
 {
     proxy_.RemoveConnection( firstNodeId, lastNodeId, model_ );
 }

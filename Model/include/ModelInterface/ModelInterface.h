@@ -1,6 +1,7 @@
 #ifndef POLARISMODEL_MODELINTERFACE_H
 #define POLARISMODEL_MODELINTERFACE_H
 
+#include "include/ModelObserver/ModelObserver.h"
 #include "include/ModelProxy/ModelProxy.h"
 #include "include/GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
@@ -19,6 +20,7 @@ struct Model;
 class ModelInterface
 {
 private:
+    ModelObserver observer_;
     ModelProxy proxy_;
     Model model_;
 public:
@@ -52,17 +54,27 @@ public:
      * AddConnection
      * Arguments:
      * first and last nodes - nodes to be connected.
+     * connection params - params of connection
      * Callback is provided.
      *************************************************************************/
     void AddConnection( const GraphNode & firstNode,
-                        const GraphNode & lastNode );
+                        const GraphNode & lastNode,
+                        const ConnectionParams & params );
+    /**************************************************************************
+     * AddConnection
+     * Arguments:
+     * connection - connection between nodes contained in graph
+     * Callback is provided.
+     *************************************************************************/
+     void AddConnection( const GraphConnection & graphConnection );
     /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last nodeIds - id of nodes to be connected.
      * Callback is provided.
      *************************************************************************/
-    void AddConnection( Id firstNodeId, Id lastNodeId );
+    void AddConnection( const Id & firstNodeId, const Id & lastNodeId,
+                        const ConnectionParams & params );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -78,7 +90,7 @@ public:
      * with specified ids
      * Callback is provided.
      *************************************************************************/
-    void RemoveConnection( Id firstNodeId, Id lastNodeId );
+    void RemoveConnection( const Id &firstNodeId, const Id & lastNodeId );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -99,7 +111,7 @@ public:
      * nodeId - id of node to be removed from graph
      * Callback is provided.
      *************************************************************************/
-    void RemoveNode( Id nodeId );
+    void RemoveNode( const Id & nodeId );
     /**************************************************************************
      * FindPath find the shortest path between two nodes
      * Arguments:
@@ -114,7 +126,7 @@ public:
      * first and last nodeIds - ids of start and end vertices in graph
      * Callback is provided.
      *************************************************************************/
-    void FindPath( Id firstNodeId, Id lastNodeId );
+    void FindPath( const Id & firstNodeId, const Id & lastNodeId );
     /**************************************************************************
      * Subscribe
      * Arguments:
@@ -133,7 +145,7 @@ public:
      * nodeId - Id of Node's Meta
      * newMeta - Meta to be set
      *************************************************************************/
-    void ChangeMeta( Id nodeId, const Meta & newMeta );
+    void ChangeMeta( const Id & nodeId, const Meta & newMeta );
 };
 } //namespace Polaris
 

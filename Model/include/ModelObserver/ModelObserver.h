@@ -41,13 +41,13 @@ public:
      * Arguments:
      * subscriber - object to be subscribed. Must inherit from ModelSubscriber.
      *************************************************************************/
-    virtual void Subscribe( const ModelSubscriber * & subscriber );
+    virtual void Subscribe( const ModelSubscriber * subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - subscriber to be removed.
      *************************************************************************/
-    virtual void unSubscribe( const ModelSubscriber * & subscriber );
+    virtual void unSubscribe( const ModelSubscriber * subscriber );
     /**************************************************************************
      * MetaChanged
      * Arguments:

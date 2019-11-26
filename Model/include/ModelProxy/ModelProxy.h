@@ -2,6 +2,7 @@
 #define POLARISMODEL_MODELPROXY_H
 
 #include "include/ModelSubscriber/ModelSubscriber.h"
+#include "include/ModelObserver/ModelObserver.h"
 #include "include/GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
 #include <cstddef>//std::size_t
@@ -25,7 +26,8 @@ public:
      * node Id - id of node related to meta.
      * model - model to search in
      *************************************************************************/
-    void GetMetaByNodeId( Id GraphNodeId, const Model & model );
+    void GetMetaByNodeId( Id GraphNodeId, const Model & model,
+                          const ModelObserver & observer );
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -33,15 +35,19 @@ public:
      * Warning! Nodes must be contained in graph.
      * model - model to connect in
      *************************************************************************/
-    void AddConnection( const GraphNode & firstNode,
-                        const GraphNode & lastNode, const Model & model );
+    virtual void AddConnection( const GraphNode & firstNode,
+                                const GraphNode & lastNode,
+                                const Model & model,
+                                const ModelObserver & observer );
     /**************************************************************************
      * AddConnection
      * Arguments:
      * node Id - id of node contained in graph.
      * model - model to search in
      *************************************************************************/
-    void AddConnection( Id firstNodeId, Id lastNodeId, const Model & model );
+    virtual void AddConnection( Id firstNodeId, Id lastNodeId,
+                                const Model & model,
+                                const ModelObserver & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -49,67 +55,78 @@ public:
      * Warning! Nodes must be contained in graph.
      * model - model to remove in
      *************************************************************************/
-    void RemoveConnection( const GraphNode & firstNode,
-                           const GraphNode & lastNode, const Model & model );
+    virtual void RemoveConnection( const GraphNode & firstNode,
+                                   const GraphNode & lastNode,
+                                   const Model & model,
+                                   const ModelObserver & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
      * first and last node - id of nodes to remove connections from.
      * model - model to remove in
      *************************************************************************/
-    void RemoveConnection( Id firstNodeId, Id lastNodeId, const Model & model );
+    virtual void RemoveConnection( Id firstNodeId, Id lastNodeId,
+                                   const Model & model,
+                                   const ModelObserver & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node - node to insert in graph.
      * model - model to add in
      *************************************************************************/
-    void AddNode( const GraphNode & node, const Model & model );
+    virtual void AddNode( const GraphNode & node, const Model & model,
+                          const ModelObserver & observer );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    void RemoveNode( const GraphNode & node, const Model & model );
+    virtual void RemoveNode( const GraphNode & node, const Model & model,
+                             const ModelObserver & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node Id - Id of node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    void RemoveNode( Id nodeId, const Model & model );
+    virtual void RemoveNode( Id nodeId, const Model & model,
+                             const ModelObserver & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
      * first and last nodes - nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    void FindPath( const GraphNode & firstNode,
-                   const GraphNode & lastNode, const Model & model );
+    virtual void FindPath( const GraphNode & firstNode,
+                           const GraphNode & lastNode, const Model & model,
+                           const ModelObserver & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
      * first and last node Ids - Id of nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    void FindPath( Id firstNodeId, Id lastNodeId, const Model & model );
+    virtual void FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
+                           const ModelObserver & observer );
     /**************************************************************************
      * Subscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    void Subscribe( const ModelSubscriber & subscriber,
-                    const Model & model );
+    virtual void Subscribe( const ModelSubscriber * & subscriber,
+                            const Model & model,
+                            ModelObserver & observer ) const;
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    void Unsubscribe( const ModelSubscriber & subscriber,
-                    const Model & model );
+    virtual void Unsubscribe( const ModelSubscriber * & subscriber,
+                              const Model & model,
+                              ModelObserver & observer ) const;
 };
 } //namespace Polaris
 
