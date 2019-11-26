@@ -41,43 +41,43 @@ public:
      * Arguments:
      * subscriber - object to be subscribed. Must inherit from ModelSubscriber.
      *************************************************************************/
-    void Subscribe( const ModelSubscriber * & subscriber );
+    virtual void Subscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - subscriber to be removed.
      *************************************************************************/
-    void unSubscribe( const ModelSubscriber * & subscriber );
+    virtual void unSubscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * MetaChanged
      * Arguments:
      * newMeta - updated meta
      *************************************************************************/
-    void MetaChanged( const Meta & newMeta );
+    virtual void MetaChanged( const Meta & newMeta );
     /**************************************************************************
      * ConnectionAdded
      * Arguments:
      * first and last nodes - nodes that connected.
      *************************************************************************/
-    void ConnectionAdded( const GraphConnection & newConnection );
+    virtual void ConnectionAdded( const GraphConnection & newConnection );
     /**************************************************************************
      * ConnectionRemoved
      * Arguments:
      * first and last nodes - nodes between whose connection was deleted
      *************************************************************************/
-    void ConnectionRemoved( const GraphConnection & connection );
+    virtual void ConnectionRemoved( const GraphConnection & connection );
     /**************************************************************************
      * NodeAdded
      * Arguments:
      * node - node which was inserted in graph.
      *************************************************************************/
-    void NodeAdded( const GraphNode & node );
+    virtual void NodeAdded( const GraphNode & node );
     /**************************************************************************
      * NodeRemoved
      * Arguments:
      * node - node to be removed from graph
      *************************************************************************/
-    void NodeRemoved( const GraphNode & node );
+    virtual void NodeRemoved( const GraphNode & node );
 };
 } //namespace Polaris
 
