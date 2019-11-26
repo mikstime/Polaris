@@ -21,9 +21,12 @@ namespace Polaris
         GraphParser & operator = ( const GraphParser && ) = delete;
 
         void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
-        void RefreshItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph,
-                           std::vector< size_t > change_list);
         void DrawThePath( std::vector< size_t > path );
+        void OnMetaChanged( const Meta & meta );
+        void OnMetaAdded( const Meta & meta );
+        void OnMetaRemoved( const Meta & meta );
+        void OnConnectionAdded( const GraphConnection & connection );
+        void OnConnectionRemoved( const GraphConnection & connection );
 
     private:
         ItemController * item_cotroller_;

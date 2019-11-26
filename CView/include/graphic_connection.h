@@ -2,8 +2,6 @@
 #define CGRAPHICS_CONNECTION_H
 
 #include "graphic_item.h"
-#include <QGraphicsScene>
-#include <QGraphicsView>
 // TODO временный путь до заголовочных файлов
 #include "../Model/include/GraphConnection/GraphConnection.h"
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <QGraphicsItem>
 #include <QStyleOptionGraphicsItem>
+#include <QGraphicsEllipseItem>
 
 namespace Polaris
 {

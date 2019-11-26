@@ -7,9 +7,9 @@
 #include "../../Model/include/Meta/Meta.h"
 #include "../../Model/include/GraphConnection/GraphConnection.h"
 
-
 namespace Polaris
 {
+    // TODO Наследовние от сабскрайбера
 class ViewSub
 {
 public:
@@ -29,6 +29,7 @@ public:
 
 private:
     View * view_;
+
 };
 } // namespace Polaris
 

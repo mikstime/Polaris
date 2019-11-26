@@ -26,7 +26,7 @@ namespace Polaris
         // запрашивает пару для соединения
         virtual std::pair< size_t, size_t > GetSelectedNodes() const = 0;
         // запрашивает место клика по экрану. Используется для перемещения ноды и для создания новой
-        virtual QPoint GetNodeCoordinates() const = 0;
+        virtual QPointF GetNodeCoordinates() const = 0;
         // запрашивает текущий этаж
         virtual int8_t GetFloorNumber() const = 0;
     };

@@ -2,9 +2,10 @@
 
 using Polaris::GraphParser;
 
-GraphParser::GraphParser( ItemController * item_controller)
+GraphParser::GraphParser( ItemController * item_controller )
 : item_cotroller_( item_controller )
 {
+
 }
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
@@ -12,13 +13,32 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
 
 }
 
-void GraphParser::RefreshItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph,
-                                std::vector< size_t > change_list)
+void GraphParser::DrawThePath( std::vector< size_t > path )
 {
 
 }
 
-void GraphParser::DrawThePath( std::vector< size_t > path )
+void GraphParser::OnMetaChanged( const Meta & meta )
+{
+
+}
+
+void GraphParser::OnMetaAdded( const Meta & meta )
+{
+
+}
+
+void GraphParser::OnMetaRemoved( const Meta & meta )
+{
+
+}
+
+void GraphParser::OnConnectionAdded( const GraphConnection & connection )
+{
+
+}
+
+void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
 
 }

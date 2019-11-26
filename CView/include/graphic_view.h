@@ -1,9 +1,13 @@
 #ifndef CVIEW_H
 #define CVIEW_H
 
+#include "include/graph_parser.h"
+#include "include/item_controller.h"
 #include "view.h"
-#include <QGraphicsScene>
+#include <memory>
+#include "renderer.h"
 #include <QGraphicsView>
+#include <QtWidgets/QVBoxLayout>
 
 namespace Polaris 
 {
@@ -14,7 +18,10 @@ public:
     explicit GraphicView();
     GraphicView( const GraphicView & ) = delete;
     GraphicView( const GraphicView && ) = delete;
-    GraphicView & operator = ( const GraphicView & ) = delete;
+
+    GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent );
+
+    GraphicView & operator = (const GraphicView & ) = delete;
     GraphicView & operator = ( const GraphicView && ) = delete;
     ~GraphicView() = default;
 
@@ -31,9 +38,16 @@ public:
     // запрашивает пару для соединения
     std::pair< size_t, size_t > GetSelectedNodes() const override;
     // запрашивает место клика по экрану. Используется для перемещения ноды и для создания новой
-    QPoint GetNodeCoordinates() const override;
+    QPointF GetNodeCoordinates() const override;
     // запрашивает текущий этаж
     int8_t GetFloorNumber() const override;
+
+private:
+    // TODO будут ли работать указатели?
+    std::unique_ptr< ItemController > item_controller_;
+    std::unique_ptr< GraphParser > graph_parser_;
+    std::unique_ptr< Renderer > renderer_;
+
 };
 } // namespace Polaris
 

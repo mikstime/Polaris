@@ -8,7 +8,7 @@ namespace Polaris
     class Renderer : public QGraphicsView
     {
     public:
-        explicit Renderer( QWidget * parent = nullptr );
+        explicit Renderer( QGraphicsScene * scene, QWidget * parent = nullptr );
         ~Renderer() = default;
         Renderer( const Renderer & ) = delete;
         Renderer( const Renderer && ) = delete;
@@ -19,7 +19,7 @@ namespace Polaris
         void wheelEvent( QWheelEvent * event ) override;
 
     private:
-        short int currnet_floor_;
+        short int current_floor_;
     };
 } // namespace Polaris
 

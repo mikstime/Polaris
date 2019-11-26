@@ -1,4 +1,5 @@
 #include "include/graphic_connection.h"
+#include <QPainter>
 
 using Polaris::GraphicConnection;
 
@@ -27,12 +28,16 @@ std::string GraphicConnection::GetRole() const
     return role_;
 }
 
-void GraphicConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget )
 {
+    painter->setPen( Qt::black );
+    painter->drawLine( left_, right_ );
 
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 }
 
 QRectF GraphicConnection::boundingRect() const
 {
-
+    return QRectF( left_, right_ ).normalized();
 }
