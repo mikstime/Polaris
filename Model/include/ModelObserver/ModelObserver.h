@@ -2,9 +2,9 @@
 #define POLARISMODEL_MODELOBSERVER_H
 
 #include "include/ModelSubscriber/ModelSubscriber.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
-#include "include/Meta/Meta.h"
+#include "Meta/Meta.h"
 #include <utility> //std::move
 #include <vector> //std::vector
 
@@ -40,14 +40,18 @@ public:
      * Subscribe
      * Arguments:
      * subscriber - object to be subscribed. Must inherit from ModelSubscriber.
+     * Return value:
+     * bool - true on success, false if failed.
      *************************************************************************/
-    virtual void Subscribe( const ModelSubscriber * subscriber );
+    virtual bool Subscribe( const ModelSubscriber * subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - subscriber to be removed.
+     * Return value:
+     * bool - true on success, false if failed.
      *************************************************************************/
-    virtual void unSubscribe( const ModelSubscriber * subscriber );
+    virtual bool unSubscribe( const ModelSubscriber * subscriber );
     /**************************************************************************
      * MetaChanged
      * Arguments:

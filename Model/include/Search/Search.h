@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "include/Graph/Graph.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphNode/GraphNode.h"
 
 namespace Polaris
 {

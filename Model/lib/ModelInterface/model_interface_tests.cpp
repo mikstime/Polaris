@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "include/ModelInterface/ModelInterface.h"
-#include "include/GraphNode/GraphNode.h"
-#include "include/GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
 #include "lib/ModelObserver/model_observer_tests.cpp"
 using namespace Polaris;
 

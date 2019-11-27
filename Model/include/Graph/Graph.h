@@ -1,15 +1,14 @@
 #ifndef GRAPHSEARCH_GRAPH_H
 #define GRAPHSEARCH_GRAPH_H
 
-#include "include/GraphConnection/GraphConnection.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector
 #include <set>
 namespace Polaris
 {
-using Id = std::size_t;
 using GraphConnections = std::vector< GraphConnection >;
 using GraphNodes = std::set< GraphNode >;
 /******************************************************************************

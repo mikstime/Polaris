@@ -3,14 +3,14 @@
 
 #include "include/ModelObserver/ModelObserver.h"
 #include "include/ModelProxy/ModelProxy.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
+#include "typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
 
 namespace Polaris
 {
-using Id = std::size_t;
 class ModelProxy;
 struct Model;
 /******************************************************************************
@@ -34,15 +34,15 @@ public:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      * model - initial state of model.
      *************************************************************************/
-    explicit ModelInterface( const ModelProxy & a_proxy, Model a_model )
-    :proxy_( a_proxy ), model_( std::move( a_model ) ){};
+    explicit ModelInterface( ModelProxy  a_proxy, Model  a_model )
+    :proxy_( std::move( a_proxy ) ), model_( std::move( a_model ) ){};
     /**************************************************************************
      * ModelInterface(proxy)
      * Arguments:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      *************************************************************************/
-    explicit ModelInterface( const ModelProxy & a_proxy )
-    :proxy_( a_proxy ), model_() {};
+    explicit ModelInterface( ModelProxy  a_proxy )
+    :proxy_( std::move( a_proxy ) ), model_() {};
     /**************************************************************************
      * ModelInterface(model)
      * Arguments:
@@ -66,7 +66,7 @@ public:
      * connection - connection between nodes contained in graph
      * Callback is provided.
      *************************************************************************/
-     void AddConnection( const GraphConnection & graphConnection );
+     void AddConnection( const GraphConnection & new_connection );
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -98,6 +98,13 @@ public:
      * Callback is provided.
      *************************************************************************/
     void AddNode( const GraphNode & node );
+    /**************************************************************************
+     * AddNode
+     * Arguments:
+     * nodeId - node's id to be inserted in graph
+     * Callback is provided.
+     *************************************************************************/
+    void AddNode( const Id & nodeId );
     /**************************************************************************
      * RemoveNode
      * Arguments:
@@ -132,13 +139,13 @@ public:
      * Arguments:
      * subscriber - subscribe for all updates. Documented in ModelSubscriber
      *************************************************************************/
-    void Subscribe( const ModelSubscriber & subscriber );
+    void Subscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - unsubscribe from updates
      *************************************************************************/
-    void Unsubscribe( const ModelSubscriber & subscriber );
+    void Unsubscribe( const ModelSubscriber * & subscriber );
     /**************************************************************************
      * ChangeMeta
      * Arguments:

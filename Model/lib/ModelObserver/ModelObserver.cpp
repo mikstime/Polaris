@@ -1,13 +1,20 @@
 #include "include/ModelObserver/ModelObserver.h"
 
-void Polaris::ModelObserver::Subscribe(
+bool Polaris::ModelObserver::Subscribe(
         const Polaris::ModelSubscriber * subscriber )
 {
     // just add subscriber at the end of the vector
-    subscribers_.push_back( subscriber );
+    auto it = std::find( subscribers_.begin(),
+                         subscribers_.end(), subscriber );
+    if( it == subscribers_.end() )
+    {
+        subscribers_.push_back( subscriber );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelObserver::unSubscribe(
+bool Polaris::ModelObserver::unSubscribe(
         const Polaris::ModelSubscriber * subscriber )
 {
     // find subscriber in vector
@@ -15,8 +22,11 @@ void Polaris::ModelObserver::unSubscribe(
                          subscribers_.end(), subscriber );
     // remove sub if found
     if( it != subscribers_.end() )
+    {
         subscribers_.erase( it );
-    //@TODO should raise an exception if not found?
+        return true;
+    }
+    return false;
 }
 
 void Polaris::ModelObserver::MetaChanged( const Polaris::Meta & newMeta )

@@ -1,17 +1,13 @@
 #ifndef POLARISMODEL_GRAPHINTERFACE_H
 #define POLARISMODEL_GRAPHINTERFACE_H
 
-#include "include/GraphConnection/GraphConnection.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
 #include "include/Graph/Graph.h"
-#include <cstddef> //std::size_t
+#include "typedefs.h"
+#include <utility>
 namespace Polaris
 {
-using Id = std::size_t;
-struct ConnectionParams;
-struct GraphConnection;
-struct GraphNode;
-struct Graph;
 /******************************************************************************
  * GraphInterface class provides access to data managment inside graph.
  *****************************************************************************/
@@ -20,34 +16,45 @@ class GraphInterface
 private:
     Graph graph_;
 public:
+    explicit GraphInterface( Graph  g ): graph_(std::move( g )) {};
     /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last nodes - nodes to be connected.
+     * params - parameters of connection
      *************************************************************************/
-    void AddConnection( const GraphNode & firstNode,
-                        const GraphNode & lastNode );
+    bool AddConnection( const GraphConnection & connection );
+    /**************************************************************************
+     * AddConnection
+     * Arguments:
+     * first and last nodes - nodes to be connected.
+     * params - parameters of connection
+     *************************************************************************/
+    bool AddConnection( const GraphNode & firstNode,
+                        const GraphNode & lastNode,
+                        const ConnectionParams & params );
     /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last node Ids -id of nodes to be connected.
      *************************************************************************/
-    void AddConnection( Id firstNodeId, Id lastNodeId );
+    bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
+                        const ConnectionParams & params );
     /**************************************************************************
      * SetConnectionParams
      * Arguments:
      * first and last node Ids - Id of connected nodes whose information
      * must be updated
      *************************************************************************/
-    void SetConnectionParams( Id firstNodeId, Id lastNodeId,
-                             ConnectionParams params );
+    bool SetConnectionParams( Id firstNodeId, Id lastNodeId,
+                              ConnectionParams params );
     /**************************************************************************
      * SetConnectionParams
      * Arguments:
      * first and last node Ids - Id of connected nodes whose information
      * must be updated
      *************************************************************************/
-    void SetConnectionParams( const GraphNode & firstNode,
+    bool SetConnectionParams( const GraphNode & firstNode,
                               const GraphNode & lastNode,
                               ConnectionParams params );
     /**************************************************************************
@@ -55,7 +62,7 @@ public:
      * Arguments:
      * first and last nodes - nodes connection between which must be destructed
      *************************************************************************/
-    void RemoveConnection( const GraphNode & firstNode,
+    bool RemoveConnection( const GraphNode & firstNode,
                            const GraphNode & lastNode );
     /**************************************************************************
      * RemoveConnection
@@ -63,25 +70,25 @@ public:
      * first and last node ids - id of nodes connection between which
      * must be destructed
      *************************************************************************/
-    void RemoveConnection( Id firstNodeId, Id lastNodeId );
+    bool RemoveConnection( Id firstNodeId, Id lastNodeId );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node - node to be inserted in graph
      *************************************************************************/
-    void AddNode( const GraphNode & node );
+    bool AddNode( const GraphNode & node );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to be removed from graph
      *************************************************************************/
-    void RemoveNode( const GraphNode & node );
+    bool RemoveNode( const GraphNode & node );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node Id - id of node to be removed from graph
      *************************************************************************/
-    void RemoveNode( Id nodeId );
+    bool RemoveNode( Id nodeId );
     /**************************************************************************
      * HasNode
      * Arguments:
@@ -140,7 +147,7 @@ public:
      * ReturnValue:
      * Node with specified Id
      *************************************************************************/
-    //@TODO const GraphNode & getNode( Id nodeId );
+    const GraphNode & getNode( Id nodeId );
 };
 } //namespace Polaris
 

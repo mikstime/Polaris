@@ -2,8 +2,8 @@
 #include <gmock/gmock.h>
 #include "include/GraphInterface/GraphInterface.h"
 #include <include/Graph/Graph.h>
-#include <include/GraphNode/GraphNode.h>
-#include <include/GraphConnection/GraphConnection.h> // ConnectionParams
+#include <GraphNode/GraphNode.h>
+#include <GraphConnection/GraphConnection.h> // ConnectionParams
 using namespace Polaris;
 
 class MockGraphInterface: public GraphInterface

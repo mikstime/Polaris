@@ -1,10 +1,17 @@
 #include "include/ModelInterface/ModelInterface.h"
-
+#include "typedefs.h"
+/******************************************************************************
+ * AddConnection Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::AddConnection(
         const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode )
+        const Polaris::GraphNode & lastNode,
+        const Polaris::ConnectionParams & params )
 {
-    proxy_.AddConnection( firstNode, lastNode, model_ );
+    GraphConnection new_connection( firstNode.GetId(),
+                                    lastNode.GetId(),
+                                    params );
+    proxy_.AddConnection( new_connection, model_, observer_ );
 }
 
 void Polaris::ModelInterface::AddConnection(
@@ -12,77 +19,96 @@ void Polaris::ModelInterface::AddConnection(
         const Polaris::Id & lastNodeId,
         const Polaris::ConnectionParams & params )
 {
-    proxy_.AddConnection( firstNodeId, lastNodeId, model_ );
+    GraphConnection new_connection( firstNodeId, lastNodeId, params );
+    proxy_.AddConnection( new_connection, model_, observer_ );
 }
 
 void Polaris::ModelInterface::AddConnection(
-        const Polaris::GraphConnection & graphConnection )
+        const Polaris::GraphConnection & new_connection )
 {
-
+    proxy_.AddConnection( new_connection, model_, observer_ );
 }
-
-void
-Polaris::ModelInterface::RemoveConnection(
+/******************************************************************************
+ * RemoveConnnectio Methods
+ *****************************************************************************/
+void Polaris::ModelInterface::RemoveConnection(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-    proxy_.RemoveConnection( firstNode, lastNode, model_ );
+    proxy_.RemoveConnection( firstNode.GetId(), lastNode.GetId(),
+                      model_, observer_ );
 }
 
 void Polaris::ModelInterface::RemoveConnection(
         const Polaris::Id & firstNodeId,
         const Polaris::Id & lastNodeId )
 {
-    proxy_.RemoveConnection( firstNodeId, lastNodeId, model_ );
+    proxy_.RemoveConnection( firstNodeId, lastNodeId, model_, observer_ );
 }
-
+/******************************************************************************
+ * AddNode Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::AddNode(
         const Polaris::GraphNode & node )
 {
-    proxy_.AddNode( node, model_ );
+    proxy_.AddNode( node, model_, observer_ );
 }
 
+void Polaris::ModelInterface::AddNode(
+        const Polaris::Id & node_id )
+{
+    GraphNode node( node_id );
+    proxy_.AddNode( node, model_, observer_ );
+}
+/******************************************************************************
+ * RemoveNode Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::RemoveNode(
         const Polaris::GraphNode & node )
 {
-    proxy_.RemoveNode( node, model_ );
+    proxy_.RemoveNode( node.GetId(), model_, observer_ );
 }
 
-void Polaris::ModelInterface::RemoveNode(
-        Polaris::Id nodeId )
+void Polaris::ModelInterface::RemoveNode( const Polaris::Id & nodeId )
 {
-    proxy_.RemoveNode( nodeId, model_ );
+    proxy_.RemoveNode( nodeId, model_, observer_ );
 }
-
+/******************************************************************************
+ * FindPath Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::FindPath(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-    proxy_.FindPath( firstNode, lastNode, model_ );
+    proxy_.FindPath( firstNode.GetId(), lastNode.GetId(), model_, observer_ );
 }
 
 void Polaris::ModelInterface::FindPath(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+        const Polaris::Id & firstNodeId,
+        const Polaris::Id & lastNodeId )
 {
-    proxy_.FindPath(firstNodeId, lastNodeId, model_ );
+    proxy_.FindPath( firstNodeId, lastNodeId, model_, observer_ );
 }
-
+/******************************************************************************
+ * Observer Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::Subscribe(
-        const Polaris::ModelSubscriber & subscriber )
+        const Polaris::ModelSubscriber * & subscriber )
 {
-
+    proxy_.Subscribe( subscriber, model_, observer_ );
 }
 
 void Polaris::ModelInterface::Unsubscribe(
-        const Polaris::ModelSubscriber & subscriber )
+        const Polaris::ModelSubscriber * & subscriber )
 {
-
+    proxy_.Unsubscribe( subscriber, model_, observer_ );
 }
-
+/******************************************************************************
+ * ChangeMeta Methods
+ *****************************************************************************/
 void Polaris::ModelInterface::ChangeMeta(
-        Polaris::Id nodeId,
+        const Polaris::Id & nodeId,
         const Polaris::Meta & newMeta )
 {
-
+    //@TODO implement
 }

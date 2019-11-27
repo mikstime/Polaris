@@ -1,17 +1,20 @@
 #include "include/GraphInterface/GraphInterface.h"
 #include <boost/container/flat_set.hpp>
 #include <utility> //std::pair
-void Polaris::GraphInterface::AddConnection(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode )
+using namespace Polaris;
+bool GraphInterface::AddConnection(
+        const GraphNode & firstNode,
+        const GraphNode & lastNode,
+        const ConnectionParams & params )
 {
     //Delegate to AddConnection( Id, Id ).
-    AddConnection( firstNode.getId(), lastNode.getId() );
+    AddConnection( firstNode.GetId(), lastNode.GetId(), params );
 }
 
-void Polaris::GraphInterface::AddConnection(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+bool GraphInterface::AddConnection(
+        const Id & firstNodeId,
+        const Id & lastNodeId,
+        const ConnectionParams & params )
 {
     if( AreConnected( firstNodeId, lastNodeId ) )
     {
@@ -25,89 +28,101 @@ void Polaris::GraphInterface::AddConnection(
 
 }
 
-void Polaris::GraphInterface::RemoveConnection(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode )
+bool GraphInterface::RemoveConnection(
+        const GraphNode & firstNode,
+        const GraphNode & lastNode )
 {
 
 }
 
-void Polaris::GraphInterface::RemoveConnection(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+bool GraphInterface::RemoveConnection(
+        Id firstNodeId,
+        Id lastNodeId )
 {
 
 }
 
-void Polaris::GraphInterface::AddNode( const Polaris::GraphNode & node )
+bool GraphInterface::AddNode( const GraphNode & node )
 {
 //    graph_.nodes.insert(node);
 }
 
-void Polaris::GraphInterface::RemoveNode( const Polaris::GraphNode & node )
+bool GraphInterface::RemoveNode( const GraphNode & node )
 {
 
 }
 
-void Polaris::GraphInterface::RemoveNode( Polaris::Id nodeId )
+bool GraphInterface::RemoveNode( Id nodeId )
 {
 
 }
 
-bool Polaris::GraphInterface::HasNode( const Polaris::GraphNode & node )
-{
-    return false;
-}
-
-bool Polaris::GraphInterface::HasNode( Polaris::Id nodeId )
+bool GraphInterface::HasNode( const GraphNode & node )
 {
     return false;
 }
 
-bool Polaris::GraphInterface::AreConnected(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode )
+bool GraphInterface::HasNode( Id nodeId )
 {
     return false;
 }
 
-bool Polaris::GraphInterface::AreConnected( Polaris::Id firstNodeId,
-                                            Polaris::Id lastNodeId ) {
+bool GraphInterface::AreConnected(
+        const GraphNode & firstNode,
+        const GraphNode & lastNode )
+{
     return false;
 }
 
-const Polaris::GraphConnection & Polaris::GraphInterface::getConnection(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode )
+bool GraphInterface::AreConnected( Id firstNodeId,
+                                            Id lastNodeId ) {
+    return false;
+}
+
+const GraphConnection & GraphInterface::getConnection(
+        const GraphNode & firstNode,
+        const GraphNode & lastNode )
 {
     return graph_.connections[ 0 ];
 }
 
-const Polaris::GraphConnection & Polaris::GraphInterface::getConnection(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId )
+const GraphConnection & GraphInterface::getConnection(
+        Id firstNodeId,
+        Id lastNodeId )
 {
     return graph_.connections[ 0 ];
 }
 
-//const Polaris::GraphNode & Polaris::GraphInterface::getNode(
-//        Polaris::Id nodeId )
+//const GraphNode & GraphInterface::getNode(
+//        Id nodeId )
 //{
 //    return GraphNode();
 //}
 
-void Polaris::GraphInterface::SetConnectionParams(
-        Polaris::Id firstNodeId,
-        Polaris::Id lastNodeId,
-        Polaris::ConnectionParams params )
+bool GraphInterface::SetConnectionParams(
+        Id firstNodeId,
+        Id lastNodeId,
+        ConnectionParams params )
 {
 
 }
 
-void Polaris::GraphInterface::SetConnectionParams(
-        const Polaris::GraphNode & firstNode,
-        const Polaris::GraphNode & lastNode,
-        Polaris::ConnectionParams params )
+bool GraphInterface::SetConnectionParams(
+        const GraphNode & firstNode,
+        const GraphNode & lastNode,
+        ConnectionParams params )
 {
 
+}
+
+bool GraphInterface::AddConnection(
+        const GraphConnection & connection )
+{
+
+}
+
+const GraphNode & GraphInterface::getNode( Id nodeId )
+{
+    //@TODO implement this.
+    return graph_.nodes[ nodeId ];
 }

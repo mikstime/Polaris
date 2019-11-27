@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "include/Meta/Meta.h"
+#include "Meta/Meta.h"
 #include "include/ModelObserver/ModelObserver.h"
-#include "include/GraphNode/GraphNode.h"
-#include "include/GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
 #include "include/ModelSubscriber/ModelSubscriber.h"
 using namespace Polaris;
 class MockModelObserver: public ModelObserver
