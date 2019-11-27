@@ -23,8 +23,8 @@ public:
     void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) const;
     void DrawThePath( std::vector< size_t > path ) const;
     void OnMetaChanged( const Meta & meta ) const;
-    void OnMetaAdded( const Meta & meta ) const;
-    void OnMetaRemoved( const Meta & meta ) const;
+    void OnNodeAdded(const Meta & meta ) const;
+    void OnNodeRemoved( const Meta & meta ) const;
     void OnConnectionAdded( const GraphConnection & connection ) const;
     void OnConnectionRemoved( const GraphConnection & connection ) const;
 

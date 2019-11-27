@@ -4,7 +4,8 @@
 using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const GraphConnection & connection )
-: left_( left ),
+: GraphicItem( 1, 1, "connection" ),
+left_( left ),
 right_( right ),
 color_( Qt::black )
 {
@@ -14,21 +15,6 @@ color_( Qt::black )
 double GraphicConnection::GetPrice() const
 {
     return price_;
-}
-
-size_t GraphicConnection::GetId() const
-{
-    return id_;
-}
-
-int8_t GraphicConnection::GetFloor() const
-{
-    return floor_;
-}
-
-std::string GraphicConnection::GetRole() const
-{
-    return role_;
 }
 
 void GraphicConnection::SetColor( const QColor & color )

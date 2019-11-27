@@ -23,12 +23,12 @@ void ViewSub::OnMetaChanged( const Meta & meta ) const
     view_->OnMetaChanged( meta );
 }
 
-void ViewSub::OnMetaAdded( const Meta & meta ) const
+void ViewSub::OnNodeAdded(const Meta & meta ) const
 {
     view_->OnMetaAdded( meta );
 }
 
-void ViewSub::OnMetaRemoved( const Meta & meta ) const
+void ViewSub::OnNodeRemoved( const Meta & meta ) const
 {
     view_->OnMetaRemoved( meta );
 }

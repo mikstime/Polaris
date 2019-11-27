@@ -17,11 +17,17 @@ namespace Polaris
 
         short int GetFloor() const;
         void wheelEvent( QWheelEvent * event ) override;
+        void mousePressEvent( QMouseEvent * event ) override;
+        void mouseMoveEvent( QMouseEvent * event ) override;
 
     private:
         int8_t current_floor_;
+        bool empty_last_floor_;
+        bool empty_first_floor_;
 
-        void ChangeFloor( const int8_t & step );
+        bool ChangeFloor( const int8_t & step );
+        bool FloorEmpty();
+        void RaiseEmptyFloor();
     };
 } // namespace Polaris
 

@@ -6,7 +6,9 @@ using Polaris::Renderer;
 
 Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
 : QGraphicsView( scene, parent ),
-current_floor_( 1 )
+current_floor_( 1 ),
+empty_first_floor_( true ),
+empty_last_floor_( true )
 {
     // TODO инициализация начальной картинки
 }
@@ -18,21 +20,52 @@ short int Renderer::GetFloor() const
 
 void Renderer::wheelEvent( QWheelEvent * event )
 {
-    if( event->delta() > 0 )
+    // Если смена этажа успешна, то он не пустой
+    if( event->delta() > 0 && ! empty_last_floor_ )
     {
-        ChangeFloor( 1 );
+        empty_last_floor_ = ! ChangeFloor( 1 );
     }
-    else if ( event->delta() < 0 )
+    else if ( event->delta() < 0 && ! empty_first_floor_ )
     {
-        ChangeFloor( -1 );
+        empty_first_floor_ = ! ChangeFloor( -1 );
     }
 
+    if( FloorEmpty() )
+    {
+        RaiseEmptyFloor();
+    }
 }
 
-void Renderer::ChangeFloor( const int8_t & step )
+void Renderer::mousePressEvent( QMouseEvent * event )
+{
+    // TODO перемещение сцены мышью
+    if (event->button() == Qt::MiddleButton)
+    {
+//        // Store original position.
+//        m_originX = event->x();
+//        m_originY = event->y();
+    }
+}
+
+void Renderer::mouseMoveEvent( QMouseEvent * event )
+{
+//    if (e->buttons() & Qt::MidButton)
+//    {
+//        QPointF oldp = mapToScene(m_originX, m_originY);
+//        QPointF newP = mapToScene(event->pos());
+//        QPointF translation = newp - oldp;
+//
+//        translate(translation.x(), translation.y());
+//
+//        m_originX = event->x();
+//        m_originY = event->y();
+//    }
+}
+
+bool Renderer::ChangeFloor( const int8_t & step )
 {
     // новый этаж и лист всех элементов
-    int8_t tmp_floor = current_floor_ + step;
+    bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
 
     for( size_t i = 0; i < items_list.size(); ++i )
@@ -41,16 +74,26 @@ void Renderer::ChangeFloor( const int8_t & step )
         GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
 
         // если элемент на этаже, показать, иначе спрятать
-        if( cur_item->GetFloor() != tmp_floor )
+        if( cur_item->GetFloor() != current_floor_ + step )
         {
             cur_item->hide();
         }
         else
         {
             cur_item->show();
-            current_floor_ = tmp_floor;
+            floor_exists = true;
         }
     }
 
-    // TODO проверка на существование этажа +-1
+    return floor_exists;
+}
+
+bool Renderer::FloorEmpty()
+{
+    return empty_first_floor_ || empty_last_floor_;
+}
+
+void Renderer::RaiseEmptyFloor()
+{
+    // TODO подменить фон
 }

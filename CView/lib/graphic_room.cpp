@@ -7,14 +7,15 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size )
-: size_( size ),
+: GraphicItem( 2, 2, "room" ),
+size_( size ),
 color_( Qt::blue )
 {
     // TODO инициализация
 }
 
 GraphicRoom::GraphicRoom()
-: role_( "mark" )
+:GraphicItem( 0, 0, "mark" )
 {
     // TODO инициализация
 }

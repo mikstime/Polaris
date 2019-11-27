@@ -39,7 +39,9 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 
     if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
     {
-        if( cast_item != nullptr && cast_item->GetRole() == "room"s ) // выбор комнаты
+        if( cast_item != nullptr && ( cast_item->GetRole() == "room"s ||
+                                      cast_item->GetRole() == "hall"s ||
+                                      cast_item->GetRole() == "stair"s ) ) // выбор комнаты
         {
             SelectCurrentNode( cast_item );
             ResetPreviousNode();
@@ -70,7 +72,9 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
 
     if( mouse_event->button() == Qt::MouseButton::LeftButton )
     {
-        if( cast_item != nullptr && cast_item->GetRole() == "room"s ) // соединить ноды
+        if( cast_item != nullptr && ( cast_item->GetRole() == "room"s ||
+                                      cast_item->GetRole() == "hall"s ||
+                                      cast_item->GetRole() == "stair"s ) ) // соединить ноды
         {
             size_t tmp_node = cast_item->GetId();
             if( tmp_node != current_node_->GetId() ) // если соединение не с самим собой
@@ -86,6 +90,7 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
             mark_down_.hide();
         }
     }
+    // обновить сцену
     this->update();
 }
 

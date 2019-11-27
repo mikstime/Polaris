@@ -17,9 +17,6 @@ public:
     GraphicConnection & operator = ( const GraphicConnection && ) = delete;
 
     double GetPrice() const;
-    size_t GetId() const override;
-    int8_t GetFloor() const override;
-    std::string GetRole() const override;
     void SetColor( const QColor & color ) override;
     void ResetColor() override;
     void SetSelection() override;
@@ -29,9 +26,6 @@ private:
     double price_;
     QPointF left_;
     QPointF right_;
-    size_t id_;
-    int8_t floor_;
-    std::string role_;
     QColor color_;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
