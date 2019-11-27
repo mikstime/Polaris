@@ -20,6 +20,10 @@ public:
     size_t GetId() const override;
     int8_t GetFloor() const override;
     std::string GetRole() const override;
+    void SetColor( const QColor & color ) override;
+    void ResetColor() override;
+    void SetSelection() override;
+    void ResetSelection() override;
 
 private:
     double price_;
@@ -28,6 +32,7 @@ private:
     size_t id_;
     int8_t floor_;
     std::string role_;
+    QColor color_;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
     QRectF boundingRect() const override final;

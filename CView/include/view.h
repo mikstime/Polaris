@@ -13,13 +13,14 @@ namespace Polaris
     public:
         virtual ~View() = default;
 
-        virtual void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) = 0;
-        virtual void DrawThePath( std::vector< size_t > path ) = 0;
-        virtual void OnMetaChanged( const Meta & meta ) = 0;
-        virtual void OnMetaAdded( const Meta & meta ) = 0;
-        virtual void OnMetaRemoved( const Meta & meta ) = 0;
-        virtual void OnConnectionAdded( const GraphConnection & connection ) = 0;
-        virtual void OnConnectionRemoved( const GraphConnection & connection ) = 0;
+        virtual void BuildItems( const std::vector< Meta > & meta,
+                                 const std::vector< GraphConnection > & graph ) const = 0;
+        virtual void DrawThePath( std::vector< size_t > path ) const = 0;
+        virtual void OnMetaChanged( const Meta & meta ) const = 0;
+        virtual void OnMetaAdded( const Meta & meta ) const = 0;
+        virtual void OnMetaRemoved( const Meta & meta ) const = 0;
+        virtual void OnConnectionAdded( const GraphConnection & connection ) const = 0;
+        virtual void OnConnectionRemoved( const GraphConnection & connection ) const = 0;
 
         // запрашивает выбранную ноду
         virtual size_t GetSelectedNode() const = 0;

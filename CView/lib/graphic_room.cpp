@@ -1,11 +1,22 @@
+#include "include/graphic_item.h"
 #include "include/graphic_room.h"
+#include <string>
 #include <QPainter>
 
+using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size )
-    : size_( size )
+: size_( size ),
+color_( Qt::blue )
 {
+    // TODO инициализация
+}
+
+GraphicRoom::GraphicRoom()
+: role_( "mark" )
+{
+    // TODO инициализация
 }
 
 std::string GraphicRoom::GetInfo() const
@@ -13,25 +24,30 @@ std::string GraphicRoom::GetInfo() const
     return info_;
 }
 
-size_t GraphicRoom::GetId() const
+void GraphicRoom::SetColor( const QColor & color )
 {
-    return id_;
+    color_ = color;
 }
 
-int8_t GraphicRoom::GetFloor() const
+void GraphicRoom::ResetColor()
 {
-    return floor_;
+    color_ = Qt::blue;
 }
 
-std::string GraphicRoom::GetRole() const
+void GraphicRoom::SetSelection()
 {
-    return role_;
+    SetColor( Qt::yellow );
+}
+
+void GraphicRoom::ResetSelection()
+{
+    ResetColor();
 }
 
 void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
     painter->setPen( Qt::black );
-    painter->setBrush( Qt::blue );
+    painter->setBrush( color_ );
     painter->drawEllipse( size_ );
 
     Q_UNUSED(option);

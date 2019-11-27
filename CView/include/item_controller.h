@@ -1,6 +1,7 @@
 #ifndef MAINAPP_ITEM_CONTROLLER_H
 #define MAINAPP_ITEM_CONTROLLER_H
 
+#include "include/graphic_room.h"
 #include <QGraphicsEllipseItem>
 #include <QGraphicsScene>
 #include <QMouseEvent>
@@ -23,9 +24,14 @@ namespace Polaris
         void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
 
     private:
-        size_t current_node_;
-        size_t previous_node_;
-        QGraphicsEllipseItem mark_down_;
+        GraphicItem * current_node_;
+        GraphicItem * previous_node_;
+        GraphicRoom mark_down_;
+
+        void SelectCurrentNode(GraphicItem * const new_current );
+        void SelectPreviousNode(GraphicItem * const new_previous );
+        void ResetCurrentNode();
+        void ResetPreviousNode();
     };
 } // namespace Polaris
 

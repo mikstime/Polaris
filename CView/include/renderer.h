@@ -19,7 +19,9 @@ namespace Polaris
         void wheelEvent( QWheelEvent * event ) override;
 
     private:
-        short int current_floor_;
+        int8_t current_floor_;
+
+        void ChangeFloor( const int8_t & step );
     };
 } // namespace Polaris
 

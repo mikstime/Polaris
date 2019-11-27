@@ -12,6 +12,7 @@ using Polaris::GraphConnection;
 using Polaris::GraphicConnection;
 using Polaris::Meta;
 
+// Размер окна и выкладка, на которой будет размещен виджет
 GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent )
 : item_controller_( new ItemController( size ) ),
   renderer_( new Renderer( item_controller_.get() ) ),
@@ -23,37 +24,37 @@ GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * pa
     layout.addWidget( renderer_.get() );
 };
 
-void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) const
 {
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::DrawThePath( std::vector< size_t > path )
+void GraphicView::DrawThePath( std::vector< size_t > path ) const
 {
     graph_parser_->DrawThePath( path );
 }
 
-void GraphicView::OnMetaChanged( const Meta & meta )
+void GraphicView::OnMetaChanged( const Meta & meta ) const
 {
     graph_parser_->OnMetaChanged( meta );
 }
 
-void GraphicView::OnMetaAdded( const Meta & meta )
+void GraphicView::OnMetaAdded( const Meta & meta ) const
 {
     graph_parser_->OnMetaAdded( meta );
 }
 
-void GraphicView::OnMetaRemoved( const Meta & meta )
+void GraphicView::OnMetaRemoved( const Meta & meta ) const
 {
     graph_parser_->OnMetaRemoved( meta );
 }
 
-void GraphicView::OnConnectionAdded( const GraphConnection & connection )
+void GraphicView::OnConnectionAdded( const GraphConnection & connection ) const
 {
     graph_parser_->OnConnectionAdded( connection );
 }
 
-void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
+void GraphicView::OnConnectionRemoved( const GraphConnection & connection ) const
 {
     graph_parser_->OnConnectionRemoved( connection );
 }
