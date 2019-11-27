@@ -3,7 +3,7 @@
 
 #include "include/ModelSubscriber/ModelSubscriber.h"
 #include "include/ModelObserver/ModelObserver.h"
-#include "include/GraphNode/GraphNode.h"
+#include "GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
 #include <cstddef>//std::size_t
 
@@ -21,33 +21,25 @@ class ModelProxy
 {
 public:
     /**************************************************************************
-     * GetMetaByNodeId
-     * Arguments:
-     * node Id - id of node related to meta.
-     * model - model to search in
-     *************************************************************************/
-    void GetMetaByNodeId( Id GraphNodeId, const Model & model,
-                          const ModelObserver & observer );
-    /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last nodes - nodes to connect.
      * Warning! Nodes must be contained in graph.
      * model - model to connect in
      *************************************************************************/
-    virtual void AddConnection( const GraphNode & firstNode,
-                                const GraphNode & lastNode,
+    virtual bool AddConnection( const GraphConnection & connection,
                                 const Model & model,
-                                const ModelObserver & observer );
+                                ModelObserver & observer );
     /**************************************************************************
      * AddConnection
      * Arguments:
      * node Id - id of node contained in graph.
      * model - model to search in
      *************************************************************************/
-    virtual void AddConnection( Id firstNodeId, Id lastNodeId,
+    virtual bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
+                                const ConnectionParams & params,
                                 const Model & model,
-                                const ModelObserver & observer );
+                                ModelObserver & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -55,67 +47,67 @@ public:
      * Warning! Nodes must be contained in graph.
      * model - model to remove in
      *************************************************************************/
-    virtual void RemoveConnection( const GraphNode & firstNode,
+    virtual bool RemoveConnection( const GraphNode & firstNode,
                                    const GraphNode & lastNode,
                                    const Model & model,
-                                   const ModelObserver & observer );
+                                   ModelObserver & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
      * first and last node - id of nodes to remove connections from.
      * model - model to remove in
      *************************************************************************/
-    virtual void RemoveConnection( Id firstNodeId, Id lastNodeId,
+    virtual bool RemoveConnection( Id firstNodeId, Id lastNodeId,
                                    const Model & model,
-                                   const ModelObserver & observer );
+                                   ModelObserver & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node - node to insert in graph.
      * model - model to add in
      *************************************************************************/
-    virtual void AddNode( const GraphNode & node, const Model & model,
-                          const ModelObserver & observer );
+    virtual bool AddNode( const GraphNode & node, const Model & model,
+                          ModelObserver & observer );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual void RemoveNode( const GraphNode & node, const Model & model,
-                             const ModelObserver & observer );
+    virtual bool RemoveNode( const GraphNode & node, const Model & model,
+                             ModelObserver & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node Id - Id of node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual void RemoveNode( Id nodeId, const Model & model,
-                             const ModelObserver & observer );
+    virtual bool RemoveNode( Id nodeId, const Model & model,
+                             ModelObserver & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
      * first and last nodes - nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    virtual void FindPath( const GraphNode & firstNode,
+    virtual bool FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode, const Model & model,
-                           const ModelObserver & observer );
+                           ModelObserver & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
      * first and last node Ids - Id of nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    virtual void FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
-                           const ModelObserver & observer );
+    virtual bool FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
+                           ModelObserver & observer );
     /**************************************************************************
      * Subscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual void Subscribe( const ModelSubscriber * & subscriber,
+    virtual bool Subscribe( const ModelSubscriber * & subscriber,
                             const Model & model,
                             ModelObserver & observer ) const;
     /**************************************************************************
@@ -124,7 +116,7 @@ public:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual void Unsubscribe( const ModelSubscriber * & subscriber,
+    virtual bool Unsubscribe( const ModelSubscriber * & subscriber,
                               const Model & model,
                               ModelObserver & observer ) const;
 };

@@ -11,11 +11,9 @@ find_package(Boost REQUIRED)
 find_package(GTest REQUIRED)
 
 set(Boost_USE_STATIC_LIBS        ON)
+
 set(HEADERS include/Graph/Graph.h
             include/GraphInterface/GraphInterface.h
-            include/GraphConnection/GraphConnection.h
-            include/GraphElement/GraphElement.h
-            include/GraphNode/GraphNode.h
             include/Model/Model.h
             include/ModelProxy/ModelProxy.h
             include/ModelInterface/ModelInterface.h
@@ -25,7 +23,6 @@ set(HEADERS include/Graph/Graph.h
 
 set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelProxy/ModelProxy.cpp
-            lib/GraphElement/GraphElement.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
             lib/Search/Search.cpp)
@@ -38,14 +35,12 @@ add_library(polarisModel_lib ${HEADERS} ${SOURCE})
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GTEST_INCLUDE_DIRS})
+include_directories( ../Utils )
 add_executable( tests_gtest tests_gtest.cpp )
 
-target_link_libraries(polarisModel_lib ${Boost_LIBRARIES})
+target_link_libraries(polarisModel_lib STATIC ${Boost_LIBRARIES} polarisUtils_lib )
 target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
-#Tests for GraphElement class
-add_executable(graph_element_tests ../Utils/GraphElement/graph_element_tests.cpp)
-target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 ##Tests for GraphInterface class
 add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp)
 target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})

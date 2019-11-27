@@ -1,94 +1,121 @@
 #include "include/ModelProxy/ModelProxy.h"
-
-void Polaris::ModelProxy::GetMetaByNodeId( Polaris::Id GraphNodeId,
-                                           const Polaris::Model & model,
-                                           const ModelObserver & observer )
+#include "include/GraphInterface/GraphInterface.h"
+using namespace Polaris;
+bool ModelProxy::AddConnection( const GraphConnection & connection,
+        const Model & model, ModelObserver & observer )
 {
+    GraphInterface graph( model.graph );
 
+    if( graph.AddConnection( connection ) )
+    {
+        observer.ConnectionAdded( connection );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::AddConnection( const Polaris::GraphNode & firstNode,
-                                         const Polaris::GraphNode & lastNode,
-                                         const Polaris::Model & model,
-                                         const ModelObserver & observer )
+bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
+                                const ConnectionParams & params,
+                                const Model & model, ModelObserver & observer )
 {
-    //@TODO 1. Delegate creating connection to graphInterface.
-    //@TODO 2. Notify about creation subscribers
-    
+    GraphInterface graph( model.graph );
+
+    if( graph.AddConnection( firstNodeId, lastNodeId, params ) )
+    {
+        auto connection = graph.getConnection( firstNodeId, lastNodeId );
+        observer.ConnectionAdded( connection );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::AddConnection( Polaris::Id firstNodeId,
-                                         Polaris::Id lastNodeId,
-                                         const Polaris::Model & model,
-                                         const ModelObserver & observer )
+bool ModelProxy::RemoveConnection( const GraphNode & firstNode,
+                                   const GraphNode & lastNode,
+                                   const Model & model,
+                                   ModelObserver & observer )
 {
-
+    return RemoveConnection( firstNode.GetId(), lastNode.GetId(),
+                             model, observer );
 }
 
-void
-Polaris::ModelProxy::RemoveConnection( const Polaris::GraphNode & firstNode,
-                                       const Polaris::GraphNode & lastNode,
-                                       const Polaris::Model & model,
-                                       const ModelObserver & observer )
+bool ModelProxy::RemoveConnection( Id firstNodeId, Id lastNodeId,
+                                   const Model & model,
+                                   ModelObserver & observer )
 {
+    GraphInterface graph( model.graph );
 
+    auto connection = graph.getConnection( firstNodeId, lastNodeId );
+
+    if( graph.RemoveConnection( firstNodeId, lastNodeId ) )
+    {
+        observer.ConnectionRemoved( connection );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::RemoveConnection( Polaris::Id firstNodeId,
-                                            Polaris::Id lastNodeId,
-                                            const Polaris::Model & model,
-                                            const ModelObserver & observer )
+bool ModelProxy::AddNode( const GraphNode & node, const Model & model,
+                          ModelObserver & observer )
 {
-
+    GraphInterface graph( model.graph );
+    if( graph.AddNode( node ) )
+    {
+        observer.NodeAdded( node );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::AddNode( const Polaris::GraphNode & node,
-                                   const Polaris::Model & model,
-                                   const ModelObserver & observer )
+bool ModelProxy::RemoveNode( const GraphNode & node, const Model & model,
+                             ModelObserver & observer )
 {
-
+    GraphInterface graph( model.graph );
+    if( graph.RemoveNode( node ) )
+    {
+        observer.NodeRemoved( node );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::RemoveNode( const Polaris::GraphNode & node,
-                                      const Polaris::Model & model,
-                                      const ModelObserver & observer )
+bool ModelProxy::RemoveNode( Id nodeId, const Model & model,
+                             ModelObserver & observer )
 {
+    GraphInterface graph( model.graph );
 
+    auto node = graph.getNode( nodeId );
+
+    if( graph.RemoveNode( nodeId ) )
+    {
+        observer.NodeRemoved( node );
+        return true;
+    }
+    return false;
 }
 
-void Polaris::ModelProxy::RemoveNode( Polaris::Id nodeId,
-                                      const Polaris::Model & model,
-                                      const ModelObserver & observer )
+bool ModelProxy::FindPath( const GraphNode & firstNode,
+                           const GraphNode & lastNode,
+                           const Model & model, ModelObserver & observer )
 {
-
+    //@TODO implement later
 }
 
-void Polaris::ModelProxy::FindPath( const Polaris::GraphNode & firstNode,
-                                    const Polaris::GraphNode & lastNode,
-                                    const Polaris::Model & model,
-                                    const ModelObserver & observer )
+bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
+                           const Model & model, ModelObserver & observer )
 {
-
+    //@TODO implement later
 }
 
-void Polaris::ModelProxy::FindPath(
-        Polaris::Id firstNodeId, Polaris::Id lastNodeId,
-        const Polaris::Model & model,
-        const ModelObserver & observer )
+bool ModelProxy::Subscribe( const ModelSubscriber * & subscriber,
+                            const Model & model,
+                            ModelObserver & observer ) const
 {
-
+    return observer.Subscribe( subscriber );
 }
 
-void Polaris::ModelProxy::Subscribe( const ModelSubscriber * & subscriber,
-                                     const Polaris::Model & model,
-                                     ModelObserver & observer ) const
+bool ModelProxy::Unsubscribe( const ModelSubscriber * & subscriber,
+                              const Model & model,
+                              ModelObserver & observer ) const
 {
-    observer.Subscribe( subscriber );
-}
-
-void Polaris::ModelProxy::Unsubscribe( const ModelSubscriber * & subscriber,
-                                       const Polaris::Model & model,
-                                       ModelObserver & observer ) const
-{
-    observer.unSubscribe( subscriber );
+    return observer.unSubscribe( subscriber );
 }
