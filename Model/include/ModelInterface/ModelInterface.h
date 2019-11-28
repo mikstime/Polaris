@@ -25,33 +25,6 @@ private:
     Model model_;
 public:
     /**************************************************************************
-     * ModelInterface() - default constructor
-     *************************************************************************/
-    ModelInterface(): observer_(), proxy_(), model_() {};
-    /**************************************************************************
-     * ModelInterface(proxy, model)
-     * Arguments:
-     * proxy - custom proxy can be set. Must inherit from ModelProxy.
-     * model - initial state of model.
-     *************************************************************************/
-    ModelInterface( ModelProxy * a_proxy, ModelObserver * a_obs,
-                    Model  a_model )
-    :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
-    /**************************************************************************
-     * ModelInterface(proxy)
-     * Arguments:
-     * proxy - custom proxy can be set. Must inherit from ModelProxy.
-     *************************************************************************/
-    explicit ModelInterface( ModelProxy * a_proxy )
-    :proxy_( a_proxy ), observer_(), model_() {};
-    /**************************************************************************
-     * ModelInterface(model)
-     * Arguments:
-     * model - initial state of model.
-     *************************************************************************/
-    explicit ModelInterface( Model a_model )
-    :proxy_(), observer_(), model_( std::move( a_model ) ) {};
-    /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last nodes - nodes to be connected.
@@ -166,6 +139,33 @@ public:
      * proxy - proxy to be set.
      *************************************************************************/
     void setObserver( ModelObserver * obs ) { observer_ = obs; }
+    /**************************************************************************
+     * ModelInterface() - default constructor
+     *************************************************************************/
+    ModelInterface(): observer_(), proxy_(), model_() {};
+    /**************************************************************************
+     * ModelInterface(proxy, model)
+     * Arguments:
+     * proxy - custom proxy can be set. Must inherit from ModelProxy.
+     * model - initial state of model.
+     *************************************************************************/
+    ModelInterface( ModelProxy * a_proxy, ModelObserver * a_obs,
+                    Model  a_model )
+            :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
+    /**************************************************************************
+     * ModelInterface(proxy)
+     * Arguments:
+     * proxy - custom proxy can be set. Must inherit from ModelProxy.
+     *************************************************************************/
+    explicit ModelInterface( ModelProxy * a_proxy )
+            :proxy_( a_proxy ), observer_(), model_() {};
+    /**************************************************************************
+     * ModelInterface(model)
+     * Arguments:
+     * model - initial state of model.
+     *************************************************************************/
+    explicit ModelInterface( Model a_model )
+            :proxy_(), observer_(), model_( std::move( a_model ) ) {};
 };
 } //namespace Polaris
 
