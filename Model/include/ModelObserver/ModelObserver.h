@@ -14,7 +14,7 @@ class ModelSubscriber;
 class GraphNode;
 class Meta;
 class Model;
-using ModelSubscribers = std::vector< const ModelSubscriber * >;
+using ModelSubscribers = std::vector< ModelSubscriber * >;
 /******************************************************************************
  * ModelObserver class provides subscriptions to Model
  * and notifications for subscribers.
@@ -43,7 +43,7 @@ public:
      * Return value:
      * bool - true on success, false if failed.
      *************************************************************************/
-    virtual bool Subscribe( const ModelSubscriber * subscriber );
+    virtual bool Subscribe( ModelSubscriber * subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
@@ -51,7 +51,7 @@ public:
      * Return value:
      * bool - true on success, false if failed.
      *************************************************************************/
-    virtual bool unSubscribe( const ModelSubscriber * subscriber );
+    virtual bool unSubscribe( ModelSubscriber * subscriber );
     /**************************************************************************
      * MetaAdded
      * Arguments:
@@ -99,7 +99,9 @@ public:
      * Arguments:
      * nodes - list of nodes to be drawn
      *************************************************************************/
-     virtual void PathFound( const GraphNodes & nodes );
+     virtual void PathFound(
+             const std::vector< const GraphNode > & nodes,
+             const std::vector< const GraphConnection > & connections );
 };
 } //namespace Polaris
 

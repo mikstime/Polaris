@@ -1,7 +1,7 @@
 #include "include/ModelObserver/ModelObserver.h"
 
 bool Polaris::ModelObserver::Subscribe(
-        const Polaris::ModelSubscriber * subscriber )
+        Polaris::ModelSubscriber * subscriber )
 {
     // just add subscriber at the end of the vector
     auto it = std::find( subscribers_.begin(),
@@ -15,7 +15,7 @@ bool Polaris::ModelObserver::Subscribe(
 }
 
 bool Polaris::ModelObserver::unSubscribe(
-        const Polaris::ModelSubscriber * subscriber )
+        Polaris::ModelSubscriber * subscriber )
 {
     // find subscriber in vector
     auto it = std::find( subscribers_.begin(),
@@ -79,9 +79,11 @@ void Polaris::ModelObserver::ConnectionAdded(
         sub->onConnectionAdded( connection );
 }
 
-void Polaris::ModelObserver::PathFound( const GraphNodes & nodes )
+void Polaris::ModelObserver::PathFound(
+        const std::vector< const GraphNode > & nodes,
+        const std::vector< const GraphConnection > & connections )
 {
     // Loop through subscribers and notify them.
     for( auto sub : subscribers_ )
-        sub->onPathFound( nodes );
+        sub->onPathFound( nodes, connections );
 }
