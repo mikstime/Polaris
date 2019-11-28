@@ -1,6 +1,7 @@
 #ifndef META_HPP
 #define META_HPP
 
+#include <string>
 #include "typedefs.h"
 
 namespace Polaris
@@ -15,8 +16,9 @@ struct Meta
 {
 public:
     Id graph_node_id;
-    std::size_t room_number;
+    std::string room_number;
     Coordinate x, y;
+    int8_t floor;
 };
 } //namespace Polaris
 
