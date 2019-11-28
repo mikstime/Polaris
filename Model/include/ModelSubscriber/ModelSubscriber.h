@@ -20,17 +20,29 @@ class ModelSubscriber
 {
 public:
     /**************************************************************************
+     * onMetaAdded
+     * Arguments:
+     * new_meta - meta object
+     *************************************************************************/
+     virtual void onMetaAdded( const Meta & meta ) const = 0;
+    /**************************************************************************
      * onMetaChanged
      * Arguments:
      * newMeta - meta object that was changed
      *************************************************************************/
-    virtual void onMetaChanged( const Meta & newMeta ) const = 0;
+    virtual void onMetaChanged( const Meta & meta ) const = 0;
+    /**************************************************************************
+     * onMetaRemoved
+     * Arguments:
+     * meta - removed meta
+     *************************************************************************/
+    virtual void onMetaRemoved( const Meta & meta ) const = 0;
     /**************************************************************************
      * onConnectionAdded
      * Arguments:
      * firstNode and lastNode - nodes that was connected
      *************************************************************************/
-    virtual void onConnectionAdded( const GraphConnection & newConnection )
+    virtual void onConnectionAdded( const GraphConnection & connection )
     const = 0;
     /**************************************************************************
      * onConnectionRemoved

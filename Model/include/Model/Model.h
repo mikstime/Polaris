@@ -2,9 +2,12 @@
 #define GRAPHSEARCH_MODEL_HPP
 
 #include "include/Graph/Graph.h"
-#include "include/Meta/Meta.h"
+#include "Meta/Meta.h"
+#include <map>
 #include <utility>
-#include <vector>
+#include <include/GraphInterface/GraphInterface.h>
+#include "typedefs.h"
+
 namespace Polaris
 {
 struct Meta;
@@ -16,8 +19,8 @@ struct Graph;
 class Model
 {
 public:
-    Graph graph;
-    std::vector< Meta > meta;
+    GraphInterface graph;
+    std::map< Id, Meta > meta;
 public:
     explicit Model(Graph a_graph = Graph())
     : graph(std::move(a_graph)), meta() {};

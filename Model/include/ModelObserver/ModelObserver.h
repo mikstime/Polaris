@@ -53,17 +53,29 @@ public:
      *************************************************************************/
     virtual bool unSubscribe( const ModelSubscriber * subscriber );
     /**************************************************************************
+     * MetaAdded
+     * Arguments:
+     * newMeta - created meta
+     *************************************************************************/
+     virtual void MetaAdded( const Meta & meta );
+    /**************************************************************************
      * MetaChanged
      * Arguments:
-     * newMeta - updated meta
+     * meta - updated meta
      *************************************************************************/
-    virtual void MetaChanged( const Meta & newMeta );
+    virtual void MetaChanged( const Meta & meta );
+    /**************************************************************************
+     * MetaRemoved
+     * Arguments:
+     * meta - removed meta
+     *************************************************************************/
+     virtual void MetaRemoved( const Meta & meta );
     /**************************************************************************
      * ConnectionAdded
      * Arguments:
      * first and last nodes - nodes that connected.
      *************************************************************************/
-    virtual void ConnectionAdded( const GraphConnection & newConnection );
+    virtual void ConnectionAdded( const GraphConnection & connection );
     /**************************************************************************
      * ConnectionRemoved
      * Arguments:

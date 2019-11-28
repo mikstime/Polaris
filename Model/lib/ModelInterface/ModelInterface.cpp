@@ -110,5 +110,5 @@ void Polaris::ModelInterface::ChangeMeta(
         const Polaris::Id & nodeId,
         const Polaris::Meta & newMeta )
 {
-    //@TODO implement
+    proxy_->ChangeMeta( nodeId, newMeta, model_, observer_ );
 }

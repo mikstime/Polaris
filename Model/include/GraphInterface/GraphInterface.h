@@ -47,7 +47,7 @@ public:
      * must be updated
      *************************************************************************/
     bool SetConnectionParams( Id firstNodeId, Id lastNodeId,
-                              ConnectionParams params );
+                              const ConnectionParams & params );
     /**************************************************************************
      * SetConnectionParams
      * Arguments:
@@ -56,7 +56,7 @@ public:
      *************************************************************************/
     bool SetConnectionParams( const GraphNode & firstNode,
                               const GraphNode & lastNode,
-                              ConnectionParams params );
+                              const ConnectionParams & params );
     /**************************************************************************
      * RemoveConnection
      * Arguments:

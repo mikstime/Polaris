@@ -28,7 +28,7 @@ public:
      * model - model to connect in
      *************************************************************************/
     virtual bool AddConnection( const GraphConnection & connection,
-                                const Model & model,
+                                Model & model,
                                 ModelObserver * observer );
     /**************************************************************************
      * AddConnection
@@ -38,7 +38,7 @@ public:
      *************************************************************************/
     virtual bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                                 const ConnectionParams & params,
-                                const Model & model,
+                                Model & model,
                                 ModelObserver * observer );
     /**************************************************************************
      * RemoveConnection
@@ -49,7 +49,7 @@ public:
      *************************************************************************/
     virtual bool RemoveConnection( const GraphNode & firstNode,
                                    const GraphNode & lastNode,
-                                   const Model & model,
+                                   Model & model,
                                    ModelObserver * observer );
     /**************************************************************************
      * RemoveConnection
@@ -57,8 +57,9 @@ public:
      * first and last node - id of nodes to remove connections from.
      * model - model to remove in
      *************************************************************************/
-    virtual bool RemoveConnection( Id firstNodeId, Id lastNodeId,
-                                   const Model & model,
+    virtual bool RemoveConnection( const Id & firstNodeId,
+                                   const Id & lastNodeId,
+                                   Model & model,
                                    ModelObserver * observer );
     /**************************************************************************
      * AddNode
@@ -66,15 +67,24 @@ public:
      * node - node to insert in graph.
      * model - model to add in
      *************************************************************************/
-    virtual bool AddNode( const GraphNode & node, const Model & model,
+    virtual bool AddNode( const GraphNode & node, Model & model,
                           ModelObserver * observer );
+    /**************************************************************************
+     * ChangeMeta
+     * Arguments:
+     * node - id of node it belongs to
+     * meta - meta to be set.
+     * model - model to add in
+     *************************************************************************/
+     virtual bool ChangeMeta( const Id & nodeId, const Meta & meta,
+                              Model & model, ModelObserver * observer );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual bool RemoveNode( const GraphNode & node, const Model & model,
+    virtual bool RemoveNode( const GraphNode & node, Model & model,
                              ModelObserver * observer );
     /**************************************************************************
      * AddNode
@@ -82,7 +92,7 @@ public:
      * node Id - Id of node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual bool RemoveNode( Id nodeId, const Model & model,
+    virtual bool RemoveNode( Id nodeId, Model & model,
                              ModelObserver * observer );
     /**************************************************************************
      * FindPath
