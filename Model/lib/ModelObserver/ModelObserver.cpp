@@ -78,3 +78,10 @@ void Polaris::ModelObserver::ConnectionAdded(
     for( auto sub : subscribers_ )
         sub->onConnectionAdded( connection );
 }
+
+void Polaris::ModelObserver::PathFound( const GraphNodes & nodes )
+{
+    // Loop through subscribers and notify them.
+    for( auto sub : subscribers_ )
+        sub->onPathFound( nodes );
+}

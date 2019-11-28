@@ -52,6 +52,12 @@ public:
     virtual void onConnectionRemoved( const GraphConnection & connection )
     const = 0;
     /**************************************************************************
+     * onPathFound
+     * Arguments:
+     * nodes - list of nodes to be drawn
+     *************************************************************************/
+    virtual void onPathFound( const GraphNodes & nodes ) const = 0;
+    /**************************************************************************
      * onNodeAdded
      * Arguments:
      * node - node that was added

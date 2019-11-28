@@ -94,6 +94,12 @@ public:
      * node - node to be removed from graph
      *************************************************************************/
     virtual void NodeRemoved( const GraphNode & node );
+    /**************************************************************************
+     * PathFound
+     * Arguments:
+     * nodes - list of nodes to be drawn
+     *************************************************************************/
+     virtual void PathFound( const GraphNodes & nodes );
 };
 } //namespace Polaris
 
