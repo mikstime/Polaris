@@ -6,16 +6,27 @@
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector
-#include <set>
+#include <map> //std::map
+//@TODO#include <pair> //std::pair
+#include <set> //std::set
 namespace Polaris
 {
-using GraphConnections = std::vector< GraphConnection >;
-using GraphNodes = std::set< GraphNode >;
+class NodeComparator
+{
+    bool operator()( const GraphNode & a, const GraphNode & b )
+    {
+        return a.GetId() < b.GetId();
+    }
+};
+using GraphConnections = std::map<
+        std::pair< Id, Id >,
+        GraphConnection>;
+using GraphNodes = std::set< GraphNode, NodeComparator >;
 /******************************************************************************
- * Graph structure stores all verticles and connections in graph.
+ * Graph structure stores all vertices and connections in graph.
  * Connections are stored in adjacency matrix.
- * Nodes - in sotrted by Id array.
- * All logics provided in GraphInterface class.
+ * Nodes - in sorted by Id array.
+ * All logic provided in GraphInterface class.
  *****************************************************************************/
 struct Graph
 {
@@ -45,15 +56,15 @@ public:
      * Arguments:
      * nodes - initial state of nodes. Connections are empty.
      *************************************************************************/
-    Graph( GraphNodes & a_nodes )
-    : connections(), nodes(std::move( a_nodes ) ) {};
+    explicit Graph( GraphNodes  a_nodes )
+    : connections(), nodes(std::move( a_nodes )) {};
     /**************************************************************************
      * Graph( connections )
      * Arguments:
      * connections - initial state of connections. Nodes are empty.
      *************************************************************************/
-    Graph( GraphConnections & a_connections )
-    : connections( std::move( a_connections ) ), nodes() {};
+    explicit Graph( GraphConnections  a_connections )
+    : connections(std::move( a_connections )), nodes() {};
 };
 } //namespace Polaris
 

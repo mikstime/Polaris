@@ -19,4 +19,6 @@ TEST_CASE( "GraphElement copy constructor test", "[GraphElement]" ) {
     auto ge_1 = Polaris::GraphElement( ge_c );
     REQUIRE( ge_1.GetId() == ge.GetId() );
     REQUIRE( ge_1.GetId() == ge_c.GetId() );
+    auto ge_3 = Polaris::GraphElement();
+    REQUIRE( ge_3.GetId() == ge.GetId() + 1 );
 }

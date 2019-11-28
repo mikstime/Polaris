@@ -47,11 +47,13 @@ public:
     /**************************************************************************
      * GraphConnection copy constructor.
      *************************************************************************/
-    GraphConnection( const GraphConnection & ) = default;
+    GraphConnection( const GraphConnection & c): GraphElement( c.GetId() )
+    { to = c.to; from = c.from; cost = c.cost; };
     /**************************************************************************
      * GraphConnection move constructor.
      *************************************************************************/
-    GraphConnection( GraphConnection && ) = default;
+//    GraphConnection( GraphConnection && c ) noexcept: GraphElement( c.GetId() )
+//    { to = c.to; from = c.from; cost = c.cost; };
     /**************************************************************************
      * Default destructor.
      *************************************************************************/

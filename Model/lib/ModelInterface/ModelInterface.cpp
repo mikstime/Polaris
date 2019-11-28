@@ -11,7 +11,7 @@ void Polaris::ModelInterface::AddConnection(
     GraphConnection new_connection( firstNode.GetId(),
                                     lastNode.GetId(),
                                     params );
-    proxy_.AddConnection( new_connection, model_, observer_ );
+    proxy_->AddConnection( new_connection, model_, observer_ );
 }
 
 void Polaris::ModelInterface::AddConnection(
@@ -20,13 +20,13 @@ void Polaris::ModelInterface::AddConnection(
         const Polaris::ConnectionParams & params )
 {
     GraphConnection new_connection( firstNodeId, lastNodeId, params );
-    proxy_.AddConnection( new_connection, model_, observer_ );
+    proxy_->AddConnection( new_connection, model_, observer_ );
 }
 
 void Polaris::ModelInterface::AddConnection(
         const Polaris::GraphConnection & new_connection )
 {
-    proxy_.AddConnection( new_connection, model_, observer_ );
+    proxy_->AddConnection( new_connection, model_, observer_ );
 }
 /******************************************************************************
  * RemoveConnnectio Methods
@@ -35,7 +35,7 @@ void Polaris::ModelInterface::RemoveConnection(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-    proxy_.RemoveConnection( firstNode.GetId(), lastNode.GetId(),
+    proxy_->RemoveConnection( firstNode.GetId(), lastNode.GetId(),
                       model_, observer_ );
 }
 
@@ -43,7 +43,7 @@ void Polaris::ModelInterface::RemoveConnection(
         const Polaris::Id & firstNodeId,
         const Polaris::Id & lastNodeId )
 {
-    proxy_.RemoveConnection( firstNodeId, lastNodeId, model_, observer_ );
+    proxy_->RemoveConnection( firstNodeId, lastNodeId, model_, observer_ );
 }
 /******************************************************************************
  * AddNode Methods
@@ -51,14 +51,14 @@ void Polaris::ModelInterface::RemoveConnection(
 void Polaris::ModelInterface::AddNode(
         const Polaris::GraphNode & node )
 {
-    proxy_.AddNode( node, model_, observer_ );
+    proxy_->AddNode( node, model_, observer_ );
 }
 
 void Polaris::ModelInterface::AddNode(
         const Polaris::Id & node_id )
 {
     GraphNode node( node_id );
-    proxy_.AddNode( node, model_, observer_ );
+    proxy_->AddNode( node, model_, observer_ );
 }
 /******************************************************************************
  * RemoveNode Methods
@@ -66,12 +66,12 @@ void Polaris::ModelInterface::AddNode(
 void Polaris::ModelInterface::RemoveNode(
         const Polaris::GraphNode & node )
 {
-    proxy_.RemoveNode( node.GetId(), model_, observer_ );
+    proxy_->RemoveNode( node.GetId(), model_, observer_ );
 }
 
 void Polaris::ModelInterface::RemoveNode( const Polaris::Id & nodeId )
 {
-    proxy_.RemoveNode( nodeId, model_, observer_ );
+    proxy_->RemoveNode( nodeId, model_, observer_ );
 }
 /******************************************************************************
  * FindPath Methods
@@ -80,14 +80,14 @@ void Polaris::ModelInterface::FindPath(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-    proxy_.FindPath( firstNode.GetId(), lastNode.GetId(), model_, observer_ );
+    proxy_->FindPath( firstNode.GetId(), lastNode.GetId(), model_, observer_ );
 }
 
 void Polaris::ModelInterface::FindPath(
         const Polaris::Id & firstNodeId,
         const Polaris::Id & lastNodeId )
 {
-    proxy_.FindPath( firstNodeId, lastNodeId, model_, observer_ );
+    proxy_->FindPath( firstNodeId, lastNodeId, model_, observer_ );
 }
 /******************************************************************************
  * Observer Methods
@@ -95,13 +95,13 @@ void Polaris::ModelInterface::FindPath(
 void Polaris::ModelInterface::Subscribe(
         const Polaris::ModelSubscriber * & subscriber )
 {
-    proxy_.Subscribe( subscriber, model_, observer_ );
+    proxy_->Subscribe( subscriber, model_, observer_ );
 }
 
 void Polaris::ModelInterface::Unsubscribe(
         const Polaris::ModelSubscriber * & subscriber )
 {
-    proxy_.Unsubscribe( subscriber, model_, observer_ );
+    proxy_->Unsubscribe( subscriber, model_, observer_ );
 }
 /******************************************************************************
  * ChangeMeta Methods

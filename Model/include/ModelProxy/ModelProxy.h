@@ -29,7 +29,7 @@ public:
      *************************************************************************/
     virtual bool AddConnection( const GraphConnection & connection,
                                 const Model & model,
-                                ModelObserver & observer );
+                                ModelObserver * observer );
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -39,7 +39,7 @@ public:
     virtual bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                                 const ConnectionParams & params,
                                 const Model & model,
-                                ModelObserver & observer );
+                                ModelObserver * observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -50,7 +50,7 @@ public:
     virtual bool RemoveConnection( const GraphNode & firstNode,
                                    const GraphNode & lastNode,
                                    const Model & model,
-                                   ModelObserver & observer );
+                                   ModelObserver * observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -59,7 +59,7 @@ public:
      *************************************************************************/
     virtual bool RemoveConnection( Id firstNodeId, Id lastNodeId,
                                    const Model & model,
-                                   ModelObserver & observer );
+                                   ModelObserver * observer );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -67,7 +67,7 @@ public:
      * model - model to add in
      *************************************************************************/
     virtual bool AddNode( const GraphNode & node, const Model & model,
-                          ModelObserver & observer );
+                          ModelObserver * observer );
     /**************************************************************************
      * RemoveNode
      * Arguments:
@@ -75,7 +75,7 @@ public:
      * model - model to remove in
      *************************************************************************/
     virtual bool RemoveNode( const GraphNode & node, const Model & model,
-                             ModelObserver & observer );
+                             ModelObserver * observer );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -83,7 +83,7 @@ public:
      * model - model to remove in
      *************************************************************************/
     virtual bool RemoveNode( Id nodeId, const Model & model,
-                             ModelObserver & observer );
+                             ModelObserver * observer );
     /**************************************************************************
      * FindPath
      * Arguments:
@@ -92,7 +92,7 @@ public:
      *************************************************************************/
     virtual bool FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode, const Model & model,
-                           ModelObserver & observer );
+                           ModelObserver * observer );
     /**************************************************************************
      * FindPath
      * Arguments:
@@ -100,7 +100,7 @@ public:
      * model - model to search in. (Only graph is used)
      *************************************************************************/
     virtual bool FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
-                           ModelObserver & observer );
+                           ModelObserver * observer );
     /**************************************************************************
      * Subscribe
      * Arguments:
@@ -109,7 +109,7 @@ public:
      *************************************************************************/
     virtual bool Subscribe( const ModelSubscriber * & subscriber,
                             const Model & model,
-                            ModelObserver & observer ) const;
+                            ModelObserver * observer ) const;
     /**************************************************************************
      * Unsubscribe
      * Arguments:
@@ -118,7 +118,7 @@ public:
      *************************************************************************/
     virtual bool Unsubscribe( const ModelSubscriber * & subscriber,
                               const Model & model,
-                              ModelObserver & observer ) const;
+                              ModelObserver * observer ) const;
 };
 } //namespace Polaris
 

@@ -18,38 +18,49 @@ bool GraphInterface::AddConnection(
 {
     if( AreConnected( firstNodeId, lastNodeId ) )
     {
-        // Do nothing. Connection already exists.
-        return;
+        // Connection already exists.
+        return false;
     }
     // Create connection object.
-    GraphConnection newConnection( firstNodeId, lastNodeId );
+    GraphConnection new_connection( firstNodeId, lastNodeId, params );
     // Create a key ( pair ).
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
-
+    graph_.connections[ key ] = new_connection;
+    return true;
 }
 
 bool GraphInterface::RemoveConnection(
         const GraphNode & firstNode,
         const GraphNode & lastNode )
 {
-
+    return RemoveConnection( firstNode.GetId(), lastNode.GetId() );
 }
 
 bool GraphInterface::RemoveConnection(
         Id firstNodeId,
         Id lastNodeId )
 {
+    if( !AreConnected( firstNodeId, lastNodeId ) )
+        return false;
+    std::pair< Id, Id > key( firstNodeId, lastNodeId );
 
+    graph_.connections.erase( key );
+    return true;
 }
 
 bool GraphInterface::AddNode( const GraphNode & node )
 {
-//    graph_.nodes.insert(node);
+    if( HasNode( node ) )
+        return false;
+    graph_.nodes.insert( node );
+    return true;
 }
 
 bool GraphInterface::RemoveNode( const GraphNode & node )
 {
-
+    if( !HasNode( node ))
+        return false;
+//    graph_.nodes.erase()
 }
 
 bool GraphInterface::RemoveNode( Id nodeId )

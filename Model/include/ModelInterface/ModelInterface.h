@@ -20,36 +20,37 @@ struct Model;
 class ModelInterface
 {
 private:
-    ModelObserver observer_;
-    ModelProxy proxy_;
+    ModelObserver * observer_;
+    ModelProxy * proxy_;
     Model model_;
 public:
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/
-    ModelInterface(): model_(), proxy_() {};
+    ModelInterface(): observer_(), proxy_(), model_() {};
     /**************************************************************************
      * ModelInterface(proxy, model)
      * Arguments:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      * model - initial state of model.
      *************************************************************************/
-    explicit ModelInterface( ModelProxy  a_proxy, Model  a_model )
-    :proxy_( std::move( a_proxy ) ), model_( std::move( a_model ) ){};
+    ModelInterface( ModelProxy * a_proxy, ModelObserver * a_obs,
+                    Model  a_model )
+    :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
     /**************************************************************************
      * ModelInterface(proxy)
      * Arguments:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      *************************************************************************/
-    explicit ModelInterface( ModelProxy  a_proxy )
-    :proxy_( std::move( a_proxy ) ), model_() {};
+    explicit ModelInterface( ModelProxy * a_proxy )
+    :proxy_( a_proxy ), observer_(), model_() {};
     /**************************************************************************
      * ModelInterface(model)
      * Arguments:
      * model - initial state of model.
      *************************************************************************/
     explicit ModelInterface( Model a_model )
-    :proxy_(), model_( std::move( a_model ) ) {};
+    :proxy_(), observer_(), model_( std::move( a_model ) ) {};
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -153,6 +154,18 @@ public:
      * newMeta - Meta to be set
      *************************************************************************/
     void ChangeMeta( const Id & nodeId, const Meta & newMeta );
+    /**************************************************************************
+     * setProxy
+     * Arguments:
+     * proxy - proxy to be set.
+     *************************************************************************/
+    void setProxy( ModelProxy * proxy ) { proxy_ = proxy; }
+    /**************************************************************************
+     * setProxy
+     * Arguments:
+     * proxy - proxy to be set.
+     *************************************************************************/
+    void setObserver( ModelObserver * obs ) { observer_ = obs; }
 };
 } //namespace Polaris
 
