@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-set(HEADERS include/filehandler.h include/mainwindow.h)
-set(SOURCES lib/filehandler.cpp lib/mainwindow.cpp)
+set(HEADERS include/filehandler.h include/mainwindow.h include/view_sub.h)
+set(SOURCES lib/filehandler.cpp lib/mainwindow.cpp lib/view_sub.cpp)
 
 add_library(MainLib STATIC ${HEADERS} ${SOURCES})
 
