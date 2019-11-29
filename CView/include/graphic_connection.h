@@ -10,7 +10,7 @@ namespace Polaris
 class GraphicConnection : public GraphicItem
 {
 public:
-    explicit GraphicConnection( const QPointF & left, const QPointF & right, const GraphConnection & connection );
+    explicit GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id, const size_t & floor );
     GraphicConnection( const GraphicConnection & ) = delete;
     GraphicConnection( const GraphicConnection && ) = delete;
     GraphicConnection & operator = ( const GraphicConnection & ) = delete;

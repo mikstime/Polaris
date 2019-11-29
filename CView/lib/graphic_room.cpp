@@ -6,18 +6,23 @@
 using std::string;
 using Polaris::GraphicRoom;
 
-GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size )
-: GraphicItem( 2, 2, "room" ),
+GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size = QRectF( 0, 0, 20, 20 ) )
+: GraphicItem( node.graph_node_id, node.room_number, node.role ),
 size_( size ),
 color_( Qt::blue )
 {
     // TODO инициализация
+    ResetColor();
+    setPos( node.x, node.y );
+    this->show();
 }
 
 GraphicRoom::GraphicRoom()
 :GraphicItem( 0, 0, "mark" )
 {
     // TODO инициализация
+    ResetColor();
+    setPos( 0, 0 );
 }
 
 std::string GraphicRoom::GetInfo() const

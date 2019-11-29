@@ -8,37 +8,38 @@ GraphParser::GraphParser( ItemController * item_controller )
 
 }
 
-void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) const
+void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
 
 }
 
-void GraphParser::DrawThePath( std::vector< size_t > path ) const
+void GraphParser::OnPathFound( const std::vector< const GraphNode > & nodes,
+                               const std::vector< const GraphConnection > & connections )
 {
 
 }
 
-void GraphParser::OnMetaChanged( const Meta & meta ) const
+void GraphParser::OnMetaChanged( const Meta & meta )
 {
 
 }
 
-void GraphParser::OnMetaAdded( const Meta & meta ) const
+void GraphParser::OnRoomAdded(const Meta & meta )
 {
 
 }
 
-void GraphParser::OnMetaRemoved( const Meta & meta ) const
+void GraphParser::OnRoomRemoved(const Meta & meta )
 {
 
 }
 
-void GraphParser::OnConnectionAdded( const GraphConnection & connection ) const
+void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 {
 
 }
 
-void GraphParser::OnConnectionRemoved( const GraphConnection & connection ) const
+void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
 
 }

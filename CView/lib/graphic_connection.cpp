@@ -3,13 +3,16 @@
 
 using Polaris::GraphicConnection;
 
-GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const GraphConnection & connection )
-: GraphicItem( 1, 1, "connection" ),
+GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id,
+                                      const size_t & floor )
+: GraphicItem( id, floor, "connection" ),
 left_( left ),
 right_( right ),
 color_( Qt::black )
 {
     // TODO инициализация
+    ResetColor();
+    show();
 }
 
 double GraphicConnection::GetPrice() const

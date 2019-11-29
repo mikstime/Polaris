@@ -16,9 +16,9 @@ find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
 
 set(SOURCES lib/graph_parser.cpp lib/graphic_connection.cpp  lib/graphic_item.cpp lib/graphic_room.cpp
-        lib/graphic_view.cpp lib/item_controller.cpp lib/renderer.cpp lib/view.cpp lib/view_sub.cpp)
+        lib/graphic_view.cpp lib/item_controller.cpp lib/renderer.cpp lib/view.cpp)
 set(HEADERS include/graph_parser.h include/graphic_connection.h include/graphic_item.h include/graphic_room.h
-        include/graphic_view.h include/item_controller.h include/renderer.h include/view.h include/view_sub.h)
+        include/graphic_view.h include/item_controller.h include/renderer.h include/view.h )
 add_library(CView STATIC ${SOURCES} ${HEADERS})
 target_include_directories(CView PUBLIC .)
 target_link_libraries(CView PRIVATE Qt5::Widgets)

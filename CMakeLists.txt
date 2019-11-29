@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_subdirectory(Main)
 add_subdirectory(Controller)
@@ -19,4 +19,4 @@ add_subdirectory(CView)
 
 add_executable(MainApp main.cpp)
 
-target_link_libraries(MainApp PRIVATE MainLib ControllerLib CView Qt5::Widgets)
+target_link_libraries(MainApp PRIVATE MainLib ControllerLib Qt5::Widgets)

@@ -18,43 +18,42 @@ GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * pa
   renderer_( new Renderer( item_controller_.get() ) ),
   graph_parser_( new GraphParser( item_controller_.get() ) )
 {
-    renderer_->setAlignment( Qt::AlignLeft | Qt::AlignTop );
-    renderer_->setGeometry( size );
-    renderer_->setSceneRect(0, 0, renderer_->size().width()-5, renderer_->size().height()-5);
+    renderer_->setMaximumSize( size.size() );
     layout.addWidget( renderer_.get() );
-};
+}
 
-void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) const
+void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::DrawThePath( std::vector< size_t > path ) const
+void GraphicView::OnPathFound(const std::vector< const GraphNode > & nodes,
+                              const std::vector< const GraphConnection > & connections )
 {
-    graph_parser_->DrawThePath( path );
+// TODO   graph_parser_->DrawThePath( path );
 }
 
-void GraphicView::OnMetaChanged( const Meta & meta ) const
+void GraphicView::OnMetaChanged( const Meta & meta )
 {
     graph_parser_->OnMetaChanged( meta );
 }
 
-void GraphicView::OnMetaAdded( const Meta & meta ) const
+void GraphicView::OnMetaAdded( const Meta & meta )
 {
-    graph_parser_->OnMetaAdded( meta );
+    graph_parser_->OnRoomAdded(meta);
 }
 
-void GraphicView::OnMetaRemoved( const Meta & meta ) const
+void GraphicView::OnMetaRemoved( const Meta & meta )
 {
-    graph_parser_->OnMetaRemoved( meta );
+    graph_parser_->OnRoomRemoved(meta);
 }
 
-void GraphicView::OnConnectionAdded( const GraphConnection & connection ) const
+void GraphicView::OnConnectionAdded( const GraphConnection & connection )
 {
     graph_parser_->OnConnectionAdded( connection );
 }
 
-void GraphicView::OnConnectionRemoved( const GraphConnection & connection ) const
+void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
 {
     graph_parser_->OnConnectionRemoved( connection );
 }

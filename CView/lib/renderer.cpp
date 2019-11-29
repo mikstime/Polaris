@@ -11,6 +11,11 @@ empty_first_floor_( true ),
 empty_last_floor_( true )
 {
     // TODO инициализация начальной картинки
+    this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setSceneRect( 0, 0, this->size().width(), this->size().height() );
+//    this->setSceneRect( 0, 0, this->size().width() - 5, this->size().height() - 5 );
 }
 
 short int Renderer::GetFloor() const
@@ -36,19 +41,19 @@ void Renderer::wheelEvent( QWheelEvent * event )
     }
 }
 
-void Renderer::mousePressEvent( QMouseEvent * event )
-{
-    // TODO перемещение сцены мышью
-    if (event->button() == Qt::MiddleButton)
-    {
+//void Renderer::mousePressEvent( QMouseEvent * event )
+//{
+//    // TODO перемещение сцены мышью
+//    if (event->button() == Qt::MiddleButton)
+//    {
 //        // Store original position.
 //        m_originX = event->x();
 //        m_originY = event->y();
-    }
-}
-
-void Renderer::mouseMoveEvent( QMouseEvent * event )
-{
+//    }
+//}
+//
+//void Renderer::mouseMoveEvent( QMouseEvent * event )
+//{
 //    if (e->buttons() & Qt::MidButton)
 //    {
 //        QPointF oldp = mapToScene(m_originX, m_originY);
@@ -60,7 +65,7 @@ void Renderer::mouseMoveEvent( QMouseEvent * event )
 //        m_originX = event->x();
 //        m_originY = event->y();
 //    }
-}
+//}
 
 bool Renderer::ChangeFloor( const int8_t & step )
 {

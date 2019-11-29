@@ -12,7 +12,7 @@
 #include "mock_view.h"
 #include "include/renderer.h"
 #include "include/view.h"
-#include "include/view_sub.h"
+#include "../../Main/include/view_sub.h"
 #include "mock_view.h"
 #include <QApplication>
 
@@ -247,7 +247,7 @@ TEST_F( ViewSubIntegration, OnMetaAdded )
 {
     EXPECT_CALL( * view_.get(), OnMetaAdded( _ ) ).Times( 1 );
 
-    view_sub_->OnNodeAdded(meta[1]);
+    view_sub_->OnMetaAdded(meta[1]);
 }
 
 TEST_F( ViewSubIntegration, OnMetaRemoved )
