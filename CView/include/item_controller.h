@@ -1,8 +1,9 @@
 #ifndef MAINAPP_ITEM_CONTROLLER_H
 #define MAINAPP_ITEM_CONTROLLER_H
 
+#include "include/graphic_item.h"
 #include "include/graphic_room.h"
-#include <QGraphicsEllipseItem>
+#include <set>
 #include <QGraphicsScene>
 #include <QMouseEvent>
 

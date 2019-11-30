@@ -4,7 +4,7 @@
 #include "graphic_item.h"
 #include <string>
 // TODO временный путь до заголовочных файлов
-#include "../Model/include/Meta/Meta.h"
+#include "../Utils/Meta/Meta.h"
 
 namespace Polaris
 {
@@ -12,7 +12,7 @@ class GraphicRoom : public GraphicItem
 {
 public:
     explicit GraphicRoom();
-    explicit GraphicRoom( const Meta & node, const QRectF & size );
+    explicit GraphicRoom( const Meta & node, const QRectF & size = QRectF(0, 0, 40, 40 ) );
     GraphicRoom( const GraphicRoom & ) = delete;
     GraphicRoom( const GraphicRoom && ) = delete;
     GraphicRoom & operator = ( const GraphicRoom & ) = delete;

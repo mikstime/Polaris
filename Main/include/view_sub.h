@@ -7,6 +7,7 @@
 // TODO подключить заголовочный файл сабскрайбера
 #include "../Utils/Meta/Meta.h"
 #include "../Utils/GraphConnection/GraphConnection.h"
+#include "../Utils/GraphNode/GraphNode.h"
 #include "../Model/include/ModelSubscriber/ModelSubscriber.h"
 
 namespace Polaris

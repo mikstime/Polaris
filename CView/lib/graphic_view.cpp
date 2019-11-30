@@ -16,7 +16,7 @@ using Polaris::Meta;
 GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent )
 : item_controller_( new ItemController( size ) ),
   renderer_( new Renderer( item_controller_.get() ) ),
-  graph_parser_( new GraphParser( item_controller_.get() ) )
+  graph_parser_( new GraphParser( item_controller_ ) )
 {
     renderer_->setMaximumSize( size.size() );
     layout.addWidget( renderer_.get() );
@@ -35,7 +35,7 @@ void GraphicView::OnPathFound(const std::vector< const GraphNode > & nodes,
 
 void GraphicView::OnMetaChanged( const Meta & meta )
 {
-    graph_parser_->OnMetaChanged( meta );
+    graph_parser_->OnRoomChanged(meta);
 }
 
 void GraphicView::OnMetaAdded( const Meta & meta )

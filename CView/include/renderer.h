@@ -2,6 +2,7 @@
 #define MAINAPP_RENDERER_H
 
 #include <QGraphicsView>
+#include <bits/shared_ptr.h>
 
 namespace Polaris
 {

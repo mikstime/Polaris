@@ -6,7 +6,7 @@
 using std::string;
 using Polaris::GraphicRoom;
 
-GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size = QRectF( 0, 0, 20, 20 ) )
+GraphicRoom::GraphicRoom( const Meta & node, const QRectF & size )
 : GraphicItem( node.graph_node_id, node.room_number, node.role ),
 size_( size ),
 color_( Qt::blue )

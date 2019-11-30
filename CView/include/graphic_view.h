@@ -45,9 +45,9 @@ public:
 
 private:
     // TODO будут ли работать указатели?
-    std::unique_ptr< ItemController > item_controller_;
-    std::unique_ptr< GraphParser > graph_parser_;
-    std::unique_ptr< Renderer > renderer_;
+    std::shared_ptr< ItemController > item_controller_;
+    std::shared_ptr< GraphParser > graph_parser_;
+    std::shared_ptr< Renderer > renderer_;
 
 };
 } // namespace Polaris

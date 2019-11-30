@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Catch2 REQUIRED)
 
 set(HEADERS typedefs.h
             Meta/Meta.h
@@ -22,4 +21,3 @@ include_directories(${GTEST_INCLUDE_DIRS})
 target_include_directories( polarisUtils_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 
 add_executable( graph_element_tests GraphElement/graph_element_tests.cpp )
-target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 polarisUtils_lib )
