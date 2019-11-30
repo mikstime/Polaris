@@ -1,40 +1,27 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef MAINAPP_CONTROLLER_H
+#define MAINAPP_CONTROLLER_H
 
-#include <QObject>
-
-struct GraphNode {}; // Структура комнаты
-struct GraphConnection {}; // Структура соединения
+#include <vector>
 
 namespace Polaris
 {
 
-class Controller : public QObject
+class Controller
 {
-    Q_OBJECT
 public:
-    explicit Controller( QObject * parent = nullptr );
+    Controller();
+    virtual void AddNode( std::vector< int > node_coords ) = 0;
+    virtual void AddConnection( int a_node_id, int b_node_id ) = 0;
+    virtual void DeleteNode( int node_id ) = 0;
+    virtual void DeleteConnection( int a_node_id, int b_node_id ) = 0;
+    virtual void MoveNode( int node_id, std::vector< int > node_coords ) = 0;
+    virtual void ChangeNode( int node_id ) = 0;
+    virtual void FindRoute( int a_node_id, int b_node_id ) = 0;
+    virtual void ChangeFloor( int floor_number ) = 0;
 
 private:
-    GraphNode a_selected_node_;
-    GraphNode b_selected_node_;
-    GraphConnection selected_connection_;
-
-signals:
-    void AddNode( GraphNode node ); // Сигналы для Model
-    void AddConnection( GraphNode a_node, GraphNode b_node );
-    void MoveNode( GraphNode node );
-    void DeleteNode( GraphNode node );
-    void DeleteConnection( GraphNode a_node, GraphNode b_node );
-    void FindRoute( GraphNode a_node, GraphNode b_node );
-
-public slots:
-    void SetSelectedNode( int node_id ); // Обработка сигналов из View
-    void SetSelectedConnection( int connection_id );
-    void SaveNewNode( GraphNode node );
-    void SaveNewConnection( GraphConnection connection );
 };
 
 } // namespace Polaris
 
-#endif // CONTROLLER_H
+#endif //MAINAPP_CONTROLLER_H

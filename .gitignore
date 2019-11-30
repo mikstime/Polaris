@@ -28,13 +28,28 @@
 *.out
 *.app
 
-# IDE files
+# Qt Creator files
 *.user
 *.autosave
 
-# CView ignores
+# Clion files
 .idea/
+
+# Build files
 cmake-build-debug/
-MakeLists.txt.user
+cmake-build-release/
+
+# CView ignores
+CView/.idea/
+CView/cmake-build-debug/
+CView/main.cpp
+CView/capp.cpp
+CView/capp.h
+CView/capp.ui
+CView/CMakeLists.txt.user
+mainwindow/
+tests_CView/
+
+# IDE files
+*.user
 *.autosave
-.idea/
