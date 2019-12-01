@@ -49,3 +49,7 @@ CView/capp.ui
 CView/CMakeLists.txt.user
 mainwindow/
 tests_CView/
+
+# IDE files
+*.user
+*.autosave

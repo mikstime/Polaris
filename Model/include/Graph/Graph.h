@@ -1,28 +1,71 @@
 #ifndef GRAPHSEARCH_GRAPH_H
 #define GRAPHSEARCH_GRAPH_H
 
-#include <vector>
-#include "include/GraphNode/GraphNode.h"
-
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include <cstddef> // std::size_t
+#include <utility> // std::move
+#include <vector> // std::vector
+#include <map> //std::map
+//@TODO#include <pair> //std::pair
+#include <set> //std::set
 namespace Polaris
 {
-class Graph
+class NodeComparator
 {
-using ID = size_t;
-using GNArray = std::vector< Polaris::GraphNode >;
-private:
-    GNArray Graph_;
-public:
-    Graph();
-    Graph( Graph const & );
-    Graph( Graph && ) noexcept;
-    ~Graph();
-
-    void AddNode( const GraphNode & );
-    void RemoveNode( const GraphNode & );
-    const GraphNode & getNode( ID );
-    bool HasNode( ID );
+    bool operator()( const GraphNode & a, const GraphNode & b )
+    {
+        return a.GetId() < b.GetId();
+    }
 };
-}//namespace Polaris
+using GraphConnections = std::map<
+        std::pair< Id, Id >,
+        GraphConnection>;
+using GraphNodes = std::set< GraphNode, NodeComparator >;
+/******************************************************************************
+ * Graph structure stores all vertices and connections in graph.
+ * Connections are stored in adjacency matrix.
+ * Nodes - in sorted by Id array.
+ * All logic provided in GraphInterface class.
+ *****************************************************************************/
+struct Graph
+{
+public:
+    GraphConnections connections;
+    GraphNodes nodes;
+public:
+    /**************************************************************************
+     * default constructor
+     *************************************************************************/
+     Graph() = default;
+//     Graph(): connections(), nodes(
+//             [](const GraphNode & a, const GraphNode & b)
+//             { return a.getId() < b.getId(); }, boost::container::new_allocator()
+//     ) {};
+    /**************************************************************************
+     * Graph( nodes, connections )
+     * Arguments:
+     * nodes - initial state of nodes
+     * connections - initial state of connections
+     *************************************************************************/
+    Graph( GraphNodes  a_nodes,
+           GraphConnections  a_connections )
+    : connections( std::move(a_connections) ), nodes( std::move( a_nodes) ) {};
+    /**************************************************************************
+     * Graph( nodes )
+     * Arguments:
+     * nodes - initial state of nodes. Connections are empty.
+     *************************************************************************/
+    explicit Graph( GraphNodes  a_nodes )
+    : connections(), nodes(std::move( a_nodes )) {};
+    /**************************************************************************
+     * Graph( connections )
+     * Arguments:
+     * connections - initial state of connections. Nodes are empty.
+     *************************************************************************/
+    explicit Graph( GraphConnections  a_connections )
+    : connections(std::move( a_connections )), nodes() {};
+};
+} //namespace Polaris
 
 #endif //GRAPHSEARCH_GRAPH_H
