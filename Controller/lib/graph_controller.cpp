@@ -4,7 +4,7 @@ Polaris::GraphController::GraphController()
 {
 }
 
-void Polaris::GraphController::AddNode( std::vector< int > node_coords )
+void Polaris::GraphController::AddNode( std::pair< int, int > node_coords )
 {
 }
 
@@ -20,7 +20,7 @@ void Polaris::GraphController::DeleteConnection( int a_node_id, int b_node_id )
 {
 }
 
-void Polaris::GraphController::MoveNode( int node_id, std::vector< int > node_coords )
+void Polaris::GraphController::MoveNode( int node_id, std::pair< int, int > node_coords )
 {
 }
 

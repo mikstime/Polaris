@@ -10,6 +10,10 @@ std::pair< int, int > Polaris::ViewController::GetNodeIds()
     return pair;
 }
 
+std::pair< std::pair< int, int >, std::pair< int, int > > Polaris::ViewController::GetNodeCoords()
+{
+}
+
 void Polaris::ViewController::SetSelectedNode( int node_id )
 {
 }

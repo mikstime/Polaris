@@ -1,6 +1,6 @@
 #include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
 {
     setWindowTitle( "Polaris" );
 
@@ -8,7 +8,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
 
     node_form_ = new NodeForm;
 
-    button_click_handler_ = new ButtonClickHandler( node_form_, controller );
+    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller, graph_controller );
 
     InitButtons();
 

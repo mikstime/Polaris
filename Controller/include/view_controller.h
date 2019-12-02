@@ -16,6 +16,7 @@ public:
     ViewController();
 
     std::pair< int, int > GetNodeIds();
+    std::pair< std::pair< int, int >, std::pair< int, int > > GetNodeCoords();
 
 private:
     int floor_number_;

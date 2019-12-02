@@ -8,6 +8,7 @@
 #include "node_form.h"
 #include "button_click_handler.h"
 #include "../../Controller/include/view_controller.h"
+#include "../../Controller/include/graph_controller.h"
 
 namespace Polaris
 {
@@ -17,7 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow( ViewController * controller, QWidget * parent = nullptr );
+    MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent = nullptr );
     ~MainWindow();
 
 private:
