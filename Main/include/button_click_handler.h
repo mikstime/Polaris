@@ -22,12 +22,33 @@ private:
     GraphController * graph_controller_;
 
 public slots:
+    /**
+     * Add button click handler
+     */
     void AddButtonClick();
+    /**
+     * Delete button click handler
+     */
     void DeleteButtonClick();
+    /**
+     * Move button click handler
+     */
     void MoveButtonClick();
+    /**
+     * Change button click handler
+     */
     void ChangeButtonClick();
+    /**
+     * Find route click handler
+     */
     void FindRouteButtonClick();
+    /**
+     * Floor up button click handler
+     */
     void FloorUpButtonClick();
+    /**
+     * Floor down button click handler
+     */
     void FloorDownButtonClick();
 };
 

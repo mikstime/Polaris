@@ -15,7 +15,15 @@ class ViewController : public QObject
 public:
     ViewController();
 
+    /**
+     * Get node ids
+     * @return - Two ids of selected nodes or EMPTY if not selected
+     */
     std::pair< int, int > GetNodeIds();
+    /**
+     * Get node coordinates
+     * @return - Two pairs of node coordinates
+     */
     std::pair< std::pair< int, int >, std::pair< int, int > > GetNodeCoords();
 
 private:
