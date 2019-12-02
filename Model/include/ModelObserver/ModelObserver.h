@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELOBSERVER_H
 #define POLARISMODEL_MODELOBSERVER_H
 
-#include "include/ModelSubscriber/ModelSubscriber.h"
-#include "GraphNode/GraphNode.h"
-#include "include/Model/Model.h"
-#include "Meta/Meta.h"
+#include "../ModelSubscriber/ModelSubscriber.h"
+#include "../../../Utils/GraphNode/GraphNode.h"
+#include "../Model/Model.h"
+#include "../../../Utils/Meta/Meta.h"
 #include <utility> //std::move
 #include <vector> //std::vector
 

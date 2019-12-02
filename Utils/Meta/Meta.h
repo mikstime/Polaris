@@ -2,7 +2,6 @@
 #define META_HPP
 
 #include <string>
-#include "typedefs.h"
 
 namespace Polaris
 {

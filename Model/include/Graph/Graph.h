@@ -1,14 +1,15 @@
 #ifndef GRAPHSEARCH_GRAPH_H
 #define GRAPHSEARCH_GRAPH_H
 
-#include "GraphConnection/GraphConnection.h"
-#include "GraphNode/GraphNode.h"
+#include "../../../Utils/GraphConnection/GraphConnection.h"
+#include "../../../Utils/GraphNode/GraphNode.h"
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector
 #include <map> //std::map
 //@TODO#include <pair> //std::pair
 #include <set> //std::set
+#include "../../../Utils/typedefs.h"
 namespace Polaris
 {
 class NodeComparator

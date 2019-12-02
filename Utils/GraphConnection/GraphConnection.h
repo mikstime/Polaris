@@ -1,8 +1,7 @@
 #ifndef GRAPHCONNECTION_HPP
 #define GRAPHCONNECTION_HPP
 
-#include "GraphElement/GraphElement.h"
-#include "typedefs.h"
+#include "../GraphElement/GraphElement.h"
 
 namespace Polaris
 {

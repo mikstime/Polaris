@@ -40,10 +40,6 @@ private:
     ButtonClickHandler * button_click_handler_;
 
     void InitButtons();
-
-signals:
-
-public slots:
 };
 
 } // namespace Polaris

@@ -1,11 +1,11 @@
 #ifndef POLARISMODEL_MODELINTERFACE_H
 #define POLARISMODEL_MODELINTERFACE_H
 
-#include "include/ModelObserver/ModelObserver.h"
-#include "include/ModelProxy/ModelProxy.h"
-#include "GraphNode/GraphNode.h"
-#include "include/Model/Model.h"
-#include "typedefs.h"
+#include "../ModelObserver/ModelObserver.h"
+#include "../ModelProxy/ModelProxy.h"
+#include "../../../Utils/GraphNode/GraphNode.h"
+#include "../Model/Model.h"
+#include "../../../Utils/typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
 
