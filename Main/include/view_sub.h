@@ -2,7 +2,7 @@
 #define MAINAPP_VIEW_SUB_H
 
 #include <vector>
-#include "../CView/include/view.h"
+#include "CView/include/view.h"
 // TODO временный путь до заголовочных файлов
 // TODO подключить заголовочный файл сабскрайбера
 #include "../Utils/Meta/Meta.h"
@@ -23,14 +23,13 @@ public:
     ViewSub & operator = ( const ViewSub && ) = delete;
     ~ViewSub() = default;
 
-    void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
     void onPathFound( const std::vector< const GraphNode > & nodes,
                       const std::vector< const GraphConnection > & connections ) override;
-    void OnMetaChanged( const Meta & meta ) override;
-    void OnMetaAdded(const Meta & meta ) override;
-    void OnMetaRemoved(const Meta & meta ) override;
-    void OnConnectionAdded( const GraphConnection & connection ) override;
-    void OnConnectionRemoved( const GraphConnection & connection ) override;
+    void onMetaChanged( const Meta & meta ) override;
+    void onMetaAdded(const Meta & meta ) override;
+    void onMetaRemoved(const Meta & meta ) override;
+    void onConnectionAdded( const GraphConnection & connection ) override;
+    void onConnectionRemoved( const GraphConnection & connection ) override;
     void onNodeAdded( const GraphNode & node ) override;
     void onNodeRemoved( const GraphNode & node ) override;
 private:
