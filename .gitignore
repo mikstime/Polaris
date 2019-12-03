@@ -28,9 +28,16 @@
 *.out
 *.app
 
-# IDE files
+# Qt Creator files
 *.user
 *.autosave
+
+# Clion files
+.idea/
+
+# Build files
+cmake-build-debug/
+cmake-build-release/
 
 # CView ignores
 CView/.idea/
@@ -42,3 +49,7 @@ CView/capp.ui
 CView/CMakeLists.txt.user
 mainwindow/
 tests_CView/
+
+# IDE files
+*.user
+*.autosave
