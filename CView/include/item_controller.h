@@ -13,6 +13,7 @@ namespace Polaris
     {
     public:
         explicit ItemController( const QRect & scene_rect, QObject * parent = nullptr );
+        ~ItemController();
         ItemController( const ItemController & ) = delete;
         ItemController( const ItemController && ) = delete;
         ItemController & operator = ( const ItemController & ) = delete;

@@ -16,6 +16,11 @@ previous_node_( nullptr )
 
 }
 
+ItemController::~ItemController()
+{
+    clear();
+}
+
 size_t ItemController::GetCurrentNode() const
 {
     return current_node_ != nullptr ? current_node_->GetId() : 0;

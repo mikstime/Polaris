@@ -11,6 +11,12 @@ GraphParser::GraphParser( shared_ptr< ItemController > & item_controller )
 
 }
 
+GraphParser::~GraphParser()
+{
+    while( ! items_in_controller_.empty() )
+        items_in_controller_.erase( items_in_controller_.begin() );
+}
+
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
 

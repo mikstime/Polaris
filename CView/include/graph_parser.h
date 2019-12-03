@@ -17,6 +17,7 @@ namespace Polaris
     {
     public:
         explicit GraphParser( std::shared_ptr< ItemController > & item_controller );
+        ~GraphParser();
         GraphParser( const GraphParser & ) = delete;
         GraphParser( const GraphParser && ) = delete;
         GraphParser & operator = ( const GraphParser & ) = delete;
