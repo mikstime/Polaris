@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELINTERFACE_H
 #define POLARISMODEL_MODELINTERFACE_H
 
-#include "include/ModelObserver/ModelObserver.h"
-#include "include/ModelProxy/ModelProxy.h"
+#include "Model/include/ModelObserver/ModelObserver.h"
+#include "Model/include/ModelProxy/ModelProxy.h"
 #include "GraphNode/GraphNode.h"
-#include "include/Model/Model.h"
+#include "Model/include/Model/Model.h"
 #include "typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
@@ -113,13 +113,13 @@ public:
      * Arguments:
      * subscriber - subscribe for all updates. Documented in ModelSubscriber
      *************************************************************************/
-    void Subscribe( const ModelSubscriber * & subscriber );
+    void Subscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - unsubscribe from updates
      *************************************************************************/
-    void Unsubscribe( const ModelSubscriber * & subscriber );
+    void Unsubscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * ChangeMeta
      * Arguments:

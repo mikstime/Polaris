@@ -2,9 +2,9 @@
 #define MAINAPP_VIEW_H
 
 // TODO временный путь до заголовочных файлов
-#include "../Utils/Meta/Meta.h"
-#include "../Utils/GraphNode/GraphNode.h"
-#include "../Utils/GraphConnection/GraphConnection.h"
+#include "Meta/Meta.h"
+#include "GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
 #include <QPoint>
 
 namespace Polaris

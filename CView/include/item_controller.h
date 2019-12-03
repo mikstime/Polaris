@@ -3,7 +3,6 @@
 
 #include "include/graphic_item.h"
 #include "include/graphic_room.h"
-#include <set>
 #include <QGraphicsScene>
 #include <QMouseEvent>
 

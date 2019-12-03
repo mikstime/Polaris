@@ -4,10 +4,10 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "../../CView/include/cview.h"
+#include "CView/include/graphic_view.h"
 #include "node_form.h"
 #include "button_click_handler.h"
-#include "../../Controller/include/view_controller.h"
+#include "Controller/include/view_controller.h"
 
 namespace Polaris
 {
@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 private:
-    CGraphicsView * view;
+    GraphicView * graphic_view_;
     NodeForm * node_form_;
 
     QHBoxLayout * main_layout_;

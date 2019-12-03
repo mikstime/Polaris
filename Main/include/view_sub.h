@@ -5,15 +5,14 @@
 #include "CView/include/view.h"
 // TODO временный путь до заголовочных файлов
 // TODO подключить заголовочный файл сабскрайбера
-#include "../Utils/Meta/Meta.h"
-#include "../Utils/GraphConnection/GraphConnection.h"
-#include "../Utils/GraphNode/GraphNode.h"
-#include "../Model/include/ModelSubscriber/ModelSubscriber.h"
+#include "Meta/Meta.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
 
 namespace Polaris
 {
-
-class ViewSub : public ModelSubscriber
+// TODO наследование
+class ViewSub
 {
 public:
     explicit ViewSub( View * view );
@@ -24,14 +23,14 @@ public:
     ~ViewSub() = default;
 
     void onPathFound( const std::vector< const GraphNode > & nodes,
-                      const std::vector< const GraphConnection > & connections ) override;
-    void onMetaChanged( const Meta & meta ) override;
-    void onMetaAdded(const Meta & meta ) override;
-    void onMetaRemoved(const Meta & meta ) override;
-    void onConnectionAdded( const GraphConnection & connection ) override;
-    void onConnectionRemoved( const GraphConnection & connection ) override;
-    void onNodeAdded( const GraphNode & node ) override;
-    void onNodeRemoved( const GraphNode & node ) override;
+                      const std::vector< const GraphConnection > & connections ) ;
+    void onMetaChanged( const Meta & meta ) ;
+    void onMetaAdded(const Meta & meta ) ;
+    void onMetaRemoved(const Meta & meta ) ;
+    void onConnectionAdded( const GraphConnection & connection ) ;
+    void onConnectionRemoved( const GraphConnection & connection ) ;
+    void onNodeAdded( const GraphNode & node ) ;
+    void onNodeRemoved( const GraphNode & node ) ;
 private:
     View * view_;
 

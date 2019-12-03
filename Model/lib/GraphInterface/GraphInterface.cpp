@@ -1,6 +1,7 @@
-#include "include/GraphInterface/GraphInterface.h"
+#include "Model/include/GraphInterface/GraphInterface.h"
 #include <boost/container/flat_set.hpp>
 #include <utility> //std::pair
+#include <algorithm>
 using namespace Polaris;
 bool GraphInterface::AddConnection(
         const GraphNode & firstNode,
@@ -58,14 +59,15 @@ bool GraphInterface::AddNode( const GraphNode & node )
 
 bool GraphInterface::RemoveNode( const GraphNode & node )
 {
-    // find element
-    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
-    // return false if not found
-    if( it == graph_.nodes.end() )
-        return false;
-    // delete element and return true
-    graph_.nodes.erase( it );
-    return true;
+    //TODO
+//    // find element
+//    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
+//    // return false if not found
+//    if( it == graph_.nodes.end() )
+//        return false;
+//    // delete element and return true
+//    graph_.nodes.erase( it );
+//    return true;
 }
 
 bool GraphInterface::RemoveNode( Id nodeId )
@@ -75,8 +77,9 @@ bool GraphInterface::RemoveNode( Id nodeId )
 
 bool GraphInterface::HasNode( const GraphNode & node )
 {
-    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
-    return it != graph_.nodes.end();
+    //TODO
+//    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
+//    return it != graph_.nodes.end();
 }
 
 bool GraphInterface::HasNode( Id nodeId )

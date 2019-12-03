@@ -3,7 +3,7 @@
 
 #include "graphic_item.h"
 // TODO временный путь до заголовочных файлов
-#include "../Utils/GraphConnection/GraphConnection.h"
+#include "GraphConnection/GraphConnection.h"
 
 namespace Polaris
 {

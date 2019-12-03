@@ -1,0 +1,6 @@
+find_library(Utils NAMES polarisUtils_lib PATHS Utils/)
+if(NOT Utils)
+    message(ERROR "Utils has not been found")
+else()
+    message(STATUS "Found Utils: " ${Utils})
+endif()

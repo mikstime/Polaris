@@ -4,7 +4,7 @@
 #include "include/graph_parser.h"
 #include "include/item_controller.h"
 #include <memory>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
 
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
@@ -13,13 +13,13 @@ using Polaris::GraphicConnection;
 using Polaris::Meta;
 
 // Размер окна и выкладка, на которой будет размещен виджет
-GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent )
-: item_controller_( new ItemController( size ) ),
+GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
+: item_controller_( new ItemController( QRect(0, 0, size.width(), size.height() ) ) ),
   renderer_( new Renderer( item_controller_.get() ) ),
   graph_parser_( new GraphParser( item_controller_ ) )
 {
-    renderer_->setMaximumSize( size.size() );
-    layout.addWidget( renderer_.get() );
+    renderer_->setMaximumSize( size );
+    layout->addWidget( renderer_.get() );
 }
 
 void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )

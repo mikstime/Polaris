@@ -4,7 +4,7 @@
 #include "graphic_item.h"
 #include <string>
 // TODO временный путь до заголовочных файлов
-#include "../Utils/Meta/Meta.h"
+#include "Meta/Meta.h"
 
 namespace Polaris
 {

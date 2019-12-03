@@ -4,11 +4,10 @@
 #include "graphic_item.h"
 #include "item_controller.h"
 #include <memory>
-#include <map>
 // TODO временный путь до заголовочных файлов
-#include "../Utils/Meta/Meta.h"
-#include "../Utils/GraphNode/GraphNode.h"
-#include "../Utils/GraphConnection/GraphConnection.h"
+#include "Meta/Meta.h"
+#include "GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
 
 
 namespace Polaris

@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    auto * view_controller = new Polaris::ViewController;
+//    auto * view_controller = new Polaris::ViewController;
 
-    auto * main_window = new Polaris::MainWindow( view_controller );
+    auto * main_window = new Polaris::MainWindow(nullptr );
     main_window->show();
 
     return app.exec();

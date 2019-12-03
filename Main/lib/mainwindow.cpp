@@ -1,4 +1,4 @@
-#include "include/mainwindow.h"
+#include "Main/include/mainwindow.h"
 
 Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
 {
@@ -26,6 +26,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
 
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
+    graphic_view_ = new GraphicView( this->size(), main_layout_, this );
 
     setCentralWidget( window );
 }

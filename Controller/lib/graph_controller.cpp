@@ -1,4 +1,4 @@
-#include "include/graph_controller.h"
+#include "Controller/include/graph_controller.h"
 
 Polaris::GraphController::GraphController()
 {

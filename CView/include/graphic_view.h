@@ -19,7 +19,7 @@ public:
     GraphicView( const GraphicView & ) = delete;
     GraphicView( const GraphicView && ) = delete;
 
-    GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent );
+    GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent );
 
     GraphicView & operator = (const GraphicView & ) = delete;
     GraphicView & operator = ( const GraphicView && ) = delete;
