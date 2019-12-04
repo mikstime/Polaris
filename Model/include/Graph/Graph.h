@@ -13,14 +13,15 @@ namespace Polaris
 {
 class NodeComparator
 {
-    bool operator()( const GraphNode & a, const GraphNode & b )
+public:
+    bool operator()( const GraphNode & a, const GraphNode & b ) const
     {
         return a.GetId() < b.GetId();
     }
 };
 using GraphConnections = std::map<
         std::pair< Id, Id >,
-        GraphConnection>;
+        GraphConnection >;
 using GraphNodes = std::set< GraphNode, NodeComparator >;
 /******************************************************************************
  * Graph structure stores all vertices and connections in graph.

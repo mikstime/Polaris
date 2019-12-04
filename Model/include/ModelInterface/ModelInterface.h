@@ -113,13 +113,13 @@ public:
      * Arguments:
      * subscriber - subscribe for all updates. Documented in ModelSubscriber
      *************************************************************************/
-    void Subscribe( const ModelSubscriber * & subscriber );
+    void Subscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - unsubscribe from updates
      *************************************************************************/
-    void Unsubscribe( const ModelSubscriber * & subscriber );
+    void Unsubscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * ChangeMeta
      * Arguments:
@@ -142,7 +142,7 @@ public:
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/
-    ModelInterface(): observer_(), proxy_(), model_() {};
+    ModelInterface(): observer_( new ModelObserver ), proxy_( new ModelProxy ), model_() {};
     /**************************************************************************
      * ModelInterface(proxy, model)
      * Arguments:

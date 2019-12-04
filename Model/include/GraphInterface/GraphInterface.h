@@ -16,6 +16,7 @@ class GraphInterface
 private:
     Graph graph_;
 public:
+    GraphInterface() = default;
     explicit GraphInterface( Graph  g ): graph_(std::move( g )) {};
     /**************************************************************************
      * AddConnection

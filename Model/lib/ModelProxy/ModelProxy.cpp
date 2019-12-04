@@ -72,7 +72,6 @@ bool ModelProxy::AddNode( const GraphNode & node, Model & model,
 bool ModelProxy::RemoveNode( const GraphNode & node, Model & model,
                              ModelObserver * observer )
 {
-    //@TODO remove meta. callback
     if( model.graph.RemoveNode( node ) )
     {
         observer->NodeRemoved( node );
@@ -117,16 +116,16 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
     return false;
 }
 
-bool ModelProxy::Subscribe( const ModelSubscriber * & subscriber,
+bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,
                             const Model & model,
-                            ModelObserver * observer ) const
+                            ModelObserver * observer )
 {
     return observer->Subscribe( subscriber );
 }
 
-bool ModelProxy::Unsubscribe( const ModelSubscriber * & subscriber,
+bool ModelProxy::Unsubscribe( ModelSubscriber * & subscriber,
                               const Model & model,
-                              ModelObserver * observer ) const
+                              ModelObserver * observer )
 {
     return observer->unSubscribe( subscriber );
 }

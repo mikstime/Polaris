@@ -8,7 +8,7 @@ bool GraphInterface::AddConnection(
         const ConnectionParams & params )
 {
     //Delegate to AddConnection( Id, Id ).
-    AddConnection( firstNode.GetId(), lastNode.GetId(), params );
+    return AddConnection( firstNode.GetId(), lastNode.GetId(), params );
 }
 
 bool GraphInterface::AddConnection(
@@ -21,6 +21,9 @@ bool GraphInterface::AddConnection(
         // Connection already exists.
         return false;
     }
+    //@TODO connect only if both nodes are contained in graph
+    if( !HasNode( firstNodeId ) || !HasNode( lastNodeId ) )
+        return false;
     // Create connection object.
     GraphConnection new_connection( firstNodeId, lastNodeId, params );
     // Create a key ( pair ).
@@ -81,6 +84,7 @@ bool GraphInterface::HasNode( const GraphNode & node )
 
 bool GraphInterface::HasNode( Id nodeId )
 {
+    //@TODO doesn't work.
     return HasNode( GraphNode( nodeId ) );
 }
 
@@ -88,7 +92,7 @@ bool GraphInterface::AreConnected(
         const GraphNode & firstNode,
         const GraphNode & lastNode )
 {
-    return false;
+    return AreConnected( firstNode.GetId(), lastNode.GetId() );
 }
 
 bool GraphInterface::AreConnected( Id firstNodeId,

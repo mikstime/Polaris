@@ -41,16 +41,16 @@ TEST( GraphInterfaceTest, AddMethodsHandle )
     ASSERT_FALSE(graphInterface.AreConnected(testNode1, testNode2));
     ASSERT_FALSE( graphInterface.AreConnected( testNode1, testNode2 ));
     ASSERT_FALSE( graphInterface.AreConnected(
-            testNode1.getId(), testNode2.getId() ));
+            testNode1.GetId(), testNode2.GetId() ));
     // Add connection between nodes
     graphInterface.AddConnection(testNode1, testNode2);
     // Only testNode1 and testNode2 are expected to be connected
     ASSERT_TRUE( graphInterface.AreConnected(testNode1, testNode2));
     ASSERT_TRUE(graphInterface.AreConnected(
-                    testNode1.getId(), testNode2.getId()));
+                    testNode1.GetId(), testNode2.GetId()));
     ASSERT_FALSE( graphInterface.AreConnected( testNode1, testNode2 ));
     ASSERT_FALSE( graphInterface.AreConnected(
-            testNode1.getId(), testNode2.getId() ));
+            testNode1.GetId(), testNode2.GetId() ));
     // set connectionParams
     ConnectionParams connectionParams = ConnectionParams();
     connectionParams.cost = 4;

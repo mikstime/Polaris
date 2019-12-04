@@ -11,6 +11,10 @@ namespace Polaris
  *****************************************************************************/
 struct GraphNode: public GraphElement
 {
+    bool operator==(const GraphNode & __x ) const
+    {
+        return GetId() == __x.GetId();
+    }
     /**************************************************************************
      * default constructor.
      *************************************************************************/

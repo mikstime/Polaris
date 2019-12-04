@@ -117,18 +117,18 @@ public:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Subscribe( const ModelSubscriber * & subscriber,
+    virtual bool Subscribe( ModelSubscriber * & subscriber,
                             const Model & model,
-                            ModelObserver * observer ) const;
+                            ModelObserver * observer );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Unsubscribe( const ModelSubscriber * & subscriber,
+    virtual bool Unsubscribe( ModelSubscriber * & subscriber,
                               const Model & model,
-                              ModelObserver * observer ) const;
+                              ModelObserver * observer );
 };
 } //namespace Polaris
 

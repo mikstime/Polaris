@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.15)
-project(polarisModel)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
@@ -19,28 +18,35 @@ set(HEADERS include/Graph/Graph.h
             include/ModelInterface/ModelInterface.h
             include/ModelSubscriber/ModelSubscriber.h
             include/ModelObserver/ModelObserver.h
-            include/Search/Search.h)
+            include/Search/Search.h )
+#            typedefs.h
+#            Meta/Meta.h
+#            GraphConnection/GraphConnection.h
+#            GraphNode/GraphNode.h
+#            GraphElement/GraphElement.h )
 
 set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelProxy/ModelProxy.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
-            lib/Search/Search.cpp)
+            lib/Search/Search.cpp )
+#            GraphConnection/GraphConnection.cpp
+#            GraphElement/GraphElement.cpp )
 
 set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
-                    lib/ModelObserver/ModelObserver.cpp
+                    lib/ModelObserver/model_observer_tests.cpp
                     lib/ModelInterface/model_interface_tests.cpp)
 #Static library
-add_library(polarisModel_lib ${HEADERS} ${SOURCE})
+add_library(polarisModel_lib ${HEADERS} ${SOURCE} )
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories( ../Utils )
-add_executable( tests_gtest tests_gtest.cpp )
+include_directories(${PROJECT_SOURCE_DIR}/Utils)
+add_executable( tests_gtest tests_gtest.cpp)
+target_link_libraries( polarisModel_lib ${Boost_LIBRARIES}  polarisUtils_lib)
+target_include_directories( polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include ${PROJECT_SOURCE_DIR}/Utils )
 
-target_link_libraries(polarisModel_lib STATIC ${Boost_LIBRARIES} polarisUtils_lib )
-target_link_libraries( tests_gtest public polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
-target_include_directories(polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
+target_link_libraries( tests_gtest PUBLIC polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 ##Tests for GraphInterface class
 add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp)
 target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
@@ -56,3 +62,6 @@ target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 #Tests for Search
 add_executable(search_tests lib/Search/search_tests.cpp)
 target_link_libraries(search_tests PUBLIC Catch2::Catch2 polarisModel_lib)
+
+add_executable(test_run testrun.cpp)
+target_link_libraries(test_run polarisModel_lib )

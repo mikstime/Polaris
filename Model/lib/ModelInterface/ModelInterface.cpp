@@ -93,13 +93,13 @@ void Polaris::ModelInterface::FindPath(
  * Observer Methods
  *****************************************************************************/
 void Polaris::ModelInterface::Subscribe(
-        const Polaris::ModelSubscriber * & subscriber )
+        Polaris::ModelSubscriber * & subscriber )
 {
     proxy_->Subscribe( subscriber, model_, observer_ );
 }
 
 void Polaris::ModelInterface::Unsubscribe(
-        const Polaris::ModelSubscriber * & subscriber )
+        Polaris::ModelSubscriber * & subscriber )
 {
     proxy_->Unsubscribe( subscriber, model_, observer_ );
 }
