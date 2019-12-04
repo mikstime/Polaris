@@ -25,9 +25,9 @@ namespace Polaris
         void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
         void OnPathFound( const std::vector< const GraphNode > & nodes,
                 const std::vector< const GraphConnection > & connections );
-        void OnRoomChanged(const Meta & meta );
-        void OnRoomAdded(const Meta & meta );
-        void OnRoomRemoved(const Meta & meta );
+        void OnRoomChanged( const Meta & meta );
+        void OnRoomAdded( const Meta & meta );
+        void OnRoomRemoved( const Meta & meta );
         void OnConnectionAdded( const GraphConnection & connection );
         void OnConnectionRemoved( const GraphConnection & connection );
 
@@ -36,6 +36,8 @@ namespace Polaris
         std::vector< GraphicItem * > items_in_controller_;
 
         void SortItems();
+        std::vector< GraphicItem * >::iterator FindItemById( const Id cur_id );
+        bool EraseItemById( const Id cur_id );
     };
 } // namespace Polaris
 

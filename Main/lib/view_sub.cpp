@@ -16,25 +16,25 @@ void ViewSub::onPathFound( const std::vector< const GraphNode > & nodes,
 
 void ViewSub::onMetaChanged( const Meta & meta )
 {
-    view_->OnMetaChanged( meta );
+    view_->ChangeRoom(meta);
 }
 
 void ViewSub::onMetaAdded(const Meta & meta )
 {
-    view_->OnMetaAdded( meta );
+    view_->AddRoom(meta);
 }
 
 void ViewSub::onMetaRemoved(const Meta & meta )
 {
-    view_->OnMetaRemoved( meta );
+    view_->RemoveRoom(meta);
 }
 
 void ViewSub::onConnectionAdded( const GraphConnection & connection )
 {
-    view_->OnConnectionAdded( connection );
+    view_->AddConnection(connection);
 }
 
 void ViewSub::onConnectionRemoved( const GraphConnection & connection )
 {
-    view_->OnConnectionRemoved( connection );
+    view_->RemoveConnection(connection);
 }

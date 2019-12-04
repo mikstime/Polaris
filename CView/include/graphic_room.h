@@ -12,11 +12,12 @@ class GraphicRoom : public GraphicItem
 {
 public:
     explicit GraphicRoom();
-    explicit GraphicRoom( const Meta & node, const QRectF & size = QRectF(0, 0, 40, 40 ) );
+    explicit GraphicRoom( const Meta & node, const QRectF & rect );
+    explicit GraphicRoom( const Meta & node, const QSize & size = QSize( 40, 40 ) );
     GraphicRoom( const GraphicRoom & ) = delete;
     GraphicRoom( const GraphicRoom && ) = delete;
-    GraphicRoom & operator = ( const GraphicRoom & ) = delete;
-    GraphicRoom & operator = ( const GraphicRoom && ) = delete;
+    GraphicRoom & operator = ( const GraphicRoom & room );
+    GraphicRoom & operator = ( const GraphicRoom && room );
 
     std::string GetInfo() const;
     void SetColor( const QColor & color ) override;
@@ -31,6 +32,7 @@ private:
 
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
+    QPainterPath shape() const override final;
 };
 } // namespace Polaris
 

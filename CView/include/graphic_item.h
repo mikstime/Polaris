@@ -12,22 +12,26 @@ namespace Polaris
     class GraphicItem : public QGraphicsItem
     {
     public:
-        explicit GraphicItem( const Id & id, const int8_t & floor, const std::string & role );
+
+        explicit GraphicItem( const Id & id, const int8_t & floor = 0, const Role & role = Role::MARK );
         virtual ~GraphicItem() = default;
 
         Id GetId() const;
         int8_t GetFloor() const;
-        std::string GetRole() const;
-        virtual void SetColor( const QColor & color ) = 0;
-        virtual void ResetColor() = 0;
-        virtual void SetSelection() = 0;
-        virtual void ResetSelection() = 0;
+        Role GetRole() const;
+        virtual void SetColor( const QColor & color ) { return; }
+        virtual void ResetColor() { return; }
+        virtual void SetSelection() { return; }
+        virtual void ResetSelection() { return; }
 
-    private:
+    protected:
         Id id_;
         int8_t floor_;
-        std::string role_;
+        Role role_;
         // TODO перенести общие поля в родительский класс
+
+        void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override { return; }
+        QRectF boundingRect() const override { return QRectF(); }
     };
 } // namespace Polaris
 

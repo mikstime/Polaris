@@ -4,6 +4,8 @@
 #include <string>
 #include <QGraphicsSceneMouseEvent>
 
+#include <QDebug>
+
 using std::string_literals::operator""s;
 using Polaris::GraphicRoom;
 using Polaris::ItemController;
@@ -13,7 +15,7 @@ ItemController::ItemController( const QRect & scene_rect, QObject * parent )
 current_node_( nullptr ),
 previous_node_( nullptr )
 {
-
+    this->addItem( & mark_down_ );
 }
 
 ItemController::~ItemController()
@@ -39,27 +41,29 @@ QPointF ItemController::GetMarkDownPos() const
 void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
     // выбранный итем
-    QGraphicsItem * cur_item = this->itemAt( mouse_event->pos(), QTransform() );
+    QPointF cur_pos = mouse_event->scenePos();
+    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( cur_item );
+    qInfo() << mouse_event->scenePos() << " : " << cast_item;
 
     if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
     {
-        if( cast_item != nullptr && ( cast_item->GetRole() == "room"s ||
-                                      cast_item->GetRole() == "hall"s ||
-                                      cast_item->GetRole() == "stair"s ) ) // выбор комнаты
+        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
+                                      cast_item->GetRole() == Polaris::Role::HALL ||
+                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // выбор комнаты
         {
             SelectCurrentNode( cast_item );
             ResetPreviousNode();
             mark_down_.hide();
         }
-        else if( cast_item != nullptr && cast_item->GetRole() == "mark"s ) // выбор марки
+        else if( cast_item != nullptr && cast_item->GetRole() == Polaris::Role::MARK ) // выбор марки
         {
             mark_down_.hide();
         }
         else if( cast_item == nullptr ) // клик по постому пространству экрана
         {
             ResetPreviousNode();
-            // TODO переместить марку
+            mark_down_.setPos( cur_pos );
             mark_down_.show();
         }
     }
@@ -72,17 +76,18 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 
 void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    QGraphicsItem * cur_item = this->itemAt( mouse_event->pos(), QTransform() );
+    QPointF cur_pos = mouse_event->scenePos();
+    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( cur_item );
+    qInfo() << cur_pos << " : " << cast_item;
 
     if( mouse_event->button() == Qt::MouseButton::LeftButton )
     {
-        if( cast_item != nullptr && ( cast_item->GetRole() == "room"s ||
-                                      cast_item->GetRole() == "hall"s ||
-                                      cast_item->GetRole() == "stair"s ) ) // соединить ноды
+        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
+                                      cast_item->GetRole() == Polaris::Role::HALL ||
+                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // соединить ноды
         {
-            size_t tmp_node = cast_item->GetId();
-            if( tmp_node != current_node_->GetId() ) // если соединение не с самим собой
+            if( cur_item != current_node_ ) // если соединение не с самим собой
             {
                 SelectPreviousNode( cast_item );
                 mark_down_.hide();
@@ -92,7 +97,7 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             ResetCurrentNode();
             ResetPreviousNode();
-            mark_down_.hide();
+            // TODO метку не прячем. Когда перемещать метку
         }
     }
     // обновить сцену

@@ -25,14 +25,14 @@ public:
     GraphicView & operator = ( const GraphicView && ) = delete;
     ~GraphicView() = default;
 
-    void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
-    void OnPathFound(const std::vector< const GraphNode > & nodes,
+    void InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
+    void DrawThePath(const std::vector< const GraphNode > & nodes,
                      const std::vector< const GraphConnection > & connections ) override;
-    void OnMetaChanged( const Meta & meta ) override;
-    void OnMetaAdded( const Meta & meta ) override;
-    void OnMetaRemoved( const Meta & meta ) override;
-    void OnConnectionAdded( const GraphConnection & connection ) override;
-    void OnConnectionRemoved( const GraphConnection & connection ) override;
+    void ChangeRoom(const Meta & meta ) override;
+    void AddRoom(const Meta & meta ) override;
+    void RemoveRoom(const Meta & meta ) override;
+    void AddConnection(const GraphConnection & connection ) override;
+    void RemoveConnection(const GraphConnection & connection ) override;
 
     // запрашивает выбранную ноду
     size_t GetSelectedNode() const override;

@@ -1,5 +1,7 @@
 #include "Main/include/mainwindow.h"
 
+#include <QDebug>
+
 Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
 {
     setWindowTitle( "Polaris" );
@@ -27,6 +29,16 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
     graphic_view_ = new GraphicView( this->size(), main_layout_, this );
+
+    Meta a = { 1, "805ю", 120, 120, 1, Role::ROOM };
+    graphic_view_->AddRoom( a );
+    Meta b = { 2, "805ю", 220, 120, 1, Role::ROOM };
+    graphic_view_->AddRoom( b );
+    Meta e = { 3, "805ю", 320, 120, 1, Role::ROOM };
+    graphic_view_->AddRoom( e );
+    qInfo() << "Connection";
+    GraphConnection c( 1, 2, 10 );
+    graphic_view_->AddConnection( c );
 
     setCentralWidget( window );
 }

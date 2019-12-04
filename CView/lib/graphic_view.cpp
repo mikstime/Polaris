@@ -22,38 +22,38 @@ GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidge
     layout->addWidget( renderer_.get() );
 }
 
-void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::OnPathFound(const std::vector< const GraphNode > & nodes,
+void GraphicView::DrawThePath(const std::vector< const GraphNode > & nodes,
                               const std::vector< const GraphConnection > & connections )
 {
 // TODO   graph_parser_->DrawThePath( path );
 }
 
-void GraphicView::OnMetaChanged( const Meta & meta )
+void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
 }
 
-void GraphicView::OnMetaAdded( const Meta & meta )
+void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
 }
 
-void GraphicView::OnMetaRemoved( const Meta & meta )
+void GraphicView::RemoveRoom(const Meta & meta )
 {
     graph_parser_->OnRoomRemoved(meta);
 }
 
-void GraphicView::OnConnectionAdded( const GraphConnection & connection )
+void GraphicView::AddConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionAdded( connection );
 }
 
-void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
+void GraphicView::RemoveConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionRemoved( connection );
 }

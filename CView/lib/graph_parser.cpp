@@ -3,6 +3,9 @@
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
 
+#include <QDebug>
+
+using Polaris::GraphicItem;
 using Polaris::GraphParser;
 using std::shared_ptr;
 
@@ -31,91 +34,102 @@ void GraphParser::OnPathFound( const std::vector< const GraphNode > & nodes,
 
 void GraphParser::OnRoomChanged( const Meta & meta )
 {
+    auto cur_room = FindItemById( meta.graph_node_id );
 
+    if( cur_room != items_in_controller_.end() )
+    {
+        * static_cast< GraphicRoom * >( * cur_room ) = GraphicRoom( meta );
+        item_cotroller_->update();
+    } else
+    {
+        OnRoomAdded( meta );
+    }
 }
 
 void GraphParser::OnRoomAdded( const Meta & meta )
 {
-    // TODO проверить
     GraphicItem * nw_room =  new GraphicRoom( meta );
     item_cotroller_->addItem( nw_room );
     items_in_controller_.push_back( nw_room );
 
+    // TODO заменить сорт на инсерт
     SortItems();
 }
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
-//    auto cur_room = std::find_if(items_in_controller_.begin(),
-//                                 items_in_controller_.end(),
-//                                 [ meta ]( const GraphicItem * & item )
-//                                 {
-//                                     //return item->GetId() == meta.graph_node_id;
-////                                TODO     Id a = 5;
-////                                     Id b = 3;
-////                                     return a == b;
-//                                     return false;
-//                                 });
-//
-//    if(cur_room != items_in_controller_.end() )
-//    {
-//        items_in_controller_.erase(cur_room );
-//    }
-
-    SortItems();
+    EraseItemById( meta.graph_node_id );
 }
 
 void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 {
     // TODO проверить
-//    auto from_room = std::find_if( items_in_controller_.begin(),
-//                                   items_in_controller_.end(),
-//                                   [ & connection ]( const GraphicItem * & item ) -> bool
-//                                   {
-//                                       return item->GetId() == connection.GetId();
-//                                   });
-//    auto to_room = std::find_if( items_in_controller_.begin(),
-//                                 items_in_controller_.end(),
-//                                 [ & connection ]( const GraphicItem * & item ) -> bool
-//                                 {
-//                                     return item->GetId() == connection.GetId();
-//                                 });
-//
-//    GraphicItem * nw_connection =  new GraphicConnection( ( * from_room )->pos(),
-//                                                          ( * to_room )->pos(),
-//                                                          connection.GetId(),
-//                                                          std::min( ( * from_room )->GetFloor(),
-//                                                                    ( * to_room )->GetFloor() ) );
-//    item_cotroller_->addItem( nw_connection );
-//    items_in_controller_.push_back( nw_connection );
+    auto from_room = FindItemById( connection.from );
+    auto to_room = FindItemById( connection.to );
 
+    if( from_room == items_in_controller_.end() || to_room == items_in_controller_.end() )
+        return;
+
+    GraphicItem * nw_connection =  new GraphicConnection( ( * from_room )->pos(),
+                                                          ( * to_room )->pos(),
+                                                          connection.GetId(),
+                                                          std::min( ( * from_room )->GetFloor(),
+                                                                    ( * to_room )->GetFloor() ) );
+    item_cotroller_->addItem( nw_connection );
+    items_in_controller_.push_back( nw_connection );
+
+    // TODO заменить сорт на инсерт
     SortItems();
 }
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
-    // TODO
-//    auto cur_connection = std::find_if( items_in_controller_.begin(),
-//                              items_in_controller_.end(),
-//                              [ & connection ]( const GraphicItem * & item ) -> bool
-//                              {
-//                                  return item->GetId() == connection.GetId();
-//                              });
-//
-//    if( cur_connection != items_in_controller_.end() )
-//    {
-//        items_in_controller_.erase( cur_connection );
-//    }
-
-    SortItems();
+    EraseItemById( connection.GetId() );
 }
 
 void GraphParser::SortItems()
 {
-    //TODO
-//    std::sort( items_in_controller_.begin(), items_in_controller_.end(),
-//               []( const GraphicItem * & item_a, const GraphicItem * & item_b ) -> bool
-//               {
-//                   return item_a->GetId() < item_b->GetId();
-//               });
+    std::sort( items_in_controller_.begin(), items_in_controller_.end(),
+               []( const GraphicItem * item_a, const GraphicItem * item_b ) -> bool
+               {
+                   return item_a->GetId() < item_b->GetId();
+               });
+}
+
+std::vector< GraphicItem * >::iterator GraphParser::FindItemById( const Id cur_id )
+{
+    GraphicItem * find_item = new GraphicItem( cur_id );
+    auto cur_item = std::lower_bound( items_in_controller_.begin(),
+                                  items_in_controller_.end(),
+                                  find_item,
+                                  []( const GraphicItem * left, const GraphicItem * right )
+                                  {
+                                      return left->GetId() < right->GetId();
+                                  });
+    if( cur_item != items_in_controller_.end() && ( * cur_item )->GetId() == cur_id )
+    {
+        return cur_item;
+    }
+    else
+    {
+        return items_in_controller_.end();
+    }
+}
+
+bool GraphParser::EraseItemById( const Id cur_id )
+{
+    auto cur_room = FindItemById( cur_id );
+
+    if( cur_room != items_in_controller_.end() )
+    {
+        qInfo() << " ! ";
+        item_cotroller_->removeItem( cur_room[ 0 ] );
+        // TODO смартпоинтер?
+        delete * cur_room;
+        items_in_controller_.erase( cur_room );
+
+        return true;
+    }
+
+    return false;
 }
