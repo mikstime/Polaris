@@ -49,7 +49,7 @@ void Polaris::ModelInterface::RemoveConnection(
  * AddNode Methods
  *****************************************************************************/
 void Polaris::ModelInterface::AddNode(
-        const Polaris::GraphNode & node )
+        Polaris::GraphNode & node )
 {
     proxy_->AddNode( node, model_, observer_ );
 }

@@ -3,8 +3,8 @@
 #include <utility> //std::pair
 using namespace Polaris;
 bool GraphInterface::AddConnection(
-        const GraphNode & firstNode,
-        const GraphNode & lastNode,
+        GraphNode & firstNode,
+        GraphNode & lastNode,
         const ConnectionParams & params )
 {
     //Delegate to AddConnection( Id, Id ).
@@ -26,8 +26,13 @@ bool GraphInterface::AddConnection(
         return false;
     // Create connection object.
     GraphConnection new_connection( firstNodeId, lastNodeId, params );
+    GraphNode & n1 = getNode( firstNodeId );
+    GraphNode & n2 = getNode( lastNodeId  );
+    n1.neighbors.push_back( lastNodeId );
+    n2.neighbors.push_back( firstNodeId );
     // Create a key ( pair ).
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
+
     graph_.connections[ key ] = new_connection;
     return true;
 }
@@ -51,7 +56,7 @@ bool GraphInterface::RemoveConnection(
     return true;
 }
 
-bool GraphInterface::AddNode( const GraphNode & node )
+bool GraphInterface::AddNode( GraphNode & node )
 {
     if( HasNode( node ) )
         return false;
@@ -59,7 +64,7 @@ bool GraphInterface::AddNode( const GraphNode & node )
     return true;
 }
 
-bool GraphInterface::RemoveNode( const GraphNode & node )
+bool GraphInterface::RemoveNode( GraphNode & node )
 {
     // find element
     auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
@@ -73,7 +78,8 @@ bool GraphInterface::RemoveNode( const GraphNode & node )
 
 bool GraphInterface::RemoveNode( Id nodeId )
 {
-    return RemoveNode( GraphNode( nodeId ) );
+    GraphNode node( nodeId );
+    return RemoveNode( node );
 }
 
 bool GraphInterface::HasNode( const GraphNode & node )
@@ -81,11 +87,25 @@ bool GraphInterface::HasNode( const GraphNode & node )
     auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
     return it != graph_.nodes.end();
 }
-
+class node_cmp
+{
+private:
+    Id id;
+public:
+    node_cmp( Id a_id): id( a_id ){};
+    bool operator()( const GraphNode & n ) {
+        return n.GetId() == id;
+    }
+};
 bool GraphInterface::HasNode( Id nodeId )
 {
-    //@TODO doesn't work.
-    return HasNode( GraphNode( nodeId ) );
+    //@TODO return this
+    //auto it = std::find_if(graph_.nodes.begin(), graph_.nodes.end(), node_cmp( nodeId ) );
+    //return it == graph_.nodes.end();
+    for(const auto & node : graph_.nodes)
+        if( node.GetId() == nodeId )
+            return true;
+    return false;
 }
 
 bool GraphInterface::AreConnected(
@@ -125,7 +145,7 @@ bool GraphInterface::SetConnectionParams(
     // Not connected
     if( graph_.connections.find( key ) == graph_.connections.end() )
         return false;
-    //@TODO should I implement method in GeaphConnection for this
+    //@TODO should I implement method in GraphConnection for this
     graph_.connections[ key ].cost = params.cost;
     return true;
 }
@@ -148,8 +168,9 @@ bool GraphInterface::AddConnection(
     return true;
 }
 
-const GraphNode & GraphInterface::getNode( Id nodeId )
+GraphNode & GraphInterface::getNode( Id nodeId )
 {
-    //@TODO implement this.
-    return * graph_.nodes.find( GraphNode( nodeId ) );
+    return const_cast<GraphNode &>(* std::find_if( graph_.nodes.begin(),
+                                                   graph_.nodes.end(),
+                                                   node_cmp( nodeId ) ) );
 }

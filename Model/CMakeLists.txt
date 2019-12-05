@@ -18,20 +18,15 @@ set(HEADERS include/Graph/Graph.h
             include/ModelInterface/ModelInterface.h
             include/ModelSubscriber/ModelSubscriber.h
             include/ModelObserver/ModelObserver.h
-            include/Search/Search.h )
-#            typedefs.h
-#            Meta/Meta.h
-#            GraphConnection/GraphConnection.h
-#            GraphNode/GraphNode.h
-#            GraphElement/GraphElement.h )
+            include/Search/Search.h
+            include/Search/PriorityQueue.h )
 
 set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelProxy/ModelProxy.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
-            lib/Search/Search.cpp )
-#            GraphConnection/GraphConnection.cpp
-#            GraphElement/GraphElement.cpp )
+            lib/Search/Search.cpp
+            lib/Search/PriorityQueue.cpp )
 
 set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
                     lib/ModelObserver/model_observer_tests.cpp
@@ -52,7 +47,7 @@ add_executable(graph_interface_tests lib/GraphInterface/graph_interface_tests.cp
 target_link_libraries(graph_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
 #Tests for ModelInterface class
 add_executable(model_interface_tests lib/ModelInterface/model_interface_tests.cpp)
-target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
+target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES})
 #Tests for Model
 add_executable(model_tests model_tests.cpp)
 target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
@@ -61,7 +56,7 @@ add_executable(model_observer_tests lib/ModelObserver/model_observer_tests.cpp)
 target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
 #Tests for Search
 add_executable(search_tests lib/Search/search_tests.cpp)
-target_link_libraries(search_tests PUBLIC Catch2::Catch2 polarisModel_lib)
+target_link_libraries(search_tests polarisModel_lib ${GTEST_LIBRARIES} )
 
 add_executable(test_run testrun.cpp)
-target_link_libraries(test_run polarisModel_lib )
+target_link_libraries( test_run )

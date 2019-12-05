@@ -22,7 +22,7 @@ public:
 using GraphConnections = std::map<
         std::pair< Id, Id >,
         GraphConnection >;
-using GraphNodes = std::set< GraphNode, NodeComparator >;
+using GraphNodes = std::set< GraphNode >;
 /******************************************************************************
  * Graph structure stores all vertices and connections in graph.
  * Connections are stored in adjacency matrix.
@@ -38,7 +38,7 @@ public:
     /**************************************************************************
      * default constructor
      *************************************************************************/
-     Graph() = default;
+     Graph():connections(), nodes(){};
 //     Graph(): connections(), nodes(
 //             [](const GraphNode & a, const GraphNode & b)
 //             { return a.getId() < b.getId(); }, boost::container::new_allocator()

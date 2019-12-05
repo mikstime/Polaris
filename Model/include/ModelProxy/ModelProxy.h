@@ -67,7 +67,7 @@ public:
      * node - node to insert in graph.
      * model - model to add in
      *************************************************************************/
-    virtual bool AddNode( const GraphNode & node, Model & model,
+    virtual bool AddNode( GraphNode & node, Model & model,
                           ModelObserver * observer );
     /**************************************************************************
      * ChangeMeta
@@ -84,7 +84,7 @@ public:
      * node - node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual bool RemoveNode( const GraphNode & node, Model & model,
+    virtual bool RemoveNode( GraphNode & node, Model & model,
                              ModelObserver * observer );
     /**************************************************************************
      * AddNode

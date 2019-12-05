@@ -53,7 +53,7 @@ bool ModelProxy::RemoveConnection( const Id & firstNodeId,
     return false;
 }
 
-bool ModelProxy::AddNode( const GraphNode & node, Model & model,
+bool ModelProxy::AddNode( GraphNode & node, Model & model,
                           ModelObserver * observer )
 {
     if( model.graph.AddNode( node ) )
@@ -69,7 +69,7 @@ bool ModelProxy::AddNode( const GraphNode & node, Model & model,
     return false;
 }
 
-bool ModelProxy::RemoveNode( const GraphNode & node, Model & model,
+bool ModelProxy::RemoveNode( GraphNode & node, Model & model,
                              ModelObserver * observer )
 {
     if( model.graph.RemoveNode( node ) )

@@ -67,6 +67,7 @@ TEST( GraphInterfaceTest, AddMethodsHandle )
     ASSERT_FALSE(graphInterface.AreConnected(testNode1, testNode2));
 
 }
-int main() {
-
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

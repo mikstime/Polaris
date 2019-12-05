@@ -71,7 +71,7 @@ public:
      * node - node to be inserted in graph
      * Callback is provided.
      *************************************************************************/
-    void AddNode( const GraphNode & node );
+    void AddNode( GraphNode & node );
     /**************************************************************************
      * AddNode
      * Arguments:
