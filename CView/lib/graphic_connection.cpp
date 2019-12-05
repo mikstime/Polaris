@@ -5,9 +5,9 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id,
                                       const size_t & floor )
-        : GraphicItem( id, floor, Polaris::Role::CONNECTION ),
-          left_( left ),
-          right_( right )
+: GraphicItem( id, floor, Polaris::Role::CONNECTION ),
+left_( left ),
+right_( right )
 {
     ResetColor();
     this->show();
@@ -20,12 +20,12 @@ double GraphicConnection::GetPrice() const
 
 void GraphicConnection::SetColor( const QColor & color )
 {
-    color_ = color;
+    cur_color_ = color;
 }
 
 void GraphicConnection::ResetColor()
 {
-    color_ = Qt::black;
+    cur_color_ = Qt::black;
 }
 
 void GraphicConnection::SetSelection()
@@ -35,12 +35,12 @@ void GraphicConnection::SetSelection()
 
 void GraphicConnection::ResetSelection()
 {
-    ResetColor();
+    SetDefaultColor();
 }
 
 void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget )
 {
-    painter->setPen( color_ );
+    painter->setPen(cur_color_ );
     painter->drawLine( left_, right_ );
 
     Q_UNUSED(option);

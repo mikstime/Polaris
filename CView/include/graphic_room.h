@@ -3,37 +3,35 @@
 
 #include "graphic_item.h"
 #include <string>
-// TODO временный путь до заголовочных файлов
 #include "Meta/Meta.h"
 
 namespace Polaris
 {
-    class GraphicRoom : public GraphicItem
-    {
-    public:
-        explicit GraphicRoom();
-        explicit GraphicRoom( const Meta & node, const QRectF & rect );
-        explicit GraphicRoom( const Meta & node, const QSize & size = QSize( 40, 40 ) );
-        GraphicRoom( const GraphicRoom & ) = delete;
-        GraphicRoom( const GraphicRoom && ) = delete;
-        GraphicRoom & operator = ( const GraphicRoom & room );
-        GraphicRoom & operator = ( const GraphicRoom && room );
+class GraphicRoom : public GraphicItem
+{
+public:
+    explicit GraphicRoom();
+    explicit GraphicRoom( const Meta & node, const QRectF & rect );
+    explicit GraphicRoom( const Meta & node, const QSize & size = QSize( 40, 40 ) );
+    GraphicRoom( const GraphicRoom & ) = delete;
+    GraphicRoom( const GraphicRoom && ) = delete;
+    GraphicRoom & operator = ( const GraphicRoom & room );
+    GraphicRoom & operator = ( const GraphicRoom && room );
 
-        std::string GetInfo() const;
-        void SetColor( const QColor & color ) override;
-        void ResetColor() override;
-        void SetSelection() override;
-        void ResetSelection() override;
+    std::string GetInfo() const;
+    void SetColor( const QColor & color ) override;
+    void SetSelection() override;
+    void ResetSelection() override;
 
-    private:
-        std::string info_;
-        QRectF size_;
-        QColor color_;
+private:
+    std::string info_;
+    QRectF size_;
 
-        void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
-        QRectF boundingRect() const override final;
-        QPainterPath shape() const override final;
-    };
+    void ResetColor() override;
+    void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
+    QRectF boundingRect() const override final;
+    QPainterPath shape() const override final;
+};
 } // namespace Polaris
 
 

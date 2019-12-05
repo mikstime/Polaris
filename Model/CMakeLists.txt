@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Catch2 REQUIRED)
 find_package(Boost REQUIRED)
 find_package(GTest REQUIRED)
 
@@ -48,10 +47,3 @@ add_executable(model_interface_tests lib/ModelInterface/model_interface_tests.cp
 target_link_libraries(model_interface_tests polarisModel_lib ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 #Tests for Model
 add_executable(model_tests model_tests.cpp)
-target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-#Tests for ModelObserver
-add_executable(model_observer_tests lib/ModelObserver/model_observer_tests.cpp)
-target_link_libraries(model_tests PUBLIC Catch2::Catch2 polarisModel_lib)
-#Tests for Search
-add_executable(search_tests lib/Search/search_tests.cpp)
-target_link_libraries(search_tests PUBLIC Catch2::Catch2 polarisModel_lib)

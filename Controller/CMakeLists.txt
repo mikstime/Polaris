@@ -32,4 +32,6 @@ include_directories(${PROJECT_SOURCE_DIR}/CView)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(ControllerTests tests/view_controller_tests.cpp)
-target_link_libraries(ControllerTests ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})
+
+target_link_libraries(ControllerTests polarisUtils_lib ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})
+

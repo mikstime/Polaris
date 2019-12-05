@@ -180,14 +180,14 @@ TEST_F( ItemGetters, GetRole )
 // реакция на изменения в модели
 TEST_F( ViewIntegration, BuildItems )
 {
-    graphics_view_->BuildItems( meta, graph );
+    graphics_view_->InitMap(meta, graph);
 
     // cmp res to meta and graph
 }
 
 TEST_F( ViewIntegration, DeleteRoom )
 {
-    graphics_view_->OnMetaRemoved( meta[ 1 ] );
+    graphics_view_->RemoveRoom(meta[1]);
 
     // cmp res to meta and graph
 }
@@ -195,13 +195,13 @@ TEST_F( ViewIntegration, DeleteRoom )
 TEST_F( ViewIntegration, AddRoom )
 {
     Meta nw{};
-    graphics_view_->OnMetaAdded( nw );
+    graphics_view_->AddRoom(nw);
     // cmp res to meta and graph
 }
 
 TEST_F( ViewIntegration, DeleteConnection )
 {
-    graphics_view_->OnConnectionRemoved( graph[ 1 ] );
+    graphics_view_->RemoveConnection(graph[1]);
 
     // cmp res to meta and graph
 }
@@ -209,7 +209,7 @@ TEST_F( ViewIntegration, DeleteConnection )
 TEST_F( ViewIntegration, AddConnection )
 {
     GraphConnection nw{};
-    graphics_view_->OnConnectionAdded( nw );
+    graphics_view_->AddConnection(nw);
 
     // cmp res to meta and graph
 }

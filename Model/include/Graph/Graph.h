@@ -2,7 +2,7 @@
 #define GRAPHSEARCH_GRAPH_H
 
 #include "GraphConnection/GraphConnection.h"
-#include "GraphNode/GraphNode.h"
+#include "Utils/GraphNode/GraphNode.h"
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector
@@ -13,6 +13,7 @@ namespace Polaris
 {
 class NodeComparator
 {
+public:
     bool operator()( const GraphNode & a, const GraphNode & b )
     {
         return a.GetId() < b.GetId();

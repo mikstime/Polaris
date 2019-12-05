@@ -21,9 +21,9 @@ GraphicRoom::GraphicRoom()
 }
 
 GraphicRoom::GraphicRoom( const Meta & node, const QRectF & rect )
-        : GraphicItem( node.graph_node_id, node.floor, node.role ),
-          info_( node.room_number ),
-          size_( rect )
+: GraphicItem( node.graph_node_id, node.floor, node.role ),
+info_( node.room_number ),
+size_( rect )
 {
     // TODO инициализация
     ResetColor();
@@ -47,7 +47,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
     this->role_ = room.role_;
     this->info_ = room.info_;
     this->size_ = room.size_;
-    this->color_ = room.color_;
+    this->cur_color_ = room.cur_color_;
     this->setPos( room.pos() );
     qInfo() << "&";
 
@@ -60,7 +60,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom && room )
     this->role_ = room.role_;
     this->info_ = std::move( room.info_ );
     this->size_ = std::move( room.size_ );
-    this->color_ = std::move( room.color_ );
+    this->cur_color_ = std::move(room.cur_color_ );
     this->setPos( room.pos() );
     qInfo() << "&&";
 
@@ -74,7 +74,7 @@ std::string GraphicRoom::GetInfo() const
 
 void GraphicRoom::SetColor( const QColor & color )
 {
-    color_ = color;
+    cur_color_ = color;
 }
 
 void GraphicRoom::ResetColor()
@@ -83,18 +83,18 @@ void GraphicRoom::ResetColor()
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {
-        color_ = Qt::black;
+        cur_color_ = Qt::black;
     } else if( role == Polaris::Role::ROOM )
     {
-        color_ = Qt::green;
+        cur_color_ = Qt::green;
     }
     else if( role == Polaris::Role::STAIR )
     {
-        color_ = Qt::red;
+        cur_color_ = Qt::red;
     }
     else if( role == Polaris::Role::HALL )
     {
-        color_ = Qt::blue;
+        cur_color_ = Qt::blue;
     }
 }
 
@@ -105,13 +105,13 @@ void GraphicRoom::SetSelection()
 
 void GraphicRoom::ResetSelection()
 {
-    ResetColor();
+    SetDefaultColor();
 }
 
 void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
     painter->setPen( Qt::black );
-    painter->setBrush( color_ );
+    painter->setBrush(cur_color_ );
     painter->drawEllipse( size_ );
 
     Q_UNUSED(option);

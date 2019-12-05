@@ -11,8 +11,9 @@ namespace Polaris
 class GraphElement
 {
 private:
-    Id id_;
+
 public:
+    Id id_;
     /**************************************************************************
      * GraphElement constructor. Creates uuid.
      * id never equals to 0

@@ -7,10 +7,9 @@
 #include "item_controller.h"
 #include <unordered_map>
 #include <memory>
-// TODO временный путь до заголовочных файлов
 #include "Meta/Meta.h"
-
-
+#include <unordered_map>
+#include <vector>
 
 namespace Polaris
 {
@@ -23,10 +22,9 @@ namespace Polaris
         GraphParser( const GraphParser && ) = delete;
         GraphParser & operator = ( const GraphParser & ) = delete;
         GraphParser & operator = ( const GraphParser && ) = delete;
-
         void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
-        void OnPathFound( const std::vector< const GraphNode > & nodes,
-                          const std::vector< const GraphConnection > & connections );
+        void DrawThePath( const std::vector< GraphNode > & nodes,
+                                       const std::vector< GraphConnection > & connections );
         void OnRoomChanged( const Meta & meta );
         void OnRoomAdded( const Meta & meta );
         void OnRoomRemoved( const Meta & meta );

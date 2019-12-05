@@ -17,4 +17,5 @@ set(SOURCE  GraphConnection/GraphConnection.cpp
 #Static library
 add_library( polarisUtils_lib STATIC ${HEADERS} ${SOURCE} )
 include_directories(${GTEST_INCLUDE_DIRS})
+
 target_include_directories( polarisUtils_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )

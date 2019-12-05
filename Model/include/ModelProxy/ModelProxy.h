@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELPROXY_H
 #define POLARISMODEL_MODELPROXY_H
 
-#include "include/ModelSubscriber/ModelSubscriber.h"
-#include "include/ModelObserver/ModelObserver.h"
+#include "Model/include/ModelSubscriber/ModelSubscriber.h"
+#include "Model/include/ModelObserver/ModelObserver.h"
 #include "GraphNode/GraphNode.h"
-#include "include/Model/Model.h"
+#include "Model/include/Model/Model.h"
 #include <cstddef>//std::size_t
 
 namespace Polaris
@@ -117,7 +117,7 @@ public:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Subscribe( const ModelSubscriber * & subscriber,
+    virtual bool Subscribe( ModelSubscriber * & subscriber,
                             const Model & model,
                             ModelObserver * observer ) const;
     /**************************************************************************
@@ -126,7 +126,7 @@ public:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Unsubscribe( const ModelSubscriber * & subscriber,
+    virtual bool Unsubscribe( ModelSubscriber * & subscriber,
                               const Model & model,
                               ModelObserver * observer ) const;
 };
