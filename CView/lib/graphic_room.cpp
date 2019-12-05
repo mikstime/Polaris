@@ -48,7 +48,6 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
     this->info_ = room.info_;
     this->size_ = room.size_;
     this->cur_color_ = room.cur_color_;
-    // TODO def_color_
     this->setPos( room.pos() );
     qInfo() << "&";
 
@@ -80,7 +79,7 @@ void GraphicRoom::SetColor( const QColor & color )
 
 void GraphicRoom::ResetColor()
 {
-    //TODO цвет зависит от роли def_color
+    //TODO цвет зависит от роли
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {
