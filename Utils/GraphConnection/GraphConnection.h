@@ -68,7 +68,7 @@ public:
      * Pass connection properties directly to constructor.
      *************************************************************************/
         // TODO айди не возможно задать
-        GraphConnection( const Id id, const Id & a_from, const Id & a_to,
+        GraphConnection( const Id & a_from, const Id & a_to,
                      const Price & a_cost );
 };
 } //namespace Polaris

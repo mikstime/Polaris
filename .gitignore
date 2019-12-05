@@ -36,8 +36,8 @@
 .idea/
 
 # Build files
-cmake-build-debug/
-cmake-build-release/
+*cmake-build-debug/*
+*cmake-build-release/*
 
 # CView ignores
 CView/.idea/

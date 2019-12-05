@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMain.a  CMakeFiles/Main.dir/Main_autogen/mocs_compilation.cpp.o CMakeFiles/Main.dir/lib/button_click_handler.cpp.o CMakeFiles/Main.dir/lib/node_form.cpp.o CMakeFiles/Main.dir/lib/connection_form.cpp.o CMakeFiles/Main.dir/lib/mainwindow.cpp.o CMakeFiles/Main.dir/lib/view_sub.cpp.o
+/usr/bin/ranlib libMain.a

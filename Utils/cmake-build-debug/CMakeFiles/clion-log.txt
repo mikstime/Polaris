@@ -1,0 +1,4 @@
+/home/huvalk/Загрузки/cmake-3.15.5/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/huvalk/Polaris/Utils
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/huvalk/Polaris/Utils/cmake-build-debug

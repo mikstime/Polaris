@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../GraphElement/GraphElement.h
+typedefs.h
+../GraphElement/typedefs.h
+
+../typedefs.h
+cstddef
+-
+
+/home/huvalk/Polaris/Utils/GraphConnection/GraphConnection.cpp
+GraphConnection.h
+/home/huvalk/Polaris/Utils/GraphConnection/GraphConnection.h
+
+/home/huvalk/Polaris/Utils/GraphConnection/GraphConnection.h
+GraphElement/GraphElement.h
+/home/huvalk/Polaris/Utils/GraphConnection/GraphElement/GraphElement.h
+typedefs.h
+/home/huvalk/Polaris/Utils/GraphConnection/typedefs.h
+
+/home/huvalk/Polaris/Utils/GraphElement/GraphElement.cpp
+GraphElement/GraphElement.h
+/home/huvalk/Polaris/Utils/GraphElement/GraphElement/GraphElement.h
+typedefs.h
+/home/huvalk/Polaris/Utils/GraphElement/typedefs.h
+

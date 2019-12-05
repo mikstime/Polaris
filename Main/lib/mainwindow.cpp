@@ -1,8 +1,6 @@
-#include "Main/include/mainwindow.h"
-#include <vector>
-#include <QDebug>
+#include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
 {
     setWindowTitle( "Polaris" );
 
@@ -10,7 +8,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
 
     node_form_ = new NodeForm;
 
-    button_click_handler_ = new ButtonClickHandler( node_form_, controller );
+    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller, graph_controller );
 
     InitButtons();
 
@@ -22,29 +20,18 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
     button_layout_->addWidget( floor_up_button_ );
     button_layout_->addWidget( floor_down_button_ );
 
+    // Init main layout
     main_layout_ = new QHBoxLayout;
     main_layout_->addLayout( button_layout_ );
     main_layout_->addWidget( node_form_ );
 
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
-    graphic_view_ = new GraphicView( this->size(), main_layout_, this );
-//
-//    Meta a = { 1, "805ю", 120, 120, 1, Role::ROOM };
-//    graphic_view_->AddRoom( a );
-//    Meta b = { 2, "805ю", 220, 120, 1, Role::ROOM };
-//    graphic_view_->AddRoom( b );
-//    Meta e = { 3, "805ю", 320, 120, 1, Role::ROOM };
-//    graphic_view_->AddRoom( e );
-//    qInfo() << "Connection";
-//    GraphConnection c( 4, 1, 2, 10 );
-//    graphic_view_->AddConnection( c );
+
+    // Creating View object
+    view_ = new GraphicView( this->size(), main_layout_, this );
 
     setCentralWidget( window );
-}
-
-Polaris::MainWindow::~MainWindow()
-{
 }
 
 void Polaris::MainWindow::InitButtons()

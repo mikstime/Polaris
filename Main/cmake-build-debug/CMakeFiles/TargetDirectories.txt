@@ -1,0 +1,6 @@
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/Main.dir
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/MainTests.dir
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/Main_autogen.dir
+/home/huvalk/Polaris/Main/cmake-build-debug/CMakeFiles/MainTests_autogen.dir

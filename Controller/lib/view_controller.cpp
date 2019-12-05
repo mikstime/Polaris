@@ -1,4 +1,4 @@
-#include "Controller/include/view_controller.h"
+#include "include/view_controller.h"
 
 Polaris::ViewController::ViewController()
 {
@@ -10,14 +10,6 @@ std::pair< int, int > Polaris::ViewController::GetNodeIds()
     return pair;
 }
 
-void Polaris::ViewController::SetSelectedNode( int node_id )
-{
-}
-
-void Polaris::ViewController::SetNodeCoordinates( int x, int y )
-{
-}
-
-void Polaris::ViewController::SetNodesCoordinates( int a_x, int a_y, int b_x, int b_y )
+std::pair< std::pair< int, int >, std::pair< int, int > > Polaris::ViewController::GetNodeCoords()
 {
 }

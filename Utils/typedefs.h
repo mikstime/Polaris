@@ -17,6 +17,8 @@ enum class Role
     STAIR,
     CONNECTION
 };
+
+const size_t ROLE_COUNT = 5;
 } //namespace Polaris
 
 #endif

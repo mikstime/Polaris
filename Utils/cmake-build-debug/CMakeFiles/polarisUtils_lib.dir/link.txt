@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpolarisUtils_lib.a  CMakeFiles/polarisUtils_lib.dir/GraphConnection/GraphConnection.cpp.o CMakeFiles/polarisUtils_lib.dir/GraphElement/GraphElement.cpp.o
+/usr/bin/ranlib libpolarisUtils_lib.a

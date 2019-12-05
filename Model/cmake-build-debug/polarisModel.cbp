@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="polarisModel"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="polarisModel_lib">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/libpolarisModel_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 polarisModel_lib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="polarisModel_lib/fast">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/libpolarisModel_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 polarisModel_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="graph_interface_tests">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/graph_interface_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 graph_interface_tests"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="graph_interface_tests/fast">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/graph_interface_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 graph_interface_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tests_gtest">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/tests_gtest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 tests_gtest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tests_gtest/fast">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/tests_gtest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 tests_gtest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model_interface_tests">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/model_interface_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 model_interface_tests"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model_interface_tests/fast">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/model_interface_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/home/huvalk/Polaris/Model/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 model_interface_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model_tests">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/model_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 model_tests"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model_tests/fast">
+				<Option output="/home/huvalk/Polaris/Model/cmake-build-debug/model_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/huvalk/Polaris/Model/cmake-build-debug"/>
+					<Add directory="/home/huvalk/Polaris/Model"/>
+					<Add directory="/home/huvalk/Polaris/Model/../Utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 model_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/huvalk/Polaris/Model/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/huvalk/Polaris/Model/include/Graph/Graph.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/GraphInterface/GraphInterface.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/Model/Model.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/ModelInterface/ModelInterface.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/ModelObserver/ModelObserver.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/ModelProxy/ModelProxy.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/ModelSubscriber/ModelSubscriber.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/include/Search/Search.h">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/GraphInterface/GraphInterface.cpp">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/GraphInterface/graph_interface_tests.cpp">
+			<Option target="graph_interface_tests"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/ModelInterface/ModelInterface.cpp">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/ModelInterface/model_interface_tests.cpp">
+			<Option target="model_interface_tests"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/ModelObserver/ModelObserver.cpp">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/ModelProxy/ModelProxy.cpp">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/lib/Search/Search.cpp">
+			<Option target="polarisModel_lib"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/model_tests.cpp">
+			<Option target="model_tests"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/tests_gtest.cpp">
+			<Option target="tests_gtest"/>
+		</Unit>
+		<Unit filename="/home/huvalk/Polaris/Model/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

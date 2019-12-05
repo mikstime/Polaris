@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/graph_interface_tests.dir/lib/GraphInterface/graph_interface_tests.cpp.o  -o graph_interface_tests libpolarisModel_lib.a /usr/lib/libgtest.a -lSTATIC -lpolarisUtils_lib 

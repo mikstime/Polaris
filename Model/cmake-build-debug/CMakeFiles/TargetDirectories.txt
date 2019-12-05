@@ -1,0 +1,7 @@
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/polarisModel_lib.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/graph_interface_tests.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/tests_gtest.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/model_interface_tests.dir
+/home/huvalk/Polaris/Model/cmake-build-debug/CMakeFiles/model_tests.dir

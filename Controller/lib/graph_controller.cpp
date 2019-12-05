@@ -1,37 +1,59 @@
-#include "Controller/include/graph_controller.h"
+#include "include/graph_controller.h"
 
-Polaris::GraphController::GraphController()
+Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) : model_( model )
 {
+    form_ = new NodeForm();
 }
 
-void Polaris::GraphController::AddNode( std::vector< int > node_coords )
+void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
 {
+    // Creating node
+    GraphNode new_node = GraphNode();
+    model_->AddNode( new_node );
+    Polaris::Id new_node_id = new_node.GetId();
+
+    // Setting and saving meta
+    form_->SetCurrentNodeParams( new_node_id, node_coords.first, node_coords.second );
+    form_->show();
 }
 
-void Polaris::GraphController::AddConnection( int a_node_id, int b_node_id )
+void Polaris::GraphController::AddConnection( const Id & a_node_id, const Id & b_node_id )
 {
+    Price price = 0; // TODO: Add price param
+    GraphConnection new_connection = GraphConnection( a_node_id, b_node_id, price );
+    model_->AddConnection( new_connection );
 }
 
-void Polaris::GraphController::DeleteNode( int node_id )
+void Polaris::GraphController::DeleteNode( const Polaris::Id & node_id )
 {
+    model_->RemoveNode( node_id );
 }
 
-void Polaris::GraphController::DeleteConnection( int a_node_id, int b_node_id )
+void Polaris::GraphController::DeleteConnection( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id )
 {
+    model_->RemoveConnection( a_node_id, b_node_id );
 }
 
-void Polaris::GraphController::MoveNode( int node_id, std::vector< int > node_coords )
+void Polaris::GraphController::MoveNode( const Polaris::Id & node_id, const std::pair< int, int > & node_coords )
 {
+    Meta meta;
+    meta.graph_node_id = node_id;
+    meta.x = node_coords.first;
+    meta.y = node_coords.second;
+    model_->ChangeMeta( node_id, meta );
 }
 
-void Polaris::GraphController::ChangeNode( int node_id )
+void Polaris::GraphController::ChangeNode( const Polaris::Id & node_id, const Meta & meta )
 {
+    // ???
 }
 
-void Polaris::GraphController::FindRoute( int a_node_id, int b_node_id )
+void Polaris::GraphController::FindRoute( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id )
 {
+    model_->FindPath( a_node_id, b_node_id );
 }
 
-void Polaris::GraphController::ChangeFloor( int floor_number )
+void Polaris::GraphController::ChangeFloor( const int & floor_number )
 {
+    // ???
 }

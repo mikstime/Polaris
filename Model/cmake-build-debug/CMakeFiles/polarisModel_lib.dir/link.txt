@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpolarisModel_lib.a  CMakeFiles/polarisModel_lib.dir/lib/GraphInterface/GraphInterface.cpp.o CMakeFiles/polarisModel_lib.dir/lib/ModelProxy/ModelProxy.cpp.o CMakeFiles/polarisModel_lib.dir/lib/ModelObserver/ModelObserver.cpp.o CMakeFiles/polarisModel_lib.dir/lib/ModelInterface/ModelInterface.cpp.o CMakeFiles/polarisModel_lib.dir/lib/Search/Search.cpp.o
+/usr/bin/ranlib libpolarisModel_lib.a
