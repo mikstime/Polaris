@@ -19,7 +19,7 @@ GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidge
           graph_parser_( new GraphParser( item_controller_ ) )
 {
     renderer_->setMaximumSize( size );
-    layout->addWidget( renderer_.get() );
+    layout->parent();
 }
 
 void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )

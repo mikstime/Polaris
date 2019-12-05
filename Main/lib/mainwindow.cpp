@@ -20,12 +20,16 @@ Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphControll
     button_layout_->addWidget( floor_up_button_ );
     button_layout_->addWidget( floor_down_button_ );
 
+    // Init main layout
     main_layout_ = new QHBoxLayout;
     main_layout_->addLayout( button_layout_ );
     main_layout_->addWidget( node_form_ );
 
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
+
+    // Creating View object
+    view_ = new GraphicView( this->size(), main_layout_, this );
 
     setCentralWidget( window );
 }

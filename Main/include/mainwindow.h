@@ -31,7 +31,7 @@ public:
     ~MainWindow() = default;
 
 private:
-    GraphicView * view;
+    GraphicView * view_;
     NodeForm * node_form_;
 
     QHBoxLayout * main_layout_;
