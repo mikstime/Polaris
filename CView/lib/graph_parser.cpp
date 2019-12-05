@@ -26,10 +26,32 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
 
 }
 
-void GraphParser::OnPathFound( const std::vector< const GraphNode > & nodes,
-                               const std::vector< const GraphConnection > & connections )
+void GraphParser::DrawThePath( const std::vector< GraphNode > & nodes,
+                               const std::vector< GraphConnection > & connections )
 {
+    // TODO полиморфизм. один вектор родительских объектов?
+    std::vector< GraphicItem * > path;
+    for( const auto & k : nodes )
+    {
+        auto cur_item = items_in_controller_.find( k.GetId() );
 
+        if( cur_item != items_in_controller_.end() )
+        {
+            path.push_back( ( * cur_item ).second );
+        }
+    }
+
+    for( const auto & k : connections )
+    {
+        auto cur_item = items_in_controller_.find( k.GetId() );
+
+        if( cur_item != items_in_controller_.end() )
+        {
+            path.push_back( ( * cur_item ).second );
+        }
+    }
+
+    item_cotroller_->SetCurPath( path );
 }
 
 void GraphParser::OnRoomChanged( const Meta & meta )

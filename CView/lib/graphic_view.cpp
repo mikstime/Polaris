@@ -14,7 +14,7 @@ using Polaris::Meta;
 
 // Размер окна и выкладка, на которой будет размещен виджет
 GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
-: item_controller_( new ItemController( QRect(0, 0, size.width(), size.height() ) ) ),
+: item_controller_( new ItemController( QRect( 0, 0, size.width(), size.height() ) ) ),
   renderer_( new Renderer( item_controller_.get() ) ),
   graph_parser_( new GraphParser( item_controller_ ) )
 {
@@ -27,10 +27,10 @@ void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< G
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::DrawThePath(const std::vector< const GraphNode > & nodes,
-                              const std::vector< const GraphConnection > & connections )
+void GraphicView::DrawThePath(const std::vector< GraphNode > & nodes,
+                              const std::vector< GraphConnection > & connections )
 {
-// TODO   graph_parser_->DrawThePath( path );
+    graph_parser_->DrawThePath( nodes, connections );
 }
 
 void GraphicView::ChangeRoom(const Meta & meta )

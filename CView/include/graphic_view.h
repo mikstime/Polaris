@@ -26,8 +26,8 @@ public:
     ~GraphicView() = default;
 
     void InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
-    void DrawThePath(const std::vector< const GraphNode > & nodes,
-                     const std::vector< const GraphConnection > & connections ) override;
+    void DrawThePath(const std::vector< GraphNode > & nodes,
+                     const std::vector< GraphConnection > & connections ) override;
     void ChangeRoom(const Meta & meta ) override;
     void AddRoom(const Meta & meta ) override;
     void RemoveRoom(const Meta & meta ) override;

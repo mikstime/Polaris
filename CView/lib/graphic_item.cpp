@@ -24,3 +24,8 @@ Polaris::Role GraphicItem::GetRole() const
 {
     return role_;
 }
+
+void GraphicItem::SetDefaultColor()
+{
+    cur_color_ =  def_color_;
+}

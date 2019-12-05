@@ -3,7 +3,6 @@
 
 #include "graphic_item.h"
 #include <string>
-// TODO временный путь до заголовочных файлов
 #include "Meta/Meta.h"
 
 namespace Polaris
@@ -21,15 +20,14 @@ public:
 
     std::string GetInfo() const;
     void SetColor( const QColor & color ) override;
-    void ResetColor() override;
     void SetSelection() override;
     void ResetSelection() override;
 
 private:
     std::string info_;
     QRectF size_;
-    QColor color_;
 
+    void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
     QPainterPath shape() const override final;

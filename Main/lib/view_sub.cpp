@@ -8,10 +8,10 @@ ViewSub::ViewSub( View * view )
 
 }
 
-void ViewSub::onPathFound( const std::vector< const GraphNode > & nodes,
-                           const std::vector< const GraphConnection > & connections )
+void ViewSub::onPathFound( const std::vector< GraphNode > & nodes,
+                           const std::vector< GraphConnection > & connections )
 {
-// TODO   view_->DrawThePath( path );
+    view_->DrawThePath( nodes, connections );
 }
 
 void ViewSub::onMetaChanged( const Meta & meta )

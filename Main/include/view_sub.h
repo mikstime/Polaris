@@ -22,8 +22,8 @@ public:
     ViewSub & operator = ( const ViewSub && ) = delete;
     ~ViewSub() = default;
 
-    void onPathFound( const std::vector< const GraphNode > & nodes,
-                      const std::vector< const GraphConnection > & connections ) ;
+    void onPathFound( const std::vector< GraphNode > & nodes,
+                      const std::vector< GraphConnection > & connections ) ;
     void onMetaChanged( const Meta & meta ) ;
     void onMetaAdded(const Meta & meta ) ;
     void onMetaRemoved(const Meta & meta ) ;

@@ -17,10 +17,10 @@ namespace Polaris
         ItemController( const ItemController && ) = delete;
         ItemController & operator = ( const ItemController & ) = delete;
         ItemController & operator = ( const ItemController && ) = delete;
-
         size_t GetCurrentNode() const;
         size_t GetPreviousNode() const;
         QPointF GetMarkDownPos() const;
+        void SetCurPath( std::vector< GraphicItem * > & cur_path );
         void mousePressEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
 
@@ -28,11 +28,14 @@ namespace Polaris
         GraphicItem * current_node_;
         GraphicItem * previous_node_;
         GraphicRoom mark_down_;
+        std::vector< GraphicItem * > cur_path_;
+        bool path_drawn_;
 
         void SelectCurrentNode(GraphicItem * const new_current );
         void SelectPreviousNode(GraphicItem * const new_previous );
         void ResetCurrentNode();
         void ResetPreviousNode();
+        void ResetPath();
     };
 } // namespace Polaris
 

@@ -18,7 +18,6 @@ public:
 
     double GetPrice() const;
     void SetColor( const QColor & color ) override;
-    void ResetColor() override;
     void SetSelection() override;
     void ResetSelection() override;
 
@@ -26,9 +25,9 @@ private:
     double price_;
     QPointF left_;
     QPointF right_;
-    QColor color_;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
+    void ResetColor() override;
+    void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
     QPainterPath shape() const override final;
 };

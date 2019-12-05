@@ -19,8 +19,8 @@ namespace Polaris
         Id GetId() const;
         int8_t GetFloor() const;
         Role GetRole() const;
+        void SetDefaultColor();
         virtual void SetColor( const QColor & color ) { return; }
-        virtual void ResetColor() { return; }
         virtual void SetSelection() { return; }
         virtual void ResetSelection() { return; }
 
@@ -28,8 +28,10 @@ namespace Polaris
         Id id_;
         int8_t floor_;
         Role role_;
-        // TODO перенести общие поля в родительский класс
+        QColor cur_color_;
+        QColor def_color_;
 
+        virtual void ResetColor() { return; }
         void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override { return; }
         QRectF boundingRect() const override { return QRectF(); }
     };

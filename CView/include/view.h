@@ -16,8 +16,8 @@ namespace Polaris
 
         virtual void InitMap(const std::vector< Meta > & meta,
                              const std::vector< GraphConnection > & graph ) = 0;
-        virtual void DrawThePath(const std::vector< const GraphNode > & nodes,
-                                 const std::vector< const GraphConnection > & connections ) = 0;
+        virtual void DrawThePath(const std::vector< GraphNode > & nodes,
+                                 const std::vector< GraphConnection > & connections ) = 0;
         virtual void ChangeRoom(const Meta & meta ) = 0;
         virtual void AddRoom(const Meta & meta ) = 0;
         virtual void RemoveRoom(const Meta & meta ) = 0;
