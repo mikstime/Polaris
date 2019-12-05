@@ -1,8 +1,7 @@
-#ifndef MAINAPP_GRAPH_CONTROLLER_H
-#define MAINAPP_GRAPH_CONTROLLER_H
+#ifndef GRAPH_CONTROLLER_H
+#define GRAPH_CONTROLLER_H
 
 #include <utility>
-#include "Controller/include/controller.h"
 #include "GraphNode/GraphNode.h"
 #include "Meta/Meta.h"
 #include "GraphConnection/GraphConnection.h"
@@ -21,59 +20,65 @@ public:
     void FindPath( Id first_id, Id second_id ) {}
 };
 
-class GraphController : public Controller
+class GraphController
 {
 public:
+    /**
+     * Constructor
+     * @param model - pointer to Model object
+     */
     GraphController( ModelInterface * model );
     /**
      * Add node to Model
      * @param node_coords - New node coordinates
      */
-    void AddNode( std::pair< int, int > node_coords ) override;
+    void AddNode( std::pair< int, int > node_coords );
     /**
      * Add connection to Model
      * @param a_node_id - First node id
      * @param b_node_id - Second node id
      */
-    void AddConnection( Polaris::Id a_node_id, Polaris::Id b_node_id ) override;
+    void AddConnection( Polaris::Id a_node_id, Polaris::Id b_node_id );
     /**
      * Delete node from Model
      * @param node_id - Deleted node id
      */
-    void DeleteNode( Polaris::Id node_id ) override;
+    void DeleteNode( Polaris::Id node_id );
     /**
      * Delete connection from Model
      * @param a_node_id -
      * @param b_node_id
      */
-    void DeleteConnection( Polaris::Id a_node_id, Polaris::Id b_node_id ) override;
+    void DeleteConnection( Polaris::Id a_node_id, Polaris::Id b_node_id );
     /**
      * Change node coordinates in Model
      * @param node_id - Movable node id
      * @param node_coords - Movable node new coordinates
      */
-    void MoveNode( Polaris::Id node_id, std::pair< int, int > node_coords ) override;
+    void MoveNode( Polaris::Id node_id, std::pair< int, int > node_coords );
     /**
      * Changing node Meta
      * @param node_id - Changing node id
      */
-    void ChangeNode( Polaris::Id node_id ) override;
+    void ChangeNode( Polaris::Id node_id, Meta meta );
     /**
      * Find route from node to another node
      * @param a_node_id - Start node
      * @param b_node_id - Finish node
      */
-    void FindRoute( Polaris::Id a_node_id, Polaris::Id b_node_id ) override;
+    void FindRoute( Polaris::Id a_node_id, Polaris::Id b_node_id );
     /**
      * Changing floor
      * @param floor_number - New floor number
      */
-    void ChangeFloor( int floor_number ) override;
+    void ChangeFloor( int floor_number );
 
 private:
     ModelInterface * model_;
+
+    NodeForm * form_;
 };
 
 } // namespace Polaris
 
-#endif //MAINAPP_GRAPH_CONTROLLER_H
+#endif // GRAPH_CONTROLLER_H

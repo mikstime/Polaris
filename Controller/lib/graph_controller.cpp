@@ -4,6 +4,7 @@
 
 Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) : model_( model )
 {
+    form_ = new NodeForm( this );
 }
 
 void Polaris::GraphController::AddNode( std::pair< int, int > node_coords )
@@ -13,13 +14,9 @@ void Polaris::GraphController::AddNode( std::pair< int, int > node_coords )
     model_->AddNode( new_node );
     Polaris::Id new_node_id = new_node.GetId();
 
-    // Creating Meta
-    Meta meta;
-    meta.graph_node_id = new_node_id;
-    meta.x = node_coords.first;
-    meta.y = node_coords.second;
-    // TODO: Add other params to meta
-    model_->ChangeMeta( new_node_id, meta );
+    // Setting and saving meta
+    form_->SetCurrentNodeParams( new_node_id, node_coords.first, node_coords.second );
+    form_->show();
 }
 
 void Polaris::GraphController::AddConnection( Id a_node_id, Id b_node_id )
@@ -48,7 +45,7 @@ void Polaris::GraphController::MoveNode( Polaris::Id node_id, std::pair< int, in
     model_->ChangeMeta( node_id, meta );
 }
 
-void Polaris::GraphController::ChangeNode( Polaris::Id node_id )
+void Polaris::GraphController::ChangeNode( Polaris::Id node_id, Meta meta )
 {
     // ???
 }

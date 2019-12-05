@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QRadioButton>
+#include "typedefs.h"
 
 namespace Polaris
 {
@@ -16,19 +18,41 @@ class NodeForm : public QWidget
     Q_OBJECT
 
 public:
-    NodeForm();
+    /**
+     * Constructor
+     * @param graph_controller - pointer to GraphController class
+     */
+    NodeForm( GraphController * graph_controller );
+    /**
+     * Set current node id and coordinates
+     * @param id - node id
+     * @param x - node x-coordinate
+     * @param y - node y-coordinate
+     */
+    void SetCurrentNodeParams( const Id & id, const Coordinate & x, const Coordinate & y );
 
 private:
+    Polaris::Meta ConstructMeta( const std::string & room_number, const int8_t & floor, const Role & role );
+
+    // Current node constant params
+    Id id_;
+    Coordinate x_, y_;
+
     QVBoxLayout * main_layout_;
 
-    QHBoxLayout * a_input_layout_;
-    QHBoxLayout * b_input_layout_;
+    GraphController * graph_controller_;
 
-    QLabel * a_some_label_;
-    QLabel * b_some_label_;
+    // Room number input field
+    QLabel * room_number_label_;
+    QLineEdit * room_number_input_;
 
-    QLineEdit * a_some_line_edit_;
-    QLineEdit * b_some_line_edit_;
+    // Floor number input field
+    QLabel * floor_label_;
+    QLineEdit * floor_input_;
+
+    // Role radio buttons
+    QLabel * role_label_;
+    std::array< QRadioButton *, ROLE_COUNT > role_buttons_;
 
     QPushButton * save_button_;
 

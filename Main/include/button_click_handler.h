@@ -3,6 +3,8 @@
 
 #include <QtCore/QObject>
 #include "node_form.h"
+#include "Controller/include/view_controller.h"
+#include "Controller/include/graph_controller.h"
 
 namespace Polaris
 {

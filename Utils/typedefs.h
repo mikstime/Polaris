@@ -3,6 +3,8 @@
 
 #include <cstddef> //std::size_t
 
+#define ROLE_COUNT 5
+
 namespace Polaris
 {
     using Id = std::size_t;

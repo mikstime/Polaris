@@ -1,4 +1,7 @@
+#include "include/view_controller.h"
+#include "include/graph_controller.h"
 #include "include/button_click_handler.h"
+#include "include/node_data.h"
 
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * form, ViewController * view_controller, GraphController * graph_controller )
     : form_( form ), view_controller_( view_controller ), graph_controller_( graph_controller )
@@ -52,7 +55,8 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
     if( first_id != EMPTY )
     {
         std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
-        graph_controller_->ChangeNode( first_id );
+        Meta meta;
+        graph_controller_->ChangeNode( first_id, meta );
     }
 }
 
