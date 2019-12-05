@@ -17,8 +17,7 @@ add_subdirectory(Main)
 add_subdirectory(Controller)
 add_subdirectory(CView)
 add_subdirectory(Utils)
-add_subdirectory(Model)
 
 add_executable(MainApp main.cpp)
 
-target_link_libraries(MainApp PRIVATE MainLib ControllerLib Qt5::Widgets)
+target_link_libraries(MainApp PRIVATE Main Controller CView Utils Qt5::Widgets)

@@ -2,7 +2,7 @@
 #define MAINAPP_CONTROLLER_H
 
 #include <utility>
-#include "../../Utils/typedefs.h"
+#include "typedefs.h"
 
 namespace Polaris
 {

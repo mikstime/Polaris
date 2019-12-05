@@ -1,4 +1,4 @@
-#include "node_form.h"
+#include "include/node_form.h"
 
 Polaris::NodeForm::NodeForm()
 {

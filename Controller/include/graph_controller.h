@@ -2,12 +2,24 @@
 #define MAINAPP_GRAPH_CONTROLLER_H
 
 #include <utility>
-#include "../../Model/include/ModelInterface/ModelInterface.h"
-#include "controller.h"
-#include "../../Utils/typedefs.h"
+#include "Controller/include/controller.h"
+#include "GraphNode/GraphNode.h"
+#include "Meta/Meta.h"
+#include "GraphConnection/GraphConnection.h"
 
 namespace Polaris
 {
+
+class ModelInterface
+{
+public:
+    void AddNode( GraphNode node ) {}
+    void ChangeMeta( Id id, Meta meta ) {}
+    void AddConnection( GraphConnection ) {}
+    void RemoveNode( Id id ) {}
+    void RemoveConnection( Id first_id, Id second_if ) {}
+    void FindPath( Id first_id, Id second_id ) {}
+};
 
 class GraphController : public Controller
 {

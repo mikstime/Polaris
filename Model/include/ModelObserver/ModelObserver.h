@@ -1,12 +1,9 @@
 #ifndef POLARISMODEL_MODELOBSERVER_H
 #define POLARISMODEL_MODELOBSERVER_H
 
-#include "../ModelSubscriber/ModelSubscriber.h"
-#include "../../../Utils/GraphNode/GraphNode.h"
-#include "../Model/Model.h"
-#include "../../../Utils/Meta/Meta.h"
 #include <utility> //std::move
 #include <vector> //std::vector
+#include "GraphConnection/GraphConnection.h"
 
 namespace Polaris
 {

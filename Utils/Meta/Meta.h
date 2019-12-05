@@ -2,6 +2,7 @@
 #define META_HPP
 
 #include <string>
+#include "typedefs.h"
 
 namespace Polaris
 {
@@ -11,14 +12,15 @@ namespace Polaris
  * It is separated from GraphNode to increase flexibility
  * between project parts.
  *****************************************************************************/
-struct Meta
-{
-public:
-    Id graph_node_id;
-    std::string room_number;
-    Coordinate x, y;
-    int8_t floor;
-};
+    struct Meta
+    {
+    public:
+        Id graph_node_id;
+        std::string room_number;
+        Coordinate x, y;
+        int8_t floor;
+        Role role;
+    };
 } //namespace Polaris
 
 #endif //META_HPP

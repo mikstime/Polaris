@@ -1,12 +1,8 @@
 #ifndef GRAPHSEARCH_MODEL_HPP
 #define GRAPHSEARCH_MODEL_HPP
 
-#include "../Graph/Graph.h"
-#include "../../../Utils/Meta/Meta.h"
 #include <map>
 #include <utility>
-#include "../GraphInterface/GraphInterface.h"
-#include "../../../Utils/typedefs.h"
 
 namespace Polaris
 {

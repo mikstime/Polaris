@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(MainApp LANGUAGES CXX)
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -15,15 +13,17 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
-set(HEADERS include/controller.h include/graph_controller.h include/view_controller.h)
+set(HEADERS include/controller.h include/graph_controller.h include/view_controller.h include/node_data.h)
 set(SOURCES lib/controller.cpp lib/graph_controller.cpp lib/view_controller.cpp)
 
-add_library(ControllerLib STATIC ${HEADERS} ${SOURCES})
+add_library(Controller STATIC ${SOURCES} ${HEADERS})
 
-target_include_directories(ControllerLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include)
+target_include_directories(Controller PUBLIC {})
 
-target_link_libraries(ControllerLib PRIVATE Qt5::Widgets)
+target_link_libraries(Controller PRIVATE Qt5::Widgets)
+
+include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
 include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(ControllerLibTests tests/controller_tests.cpp)
-target_link_libraries(ControllerLibTests ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})
+add_executable(ControllerTests tests/view_controller_tests.cpp)
+target_link_libraries(ControllerTests ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})

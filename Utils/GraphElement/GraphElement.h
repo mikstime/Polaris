@@ -1,7 +1,7 @@
 #ifndef GRAPHELEMENT_HPP
 #define GRAPHELEMENT_HPP
 
-#include "../typedefs.h"
+#include "typedefs.h"
 
 namespace Polaris
 {

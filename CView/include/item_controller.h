@@ -1,8 +1,8 @@
 #ifndef MAINAPP_ITEM_CONTROLLER_H
 #define MAINAPP_ITEM_CONTROLLER_H
 
+#include "include/graphic_item.h"
 #include "include/graphic_room.h"
-#include <QGraphicsEllipseItem>
 #include <QGraphicsScene>
 #include <QMouseEvent>
 
@@ -12,6 +12,7 @@ namespace Polaris
     {
     public:
         explicit ItemController( const QRect & scene_rect, QObject * parent = nullptr );
+        ~ItemController();
         ItemController( const ItemController & ) = delete;
         ItemController( const ItemController && ) = delete;
         ItemController & operator = ( const ItemController & ) = delete;

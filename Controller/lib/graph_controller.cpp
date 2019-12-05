@@ -1,5 +1,6 @@
 #include "include/graph_controller.h"
-#include "../../Utils/typedefs.h"
+#include "GraphNode/GraphNode.h"
+#include "Meta/Meta.h"
 
 Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) : model_( model )
 {

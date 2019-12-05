@@ -1,10 +1,6 @@
 #ifndef POLARISMODEL_MODELSUBSCRIBER_H
 #define POLARISMODEL_MODELSUBSCRIBER_H
 
-#include "../../../Utils/GraphConnection/GraphConnection.h"
-#include "../../../Utils/GraphNode/GraphNode.h"
-#include "../Model/Model.h"
-#include "../../../Utils/Meta/Meta.h"
 namespace Polaris
 {
 struct Meta;

@@ -1,10 +1,8 @@
-#ifndef MAINAPP_BUTTON_CLICK_HANDLER_H
-#define MAINAPP_BUTTON_CLICK_HANDLER_H
+#ifndef BUTTON_CLICK_HANDLER_H
+#define BUTTON_CLICK_HANDLER_H
 
 #include <QtCore/QObject>
 #include "node_form.h"
-#include "../../Controller/include/view_controller.h"
-#include "../../Controller/include/graph_controller.h"
 
 namespace Polaris
 {
@@ -18,8 +16,8 @@ public:
 
 private:
     NodeForm * form_;
-    ViewController * view_controller_;
-    GraphController * graph_controller_;
+    ViewController * view_controller_{};
+    GraphController * graph_controller_{};
 
 public slots:
     /**
@@ -54,4 +52,4 @@ public slots:
 
 } // namespace Polaris
 
-#endif //MAINAPP_BUTTON_CLICK_HANDLER_H
+#endif // BUTTON_CLICK_HANDLER_H

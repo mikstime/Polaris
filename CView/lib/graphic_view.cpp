@@ -4,7 +4,7 @@
 #include "include/graph_parser.h"
 #include "include/item_controller.h"
 #include <memory>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
 
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
@@ -13,47 +13,47 @@ using Polaris::GraphicConnection;
 using Polaris::Meta;
 
 // Размер окна и выкладка, на которой будет размещен виджет
-GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent )
-: item_controller_( new ItemController( size ) ),
-  renderer_( new Renderer( item_controller_.get() ) ),
-  graph_parser_( new GraphParser( item_controller_.get() ) )
+GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
+        : item_controller_( new ItemController( QRect(0, 0, size.width(), size.height() ) ) ),
+          renderer_( new Renderer( item_controller_.get() ) ),
+          graph_parser_( new GraphParser( item_controller_ ) )
 {
-    renderer_->setMaximumSize( size.size() );
-    layout.addWidget( renderer_.get() );
+    renderer_->setMaximumSize( size );
+    layout->addWidget( renderer_.get() );
 }
 
-void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::OnPathFound(const std::vector< const GraphNode > & nodes,
+void GraphicView::DrawThePath(const std::vector< const GraphNode > & nodes,
                               const std::vector< const GraphConnection > & connections )
 {
 // TODO   graph_parser_->DrawThePath( path );
 }
 
-void GraphicView::OnMetaChanged( const Meta & meta )
+void GraphicView::ChangeRoom(const Meta & meta )
 {
-    graph_parser_->OnMetaChanged( meta );
+    graph_parser_->OnRoomChanged(meta);
 }
 
-void GraphicView::OnMetaAdded( const Meta & meta )
+void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
 }
 
-void GraphicView::OnMetaRemoved( const Meta & meta )
+void GraphicView::RemoveRoom(const Meta & meta )
 {
     graph_parser_->OnRoomRemoved(meta);
 }
 
-void GraphicView::OnConnectionAdded( const GraphConnection & connection )
+void GraphicView::AddConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionAdded( connection );
 }
 
-void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
+void GraphicView::RemoveConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionRemoved( connection );
 }
