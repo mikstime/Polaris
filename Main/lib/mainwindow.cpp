@@ -39,6 +39,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
     qInfo() << "Connection";
     GraphConnection c( 1, 2, 10 );
     graphic_view_->AddConnection( c );
+    graphic_view_->RemoveRoom( e );
 
     setCentralWidget( window );
 }

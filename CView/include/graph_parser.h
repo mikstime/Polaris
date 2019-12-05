@@ -2,12 +2,14 @@
 #define MAINAPP_GRAPHPARSER_H
 
 #include "graphic_item.h"
+#include "GraphNode/GraphNode.h"
+#include "GraphConnection/GraphConnection.h"
 #include "item_controller.h"
+#include <unordered_map>
 #include <memory>
 // TODO временный путь до заголовочных файлов
 #include "Meta/Meta.h"
-#include "GraphNode/GraphNode.h"
-#include "GraphConnection/GraphConnection.h"
+
 
 
 namespace Polaris
@@ -33,10 +35,9 @@ namespace Polaris
 
     private:
         std::shared_ptr< ItemController >item_cotroller_;
-        std::vector< GraphicItem * > items_in_controller_;
+        std::unordered_map< Id, GraphicItem * > items_in_controller_;
 
-        void SortItems();
-        std::vector< GraphicItem * >::iterator FindItemById( const Id cur_id );
+        std::unordered_map< Id, GraphicItem * >::iterator FindByPointer( const GraphicItem * const cur_item );
         bool EraseItemById( const Id cur_id );
     };
 } // namespace Polaris
