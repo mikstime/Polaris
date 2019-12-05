@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/model_interface_tests.dir/lib/ModelInterface/model_interface_tests.cpp.o  -o model_interface_tests libpolarisModel_lib.a /usr/lib/libgtest.a -llib/GraphInterface/graph_interface_tests.cpp -llib/ModelObserver/ModelObserver.cpp -llib/ModelInterface/model_interface_tests.cpp -lSTATIC -lpolarisUtils_lib 
