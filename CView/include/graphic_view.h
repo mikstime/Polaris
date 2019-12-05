@@ -9,7 +9,7 @@
 #include <QGraphicsView>
 #include <QtWidgets/QVBoxLayout>
 
-namespace Polaris 
+namespace Polaris
 {
 class GraphicView : public View
 {

@@ -5,10 +5,10 @@
 using Polaris::Renderer;
 
 Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
-: QGraphicsView( scene, parent ),
-current_floor_( 1 ),
-empty_first_floor_( true ),
-empty_last_floor_( true )
+        : QGraphicsView( scene, parent ),
+          current_floor_( 1 ),
+          empty_first_floor_( true ),
+          empty_last_floor_( true )
 {
     // TODO инициализация начальной картинки
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );

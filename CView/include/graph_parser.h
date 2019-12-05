@@ -5,6 +5,7 @@
 #include "GraphNode/GraphNode.h"
 #include "GraphConnection/GraphConnection.h"
 #include "item_controller.h"
+#include <unordered_map>
 #include <memory>
 #include "Meta/Meta.h"
 #include <unordered_map>

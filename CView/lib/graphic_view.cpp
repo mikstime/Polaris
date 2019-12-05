@@ -21,7 +21,6 @@ GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidge
   graph_parser_( new GraphParser( item_controller_ ) )
 {
     renderer_->setMaximumSize( size );
-    layout->parent();
     layout->addWidget( renderer_.get() );
 }
 
