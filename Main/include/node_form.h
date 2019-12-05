@@ -1,5 +1,5 @@
-#ifndef MAINAPP_NODE_FORM_H
-#define MAINAPP_NODE_FORM_H
+#ifndef NODE_FORM_H
+#define NODE_FORM_H
 
 #include <QtCore/QObject>
 #include <QPushButton>
@@ -8,7 +8,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QRadioButton>
-#include "typedefs.h"
+
+#include "Meta/Meta.h"
 
 namespace Polaris
 {
@@ -20,9 +21,8 @@ class NodeForm : public QWidget
 public:
     /**
      * Constructor
-     * @param graph_controller - pointer to GraphController class
      */
-    NodeForm( GraphController * graph_controller );
+    NodeForm();
     /**
      * Set current node id and coordinates
      * @param id - node id
@@ -39,8 +39,6 @@ private:
     Coordinate x_, y_;
 
     QVBoxLayout * main_layout_;
-
-    GraphController * graph_controller_;
 
     // Room number input field
     QLabel * room_number_label_;
@@ -62,4 +60,4 @@ public slots:
 
 } // namespace Polaris
 
-#endif //MAINAPP_NODE_FORM_H
+#endif // NODE_FORM_H

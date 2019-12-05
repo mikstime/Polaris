@@ -13,8 +13,17 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
-set(HEADERS include/button_click_handler.h include/node_form.h include/mainwindow.h include/view_sub.h)
-set(SOURCES lib/button_click_handler.cpp lib/node_form.cpp lib/mainwindow.cpp lib/view_sub.cpp)
+set(HEADERS include/button_click_handler.h
+            include/node_form.h
+            include/connection_form.h
+            include/mainwindow.h
+            include/view_sub.h)
+
+set(SOURCES lib/button_click_handler.cpp
+            lib/node_form.cpp
+            lib/connection_form.cpp
+            lib/mainwindow.cpp
+            lib/view_sub.cpp)
 
 add_library(Main STATIC ${HEADERS} ${SOURCES})
 

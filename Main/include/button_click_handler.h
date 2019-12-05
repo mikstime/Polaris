@@ -2,9 +2,10 @@
 #define BUTTON_CLICK_HANDLER_H
 
 #include <QtCore/QObject>
-#include "node_form.h"
-#include "Controller/include/view_controller.h"
-#include "Controller/include/graph_controller.h"
+
+#include "include/node_form.h"
+#include "include/view_controller.h"
+#include "include/graph_controller.h"
 
 namespace Polaris
 {
@@ -14,6 +15,12 @@ class ButtonClickHandler : public QObject
     Q_OBJECT
 
 public:
+    /**
+     * Constructor
+     * @param form - pointer to NodeForm object
+     * @param controller - pointer to ViewController object
+     * @param graph_controller - pointer to GraphController object
+     */
     ButtonClickHandler( NodeForm * form, ViewController * controller, GraphController * graph_controller );
 
 private:

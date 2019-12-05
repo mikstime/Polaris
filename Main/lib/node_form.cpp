@@ -1,11 +1,7 @@
-#include <QHBoxLayout>
-
-#include "include/graph_controller.h"
 #include "include/node_form.h"
 #include "include/node_data.h"
 
-Polaris::NodeForm::NodeForm( GraphController * graph_controller ) :
-        graph_controller_( graph_controller ), id_( EMPTY ), x_( EMPTY ), y_( EMPTY )
+Polaris::NodeForm::NodeForm() : id_( EMPTY ), x_( EMPTY ), y_( EMPTY )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
@@ -93,7 +89,7 @@ void Polaris::NodeForm::SaveButtonClick()
 
     Meta meta = ConstructMeta( room_number, floor, role );
 
-    graph_controller_->ChangeNode( id_, meta );
+    // TODO: Call ChangeMeta from ModelInterface
 
     // Clearing input fields
     room_number_input_->clear();

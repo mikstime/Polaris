@@ -13,16 +13,22 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
-set(HEADERS include/controller.h include/graph_controller.h include/view_controller.h include/node_data.h)
-set(SOURCES lib/controller.cpp lib/graph_controller.cpp lib/view_controller.cpp)
+set(HEADERS include/graph_controller.h
+            include/view_controller.h
+            include/node_data.h)
+
+set(SOURCES lib/graph_controller.cpp
+            lib/view_controller.cpp)
 
 add_library(Controller STATIC ${SOURCES} ${HEADERS})
 
-target_include_directories(Controller PUBLIC {})
+target_include_directories(Controller PUBLIC .)
 
 target_link_libraries(Controller PRIVATE Qt5::Widgets)
 
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
+include_directories(${PROJECT_SOURCE_DIR}/Main)
+include_directories(${PROJECT_SOURCE_DIR}/CView)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(ControllerTests tests/view_controller_tests.cpp)

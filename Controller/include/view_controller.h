@@ -3,7 +3,8 @@
 
 #include <QtCore/QObject>
 #include <utility>
-#include "Controller/include/node_data.h"
+
+#include "include/node_data.h"
 
 namespace Polaris
 {
@@ -13,8 +14,10 @@ class ViewController : public QObject
     Q_OBJECT
 
 public:
+    /**
+     * Constructor
+     */
     ViewController();
-
     /**
      * Get node ids
      * @return - Two ids of selected nodes or EMPTY if not selected

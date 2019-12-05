@@ -30,10 +30,6 @@ Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphControll
     setCentralWidget( window );
 }
 
-Polaris::MainWindow::~MainWindow()
-{
-}
-
 void Polaris::MainWindow::InitButtons()
 {
     add_button_ = new QPushButton( "Добавить" );

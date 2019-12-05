@@ -1,5 +1,5 @@
-#ifndef MAINAPP_NODE_DATA_H
-#define MAINAPP_NODE_DATA_H
+#ifndef NODE_DATA_H
+#define NODE_DATA_H
 
 #include <utility>
 
@@ -16,4 +16,4 @@ struct NodeData
 
 } // namespace Polaris
 
-#endif //MAINAPP_NODE_DATA_H
+#endif // NODE_DATA_H
