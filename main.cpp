@@ -4,9 +4,9 @@
 #include "Controller/include/view_controller.h"
 #include "Controller/include/graph_controller.h"
 
-int main(int argc, char * argv[])
+int main( int argc, char * argv[] )
 {
-    QApplication app(argc, argv);
+    QApplication app( argc, argv );
 
     // Creating ViewController object
     auto * view_controller = new Polaris::ViewController;

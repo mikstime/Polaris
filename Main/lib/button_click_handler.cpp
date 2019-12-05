@@ -13,6 +13,10 @@ void Polaris::ButtonClickHandler::AddButtonClick()
         // One room selected, creating room
         std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
         graph_controller_->AddNode( first_coords );
+
+        // Opening node form
+        form_->SetCurrentNodeParams( ids.first, first_coords.first, first_coords.second );
+        form_->show();
     }
     else if( ids.first != EMPTY && ids.second != EMPTY )
     {
