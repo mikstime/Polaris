@@ -2,6 +2,7 @@
 #define GRAPHNODE_HPP
 
 #include "GraphConnection/GraphConnection.h"
+#include <vector>
 #include "typedefs.h"
 namespace Polaris
 {
@@ -11,30 +12,54 @@ namespace Polaris
  *****************************************************************************/
 struct GraphNode: public GraphElement
 {
-    bool operator==(const GraphNode & __x ) const
+public:
+    std::vector< Id > neighbors;
+public:
+//    bool operator==(const GraphNode & __x ) const
+//    {
+//        return GetId() == __x.GetId();
+//    }
+//    bool operator!=(const GraphNode & __x ) const
+//    {
+//        return GetId() != __x.GetId();
+//    }
+    friend bool operator>( const GraphNode & l, const GraphNode & r )
     {
-        return GetId() == __x.GetId();
+        return l.GetId() > r.GetId();
+    }
+    friend bool operator<( const GraphNode & l, const GraphNode & r )
+    {
+        return l.GetId() < r.GetId();
+    }
+    friend bool operator==( const GraphNode & l, const GraphNode & r )
+    {
+        return l.GetId() == r.GetId();
+    }
+    friend bool operator!=( const GraphNode & l, const GraphNode & r )
+    {
+        return l.GetId() != r.GetId();
     }
     /**************************************************************************
      * default constructor.
      *************************************************************************/
-     GraphNode() = default;
+     GraphNode():GraphElement(), neighbors(){};
     /**************************************************************************
      * copy constructor
      *************************************************************************/
-     GraphNode( const GraphNode & ) = default;
+     GraphNode( const GraphNode & c ):GraphElement( c.GetId() ),
+     neighbors( c.neighbors ){};
     /**************************************************************************
      * move constructor
      *************************************************************************/
-     GraphNode( GraphNode && ) = default;
+//     GraphNode( GraphNode && ) = default;
     /**************************************************************************
      * default destructor
      *************************************************************************/
-     ~GraphNode() = default;
+     //~GraphNode() = default;
     /**************************************************************************
      * Create Node with specified Id.
      *************************************************************************/
-    explicit GraphNode( const Id & id ): GraphElement( id ) {};
+    explicit GraphNode( const Id & id ): GraphElement( id ), neighbors() {};
 };
 }//namespace Polaris
 
