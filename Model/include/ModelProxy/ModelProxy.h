@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELPROXY_H
 #define POLARISMODEL_MODELPROXY_H
 
-#include "../ModelSubscriber/ModelSubscriber.h"
-#include "../ModelObserver/ModelObserver.h"
-#include "../../../Utils/GraphNode/GraphNode.h"
-#include "../Model/Model.h"
+#include "include/ModelSubscriber/ModelSubscriber.h"
+#include "include/ModelObserver/ModelObserver.h"
+#include "GraphNode/GraphNode.h"
+#include "include/Model/Model.h"
 #include <cstddef>//std::size_t
 
 namespace Polaris

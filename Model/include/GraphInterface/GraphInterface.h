@@ -1,11 +1,10 @@
 #ifndef POLARISMODEL_GRAPHINTERFACE_H
 #define POLARISMODEL_GRAPHINTERFACE_H
 
-#include "../../../Utils/GraphConnection/GraphConnection.h"
-#include "../../../Utils/GraphNode/GraphNode.h"
-#include "../Graph/Graph.h"
-#include "../../../Utils/typedefs.h"
-#include "../../../Utils/GraphConnection/GraphConnection.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include "include/Graph/Graph.h"
+#include "typedefs.h"
 #include <utility>
 namespace Polaris
 {
