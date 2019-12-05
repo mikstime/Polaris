@@ -23,9 +23,10 @@ GraphParser::~GraphParser()
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-
+    // TODO собирается карта
 }
 
+// TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< GraphNode > & nodes,
                                const std::vector< GraphConnection > & connections )
 {

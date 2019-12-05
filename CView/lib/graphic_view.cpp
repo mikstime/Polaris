@@ -6,6 +6,8 @@
 #include <memory>
 #include <QtWidgets/QHBoxLayout>
 
+#include <QDebug>
+
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
 using Polaris::GraphConnection;
@@ -19,6 +21,7 @@ GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidge
   graph_parser_( new GraphParser( item_controller_ ) )
 {
     renderer_->setMaximumSize( size );
+    layout->parent();
     layout->addWidget( renderer_.get() );
 }
 
