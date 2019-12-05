@@ -12,15 +12,15 @@ namespace Polaris
  * It is separated from GraphNode to increase flexibility
  * between project parts.
  *****************************************************************************/
-struct Meta
-{
-public:
-    Id graph_node_id;
-    std::string room_number;
-    Coordinate x, y;
-    int8_t floor;
-    std::string role;
-};
+    struct Meta
+    {
+    public:
+        Id graph_node_id;
+        std::string room_number;
+        Coordinate x, y;
+        int8_t floor;
+        Role role;
+    };
 } //namespace Polaris
 
 #endif //META_HPP

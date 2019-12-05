@@ -17,8 +17,8 @@ namespace Polaris
 
         short int GetFloor() const;
         void wheelEvent( QWheelEvent * event ) override;
-        void mousePressEvent( QMouseEvent * event ) override;
-        void mouseMoveEvent( QMouseEvent * event ) override;
+//        void mousePressEvent( QMouseEvent * event ) override;
+//        void mouseMoveEvent( QMouseEvent * event ) override;
 
     private:
         int8_t current_floor_;

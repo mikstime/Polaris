@@ -5,14 +5,12 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id,
                                       const size_t & floor )
-: GraphicItem( id, floor, "connection" ),
-left_( left ),
-right_( right ),
-color_( Qt::black )
+        : GraphicItem( id, floor, Polaris::Role::CONNECTION ),
+          left_( left ),
+          right_( right )
 {
-    // TODO инициализация
     ResetColor();
-    show();
+    this->show();
 }
 
 double GraphicConnection::GetPrice() const
@@ -52,4 +50,13 @@ void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsIte
 QRectF GraphicConnection::boundingRect() const
 {
     return QRectF( left_, right_ ).normalized();
+}
+
+QPainterPath GraphicConnection::shape() const
+{
+    // TODO проверить
+    QPainterPath path;
+    path.moveTo( left_ );
+    path.lineTo( right_ );
+    return path;
 }

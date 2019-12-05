@@ -1,6 +1,6 @@
 #include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
 {
     setWindowTitle( "Polaris" );
 
@@ -8,7 +8,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
 
     node_form_ = new NodeForm;
 
-    button_click_handler_ = new ButtonClickHandler( node_form_, controller );
+    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller, graph_controller );
 
     InitButtons();
 
@@ -20,6 +20,7 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
     button_layout_->addWidget( floor_up_button_ );
     button_layout_->addWidget( floor_down_button_ );
 
+    // Init main layout
     main_layout_ = new QHBoxLayout;
     main_layout_->addLayout( button_layout_ );
     main_layout_->addWidget( node_form_ );
@@ -27,11 +28,10 @@ Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) 
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
 
-    setCentralWidget( window );
-}
+    // Creating View object
+    view_ = new GraphicView( this->size(), main_layout_, this );
 
-Polaris::MainWindow::~MainWindow()
-{
+    setCentralWidget( window );
 }
 
 void Polaris::MainWindow::InitButtons()

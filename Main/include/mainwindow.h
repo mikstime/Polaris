@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "../../CView/include/cview.h"
-#include "node_form.h"
-#include "button_click_handler.h"
-#include "../../Controller/include/view_controller.h"
+
+#include "include/view_controller.h"
+#include "include/graph_controller.h"
+#include "include/graphic_view.h"
+#include "include/button_click_handler.h"
 
 namespace Polaris
 {
@@ -17,11 +18,20 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow( ViewController * controller, QWidget * parent = nullptr );
-    ~MainWindow();
+    /**
+     * Constructor
+     * @param view_controller - pointer to ViewController object
+     * @param graph_controller - pointer to GraphController object
+     * @param parent - pointer to parent object
+     */
+    MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent = nullptr );
+    /**
+     * Default destructor
+     */
+    ~MainWindow() = default;
 
 private:
-    CGraphicsView * view;
+    GraphicView * view_;
     NodeForm * node_form_;
 
     QHBoxLayout * main_layout_;
@@ -39,10 +49,6 @@ private:
     ButtonClickHandler * button_click_handler_;
 
     void InitButtons();
-
-signals:
-
-public slots:
 };
 
 } // namespace Polaris
