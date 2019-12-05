@@ -5,8 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Catch2 REQUIRED)
-
 set(HEADERS typedefs.h
             Meta/Meta.h
             GraphConnection/GraphConnection.h

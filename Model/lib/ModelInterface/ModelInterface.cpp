@@ -1,4 +1,4 @@
-#include "include/ModelInterface/ModelInterface.h"
+#include "Model/include/ModelInterface/ModelInterface.h"
 #include "typedefs.h"
 /******************************************************************************
  * AddConnection Methods
@@ -93,13 +93,21 @@ void Polaris::ModelInterface::FindPath(
  * Observer Methods
  *****************************************************************************/
 void Polaris::ModelInterface::Subscribe(
+<<<<<<< HEAD
         const Polaris::ModelSubscriber * & subscriber )
+=======
+        Polaris::ModelSubscriber * & subscriber )
+>>>>>>> dev
 {
     proxy_->Subscribe( subscriber, model_, observer_ );
 }
 
 void Polaris::ModelInterface::Unsubscribe(
+<<<<<<< HEAD
         const Polaris::ModelSubscriber * & subscriber )
+=======
+        Polaris::ModelSubscriber * & subscriber )
+>>>>>>> dev
 {
     proxy_->Unsubscribe( subscriber, model_, observer_ );
 }

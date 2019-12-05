@@ -3,22 +3,22 @@
 
 #include <cstddef> //std::size_t
 
-#define ROLE_COUNT 5
-
 namespace Polaris
 {
-    using Id = std::size_t;
-    using Price = double;
-    using Coordinate = double;
+using Id = std::size_t;
+using Price = double;
+using Coordinate = double;
 
-    enum class Role
-    {
-        MARK,
-        ROOM,
-        HALL,
-        STAIR,
-        CONNECTION
-    };
+enum class Role
+{
+    MARK,
+    ROOM,
+    HALL,
+    STAIR,
+    CONNECTION
+};
+
+const size_t ROLE_COUNT = 5;
 } //namespace Polaris
 
 #endif

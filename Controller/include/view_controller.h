@@ -19,13 +19,10 @@ public:
      */
     ViewController();
     /**
-<<<<<<< HEAD
      * Update selected nodes data
      */
     void UpdateSelectedNodes();
     /**
-=======
->>>>>>> dev
      * Get node ids
      * @return - Two ids of selected nodes or EMPTY if not selected
      */

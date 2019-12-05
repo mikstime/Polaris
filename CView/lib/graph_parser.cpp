@@ -10,7 +10,7 @@ using Polaris::GraphParser;
 using std::shared_ptr;
 
 GraphParser::GraphParser( shared_ptr< ItemController > & item_controller )
-        : item_cotroller_( item_controller )
+: item_cotroller_( item_controller )
 {
 
 }
@@ -23,13 +23,61 @@ GraphParser::~GraphParser()
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-
+    // TODO собирается карта
 }
 
-void GraphParser::OnPathFound( const std::vector< const GraphNode > & nodes,
-                               const std::vector< const GraphConnection > & connections )
+<<<<<<< HEAD
+void GraphParser::OnRoomChanged( const Meta & meta )
 {
+    auto cur_room = items_in_controller_.find( meta.graph_node_id );
 
+    if( cur_room != items_in_controller_.end() )
+    {
+        * static_cast< GraphicRoom * >( ( * cur_room ).second ) = GraphicRoom( meta );
+        item_cotroller_->update();
+    } else
+    {
+        OnRoomAdded( meta );
+    }
+}
+
+void GraphParser::OnRoomAdded( const Meta & meta )
+{
+    GraphicItem * nw_room =  new GraphicRoom( meta );
+    item_cotroller_->addItem( nw_room );
+    items_in_controller_.insert( std::make_pair( meta.graph_node_id, nw_room ) );
+}
+
+void GraphParser::OnRoomRemoved( const Meta & meta )
+{
+=======
+// TODO не объект нод, а объект меты
+void GraphParser::DrawThePath( const std::vector< GraphNode > & nodes,
+                               const std::vector< GraphConnection > & connections )
+{
+    // TODO полиморфизм. один вектор родительских объектов?
+    std::vector< GraphicItem * > path;
+    for( const auto & k : nodes )
+    {
+        auto cur_item = items_in_controller_.find( k.GetId() );
+
+        if( cur_item != items_in_controller_.end() )
+        {
+            path.push_back( ( * cur_item ).second );
+        }
+    }
+
+    for( const auto & k : connections )
+    {
+        auto cur_item = items_in_controller_.find( k.GetId() );
+
+        if( cur_item != items_in_controller_.end() )
+        {
+            path.push_back( ( * cur_item ).second );
+        }
+    }
+
+    item_cotroller_->SetCurPath( path );
 }
 
 void GraphParser::OnRoomChanged( const Meta & meta )
@@ -55,6 +103,7 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
+>>>>>>> dev
     EraseItemById( meta.graph_node_id );
 }
 

@@ -1,7 +1,9 @@
-#include "include/Search/Search.h"
+#include "Model/include/Search/Search.h"
+#include <Model/include/Graph/Graph.h>
 
 using namespace Polaris;
-using Path = std::vector< GraphNode >
+using Path = std::vector< GraphNode >;
+
 Search::Search()
 {
 

@@ -1,5 +1,5 @@
-#include "include/ModelProxy/ModelProxy.h"
-#include "include/GraphInterface/GraphInterface.h"
+#include "Model/include/ModelProxy/ModelProxy.h"
+#include "Model/include/GraphInterface/GraphInterface.h"
 using namespace Polaris;
 bool ModelProxy::AddConnection( const GraphConnection & connection,
                                 Model & model, ModelObserver * observer )
@@ -117,14 +117,22 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
     return false;
 }
 
+<<<<<<< HEAD
 bool ModelProxy::Subscribe( const ModelSubscriber * & subscriber,
+=======
+bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,
+>>>>>>> dev
                             const Model & model,
                             ModelObserver * observer ) const
 {
     return observer->Subscribe( subscriber );
 }
 
+<<<<<<< HEAD
 bool ModelProxy::Unsubscribe( const ModelSubscriber * & subscriber,
+=======
+bool ModelProxy::Unsubscribe( ModelSubscriber * & subscriber,
+>>>>>>> dev
                               const Model & model,
                               ModelObserver * observer ) const
 {

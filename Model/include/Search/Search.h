@@ -2,7 +2,7 @@
 #define DEV_SEARCH_H
 
 #include <vector>
-#include "include/Graph/Graph.h"
+#include "Model/include/Graph/Graph.h"
 #include "GraphNode/GraphNode.h"
 
 namespace Polaris

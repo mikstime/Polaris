@@ -4,13 +4,10 @@ Polaris::ViewController::ViewController()
 {
 }
 
-<<<<<<< HEAD
 void Polaris::ViewController::UpdateSelectedNodes()
 {
 }
 
-=======
->>>>>>> dev
 std::pair< int, int > Polaris::ViewController::GetNodeIds()
 {
     std::pair< int, int > pair = { a_node_data_.node_id_, b_node_data_.node_id_ };

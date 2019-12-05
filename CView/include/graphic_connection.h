@@ -16,22 +16,21 @@ namespace Polaris
         GraphicConnection & operator = ( const GraphicConnection & ) = delete;
         GraphicConnection & operator = ( const GraphicConnection && ) = delete;
 
-        double GetPrice() const;
-        void SetColor( const QColor & color ) override;
-        void ResetColor() override;
-        void SetSelection() override;
-        void ResetSelection() override;
+    double GetPrice() const;
+    void SetColor( const QColor & color ) override;
+    void SetSelection() override;
+    void ResetSelection() override;
 
-    private:
-        double price_;
-        QPointF left_;
-        QPointF right_;
-        QColor color_;
+private:
+    double price_;
+    QPointF left_;
+    QPointF right_;
 
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
-        QRectF boundingRect() const override final;
-        QPainterPath shape() const override final;
-    };
+    void ResetColor() override;
+    void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
+    QRectF boundingRect() const override final;
+    QPainterPath shape() const override final;
+};
 } // namespace Polaris
 
 #endif // CGRAPHICS_CONNECTION_H

@@ -1,15 +1,5 @@
-<<<<<<< HEAD
 #ifndef NODE_FORM_H
 #define NODE_FORM_H
-=======
-<<<<<<< HEAD
-#ifndef MAINAPP_NODE_FORM_H
-#define MAINAPP_NODE_FORM_H
-=======
-#ifndef NODE_FORM_H
-#define NODE_FORM_H
->>>>>>> mainwindow
->>>>>>> dev
 
 #include <QtCore/QObject>
 #include <QPushButton>
