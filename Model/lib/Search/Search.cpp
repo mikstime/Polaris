@@ -64,7 +64,10 @@ Path Search::FindPath( GraphInterface & graph, GraphNode & from, GraphNode & to)
     GraphNode current = to;
     Id cur_id;
 
-    //@TODO fix case when no path found
+    // No path found
+    if( came_from.find(  current.GetId() ) == came_from.end() )
+        return Path();
+    // Reconstruct path
     while( current != from )
     {
         path.push_back( current );
