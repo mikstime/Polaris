@@ -28,9 +28,6 @@ Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphControll
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
 
-    // Creating View object
-    view_ = new GraphicView( this->size(), main_layout_, this );
-
     setCentralWidget( window );
 }
 
