@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_GRAPHINTERFACE_H
 #define POLARISMODEL_GRAPHINTERFACE_H
 
-#include "Utils/GraphConnection/GraphConnection.h"
-#include "Utils/GraphNode/GraphNode.h"
-#include "Model/include/Graph/Graph.h"
-#include "Utils/typedefs.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include "include/Graph/Graph.h"
+#include "typedefs.h"
 #include <utility>
 namespace Polaris
 {
@@ -16,7 +16,8 @@ class GraphInterface
 private:
     Graph graph_;
 public:
-    explicit GraphInterface( Graph  g ): graph_(std::move( g )) {};
+    GraphInterface(): graph_() {};
+    explicit GraphInterface( Graph & g ): graph_(std::move( g )) {};
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -30,8 +31,8 @@ public:
      * first and last nodes - nodes to be connected.
      * params - parameters of connection
      *************************************************************************/
-    bool AddConnection( const GraphNode & firstNode,
-                        const GraphNode & lastNode,
+    bool AddConnection( GraphNode & firstNode,
+                        GraphNode & lastNode,
                         const ConnectionParams & params );
     /**************************************************************************
      * AddConnection
@@ -76,13 +77,13 @@ public:
      * Arguments:
      * node - node to be inserted in graph
      *************************************************************************/
-    bool AddNode( const GraphNode & node );
+    bool AddNode( GraphNode & node );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to be removed from graph
      *************************************************************************/
-    bool RemoveNode( const GraphNode & node );
+    bool RemoveNode( GraphNode & node );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -124,7 +125,7 @@ public:
      *************************************************************************/
     bool AreConnected( Id firstNodeId, Id lastNodeId );
     /**************************************************************************
-     * GetConnection
+     * getConnection
      * Arguments:
      * first and last nodes - connected nodes.
      * ReturnValue:
@@ -133,7 +134,7 @@ public:
     const GraphConnection & getConnection( const GraphNode & firstNode,
                                            const GraphNode & lastNode );
     /**************************************************************************
-     * GetConnection
+     * getConnection
      * Arguments:
      * first and last node ids - ids of two connected nodes.
      * ReturnValue:
@@ -141,13 +142,20 @@ public:
      *************************************************************************/
     const GraphConnection & getConnection( Id firstNodeId, Id lastNodeId );
     /**************************************************************************
-     * GetNode
+     * getNode
      * Arguments:
      * nodeId - id of desirable node
      * ReturnValue:
      * Node with specified Id
      *************************************************************************/
-    const GraphNode & getNode( Id nodeId );
+    GraphNode & getNode( Id nodeId );
+    /**************************************************************************
+     * getGraph
+     * Arguments:
+     * ReturnValue:
+     * graph itself
+     *************************************************************************/
+     Graph & getGraph() { return graph_ ; }
 };
 } //namespace Polaris
 

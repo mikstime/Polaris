@@ -3,68 +3,78 @@
 #include "include/ModelInterface/ModelInterface.h"
 #include "GraphNode/GraphNode.h"
 #include "GraphConnection/GraphConnection.h"
-#include "lib/ModelObserver/model_observer_tests.cpp"
+//#include "lib/ModelObserver/model_observer_tests.cpp"
 using namespace Polaris;
 
-class MockModelInterface: public ModelInterface
+class MockSubScriber: public ModelSubscriber
 {
-    using Id = size_t;
-public:
-
-    explicit MockModelInterface( const ModelObserver &){};
-    MOCK_METHOD(void, AddNode, ( const GraphNode &), ());
-    MOCK_METHOD(void, AddNode, (Id), ());
-    MOCK_METHOD(void, AddConnection, ( const GraphNode &,
-            const GraphNode & ), ());
-    MOCK_METHOD(void, AddConnection, ( Id, Id ), ());
-    MOCK_METHOD(void, RemoveNode, ( const GraphNode & ), ());
-    MOCK_METHOD(void, RemoveNode, ( Id ), ());
-    MOCK_METHOD(bool, HasNode, ( Id ), ());
-    MOCK_METHOD(bool, HasNode, ( const GraphNode & ), ());
-    MOCK_METHOD(bool, AreConnected, ( Id, Id ), ());
-    MOCK_METHOD(bool, AreConnected, ( const GraphNode &,
-            const GraphNode & ), ());
+    void onMetaAdded( const Meta & meta ) override
+    {
+        std::cout << "onMetaAdded\n";
+    }
+    void onMetaChanged( const Meta & meta ) override
+    {
+        std::cout << "onMetaChanged\n";
+    }
+    void onMetaRemoved( const Meta & meta ) override
+    {
+        std::cout << "onMetaRemoved\n";
+    }
+    void onConnectionAdded( const GraphConnection & connection ) override
+    {
+        std::cout << "onConnectionAdded\n";
+    }
+    void onConnectionRemoved( const GraphConnection & connection ) override
+    {
+        std::cout << "onConnectionRemoved\n";
+    }
+    void onPathFound(
+            std::vector< Meta > & path,
+            std::vector< GraphConnection > & connections ) override
+    {
+        std::cout << "onPathFound\n";
+    }
+    void onNodeAdded( const GraphNode & node ) override
+    {
+        std::cout << "onNodeAdded\n";
+    }
+    void onNodeRemoved( const GraphNode & node ) override
+    {
+        std::cout << "onNodeRemoved\n";
+    }
 };
-TEST( GraphInterfaceTest, AddMethodsHandle )
+TEST( ModelInterfaceTest, HandleEvents )
 {
-    using ::testing::AtLeast;
-    MockModelObserver mo = MockModelObserver();
-    MockModelInterface mi = MockModelInterface(mo);
-    using ::testing::AtLeast;
+    ModelInterface mi = ModelInterface();
+    ModelSubscriber * sub = new MockSubScriber;
+    GraphNode n1, n2; ConnectionParams c; c.cost = 4;
+    GraphNode n3;
 
-    GraphNode testNode1 = GraphNode();
-    GraphNode testNode2 = GraphNode();
-
-    EXPECT_CALL(mo, NodeAdded( testNode1 )).Times(AtLeast(1));
-    EXPECT_CALL(mo, NodeAdded( testNode2 )).Times(AtLeast(1));
-    EXPECT_CALL(mo, ConnectionAdded( testNode1, testNode1 ))
-    .Times(AtLeast(2));
-    EXPECT_CALL(mo, ConnectionRemoved( testNode1, testNode2 ))
-    .Times(AtLeast(2));
-
-    mi.AddNode(testNode1);
-    mi.AddNode(testNode2);
-    // No nodes must be connected
-    ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
-    ASSERT_FALSE( mi.AreConnected( testNode1, testNode2 ));
-    ASSERT_FALSE( mi.AreConnected(
-            testNode1.getId(), testNode2.getId() ));
-    // Add connection between nodes
-    mi.AddConnection(testNode1, testNode2);
-    // Only testNode1 and testNode2 are expected to be connected
-    ASSERT_TRUE( mi.AreConnected(testNode1, testNode2));
-    ASSERT_TRUE(mi.AreConnected(
-            testNode1.getId(), testNode2.getId()));
-    ASSERT_FALSE( mi.AreConnected( testNode1, testNode2 ));
-    ASSERT_FALSE( mi.AreConnected(
-            testNode1.getId(), testNode2.getId() ));
-
-    mi.RemoveConnection(testNode1, testNode2);
-    ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
-    mi.AddConnection(testNode1, testNode2);
-    ASSERT_TRUE(mi.AreConnected(testNode1, testNode2));
-    mi.RemoveNode(testNode1);
-    ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
-    ASSERT_FALSE(mi.HasNode(testNode1));
-    ASSERT_FALSE(mi.AreConnected(testNode1, testNode2));
+    EXPECT_TRUE( mi.Subscribe( sub ) );
+    EXPECT_FALSE( mi.Subscribe( sub ) );
+    EXPECT_TRUE( mi.AddNode( n1 ) );
+    EXPECT_FALSE( mi.AddNode( n1 ) );
+    EXPECT_TRUE( mi.AddNode( n2 ) );
+    EXPECT_FALSE( mi.AddNode( n2 ) );
+    EXPECT_TRUE( mi.AddConnection( n1, n2, c ) );
+    EXPECT_FALSE( mi.AddConnection( n1, n2, c ) );
+    EXPECT_FALSE( mi.AddConnection( n1, n3, c ) );
+    EXPECT_TRUE( mi.AddNode( n3 ) );
+    EXPECT_FALSE( mi.AddNode( n3 ) );
+    EXPECT_TRUE( mi.AddConnection( n1, n3, c ) );
+    EXPECT_FALSE( mi.AddConnection( n1, n3, c ) );
+    EXPECT_TRUE( mi.RemoveConnection( n1, n3 ) );
+    EXPECT_FALSE( mi.RemoveConnection( n1, n3 ) );
+    EXPECT_TRUE( mi.RemoveNode( n1 ) );
+    EXPECT_FALSE(mi.RemoveNode( n1 ) );
+    EXPECT_FALSE( mi.AddConnection( n1, n2, c ) );
+    EXPECT_FALSE( mi.RemoveConnection( n1, n2 ) );
+    EXPECT_TRUE( mi.AddNode( n1 ) );
+    EXPECT_FALSE( mi.AddNode( n1 ) );
+    EXPECT_TRUE( mi.AddConnection( n1, n2, c ) );
+    EXPECT_FALSE( mi.AddConnection( n1, n2, c ) );
+}
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

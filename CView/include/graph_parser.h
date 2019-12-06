@@ -23,7 +23,7 @@ namespace Polaris
         GraphParser & operator = ( const GraphParser & ) = delete;
         GraphParser & operator = ( const GraphParser && ) = delete;
         void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
-        void DrawThePath( const std::vector< GraphNode > & nodes,
+        void DrawThePath( const std::vector< Meta > & nodes,
                                        const std::vector< GraphConnection > & connections );
         void OnRoomChanged( const Meta & meta );
         void OnRoomAdded( const Meta & meta );

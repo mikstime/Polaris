@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELPROXY_H
 #define POLARISMODEL_MODELPROXY_H
 
-#include "Model/include/ModelSubscriber/ModelSubscriber.h"
-#include "Model/include/ModelObserver/ModelObserver.h"
+#include "include/ModelSubscriber/ModelSubscriber.h"
+#include "include/ModelObserver/ModelObserver.h"
 #include "GraphNode/GraphNode.h"
-#include "Model/include/Model/Model.h"
+#include "include/Model/Model.h"
 #include <cstddef>//std::size_t
 
 namespace Polaris
@@ -67,7 +67,7 @@ public:
      * node - node to insert in graph.
      * model - model to add in
      *************************************************************************/
-    virtual bool AddNode( const GraphNode & node, Model & model,
+    virtual bool AddNode( GraphNode & node, Model & model,
                           ModelObserver * observer );
     /**************************************************************************
      * ChangeMeta
@@ -84,7 +84,7 @@ public:
      * node - node to remove from graph.
      * model - model to remove in
      *************************************************************************/
-    virtual bool RemoveNode( const GraphNode & node, Model & model,
+    virtual bool RemoveNode( GraphNode & node, Model & model,
                              ModelObserver * observer );
     /**************************************************************************
      * AddNode
@@ -101,7 +101,7 @@ public:
      * model - model to search in. (Only graph is used)
      *************************************************************************/
     virtual bool FindPath( const GraphNode & firstNode,
-                           const GraphNode & lastNode, const Model & model,
+                           const GraphNode & lastNode, Model & model,
                            ModelObserver * observer );
     /**************************************************************************
      * FindPath
@@ -109,7 +109,7 @@ public:
      * first and last node Ids - Id of nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    virtual bool FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
+    virtual bool FindPath( Id firstNodeId, Id lastNodeId, Model & model,
                            ModelObserver * observer );
     /**************************************************************************
      * Subscribe
@@ -119,7 +119,7 @@ public:
      *************************************************************************/
     virtual bool Subscribe( ModelSubscriber * & subscriber,
                             const Model & model,
-                            ModelObserver * observer ) const;
+                            ModelObserver * observer );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
@@ -128,7 +128,7 @@ public:
      *************************************************************************/
     virtual bool Unsubscribe( ModelSubscriber * & subscriber,
                               const Model & model,
-                              ModelObserver * observer ) const;
+                              ModelObserver * observer );
 };
 } //namespace Polaris
 

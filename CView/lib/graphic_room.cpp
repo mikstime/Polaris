@@ -83,19 +83,20 @@ void GraphicRoom::ResetColor()
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {
-        cur_color_ = Qt::black;
+        def_color_ = Qt::black;
     } else if( role == Polaris::Role::ROOM )
     {
-        cur_color_ = Qt::green;
+        def_color_ = Qt::green;
     }
     else if( role == Polaris::Role::STAIR )
     {
-        cur_color_ = Qt::red;
+        def_color_ = Qt::red;
     }
     else if( role == Polaris::Role::HALL )
     {
-        cur_color_ = Qt::blue;
+        def_color_ = Qt::blue;
     }
+    cur_color_ = def_color_;
 }
 
 void GraphicRoom::SetSelection()

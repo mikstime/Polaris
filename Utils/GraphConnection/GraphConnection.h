@@ -40,14 +40,16 @@ public:
     Id from, to;
     Price cost;
 public:
+    explicit GraphConnection( Id id ): GraphElement( id ),
+    from( 0 ), to( 0 ), cost( 0 ) {};
     /**************************************************************************
      * GraphConnection default constructor. Initializes all variables to 0.
      *************************************************************************/
-    GraphConnection(): from( 0 ), to( 0 ), cost( 0 ) {};
+    GraphConnection(): GraphElement(), from( 0 ), to( 0 ), cost( 0 ) {};
     /**************************************************************************
      * GraphConnection copy constructor.
      *************************************************************************/
-    GraphConnection( const GraphConnection & c): GraphElement( c.GetId() )
+    GraphConnection( const GraphConnection & c ): GraphElement( c.GetId() )
     { to = c.to; from = c.from; cost = c.cost; };
     /**************************************************************************
      * GraphConnection move constructor.
