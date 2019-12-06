@@ -38,32 +38,31 @@ Path Search::FindPath( GraphInterface & graph, GraphNode & from, GraphNode & to)
     PriorityQueue< GraphNode, Price > frontier{};
     frontier.put(from, 0);
 
-    //@TODO find node in graph.
     came_from[ from.GetId() ] = from;
     cost_so_far[ from.GetId() ] = 0;
-    while (!frontier.empty()) {
+    while( !frontier.empty() ) {
         GraphNode current = frontier.pop();
 
-        if (current == to) {
+        if(current == to)
             break;
-        }
+        //Dijkstra search
         double new_cost = 0, cur_price = 0;
-        for (Id next_id : current.neighbors) {
+        for( Id next_id : current.neighbors )
+        {
             GraphNode next = graph.getNode( next_id );
-            cur_price = graph.getConnection(current.GetId(), next_id ).cost;
-            new_cost = cost_so_far[current.GetId()] + cur_price;
-            if (cost_so_far.find(next_id) == cost_so_far.end()
-                || new_cost < cost_so_far[next_id]) {
-                cost_so_far[next_id] = new_cost;
+            cur_price = graph.getConnection( current.GetId(), next_id ).cost;
+            new_cost = cost_so_far[ current.GetId() ] + cur_price;
+            if( cost_so_far.find( next_id ) == cost_so_far.end() ||
+                new_cost < cost_so_far[ next_id ] )
+            {
+                cost_so_far[ next_id ] = new_cost;
                 came_from[ next_id ] = current;
-                frontier.put(next, new_cost);
+                frontier.put( next, new_cost );
             }
         }
     }
     Path path;
     GraphNode current = to;
-    Id cur_id;
-
     // No path found
     if( came_from.find(  current.GetId() ) == came_from.end() )
         return Path();
@@ -77,6 +76,7 @@ Path Search::FindPath( GraphInterface & graph, GraphNode & from, GraphNode & to)
     std::reverse( path.begin(), path.end() );
     return path;
 }
+//@TODO implement A* search algorithm
 //
 //Path Search::FindPath( Graph &, const std::vector< Meta > & meta,
 //                       const GraphNode &, const GraphNode & ) {

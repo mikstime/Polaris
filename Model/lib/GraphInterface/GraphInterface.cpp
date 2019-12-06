@@ -21,7 +21,6 @@ bool GraphInterface::AddConnection(
         // Connection already exists.
         return false;
     }
-    //@TODO connect only if both nodes are contained in graph
     if( !HasNode( firstNodeId ) || !HasNode( lastNodeId ) )
         return false;
     // Create connection object.
@@ -88,6 +87,7 @@ bool GraphInterface::RemoveNode( GraphNode & node )
     for( auto n_id : it->neighbors )
     {
         RemoveConnection( n_id, node.GetId() );
+        RemoveConnection( node.GetId(), n_id );
     }
     // delete element and return true
     graph_.nodes.erase( it );
@@ -167,6 +167,8 @@ bool GraphInterface::AddConnection(
 {
     std::pair< Id, Id > key( connection.from, connection.to );
     if( graph_.connections.find( key ) != graph_.connections.end() )
+        return false;
+    if( !HasNode( connection.from ) || !HasNode( connection.to ) )
         return false;
     auto & n1 = getNode( connection.from );
     auto & n2 = getNode( connection.to );

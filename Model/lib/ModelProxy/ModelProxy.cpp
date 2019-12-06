@@ -23,7 +23,7 @@ bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
 
     if( model.graph.AddConnection( firstNodeId, lastNodeId, params ) )
     {
-        auto connection = model.graph.getConnection( firstNodeId, lastNodeId );
+        auto connection = model.graph.getConnection ( firstNodeId, lastNodeId );
         observer->ConnectionAdded( connection );
         return true;
     }
@@ -44,6 +44,8 @@ bool ModelProxy::RemoveConnection( const Id & firstNodeId,
                                    Model & model,
                                    ModelObserver * observer )
 {
+    if( !model.graph.AreConnected( firstNodeId, lastNodeId ) )
+        return false;
     auto connection = model.graph.getConnection( firstNodeId, lastNodeId );
 
     if( model.graph.RemoveConnection( firstNodeId, lastNodeId ) )
@@ -88,6 +90,8 @@ bool ModelProxy::RemoveNode( GraphNode & node, Model & model,
 bool ModelProxy::RemoveNode( Id nodeId, Model & model,
                              ModelObserver * observer )
 {
+    if( !model.graph.HasNode( nodeId ) )
+        return false;
     auto node = model.graph.getNode( nodeId );
 
     if( model.graph.RemoveNode( nodeId ) )
@@ -113,15 +117,23 @@ bool ModelProxy::FindPath( const GraphNode & firstNode,
 bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
                            Model & model, ModelObserver * observer )
 {
-    //@TODO implement later
     std::vector< GraphNode > path = Search::FindPath(
             model.graph, firstNodeId, lastNodeId );
-    //@TODO notify
-    //@TODO retrieve connections from graph
-    //@TODO send meta instead of nodes
-    if( path.empty() )
-        return false;
-    return true;
+
+    Graph g = model.graph.getGraph();
+    std::vector< Meta > newPath;
+    std::vector< GraphConnection > newConnections;
+    for( auto it = path.begin(); it != path.end() - 1; it++ )
+    {
+        //@TODO test
+        newPath.push_back( model.meta[ it->GetId() ] );
+        newConnections.push_back(
+                model.graph.getConnection(
+                        it->GetId(),
+                        (it + 1)->GetId() ) );
+    }
+    observer->PathFound(newPath, newConnections );
+    return !newPath.empty();
 }
 
 bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,

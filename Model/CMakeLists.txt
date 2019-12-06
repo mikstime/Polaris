@@ -30,7 +30,8 @@ set(SOURCE  lib/GraphInterface/GraphInterface.cpp
 
 set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
                     lib/ModelObserver/model_observer_tests.cpp
-                    lib/ModelInterface/model_interface_tests.cpp)
+                    lib/ModelInterface/model_interface_tests.cpp
+                    include/ModelSubscriber/mock_sub.h )
 #Static library
 add_library(polarisModel_lib ${HEADERS} ${SOURCE} )
 
