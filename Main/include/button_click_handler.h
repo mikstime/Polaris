@@ -4,6 +4,7 @@
 #include <QtCore/QObject>
 
 #include "include/node_form.h"
+#include "include/connection_form.h"
 #include "include/view_controller.h"
 #include "include/graph_controller.h"
 
@@ -17,18 +18,20 @@ class ButtonClickHandler : public QObject
 public:
     /**
      * Constructor
-     * @param form - pointer to NodeForm object
+     * @param node_form - pointer to NodeForm object
      * @param controller - pointer to ViewController object
      * @param graph_controller - pointer to GraphController object
      * @paran button_panel - pointer to button panel
      */
-    ButtonClickHandler( NodeForm * form, ViewController * controller, GraphController * graph_controller, QWidget * button_panel );
+    ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form, ViewController * controller, GraphController * graph_controller, QWidget * button_panel );
 
 private:
-    NodeForm * form_;
-    QWidget * button_panel_;
-    ViewController * view_controller_{};
-    GraphController * graph_controller_{};
+    // Pointers to other objects
+    std::shared_ptr< NodeForm > node_form_;
+    std::shared_ptr< ConnectionForm > connection_form_;
+    std::shared_ptr< QWidget > button_panel_;
+    std::shared_ptr< ViewController > view_controller_;
+    std::shared_ptr< GraphController > graph_controller_;
 
 public slots:
     /**

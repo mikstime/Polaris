@@ -1,8 +1,8 @@
 #include "include/graph_controller.h"
 
-Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) : model_( model )
+Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
+    model_( model )
 {
-    form_ = new NodeForm( form_ );
 }
 
 void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
@@ -11,15 +11,11 @@ void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coord
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
     Polaris::Id new_node_id = new_node.GetId();
-
-    // Setting and saving meta
-    form_->SetCurrentNodeParams( new_node_id, node_coords.first, node_coords.second );
-    form_->show();
 }
 
 void Polaris::GraphController::AddConnection( const Id & a_node_id, const Id & b_node_id )
 {
-    Price price = 0; // TODO: Add price param
+    Price price = 1; // TODO: Add price param
     GraphConnection new_connection = GraphConnection( a_node_id, b_node_id, price );
     model_->AddConnection( new_connection );
 }
@@ -45,7 +41,7 @@ void Polaris::GraphController::MoveNode( const Polaris::Id & node_id, const std:
 
 void Polaris::GraphController::ChangeNode( const Polaris::Id & node_id, const Meta & meta )
 {
-    // ???
+    // TODO: ChangeNode definition
 }
 
 void Polaris::GraphController::FindRoute( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id )
@@ -55,5 +51,5 @@ void Polaris::GraphController::FindRoute( const Polaris::Id & a_node_id, const P
 
 void Polaris::GraphController::ChangeFloor( const int & floor_number )
 {
-    // ???
+    // TODO: ChangeFloor definition
 }

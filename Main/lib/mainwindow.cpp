@@ -1,22 +1,32 @@
 #include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterface * model, QWidget * parent) :
+        QMainWindow( parent ), model_( model )
 {
     setWindowTitle( "Polaris" );
 
+    // Creating button layout
     auto * button_layout_ = new QVBoxLayout;
 
+    // Creating button panel
     button_panel_ = new QWidget;
-    button_panel_->setFixedSize( 200, 400 );
+    button_panel_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
+    // Creating NodeForm object
     node_form_ = new NodeForm( button_panel_ );
-    node_form_->setFixedSize( 200, 400 );
+    node_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
+
+    // Creating ConnectionForm object
+    auto * connection_form = new ConnectionForm( button_panel_, model );
+    connection_form->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Init main layout
     main_layout_ = new QHBoxLayout;
     main_layout_->addWidget( button_panel_ );
     main_layout_->addWidget( node_form_ );
+    main_layout_->addWidget( connection_form );
 
+    // Creating window
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
 
@@ -26,6 +36,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, QWidget * p
     // Creating ViewController object
     view_controller_ = new Polaris::ViewController( view_ );
 
+    // Creating buttons
     add_button_ = new QPushButton( "Добавить" );
     delete_button_ = new QPushButton( "Удалить" );
     move_button_ = new QPushButton( "Переместить" );
@@ -47,7 +58,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, QWidget * p
     button_panel_->setLayout( button_layout_ );
 
     // Creating ButtonClickHandler object
-    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller_, graph_controller, button_panel_ );
+    button_click_handler_ = new ButtonClickHandler( node_form_, connection_form, view_controller_, graph_controller, button_panel_ );
 
     InitButtons();
 
