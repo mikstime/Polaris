@@ -36,7 +36,7 @@ add_library(polarisModel_lib ${HEADERS} ${SOURCE} )
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories(${PROJECT_SOURCE_DIR}/Utils)
+include_directories(${PROJECT_SOURCE_DIR}/Utils/)
 add_executable( tests_gtest tests_gtest.cpp)
 target_link_libraries( polarisModel_lib ${Boost_LIBRARIES}  polarisUtils_lib)
 target_include_directories( polarisModel_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include ${PROJECT_SOURCE_DIR}/Utils )
