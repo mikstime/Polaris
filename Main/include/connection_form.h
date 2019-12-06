@@ -9,6 +9,7 @@
 #include <QPushButton>
 
 #include "Meta/Meta.h"
+#include "include/graph_controller.h"
 
 namespace Polaris
 {
@@ -20,15 +21,23 @@ class ConnectionForm : public QWidget
 public:
     /**
      * Constructor
+     * @param button_panel - Pointer to button panel
+     * @param model - Pointer to Model object
      */
-    ConnectionForm();
+    ConnectionForm( QWidget * button_panel, ModelInterface * model );
     /**
-     * Set current connection
-     * @param id - connection id
+     * Set current nodes
+     * @param first_node - First node
+     * @param second_node - Second node
      */
-    void SetConnection( Id id );
+    void SetNodes( Id first_node, Id second_node );
 
 private:
+    Id first_node_, second_node_;
+
+    std::shared_ptr< QWidget > button_panel_;
+    std::shared_ptr< ModelInterface > model_;
+
     // Price input field
     QLabel * price_label_;
     QLineEdit * price_edit_;

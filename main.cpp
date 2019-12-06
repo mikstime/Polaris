@@ -4,12 +4,9 @@
 #include "Controller/include/view_controller.h"
 #include "Controller/include/graph_controller.h"
 
-int main(int argc, char * argv[])
+int main( int argc, char * argv[] )
 {
-    QApplication app(argc, argv);
-
-    // Creating ViewController object
-    auto * view_controller = new Polaris::ViewController;
+    QApplication app( argc, argv );
 
     // Creating Model object
     auto * model = new Polaris::ModelInterface;
@@ -18,7 +15,7 @@ int main(int argc, char * argv[])
     auto * graph_controller = new Polaris::GraphController( model );
 
     // Creating MainWindow object
-    auto * main_window = new Polaris::MainWindow( view_controller, graph_controller );
+    auto * main_window = new Polaris::MainWindow( graph_controller, model );
     main_window->show();
 
     return app.exec();

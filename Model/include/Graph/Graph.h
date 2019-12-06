@@ -14,24 +14,6 @@ namespace Polaris
 class NodeComparator
 {
 public:
-    bool operator()( const GraphNode & a, const GraphNode & b )
-    {
-        return a.GetId() < b.GetId();
-    }
-};
-using GraphConnections = std::map<
-        std::pair< Id, Id >,
-        GraphConnection>;
-using GraphNodes = std::set< GraphNode, NodeComparator >;
-/******************************************************************************
- * Graph structure stores all vertices and connections in graph.
- * Connections are stored in adjacency matrix.
- * Nodes - in sorted by Id array.
- * All logic provided in GraphInterface class.
- *****************************************************************************/
-struct Graph
-{
-public:
     GraphConnections connections;
     GraphNodes nodes;
 public:

@@ -59,15 +59,6 @@ bool GraphInterface::AddNode( const GraphNode & node )
 
 bool GraphInterface::RemoveNode( const GraphNode & node )
 {
-    //TODO
-//    // find element
-//    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
-//    // return false if not found
-//    if( it == graph_.nodes.end() )
-//        return false;
-//    // delete element and return true
-//    graph_.nodes.erase( it );
-//    return true;
 }
 
 bool GraphInterface::RemoveNode( Id nodeId )
