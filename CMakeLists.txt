@@ -21,4 +21,4 @@ add_subdirectory(Utils)
 
 add_executable(MainApp main.cpp)
 
-target_link_libraries(MainApp PRIVATE Main Controller CView polarisModel_lib polarisUtils_lib Qt5::Widgets)
+target_link_libraries(MainApp PRIVATE Main Controller CView Model Utils Qt5::Widgets)

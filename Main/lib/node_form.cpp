@@ -1,7 +1,6 @@
 #include "include/node_form.h"
-#include "include/node_data.h"
 
-Polaris::NodeForm::NodeForm() : id_( EMPTY ), x_( EMPTY ), y_( EMPTY )
+Polaris::NodeForm::NodeForm( QWidget * button_panel ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
@@ -22,7 +21,7 @@ Polaris::NodeForm::NodeForm() : id_( EMPTY ), x_( EMPTY ), y_( EMPTY )
     floor_layout->addWidget( floor_input_ );
 
     // Init role radio buttons
-    auto * role_layout = new QHBoxLayout;
+    auto * role_layout = new QVBoxLayout;
 
     role_buttons_[0] = new QRadioButton( "Тип 1" );
     role_buttons_[1] = new QRadioButton( "Тип 2" );
@@ -42,10 +41,15 @@ Polaris::NodeForm::NodeForm() : id_( EMPTY ), x_( EMPTY ), y_( EMPTY )
     // Init main layout
     main_layout_ = new QVBoxLayout;
 
+    main_layout_->addStretch();
     main_layout_->addLayout( room_number_layout );
     main_layout_->addLayout( floor_layout );
     main_layout_->addLayout( role_layout );
     main_layout_->addWidget( save_button_ );
+    main_layout_->addStretch();
+
+    setLayout( main_layout_ );
+    this->hide();
 }
 
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
@@ -97,4 +101,5 @@ void Polaris::NodeForm::SaveButtonClick()
 
     // Hide self
     this->hide();
+    button_panel_->show();
 }

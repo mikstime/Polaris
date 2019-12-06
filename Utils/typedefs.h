@@ -18,6 +18,8 @@ enum class Role
     CONNECTION
 };
 
+const char EMPTY = 0;
+
 const size_t ROLE_COUNT = 5;
 } //namespace Polaris
 

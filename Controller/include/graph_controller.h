@@ -2,25 +2,16 @@
 #define GRAPH_CONTROLLER_H
 
 #include <utility>
+#include <memory>
 
 #include "GraphNode/GraphNode.h"
 #include "Meta/Meta.h"
 #include "GraphConnection/GraphConnection.h"
 #include "include/node_form.h"
+#include "include/ModelInterface/ModelInterface.h"
 
 namespace Polaris
 {
-
-class ModelInterface
-{
-public:
-    void AddNode( GraphNode node ) {}
-    void ChangeMeta( Id id, Meta meta ) {}
-    void AddConnection( GraphConnection ) {}
-    void RemoveNode( Id id ) {}
-    void RemoveConnection( Id first_id, Id second_if ) {}
-    void FindPath( Id first_id, Id second_id ) {}
-};
 
 class GraphController
 {
@@ -29,18 +20,12 @@ public:
      * Constructor
      * @param model - pointer to Model object
      */
-    GraphController( ModelInterface * model );
+    explicit GraphController( ModelInterface * model );
     /**
      * Add node to Model
      * @param node_coords - New node coordinates
      */
     void AddNode( const std::pair< int, int > & node_coords );
-    /**
-     * Add connection to Model
-     * @param a_node_id - First node id
-     * @param b_node_id - Second node id
-     */
-    void AddConnection( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id );
     /**
      * Delete node from Model
      * @param node_id - Deleted node id
@@ -61,12 +46,7 @@ public:
     /**
      * Changing node Meta
      * @param node_id - Changing node id
-     */
-    void ChangeNode( const Polaris::Id & node_id, const Meta & meta );
-    /**
-     * Find route from node to another node
-     * @param a_node_id - Start node
-     * @param b_node_id - Finish node
+     * @param meta - New node meta
      */
     void FindRoute( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id );
     /**
@@ -76,9 +56,8 @@ public:
     void ChangeFloor( const int & floor_number );
 
 private:
-    ModelInterface * model_;
-
-    NodeForm * form_;
+    // Pointer to Model object
+    std::shared_ptr< ModelInterface > model_;
 };
 
 } // namespace Polaris

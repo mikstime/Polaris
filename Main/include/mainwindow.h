@@ -4,14 +4,19 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QSpacerItem>
 
 #include "include/view_controller.h"
 #include "include/graph_controller.h"
 #include "include/graphic_view.h"
 #include "include/button_click_handler.h"
+#include "include/connection_form.h"
 
 namespace Polaris
 {
+
+const short SIDE_PANEL_WIDTH = 200;
+const short SIDE_PANEL_HEIGHT = 400;
 
 class MainWindow : public QMainWindow
 {
@@ -20,11 +25,11 @@ class MainWindow : public QMainWindow
 public:
     /**
      * Constructor
-     * @param view_controller - pointer to ViewController object
      * @param graph_controller - pointer to GraphController object
+     * @param model - pointer to Model object
      * @param parent - pointer to parent object
      */
-    MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent = nullptr );
+    MainWindow( GraphController * graph_controller, ModelInterface * model, QWidget * parent = nullptr );
     /**
      * Default destructor
      */
@@ -32,11 +37,13 @@ public:
 
 private:
     GraphicView * view_;
+    ViewController * view_controller_;
     NodeForm * node_form_;
+    ModelInterface * model_;
 
     QHBoxLayout * main_layout_;
 
-    QVBoxLayout * button_layout_;
+    QWidget * button_panel_;
 
     QPushButton * add_button_;
     QPushButton * delete_button_;

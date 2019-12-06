@@ -14,8 +14,7 @@ find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
 set(HEADERS include/graph_controller.h
-            include/view_controller.h
-            include/node_data.h)
+            include/view_controller.h)
 
 set(SOURCES lib/graph_controller.cpp
             lib/view_controller.cpp)
@@ -29,9 +28,8 @@ target_link_libraries(Controller PRIVATE Qt5::Widgets)
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 include_directories(${PROJECT_SOURCE_DIR}/Main)
 include_directories(${PROJECT_SOURCE_DIR}/CView)
+include_directories(${PROJECT_SOURCE_DIR}/Model)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(ControllerTests tests/view_controller_tests.cpp)
-
-target_link_libraries(ControllerTests polarisUtils_lib ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})
-
+target_link_libraries(ControllerTests ControllerLib Qt5::Widgets ${CMAKE_DL_LIBS} ${GTEST_LIBRARIES})

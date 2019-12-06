@@ -1,7 +1,8 @@
 #include "include/button_click_handler.h"
 
-Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * form, ViewController * view_controller, GraphController * graph_controller )
-    : form_( form ), view_controller_( view_controller ), graph_controller_( graph_controller )
+Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
+        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel ) :
+        node_form_( node_form ), view_controller_( view_controller ), graph_controller_( graph_controller ), button_panel_( button_panel )
 {
 }
 
@@ -10,14 +11,21 @@ void Polaris::ButtonClickHandler::AddButtonClick()
     std::pair< int, int > ids = view_controller_->GetNodeIds();
     if( ids.first != EMPTY && ids.second == EMPTY )
     {
-        // One room selected, creating room
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
+        // Creating room
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         graph_controller_->AddNode( first_coords );
+
+        // Opening node form
+        node_form_->SetCurrentNodeParams( ids.first, first_coords.first, first_coords.second );
+        node_form_->show();
+        button_panel_->hide();
     }
     else if( ids.first != EMPTY && ids.second != EMPTY )
     {
-        // Two rooms selected, creating connection
-        graph_controller_->AddConnection( ids.first, ids.second );
+        // Opening connection form
+        connection_form_->SetNodes( ids.first, ids.second );
+        connection_form_->show();
+        button_panel_->hide();
     }
 }
 
@@ -26,12 +34,12 @@ void Polaris::ButtonClickHandler::DeleteButtonClick()
     std::pair< int, int > ids = view_controller_->GetNodeIds();
     if( ids.first != EMPTY && ids.second == EMPTY )
     {
-        // One room selected, deleting room
+        // Deleting room
         graph_controller_->DeleteNode( ids.first );
     }
     else if( ids.first != EMPTY && ids.second != EMPTY )
     {
-        // Two rooms selected, deleting connection
+        // Deleting connection
         graph_controller_->DeleteConnection( ids.first, ids.second );
     }
 }
@@ -41,7 +49,7 @@ void Polaris::ButtonClickHandler::MoveButtonClick()
     int first_id = view_controller_->GetNodeIds().first;
     if( first_id != EMPTY )
     {
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         graph_controller_->MoveNode( first_id, first_coords );
     }
 }
@@ -51,15 +59,16 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
     int first_id = view_controller_->GetNodeIds().first;
     if( first_id != EMPTY )
     {
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
-        Meta meta;
-        graph_controller_->ChangeNode( first_id, meta );
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
+        node_form_->SetCurrentNodeParams( first_id, first_coords.first, first_coords.second );
+        node_form_->show();
+        button_panel_->hide();
     }
 }
 
 void Polaris::ButtonClickHandler::FindRouteButtonClick()
 {
-    std::pair< int, int > ids = view_controller_->GetNodeIds();
+    std::pair< Id, Id > ids = view_controller_->GetNodeIds();
     if( ids.first != EMPTY && ids.second != EMPTY )
         graph_controller_->FindRoute( ids.first, ids.second );
 }
