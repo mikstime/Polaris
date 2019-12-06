@@ -34,6 +34,7 @@ target_link_libraries(Main PRIVATE Qt5::Widgets)
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 include_directories(${PROJECT_SOURCE_DIR}/Controller)
 include_directories(${PROJECT_SOURCE_DIR}/CView)
+include_directories(${PROJECT_SOURCE_DIR}/Model)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(MainTests tests/filehandler_tests.cpp tests/mainwindow_tests.cpp)

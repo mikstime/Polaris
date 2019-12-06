@@ -39,7 +39,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/Utils/)
 add_executable( tests_gtest tests_gtest.cpp)
 target_link_libraries( Model ${Boost_LIBRARIES}  Utils)
-target_include_directories( Model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} include ${PROJECT_SOURCE_DIR}/Utils )
+target_include_directories( Model PUBLIC . )
 
 target_link_libraries( tests_gtest PUBLIC Model ${Boost_LIBRARIES} ${GTEST_LIBRARIES} ${SOURCE_TESTS})
 ##Tests for GraphInterface class
