@@ -6,7 +6,6 @@
 
 namespace Polaris
 {
-// Type used in GraphNode for id_ field;
 /******************************************************************************
  * Meta structure is used to store additional information about GraphNode.
  * It is separated from GraphNode to increase flexibility
@@ -19,7 +18,7 @@ public:
     std::string room_number;
     Coordinate x, y;
     int8_t floor;
-    std::string role;
+    Role role;
 };
 } //namespace Polaris
 
