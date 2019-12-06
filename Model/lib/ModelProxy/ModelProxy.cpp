@@ -95,6 +95,20 @@ bool ModelProxy::RemoveNode( Id nodeId, Model & model,
         return false;
     auto node = model.graph.getNode( nodeId );
 
+    GraphConnection c;
+    for( auto n : node.neighbors )
+    {
+        if( model.graph.AreConnected( nodeId, n ) )
+        {
+            c = model.graph.getConnection( nodeId, n );
+            observer->ConnectionRemoved( c );
+        }
+        if( model.graph.AreConnected( n, nodeId ) )
+        {
+            c = model.graph.getConnection( n, nodeId );
+            observer->ConnectionRemoved( c );
+        }
+    }
     if( model.graph.RemoveNode( nodeId ) )
     {
         observer->NodeRemoved( node );
@@ -111,8 +125,7 @@ bool ModelProxy::FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode,
                            Model & model, ModelObserver * observer )
 {
-    //@TODO implement later
-    return false;
+    return FindPath( firstNode.GetId(), lastNode.GetId(), model, observer );
 }
 
 bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
