@@ -17,8 +17,7 @@ GraphParser::GraphParser( shared_ptr< ItemController > & item_controller )
 
 GraphParser::~GraphParser()
 {
-    while( ! items_in_controller_.empty() )
-        items_in_controller_.erase( items_in_controller_.begin() );
+        items_in_controller_.erase( items_in_controller_.begin(), items_in_controller_.end() );
 }
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
@@ -27,14 +26,14 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
 }
 
 // TODO не объект нод, а объект меты
-void GraphParser::DrawThePath( const std::vector< GraphNode > & nodes,
+void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
     {
-        auto cur_item = items_in_controller_.find( k.GetId() );
+        auto cur_item = items_in_controller_.find( k.graph_node_id );
 
         if( cur_item != items_in_controller_.end() )
         {

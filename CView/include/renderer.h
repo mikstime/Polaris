@@ -15,18 +15,19 @@ namespace Polaris
         Renderer & operator = ( const Renderer & ) = delete;
         Renderer & operator = ( const Renderer && ) = delete;
 
-        short int GetFloor() const;
+        int8_t GetFloor() const;
+        void SetFloor( const int8_t floor );
         void wheelEvent( QWheelEvent * event ) override;
 //        void mousePressEvent( QMouseEvent * event ) override;
 //        void mouseMoveEvent( QMouseEvent * event ) override;
 
     private:
         int8_t current_floor_;
-        bool empty_last_floor_;
-        bool empty_first_floor_;
+        int8_t min_floor_;
+        int8_t max_floor_;
 
         bool ChangeFloor( const int8_t & step );
-        bool FloorEmpty();
+        bool NextFloorEmpty( const int8_t step );
         void RaiseEmptyFloor();
     };
 } // namespace Polaris

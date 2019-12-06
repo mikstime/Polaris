@@ -35,11 +35,7 @@ int ClientAbstr::CreateSocket()
 }
 
 Network::Network()
-<<<<<<< HEAD
 {
-=======
-{
->>>>>>> dev
 
 }
 
@@ -54,11 +50,7 @@ int Network::CloseConnection()
 }
 
 Localhost::Localhost()
-<<<<<<< HEAD
 {
-=======
-{
->>>>>>> dev
 
 }
 
@@ -73,19 +65,11 @@ int Localhost::CloseConnection()
 }
 
 bool Reader::Exchange()
-<<<<<<< HEAD
 {
-=======
-{
->>>>>>> dev
 	return true;
 }
 
 bool Writer::Exchange()
-<<<<<<< HEAD
 {
-=======
-{
->>>>>>> dev
 	return true;
 }

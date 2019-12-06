@@ -26,7 +26,7 @@ public:
     ~GraphicView() = default;
 
     void InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
-    void DrawThePath(const std::vector< GraphNode > & nodes,
+    void DrawThePath(const std::vector< Meta > & nodes,
                      const std::vector< GraphConnection > & connections ) override;
     void ChangeRoom(const Meta & meta ) override;
     void AddRoom(const Meta & meta ) override;
@@ -42,6 +42,8 @@ public:
     QPointF GetNodeCoordinates() const override;
     // запрашивает текущий этаж
     int8_t GetFloorNumber() const override;
+    // задать выкладку
+    void SetLayout( QHBoxLayout * const layout );
 
 private:
     // TODO будут ли работать указатели?

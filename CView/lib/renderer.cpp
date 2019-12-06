@@ -2,13 +2,17 @@
 #include "include/renderer.h"
 #include <QWheelEvent>
 
+#include <QDebug>
+
+const int8_t WHEEL_STEP = 100;
+
 using Polaris::Renderer;
 
 Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
         : QGraphicsView( scene, parent ),
           current_floor_( 1 ),
-          empty_first_floor_( true ),
-          empty_last_floor_( true )
+          min_floor_( 1 ),
+          max_floor_( 1 )
 {
     // TODO инициализация начальной картинки
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
@@ -18,26 +22,35 @@ Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
 //    this->setSceneRect( 0, 0, this->size().width() - 5, this->size().height() - 5 );
 }
 
-short int Renderer::GetFloor() const
+int8_t Renderer::GetFloor() const
 {
     return current_floor_;
 }
 
+void Renderer::SetFloor( const int8_t floor )
+{
+    if( floor < min_floor_ )
+    {
+        min_floor_ = floor;
+    } else if ( floor > max_floor_ )
+    {
+        max_floor_ = floor;
+    }
+}
+
 void Renderer::wheelEvent( QWheelEvent * event )
 {
+    // TODO мягче переключать этажи
+    int8_t delta = event->delta();
+    delta = delta / abs( delta );
     // Если смена этажа успешна, то он не пустой
-    if( event->delta() > 0 && ! empty_last_floor_ )
-    {
-        empty_last_floor_ = ! ChangeFloor( 1 );
-    }
-    else if ( event->delta() < 0 && ! empty_first_floor_ )
-    {
-        empty_first_floor_ = ! ChangeFloor( -1 );
-    }
-
-    if( FloorEmpty() )
+    if( NextFloorEmpty( delta ) )
     {
         RaiseEmptyFloor();
+        return;
+    } else
+    {
+        ChangeFloor( delta );
     }
 }
 
@@ -69,17 +82,22 @@ void Renderer::wheelEvent( QWheelEvent * event )
 
 bool Renderer::ChangeFloor( const int8_t & step )
 {
+    // TODO отображать текущий этаж в фоне
     // новый этаж и лист всех элементов
+    current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
+
+    qInfo() << current_floor_;
 
     for( size_t i = 0; i < items_list.size(); ++i )
     {
         // каст к кастомному элементу
+        // TODO заменить на разбиение по этажам
         GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
 
         // если элемент на этаже, показать, иначе спрятать
-        if( cur_item->GetFloor() != current_floor_ + step )
+        if( cur_item->GetFloor() != current_floor_ )
         {
             cur_item->hide();
         }
@@ -93,9 +111,9 @@ bool Renderer::ChangeFloor( const int8_t & step )
     return floor_exists;
 }
 
-bool Renderer::FloorEmpty()
+bool Renderer::NextFloorEmpty( const int8_t step )
 {
-    return empty_first_floor_ || empty_last_floor_;
+    return ( current_floor_ + step ) > ( max_floor_ + 1 ) || ( current_floor_ + step ) < ( min_floor_ - 1 );
 }
 
 void Renderer::RaiseEmptyFloor()

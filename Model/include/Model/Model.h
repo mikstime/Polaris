@@ -1,12 +1,12 @@
 #ifndef GRAPHSEARCH_MODEL_HPP
 #define GRAPHSEARCH_MODEL_HPP
 
-#include "Model/include/Graph/Graph.h"
-#include "Utils/Meta/Meta.h"
+#include "include/Graph/Graph.h"
+#include "Meta/Meta.h"
 #include <map>
 #include <utility>
-#include <Model/include/GraphInterface/GraphInterface.h>
-#include "Utils/typedefs.h"
+#include <include/GraphInterface/GraphInterface.h>
+#include "typedefs.h"
 
 namespace Polaris
 {
@@ -22,8 +22,9 @@ public:
     GraphInterface graph;
     std::map< Id, Meta > meta;
 public:
-    explicit Model(Graph a_graph = Graph())
-    : graph(std::move(a_graph)), meta() {};
+    Model():graph(),meta(){};
+    explicit Model(Graph a_graph)
+    : graph(a_graph), meta() {};
     Model( Model const & ) = default;
     Model( Model && ) noexcept = default;
     ~Model() = default;

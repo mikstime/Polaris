@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELINTERFACE_H
 #define POLARISMODEL_MODELINTERFACE_H
 
-#include "Model/include/ModelObserver/ModelObserver.h"
-#include "Model/include/ModelProxy/ModelProxy.h"
+#include "include/ModelObserver/ModelObserver.h"
+#include "include/ModelProxy/ModelProxy.h"
 #include "GraphNode/GraphNode.h"
-#include "Model/include/Model/Model.h"
+#include "include/Model/Model.h"
 #include "typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
@@ -31,7 +31,7 @@ public:
      * connection params - params of connection
      * Callback is provided.
      *************************************************************************/
-    void AddConnection( const GraphNode & firstNode,
+    bool AddConnection( const GraphNode & firstNode,
                         const GraphNode & lastNode,
                         const ConnectionParams & params );
     /**************************************************************************
@@ -40,14 +40,14 @@ public:
      * connection - connection between nodes contained in graph
      * Callback is provided.
      *************************************************************************/
-     void AddConnection( const GraphConnection & new_connection );
+     bool AddConnection( const GraphConnection & new_connection );
     /**************************************************************************
      * AddConnection
      * Arguments:
      * first and last nodeIds - id of nodes to be connected.
      * Callback is provided.
      *************************************************************************/
-    void AddConnection( const Id & firstNodeId, const Id & lastNodeId,
+    bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                         const ConnectionParams & params );
     /**************************************************************************
      * RemoveConnection
@@ -55,7 +55,7 @@ public:
      * first and last nodes - remove connection between nodes
      * Callback is provided.
      *************************************************************************/
-    void RemoveConnection( const GraphNode & firstNode,
+    bool RemoveConnection( const GraphNode & firstNode,
                            const GraphNode & lastNode );
     /**************************************************************************
      * RemoveConnection
@@ -64,42 +64,42 @@ public:
      * with specified ids
      * Callback is provided.
      *************************************************************************/
-    void RemoveConnection( const Id &firstNodeId, const Id & lastNodeId );
+    bool RemoveConnection( const Id &firstNodeId, const Id & lastNodeId );
     /**************************************************************************
      * AddNode
      * Arguments:
      * node - node to be inserted in graph
      * Callback is provided.
      *************************************************************************/
-    void AddNode( const GraphNode & node );
+    bool AddNode( GraphNode & node );
     /**************************************************************************
      * AddNode
      * Arguments:
      * nodeId - node's id to be inserted in graph
      * Callback is provided.
      *************************************************************************/
-    void AddNode( const Id & nodeId );
+    bool AddNode( const Id & nodeId );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * node - node to be removed from graph
      * Callback is provided.
      *************************************************************************/
-    void RemoveNode( const GraphNode & node );
+    bool RemoveNode( const GraphNode & node );
     /**************************************************************************
      * RemoveNode
      * Arguments:
      * nodeId - id of node to be removed from graph
      * Callback is provided.
      *************************************************************************/
-    void RemoveNode( const Id & nodeId );
+    bool RemoveNode( const Id & nodeId );
     /**************************************************************************
      * FindPath find the shortest path between two nodes
      * Arguments:
      * first and last nodes - start and end vertices in graph
      * Callback is provided.
      *************************************************************************/
-    void FindPath( const GraphNode & firstNode,
+    bool FindPath( const GraphNode & firstNode,
                    const GraphNode & lastNode );
     /**************************************************************************
      * FindPath
@@ -107,34 +107,26 @@ public:
      * first and last nodeIds - ids of start and end vertices in graph
      * Callback is provided.
      *************************************************************************/
-    void FindPath( const Id & firstNodeId, const Id & lastNodeId );
+    bool FindPath( const Id & firstNodeId, const Id & lastNodeId );
     /**************************************************************************
      * Subscribe
      * Arguments:
      * subscriber - subscribe for all updates. Documented in ModelSubscriber
      *************************************************************************/
-<<<<<<< HEAD
-    void Subscribe( const ModelSubscriber * & subscriber );
-=======
-    void Subscribe( ModelSubscriber * & subscriber );
->>>>>>> dev
+    bool Subscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - unsubscribe from updates
      *************************************************************************/
-<<<<<<< HEAD
-    void Unsubscribe( const ModelSubscriber * & subscriber );
-=======
-    void Unsubscribe( ModelSubscriber * & subscriber );
->>>>>>> dev
+    bool Unsubscribe( ModelSubscriber * & subscriber );
     /**************************************************************************
      * ChangeMeta
      * Arguments:
      * nodeId - Id of Node's Meta
      * newMeta - Meta to be set
      *************************************************************************/
-    void ChangeMeta( const Id & nodeId, const Meta & newMeta );
+    bool ChangeMeta( const Id & nodeId, const Meta & newMeta );
     /**************************************************************************
      * setProxy
      * Arguments:
@@ -150,7 +142,7 @@ public:
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/
-    ModelInterface(): observer_(), proxy_(), model_() {};
+    ModelInterface(): observer_( new ModelObserver ), proxy_( new ModelProxy ), model_() {};
     /**************************************************************************
      * ModelInterface(proxy, model)
      * Arguments:
