@@ -101,7 +101,7 @@ public:
      * model - model to search in. (Only graph is used)
      *************************************************************************/
     virtual bool FindPath( const GraphNode & firstNode,
-                           const GraphNode & lastNode, const Model & model,
+                           const GraphNode & lastNode, Model & model,
                            ModelObserver * observer );
     /**************************************************************************
      * FindPath
@@ -109,7 +109,7 @@ public:
      * first and last node Ids - Id of nodes to search path between
      * model - model to search in. (Only graph is used)
      *************************************************************************/
-    virtual bool FindPath( Id firstNodeId, Id lastNodeId, const Model & model,
+    virtual bool FindPath( Id firstNodeId, Id lastNodeId, Model & model,
                            ModelObserver * observer );
     /**************************************************************************
      * Subscribe

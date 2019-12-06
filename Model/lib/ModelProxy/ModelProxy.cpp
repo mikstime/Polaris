@@ -1,3 +1,4 @@
+#include <include/Search/Search.h>
 #include "include/ModelProxy/ModelProxy.h"
 #include "include/GraphInterface/GraphInterface.h"
 using namespace Polaris;
@@ -103,17 +104,24 @@ bool ModelProxy::RemoveNode( Id nodeId, Model & model,
 
 bool ModelProxy::FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode,
-                           const Model & model, ModelObserver * observer )
+                           Model & model, ModelObserver * observer )
 {
     //@TODO implement later
     return false;
 }
 
 bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
-                           const Model & model, ModelObserver * observer )
+                           Model & model, ModelObserver * observer )
 {
     //@TODO implement later
-    return false;
+    std::vector< GraphNode > path = Search::FindPath(
+            model.graph, firstNodeId, lastNodeId );
+    //@TODO notify
+    //@TODO retrieve connections from graph
+    //@TODO send meta instead of nodes
+    if( path.empty() )
+        return false;
+    return true;
 }
 
 bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,

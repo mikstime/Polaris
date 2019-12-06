@@ -51,7 +51,20 @@ bool GraphInterface::RemoveConnection(
     if( !AreConnected( firstNodeId, lastNodeId ) )
         return false;
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
-
+    if( HasNode( firstNodeId ) )
+    {
+        GraphNode & n1 = getNode( firstNodeId );
+        auto it = std::find( n1.neighbors.begin(), n1.neighbors.end(), lastNodeId );
+        n1.neighbors.erase( it );
+    }
+    if( HasNode( lastNodeId ) )
+    {
+        GraphNode & n2 = getNode( lastNodeId );
+        // Remove connection from second one
+        auto it = std::find( n2.neighbors.begin(),
+                             n2.neighbors.end(), firstNodeId );
+        n2.neighbors.erase( it );
+    }
     graph_.connections.erase( key );
     return true;
 }
@@ -67,10 +80,15 @@ bool GraphInterface::AddNode( GraphNode & node )
 bool GraphInterface::RemoveNode( GraphNode & node )
 {
     // find element
-    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
+    auto it = graph_.nodes.find( node );
     // return false if not found
     if( it == graph_.nodes.end() )
         return false;
+    // Remove all related connections
+    for( auto n_id : it->neighbors )
+    {
+        RemoveConnection( n_id, node.GetId() );
+    }
     // delete element and return true
     graph_.nodes.erase( it );
     return true;
@@ -84,28 +102,14 @@ bool GraphInterface::RemoveNode( Id nodeId )
 
 bool GraphInterface::HasNode( const GraphNode & node )
 {
-    auto it = std::find( graph_.nodes.begin(), graph_.nodes.end(), node );
+    // O(LogN)
+    auto it = graph_.nodes.find( node );
     return it != graph_.nodes.end();
 }
-class node_cmp
-{
-private:
-    Id id;
-public:
-    node_cmp( Id a_id): id( a_id ){};
-    bool operator()( const GraphNode & n ) {
-        return n.GetId() == id;
-    }
-};
 bool GraphInterface::HasNode( Id nodeId )
 {
-    //@TODO return this
-    //auto it = std::find_if(graph_.nodes.begin(), graph_.nodes.end(), node_cmp( nodeId ) );
-    //return it == graph_.nodes.end();
-    for(const auto & node : graph_.nodes)
-        if( node.GetId() == nodeId )
-            return true;
-    return false;
+    GraphNode n( nodeId );
+    return HasNode( n );
 }
 
 bool GraphInterface::AreConnected(
@@ -133,7 +137,7 @@ const GraphConnection & GraphInterface::getConnection(
         Id lastNodeId )
 {
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
-    return graph_.connections.at( key );
+    return graph_.connections[ key ];
 }
 
 bool GraphInterface::SetConnectionParams(
@@ -143,7 +147,7 @@ bool GraphInterface::SetConnectionParams(
 {
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
     // Not connected
-    if( graph_.connections.find( key ) == graph_.connections.end() )
+    if( !AreConnected( firstNodeId, lastNodeId ) )
         return false;
     //@TODO should I implement method in GraphConnection for this
     graph_.connections[ key ].cost = params.cost;
@@ -164,13 +168,19 @@ bool GraphInterface::AddConnection(
     std::pair< Id, Id > key( connection.from, connection.to );
     if( graph_.connections.find( key ) != graph_.connections.end() )
         return false;
+    auto & n1 = getNode( connection.from );
+    auto & n2 = getNode( connection.to );
+    // Update node's neighbors
+    n1.neighbors.push_back( connection.to );
+    n2.neighbors.push_back( connection.from );
+    // Insert new connection
     graph_.connections[ key ] = connection;
     return true;
 }
 
 GraphNode & GraphInterface::getNode( Id nodeId )
 {
-    return const_cast<GraphNode &>(* std::find_if( graph_.nodes.begin(),
-                                                   graph_.nodes.end(),
-                                                   node_cmp( nodeId ) ) );
+    GraphNode n( nodeId );
+    //O( LogN )
+    return const_cast<GraphNode &>( * graph_.nodes.find( n ) );
 }

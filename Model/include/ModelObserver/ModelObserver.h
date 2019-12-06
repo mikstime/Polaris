@@ -100,8 +100,8 @@ public:
      * nodes - list of nodes to be drawn
      *************************************************************************/
      virtual void PathFound(
-             const std::vector< const GraphNode > & nodes,
-             const std::vector< const GraphConnection > & connections );
+             std::vector< Meta > & path,
+             std::vector< GraphConnection > & connections );
 };
 } //namespace Polaris
 
