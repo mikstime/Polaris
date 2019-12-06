@@ -1,4 +1,4 @@
-#include "include/ModelInterface/ModelInterface.h"
+#include "Model/include/ModelInterface/ModelInterface.h"
 #include "typedefs.h"
 /******************************************************************************
  * AddConnection Methods

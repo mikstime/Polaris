@@ -2,7 +2,7 @@
 #define GRAPHSEARCH_GRAPH_H
 
 #include "GraphConnection/GraphConnection.h"
-#include "GraphNode/GraphNode.h"
+#include "Utils/GraphNode/GraphNode.h"
 #include <cstddef> // std::size_t
 #include <utility> // std::move
 #include <vector> // std::vector

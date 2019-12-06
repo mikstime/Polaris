@@ -7,6 +7,8 @@
 
 #include <QDebug>
 
+#include <QDebug>
+
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
 using Polaris::GraphConnection;
