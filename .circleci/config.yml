@@ -17,7 +17,7 @@ jobs:
           command: 'sudo apt-get update && apt-get install python3-pip -y'
       - run:
           name: Install CMAKE
-          command: 'pip install cmake --upgrade'
+          command: 'pip3 install cmake --upgrade'
       - run:
           name: Installing Valgrind
           command: 'apt-get update && apt-get install valgrind -y'
