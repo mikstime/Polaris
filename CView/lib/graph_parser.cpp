@@ -26,31 +26,6 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     // TODO собирается карта
 }
 
-<<<<<<< HEAD
-void GraphParser::OnRoomChanged( const Meta & meta )
-{
-    auto cur_room = items_in_controller_.find( meta.graph_node_id );
-
-    if( cur_room != items_in_controller_.end() )
-    {
-        * static_cast< GraphicRoom * >( ( * cur_room ).second ) = GraphicRoom( meta );
-        item_cotroller_->update();
-    } else
-    {
-        OnRoomAdded( meta );
-    }
-}
-
-void GraphParser::OnRoomAdded( const Meta & meta )
-{
-    GraphicItem * nw_room =  new GraphicRoom( meta );
-    item_cotroller_->addItem( nw_room );
-    items_in_controller_.insert( std::make_pair( meta.graph_node_id, nw_room ) );
-}
-
-void GraphParser::OnRoomRemoved( const Meta & meta )
-{
-=======
 // TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< GraphNode > & nodes,
                                const std::vector< GraphConnection > & connections )
@@ -103,7 +78,6 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
->>>>>>> dev
     EraseItemById( meta.graph_node_id );
 }
 

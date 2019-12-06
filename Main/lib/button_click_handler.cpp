@@ -1,7 +1,7 @@
 #include "include/button_click_handler.h"
 
-Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * form, ViewController * view_controller, GraphController * graph_controller )
-    : form_( form ), view_controller_( view_controller ), graph_controller_( graph_controller )
+Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * form, ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel )
+    : form_( form ), view_controller_( view_controller ), graph_controller_( graph_controller ), button_panel_( button_panel )
 {
 }
 
@@ -11,7 +11,7 @@ void Polaris::ButtonClickHandler::AddButtonClick()
     if( ids.first != EMPTY && ids.second == EMPTY )
     {
         // One room selected, creating room
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         graph_controller_->AddNode( first_coords );
 
         // Opening node form
@@ -23,6 +23,8 @@ void Polaris::ButtonClickHandler::AddButtonClick()
         // Two rooms selected, creating connection
         graph_controller_->AddConnection( ids.first, ids.second );
     }
+    form_->show();
+    button_panel_->hide();
 }
 
 void Polaris::ButtonClickHandler::DeleteButtonClick()
@@ -45,7 +47,7 @@ void Polaris::ButtonClickHandler::MoveButtonClick()
     int first_id = view_controller_->GetNodeIds().first;
     if( first_id != EMPTY )
     {
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         graph_controller_->MoveNode( first_id, first_coords );
     }
 }
@@ -55,7 +57,7 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
     int first_id = view_controller_->GetNodeIds().first;
     if( first_id != EMPTY )
     {
-        std::pair< int, int > first_coords = view_controller_->GetNodeCoords().first;
+        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         Meta meta;
         graph_controller_->ChangeNode( first_id, meta );
     }
@@ -63,7 +65,7 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
 
 void Polaris::ButtonClickHandler::FindRouteButtonClick()
 {
-    std::pair< int, int > ids = view_controller_->GetNodeIds();
+    std::pair< Id, Id > ids = view_controller_->GetNodeIds();
     if( ids.first != EMPTY && ids.second != EMPTY )
         graph_controller_->FindRoute( ids.first, ids.second );
 }

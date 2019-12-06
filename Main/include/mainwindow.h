@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QSpacerItem>
 
 #include "include/view_controller.h"
 #include "include/graph_controller.h"
@@ -20,11 +21,10 @@ class MainWindow : public QMainWindow
 public:
     /**
      * Constructor
-     * @param view_controller - pointer to ViewController object
      * @param graph_controller - pointer to GraphController object
      * @param parent - pointer to parent object
      */
-    MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent = nullptr );
+    MainWindow( GraphController * graph_controller, QWidget * parent = nullptr );
     /**
      * Default destructor
      */
@@ -32,11 +32,12 @@ public:
 
 private:
     GraphicView * view_;
+    ViewController * view_controller_;
     NodeForm * node_form_;
 
     QHBoxLayout * main_layout_;
 
-    QVBoxLayout * button_layout_;
+    QWidget * button_panel_;
 
     QPushButton * add_button_;
     QPushButton * delete_button_;

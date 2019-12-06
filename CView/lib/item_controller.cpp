@@ -58,12 +58,9 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( cur_item );
     qInfo() << mouse_event->scenePos() << " : " << cast_item;
-<<<<<<< HEAD
-=======
 
     if( ! path_drawn_ )
         ResetPath();
->>>>>>> dev
 
     // TODO разбить на фукнции по событиям разных кликов
     if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши

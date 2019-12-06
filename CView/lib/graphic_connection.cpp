@@ -5,15 +5,9 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id,
                                       const size_t & floor )
-<<<<<<< HEAD
-        : GraphicItem( id, floor, Polaris::Role::CONNECTION ),
-          left_( left ),
-          right_( right )
-=======
 : GraphicItem( id, floor, Polaris::Role::CONNECTION ),
 left_( left ),
 right_( right )
->>>>>>> dev
 {
     ResetColor();
     this->show();

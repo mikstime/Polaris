@@ -4,7 +4,8 @@
 #include <QtCore/QObject>
 #include <utility>
 
-#include "include/node_data.h"
+#include "typedefs.h"
+#include "include/graphic_view.h"
 
 namespace Polaris
 {
@@ -16,12 +17,17 @@ class ViewController : public QObject
 public:
     /**
      * Constructor
+     * @param view - pointer to View object
      */
-    ViewController();
+    explicit ViewController( GraphicView * view );
     /**
      * Update selected nodes data
      */
     void UpdateSelectedNodes();
+    /**
+     * Update selected node coordinates
+     */
+    void UpdateNodeCoordinates();
     /**
      * Get node ids
      * @return - Two ids of selected nodes or EMPTY if not selected
@@ -31,12 +37,18 @@ public:
      * Get node coordinates
      * @return - Two pairs of node coordinates
      */
-    std::pair< std::pair< int, int >, std::pair< int, int > > GetNodeCoords();
+    std::pair< Coordinate, Coordinate > GetNodeCoords();
 
 private:
+    // Pointer to View object
+    GraphicView * view_;
+
     int floor_number_;
-    NodeData a_node_data_;
-    NodeData b_node_data_;
+
+    Id first_node_;
+    Id second_node_;
+
+    std::pair< Coordinate, Coordinate > coords_;
 };
 
 } // namespace Polaris

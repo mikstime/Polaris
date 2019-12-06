@@ -8,9 +8,6 @@ int main( int argc, char * argv[] )
 {
     QApplication app( argc, argv );
 
-    // Creating ViewController object
-    auto * view_controller = new Polaris::ViewController;
-
     // Creating Model object
     auto * model = new Polaris::ModelInterface;
 
@@ -18,7 +15,7 @@ int main( int argc, char * argv[] )
     auto * graph_controller = new Polaris::GraphController( model );
 
     // Creating MainWindow object
-    auto * main_window = new Polaris::MainWindow( view_controller, graph_controller );
+    auto * main_window = new Polaris::MainWindow( graph_controller );
     main_window->show();
 
     return app.exec();

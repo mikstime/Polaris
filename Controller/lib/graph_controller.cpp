@@ -2,7 +2,7 @@
 
 Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) : model_( model )
 {
-    form_ = new NodeForm();
+    form_ = new NodeForm( form_ );
 }
 
 void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )

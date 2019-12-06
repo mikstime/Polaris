@@ -10,6 +10,7 @@
 #include <QRadioButton>
 
 #include "Meta/Meta.h"
+#include "typedefs.h"
 
 namespace Polaris
 {
@@ -21,8 +22,9 @@ class NodeForm : public QWidget
 public:
     /**
      * Constructor
+     * @param button_panel - pointer to button panel
      */
-    NodeForm();
+    NodeForm( QWidget * button_panel );
     /**
      * Set current node id and coordinates
      * @param id - node id
@@ -33,6 +35,8 @@ public:
 
 private:
     Polaris::Meta ConstructMeta( const std::string & room_number, const int8_t & floor, const Role & role );
+
+    QWidget * button_panel_;
 
     // Current node constant params
     Id id_;

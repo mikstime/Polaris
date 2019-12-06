@@ -1,28 +1,20 @@
 #include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( GraphController * graph_controller, QWidget * parent) : QMainWindow(parent)
 {
     setWindowTitle( "Polaris" );
 
-    button_layout_ = new QVBoxLayout;
+    auto * button_layout_ = new QVBoxLayout;
 
-    node_form_ = new NodeForm;
+    button_panel_ = new QWidget;
+    button_panel_->setFixedSize( 200, 400 );
 
-    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller, graph_controller );
-
-    InitButtons();
-
-    button_layout_->addWidget( add_button_ );
-    button_layout_->addWidget( delete_button_ );
-    button_layout_->addWidget( move_button_ );
-    button_layout_->addWidget( change_button_ );
-    button_layout_->addWidget( find_route_button_ );
-    button_layout_->addWidget( floor_up_button_ );
-    button_layout_->addWidget( floor_down_button_ );
+    node_form_ = new NodeForm( button_panel_ );
+    node_form_->setFixedSize( 200, 400 );
 
     // Init main layout
     main_layout_ = new QHBoxLayout;
-    main_layout_->addLayout( button_layout_ );
+    main_layout_->addWidget( button_panel_ );
     main_layout_->addWidget( node_form_ );
 
     auto * window = new QWidget;
@@ -31,11 +23,9 @@ Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphControll
     // Creating View object
     view_ = new GraphicView( this->size(), main_layout_, this );
 
-    setCentralWidget( window );
-}
+    // Creating ViewController object
+    view_controller_ = new Polaris::ViewController( view_ );
 
-void Polaris::MainWindow::InitButtons()
-{
     add_button_ = new QPushButton( "Добавить" );
     delete_button_ = new QPushButton( "Удалить" );
     move_button_ = new QPushButton( "Переместить" );
@@ -44,6 +34,28 @@ void Polaris::MainWindow::InitButtons()
     floor_up_button_ = new QPushButton( "Этаж вверх" );
     floor_down_button_ = new QPushButton( "Этаж вниз" );
 
+    button_layout_->addStretch();
+    button_layout_->addWidget( add_button_ );
+    button_layout_->addWidget( delete_button_ );
+    button_layout_->addWidget( move_button_ );
+    button_layout_->addWidget( change_button_ );
+    button_layout_->addWidget( find_route_button_ );
+    button_layout_->addWidget( floor_up_button_ );
+    button_layout_->addWidget( floor_down_button_ );
+    button_layout_->addStretch();
+
+    button_panel_->setLayout( button_layout_ );
+
+    // Creating ButtonClickHandler object
+    button_click_handler_ = new ButtonClickHandler( node_form_, view_controller_, graph_controller, button_panel_ );
+
+    InitButtons();
+
+    setCentralWidget( window );
+}
+
+void Polaris::MainWindow::InitButtons()
+{
     connect( add_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( AddButtonClick() ) );
     connect( delete_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( DeleteButtonClick() ) );
     connect( move_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( MoveButtonClick() ) );

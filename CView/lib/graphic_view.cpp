@@ -29,13 +29,8 @@ void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< G
     graph_parser_->BuildItems( meta, graph );
 }
 
-<<<<<<< HEAD
-void GraphicView::DrawThePath(const std::vector< const GraphNode > & nodes,
-                              const std::vector< const GraphConnection > & connections )
-=======
 void GraphicView::DrawThePath(const std::vector< GraphNode > & nodes,
                               const std::vector< GraphConnection > & connections )
->>>>>>> dev
 {
     graph_parser_->DrawThePath( nodes, connections );
 }

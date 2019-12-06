@@ -14,8 +14,7 @@ find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 
 set(HEADERS include/graph_controller.h
-            include/view_controller.h
-            include/node_data.h)
+            include/view_controller.h)
 
 set(SOURCES lib/graph_controller.cpp
             lib/view_controller.cpp)

@@ -47,11 +47,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
     this->role_ = room.role_;
     this->info_ = room.info_;
     this->size_ = room.size_;
-<<<<<<< HEAD
-    this->color_ = room.color_;
-=======
     this->cur_color_ = room.cur_color_;
->>>>>>> dev
     this->setPos( room.pos() );
     qInfo() << "&";
 
@@ -64,11 +60,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom && room )
     this->role_ = room.role_;
     this->info_ = std::move( room.info_ );
     this->size_ = std::move( room.size_ );
-<<<<<<< HEAD
-    this->color_ = std::move( room.color_ );
-=======
     this->cur_color_ = std::move(room.cur_color_ );
->>>>>>> dev
     this->setPos( room.pos() );
     qInfo() << "&&";
 
@@ -91,20 +83,6 @@ void GraphicRoom::ResetColor()
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {
-<<<<<<< HEAD
-        color_ = Qt::black;
-    } else if( role == Polaris::Role::ROOM )
-    {
-        color_ = Qt::green;
-    }
-    else if( role == Polaris::Role::STAIR )
-    {
-        color_ = Qt::red;
-    }
-    else if( role == Polaris::Role::HALL )
-    {
-        color_ = Qt::blue;
-=======
         cur_color_ = Qt::black;
     } else if( role == Polaris::Role::ROOM )
     {
@@ -117,7 +95,6 @@ void GraphicRoom::ResetColor()
     else if( role == Polaris::Role::HALL )
     {
         cur_color_ = Qt::blue;
->>>>>>> dev
     }
 }
 

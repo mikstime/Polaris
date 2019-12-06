@@ -20,11 +20,13 @@ public:
      * @param form - pointer to NodeForm object
      * @param controller - pointer to ViewController object
      * @param graph_controller - pointer to GraphController object
+     * @paran button_panel - pointer to button panel
      */
-    ButtonClickHandler( NodeForm * form, ViewController * controller, GraphController * graph_controller );
+    ButtonClickHandler( NodeForm * form, ViewController * controller, GraphController * graph_controller, QWidget * button_panel );
 
 private:
     NodeForm * form_;
+    QWidget * button_panel_;
     ViewController * view_controller_{};
     GraphController * graph_controller_{};
 
