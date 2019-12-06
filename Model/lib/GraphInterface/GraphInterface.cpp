@@ -1,4 +1,4 @@
-#include "Model/include/GraphInterface/GraphInterface.h"
+#include "include/GraphInterface/GraphInterface.h"
 #include <boost/container/flat_set.hpp>
 #include <utility> //std::pair
 #include <algorithm>
