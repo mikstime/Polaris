@@ -4,7 +4,8 @@
 #include "include/graph_parser.h"
 #include "include/item_controller.h"
 #include <memory>
-#include <QtWidgets/QHBoxLayout>
+
+#include <QDebug>
 
 #include <QDebug>
 
@@ -21,7 +22,8 @@ GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidge
   graph_parser_( new GraphParser( item_controller_ ) )
 {
     renderer_->setMaximumSize( size );
-    layout->addWidget( renderer_.get() );
+    if( layout != nullptr )
+        layout->addWidget( renderer_.get() );
 }
 
 void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
@@ -29,7 +31,7 @@ void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< G
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::DrawThePath(const std::vector< GraphNode > & nodes,
+void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
                               const std::vector< GraphConnection > & connections )
 {
     graph_parser_->DrawThePath( nodes, connections );
@@ -43,6 +45,7 @@ void GraphicView::ChangeRoom(const Meta & meta )
 void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
+    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::RemoveRoom(const Meta & meta )
@@ -78,4 +81,10 @@ QPointF GraphicView::GetNodeCoordinates() const
 int8_t GraphicView::GetFloorNumber() const
 {
     return renderer_->GetFloor();
+}
+
+void GraphicView::SetLayout( QHBoxLayout * const layout )
+{
+    if( layout != nullptr )
+        layout->addWidget( renderer_.get() );
 }

@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "Model/include/ModelObserver/ModelObserver.h"
+#include "include/ModelObserver/ModelObserver.h"
 
 bool Polaris::ModelObserver::Subscribe(
         Polaris::ModelSubscriber * subscriber )
