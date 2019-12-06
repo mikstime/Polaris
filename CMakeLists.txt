@@ -13,11 +13,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-add_subdirectory(Main)
 add_subdirectory(Controller)
 add_subdirectory(CView)
+add_subdirectory(Main)
+add_subdirectory(Model)
 add_subdirectory(Utils)
 
 add_executable(MainApp main.cpp)
 
-target_link_libraries(MainApp PRIVATE Main Controller CView polarisUtils_lib Qt5::Widgets)
+target_link_libraries(MainApp PRIVATE Main Controller CView polarisModel_lib polarisUtils_lib Qt5::Widgets)

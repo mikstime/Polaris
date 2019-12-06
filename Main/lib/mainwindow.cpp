@@ -28,6 +28,19 @@ Polaris::MainWindow::MainWindow( ViewController * view_controller, GraphControll
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
 
+    // Creating View object
+    view_ = new GraphicView( this->size(), main_layout_, this );
+
+    Meta a = { 1, "805ю", 120, 120, 1, Role::ROOM };
+    view_->AddRoom( a );
+    Meta b = { 2, "805ю", 220, 120, 1, Role::ROOM };
+    view_->AddRoom( b );
+    Meta e = { 3, "805ю", 320, 120, 1, Role::ROOM };
+    view_->AddRoom( e );
+    GraphConnection c( 1, 2, 10 );
+    view_->AddConnection( c );
+    view_->RemoveRoom( e );
+
     setCentralWidget( window );
 }
 

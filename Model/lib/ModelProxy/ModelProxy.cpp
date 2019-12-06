@@ -1,5 +1,7 @@
-#include "Model/include/ModelProxy/ModelProxy.h"
-#include "Model/include/GraphInterface/GraphInterface.h"
+#include <include/Search/Search.h>
+#include "include/ModelProxy/ModelProxy.h"
+#include "include/GraphInterface/GraphInterface.h"
+
 using namespace Polaris;
 bool ModelProxy::AddConnection( const GraphConnection & connection,
                                 Model & model, ModelObserver * observer )
@@ -22,7 +24,7 @@ bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
 
     if( model.graph.AddConnection( firstNodeId, lastNodeId, params ) )
     {
-        auto connection = model.graph.getConnection( firstNodeId, lastNodeId );
+        auto connection = model.graph.getConnection ( firstNodeId, lastNodeId );
         observer->ConnectionAdded( connection );
         return true;
     }
@@ -43,6 +45,8 @@ bool ModelProxy::RemoveConnection( const Id & firstNodeId,
                                    Model & model,
                                    ModelObserver * observer )
 {
+    if( !model.graph.AreConnected( firstNodeId, lastNodeId ) )
+        return false;
     auto connection = model.graph.getConnection( firstNodeId, lastNodeId );
 
     if( model.graph.RemoveConnection( firstNodeId, lastNodeId ) )
@@ -53,7 +57,7 @@ bool ModelProxy::RemoveConnection( const Id & firstNodeId,
     return false;
 }
 
-bool ModelProxy::AddNode( const GraphNode & node, Model & model,
+bool ModelProxy::AddNode( GraphNode & node, Model & model,
                           ModelObserver * observer )
 {
     if( model.graph.AddNode( node ) )
@@ -69,10 +73,9 @@ bool ModelProxy::AddNode( const GraphNode & node, Model & model,
     return false;
 }
 
-bool ModelProxy::RemoveNode( const GraphNode & node, Model & model,
+bool ModelProxy::RemoveNode( GraphNode & node, Model & model,
                              ModelObserver * observer )
 {
-    //@TODO remove meta. callback
     if( model.graph.RemoveNode( node ) )
     {
         observer->NodeRemoved( node );
@@ -88,6 +91,8 @@ bool ModelProxy::RemoveNode( const GraphNode & node, Model & model,
 bool ModelProxy::RemoveNode( Id nodeId, Model & model,
                              ModelObserver * observer )
 {
+    if( !model.graph.HasNode( nodeId ) )
+        return false;
     auto node = model.graph.getNode( nodeId );
 
     if( model.graph.RemoveNode( nodeId ) )
@@ -104,29 +109,44 @@ bool ModelProxy::RemoveNode( Id nodeId, Model & model,
 
 bool ModelProxy::FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode,
-                           const Model & model, ModelObserver * observer )
+                           Model & model, ModelObserver * observer )
 {
     //@TODO implement later
     return false;
 }
 
 bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
-                           const Model & model, ModelObserver * observer )
+                           Model & model, ModelObserver * observer )
 {
-    //@TODO implement later
-    return false;
+    std::vector< GraphNode > path = Search::FindPath(
+            model.graph, firstNodeId, lastNodeId );
+
+    Graph g = model.graph.getGraph();
+    std::vector< Meta > newPath;
+    std::vector< GraphConnection > newConnections;
+    for( auto it = path.begin(); it != path.end() - 1; it++ )
+    {
+        //@TODO test
+        newPath.push_back( model.meta[ it->GetId() ] );
+        newConnections.push_back(
+                model.graph.getConnection(
+                        it->GetId(),
+                        (it + 1)->GetId() ) );
+    }
+    observer->PathFound(newPath, newConnections );
+    return !newPath.empty();
 }
 
 bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,
                             const Model & model,
-                            ModelObserver * observer ) const
+                            ModelObserver * observer )
 {
     return observer->Subscribe( subscriber );
 }
 
 bool ModelProxy::Unsubscribe( ModelSubscriber * & subscriber,
                               const Model & model,
-                              ModelObserver * observer ) const
+                              ModelObserver * observer )
 {
     return observer->unSubscribe( subscriber );
 }

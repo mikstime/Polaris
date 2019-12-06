@@ -1,10 +1,10 @@
 #ifndef POLARISMODEL_MODELSUBSCRIBER_H
 #define POLARISMODEL_MODELSUBSCRIBER_H
 
-#include "Utils/GraphConnection/GraphConnection.h"
-#include "Utils/GraphNode/GraphNode.h"
-#include "Model/include/Model/Model.h"
-#include "Utils/Meta/Meta.h"
+#include "GraphConnection/GraphConnection.h"
+#include "GraphNode/GraphNode.h"
+#include "include/Model/Model.h"
+#include "Meta/Meta.h"
 namespace Polaris
 {
 struct Meta;
@@ -55,8 +55,8 @@ public:
      * nodes - list of nodes to be drawn
      *************************************************************************/
     virtual void onPathFound(
-            const std::vector< const GraphNode > & nodes,
-            const std::vector< const GraphConnection > & connections ) = 0;
+            std::vector< Meta > & path,
+            std::vector< GraphConnection > & connections ) = 0;
     /**************************************************************************
      * onNodeAdded
      * Arguments:
