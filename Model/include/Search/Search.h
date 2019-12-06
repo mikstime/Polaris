@@ -4,7 +4,9 @@
 #include <vector>
 #include "Model/include/Graph/Graph.h"
 #include "GraphNode/GraphNode.h"
-
+#include "include/GraphInterface/GraphInterface.h"
+#include "include/Search/PriorityQueue.h"
+#include <Meta/Meta.h>
 namespace Polaris
 {
 class Search
@@ -16,8 +18,10 @@ public:
     Search( Search const & );
     Search( Search && ) noexcept;
     ~Search();
-    Path FindPath( const Graph &, const GraphNode &, const GraphNode & );
-    Path FindPath( const Graph &, ID, ID );
+    static Path FindPath( GraphInterface &, GraphNode &, GraphNode & );
+    static Path FindPath( GraphInterface &, const ID & , const ID & );
+//    Path FindPath( Graph &, const std::vector< Meta > & meta, const GraphNode &, const GraphNode & );
+//    Path FindPath( Graph &, const std::vector< Meta > & meta, const ID & , const ID & );
 };
 }//namespace Polaris
 

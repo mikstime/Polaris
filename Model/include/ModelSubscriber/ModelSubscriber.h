@@ -55,8 +55,8 @@ public:
      * nodes - list of nodes to be drawn
      *************************************************************************/
     virtual void onPathFound(
-            const std::vector< const GraphNode > & nodes,
-            const std::vector< const GraphConnection > & connections ) = 0;
+            std::vector< Meta > & path,
+            std::vector< GraphConnection > & connections ) = 0;
     /**************************************************************************
      * onNodeAdded
      * Arguments:

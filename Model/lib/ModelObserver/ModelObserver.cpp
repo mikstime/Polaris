@@ -81,10 +81,10 @@ void Polaris::ModelObserver::ConnectionAdded(
 }
 
 void Polaris::ModelObserver::PathFound(
-        const std::vector< const GraphNode > & nodes,
-        const std::vector< const GraphConnection > & connections )
+        std::vector< Meta > & path,
+        std::vector< GraphConnection > & connections )
 {
     // Loop through subscribers and notify them.
     for( auto sub : subscribers_ )
-        sub->onPathFound( nodes, connections );
+        sub->onPathFound( path, connections );
 }

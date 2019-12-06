@@ -22,8 +22,9 @@ public:
     GraphInterface graph;
     std::map< Id, Meta > meta;
 public:
-    explicit Model(Graph a_graph = Graph())
-    : graph(std::move(a_graph)), meta() {};
+    Model():graph(),meta(){};
+    explicit Model(Graph a_graph)
+    : graph(a_graph), meta() {};
     Model( Model const & ) = default;
     Model( Model && ) noexcept = default;
     ~Model() = default;
