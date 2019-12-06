@@ -8,20 +8,10 @@
 #include "Meta/Meta.h"
 #include "GraphConnection/GraphConnection.h"
 #include "include/node_form.h"
+#include "include/ModelInterface/ModelInterface.h"
 
 namespace Polaris
 {
-
-class ModelInterface
-{
-public:
-    void AddNode( GraphNode node ) {}
-    void ChangeMeta( Id id, Meta meta ) {}
-    void AddConnection( GraphConnection ) {}
-    void RemoveNode( Id id ) {}
-    void RemoveConnection( Id first_id, Id second_if ) {}
-    void FindPath( Id first_id, Id second_id ) {}
-};
 
 class GraphController
 {
