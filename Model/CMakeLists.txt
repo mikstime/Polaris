@@ -25,7 +25,7 @@ set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
             lib/Search/Search.cpp
-            lib/Search/PriorityQueue.cpp )
+        )
 
 set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
 #                    lib/ModelObserver/model_observer_tests.cpp outdated. No mocks provided yet

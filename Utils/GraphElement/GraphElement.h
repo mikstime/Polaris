@@ -27,7 +27,7 @@ public:
     /**************************************************************************
      * GetId - returns id of element
      *************************************************************************/
-    Id GetId() const { return id_; };
+    [[nodiscard]] Id GetId() const { return id_; };
 };
 }//namespace Polaris
 

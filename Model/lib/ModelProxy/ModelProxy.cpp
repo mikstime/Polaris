@@ -6,8 +6,6 @@ using namespace Polaris;
 bool ModelProxy::AddConnection( const GraphConnection & connection,
                                 Model & model, ModelObserver * observer )
 {
-    
-
     if( model.graph.AddConnection( connection ) )
     {
         observer->ConnectionAdded( connection );
@@ -20,12 +18,10 @@ bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                                 const ConnectionParams & params,
                                 Model & model, ModelObserver * observer )
 {
-    
-
     if( model.graph.AddConnection( firstNodeId, lastNodeId, params ) )
     {
-        auto connection = model.graph.getConnection ( firstNodeId, lastNodeId );
-        observer->ConnectionAdded( connection );
+        auto c = model.graph.getConnection ( firstNodeId, lastNodeId );
+        observer->ConnectionAdded( c );
         return true;
     }
     return false;
