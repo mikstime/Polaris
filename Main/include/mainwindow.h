@@ -4,19 +4,13 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
-<<<<<<< HEAD
-=======
 #include <QSpacerItem>
->>>>>>> mainwindow
 
 #include "include/view_controller.h"
 #include "include/graph_controller.h"
 #include "include/graphic_view.h"
 #include "include/button_click_handler.h"
-<<<<<<< HEAD
-=======
 #include "include/connection_form.h"
->>>>>>> mainwindow
 
 namespace Polaris
 {

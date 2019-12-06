@@ -19,4 +19,4 @@ include_directories(${GTEST_INCLUDE_DIRS})
 target_include_directories( Utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 
 add_executable( graph_element_tests GraphElement/graph_element_tests.cpp )
-target_link_libraries(graph_element_tests PUBLIC Catch2::Catch2 Utils )
+target_link_libraries(graph_element_tests PUBLIC  Utils )

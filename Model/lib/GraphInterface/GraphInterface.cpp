@@ -79,8 +79,6 @@ bool GraphInterface::AddNode( GraphNode & node )
 
 bool GraphInterface::RemoveNode( GraphNode & node )
 {
-<<<<<<< HEAD
-=======
     // find element
     auto it = graph_.nodes.find( node );
     // return false if not found
@@ -95,7 +93,6 @@ bool GraphInterface::RemoveNode( GraphNode & node )
     // delete element and return true
     graph_.nodes.erase( it );
     return true;
->>>>>>> 3f6f4cd2a819f23099843162739203374d3693f1
 }
 
 bool GraphInterface::RemoveNode( Id nodeId )
