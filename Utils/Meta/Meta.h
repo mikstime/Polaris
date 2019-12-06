@@ -19,7 +19,7 @@ public:
     std::string room_number;
     Coordinate x, y;
     int8_t floor;
-    std::string role;
+    Role role;
 };
 } //namespace Polaris
 

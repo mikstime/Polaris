@@ -4,7 +4,8 @@
 #include "include/graph_parser.h"
 #include "include/item_controller.h"
 #include <memory>
-#include <QtWidgets/QVBoxLayout>
+
+#include <QDebug>
 
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
@@ -13,47 +14,49 @@ using Polaris::GraphicConnection;
 using Polaris::Meta;
 
 // Размер окна и выкладка, на которой будет размещен виджет
-GraphicView::GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent )
-: item_controller_( new ItemController( size ) ),
+GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
+: item_controller_( new ItemController( QRect( 0, 0, size.width(), size.height() ) ) ),
   renderer_( new Renderer( item_controller_.get() ) ),
-  graph_parser_( new GraphParser( item_controller_.get() ) )
+  graph_parser_( new GraphParser( item_controller_ ) )
 {
-    renderer_->setMaximumSize( size.size() );
-    layout.addWidget( renderer_.get() );
+    renderer_->setMaximumSize( size );
+    if( layout != nullptr )
+        layout->addWidget( renderer_.get() );
 }
 
-void GraphicView::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+void GraphicView::InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
     graph_parser_->BuildItems( meta, graph );
 }
 
-void GraphicView::OnPathFound(const std::vector< const GraphNode > & nodes,
-                              const std::vector< const GraphConnection > & connections )
+void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
+                              const std::vector< GraphConnection > & connections )
 {
-// TODO   graph_parser_->DrawThePath( path );
+    graph_parser_->DrawThePath( nodes, connections );
 }
 
-void GraphicView::OnMetaChanged( const Meta & meta )
+void GraphicView::ChangeRoom(const Meta & meta )
 {
-    graph_parser_->OnMetaChanged( meta );
+    graph_parser_->OnRoomChanged(meta);
 }
 
-void GraphicView::OnMetaAdded( const Meta & meta )
+void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
+    renderer_->SetFloor( meta.floor );
 }
 
-void GraphicView::OnMetaRemoved( const Meta & meta )
+void GraphicView::RemoveRoom(const Meta & meta )
 {
     graph_parser_->OnRoomRemoved(meta);
 }
 
-void GraphicView::OnConnectionAdded( const GraphConnection & connection )
+void GraphicView::AddConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionAdded( connection );
 }
 
-void GraphicView::OnConnectionRemoved( const GraphConnection & connection )
+void GraphicView::RemoveConnection(const GraphConnection & connection )
 {
     graph_parser_->OnConnectionRemoved( connection );
 }
@@ -76,4 +79,10 @@ QPointF GraphicView::GetNodeCoordinates() const
 int8_t GraphicView::GetFloorNumber() const
 {
     return renderer_->GetFloor();
+}
+
+void GraphicView::SetLayout( QHBoxLayout * const layout )
+{
+    if( layout != nullptr )
+        layout->addWidget( renderer_.get() );
 }

@@ -1,8 +1,8 @@
 #ifndef GRAPHCONNECTION_HPP
 #define GRAPHCONNECTION_HPP
 
-#include "GraphElement/GraphElement.h"
 #include "typedefs.h"
+#include "GraphElement/GraphElement.h"
 
 namespace Polaris
 {
@@ -69,7 +69,8 @@ public:
     /**************************************************************************
      * Pass connection properties directly to constructor.
      *************************************************************************/
-    GraphConnection( const Id & a_from, const Id & a_to,
+        // TODO айди не возможно задать
+        GraphConnection( const Id & a_from, const Id & a_to,
                      const Price & a_cost );
 };
 } //namespace Polaris

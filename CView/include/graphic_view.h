@@ -9,7 +9,7 @@
 #include <QGraphicsView>
 #include <QtWidgets/QVBoxLayout>
 
-namespace Polaris 
+namespace Polaris
 {
 class GraphicView : public View
 {
@@ -19,20 +19,20 @@ public:
     GraphicView( const GraphicView & ) = delete;
     GraphicView( const GraphicView && ) = delete;
 
-    GraphicView( const QRect & size, QVBoxLayout & layout, QWidget * parent );
+    GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent );
 
     GraphicView & operator = (const GraphicView & ) = delete;
     GraphicView & operator = ( const GraphicView && ) = delete;
     ~GraphicView() = default;
 
-    void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
-    void OnPathFound(const std::vector< const GraphNode > & nodes,
-                     const std::vector< const GraphConnection > & connections ) override;
-    void OnMetaChanged( const Meta & meta ) override;
-    void OnMetaAdded( const Meta & meta ) override;
-    void OnMetaRemoved( const Meta & meta ) override;
-    void OnConnectionAdded( const GraphConnection & connection ) override;
-    void OnConnectionRemoved( const GraphConnection & connection ) override;
+    void InitMap(const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) override;
+    void DrawThePath(const std::vector< Meta > & nodes,
+                     const std::vector< GraphConnection > & connections ) override;
+    void ChangeRoom(const Meta & meta ) override;
+    void AddRoom(const Meta & meta ) override;
+    void RemoveRoom(const Meta & meta ) override;
+    void AddConnection(const GraphConnection & connection ) override;
+    void RemoveConnection(const GraphConnection & connection ) override;
 
     // запрашивает выбранную ноду
     size_t GetSelectedNode() const override;
@@ -42,12 +42,14 @@ public:
     QPointF GetNodeCoordinates() const override;
     // запрашивает текущий этаж
     int8_t GetFloorNumber() const override;
+    // задать выкладку
+    void SetLayout( QHBoxLayout * const layout );
 
 private:
     // TODO будут ли работать указатели?
-    std::unique_ptr< ItemController > item_controller_;
-    std::unique_ptr< GraphParser > graph_parser_;
-    std::unique_ptr< Renderer > renderer_;
+    std::shared_ptr< ItemController > item_controller_;
+    std::shared_ptr< GraphParser > graph_parser_;
+    std::shared_ptr< Renderer > renderer_;
 
 };
 } // namespace Polaris

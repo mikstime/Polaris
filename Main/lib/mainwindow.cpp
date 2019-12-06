@@ -1,41 +1,42 @@
 #include "include/mainwindow.h"
 
-Polaris::MainWindow::MainWindow( ViewController * controller, QWidget * parent) : QMainWindow(parent)
+Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterface * model, QWidget * parent) :
+        QMainWindow( parent ), model_( model )
 {
     setWindowTitle( "Polaris" );
 
-    button_layout_ = new QVBoxLayout;
+    // Creating button layout
+    auto * button_layout_ = new QVBoxLayout;
 
-    node_form_ = new NodeForm;
+    // Creating button panel
+    button_panel_ = new QWidget;
+    button_panel_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
-    button_click_handler_ = new ButtonClickHandler( node_form_, controller );
+    // Creating NodeForm object
+    node_form_ = new NodeForm( button_panel_ );
+    node_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
-    InitButtons();
+    // Creating ConnectionForm object
+    auto * connection_form = new ConnectionForm( button_panel_, model );
+    connection_form->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
-    button_layout_->addWidget( add_button_ );
-    button_layout_->addWidget( delete_button_ );
-    button_layout_->addWidget( move_button_ );
-    button_layout_->addWidget( change_button_ );
-    button_layout_->addWidget( find_route_button_ );
-    button_layout_->addWidget( floor_up_button_ );
-    button_layout_->addWidget( floor_down_button_ );
-
+    // Init main layout
     main_layout_ = new QHBoxLayout;
-    main_layout_->addLayout( button_layout_ );
+    main_layout_->addWidget( button_panel_ );
     main_layout_->addWidget( node_form_ );
+    main_layout_->addWidget( connection_form );
 
+    // Creating window
     auto * window = new QWidget;
     window->setLayout( main_layout_ );
 
-    setCentralWidget( window );
-}
+    // Creating View object
+    view_ = new GraphicView( this->size(), main_layout_, this );
 
-Polaris::MainWindow::~MainWindow()
-{
-}
+    // Creating ViewController object
+    view_controller_ = new Polaris::ViewController( view_ );
 
-void Polaris::MainWindow::InitButtons()
-{
+    // Creating buttons
     add_button_ = new QPushButton( "Добавить" );
     delete_button_ = new QPushButton( "Удалить" );
     move_button_ = new QPushButton( "Переместить" );
@@ -44,6 +45,28 @@ void Polaris::MainWindow::InitButtons()
     floor_up_button_ = new QPushButton( "Этаж вверх" );
     floor_down_button_ = new QPushButton( "Этаж вниз" );
 
+    button_layout_->addStretch();
+    button_layout_->addWidget( add_button_ );
+    button_layout_->addWidget( delete_button_ );
+    button_layout_->addWidget( move_button_ );
+    button_layout_->addWidget( change_button_ );
+    button_layout_->addWidget( find_route_button_ );
+    button_layout_->addWidget( floor_up_button_ );
+    button_layout_->addWidget( floor_down_button_ );
+    button_layout_->addStretch();
+
+    button_panel_->setLayout( button_layout_ );
+
+    // Creating ButtonClickHandler object
+    button_click_handler_ = new ButtonClickHandler( node_form_, connection_form, view_controller_, graph_controller, button_panel_ );
+
+    InitButtons();
+
+    setCentralWidget( window );
+}
+
+void Polaris::MainWindow::InitButtons()
+{
     connect( add_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( AddButtonClick() ) );
     connect( delete_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( DeleteButtonClick() ) );
     connect( move_button_, SIGNAL( clicked() ), button_click_handler_, SLOT( MoveButtonClick() ) );

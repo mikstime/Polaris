@@ -3,9 +3,11 @@
 #include <functional>
 #include <unordered_map>
 #include <include/GraphInterface/GraphInterface.h>
+#include <algorithm>
 
 using namespace Polaris;
 using Path = std::vector< GraphNode >;
+
 Search::Search()
 {
 

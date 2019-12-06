@@ -1,7 +1,7 @@
-#ifndef MAINAPP_NODE_DATA_H
-#define MAINAPP_NODE_DATA_H
+#ifndef NODE_DATA_H
+#define NODE_DATA_H
 
-#include <vector>
+#include <utility>
 
 #define EMPTY -1
 
@@ -11,9 +11,9 @@ namespace Polaris
 struct NodeData
 {
     int node_id_;
-    std::vector< int > coords_;
+    std::pair< int, int > coords_;
 };
 
 } // namespace Polaris
 
-#endif //MAINAPP_NODE_DATA_H
+#endif // NODE_DATA_H

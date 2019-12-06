@@ -1,28 +1,75 @@
-#ifndef MAINAPP_GRAPH_CONTROLLER_H
-#define MAINAPP_GRAPH_CONTROLLER_H
+#ifndef GRAPH_CONTROLLER_H
+#define GRAPH_CONTROLLER_H
 
-#include <vector>
-#include "controller.h"
+#include <utility>
+#include <memory>
+
+#include "GraphNode/GraphNode.h"
+#include "Meta/Meta.h"
+#include "GraphConnection/GraphConnection.h"
+#include "include/node_form.h"
 
 namespace Polaris
 {
 
-class GraphController : public Controller
+class ModelInterface
 {
 public:
-    GraphController();
-    void AddNode( std::vector< int > node_coords ) override;
-    void AddConnection( int a_node_id, int b_node_id ) override;
-    void DeleteNode( int node_id ) override;
-    void DeleteConnection( int a_node_id, int b_node_id ) override;
-    void MoveNode( int node_id, std::vector< int > node_coords ) override;
-    void ChangeNode( int node_id ) override;
-    void FindRoute( int a_node_id, int b_node_id ) override;
-    void ChangeFloor( int floor_number ) override;
+    void AddNode( GraphNode node ) {}
+    void ChangeMeta( Id id, Meta meta ) {}
+    void AddConnection( GraphConnection ) {}
+    void RemoveNode( Id id ) {}
+    void RemoveConnection( Id first_id, Id second_if ) {}
+    void FindPath( Id first_id, Id second_id ) {}
+};
+
+class GraphController
+{
+public:
+    /**
+     * Constructor
+     * @param model - pointer to Model object
+     */
+    explicit GraphController( ModelInterface * model );
+    /**
+     * Add node to Model
+     * @param node_coords - New node coordinates
+     */
+    void AddNode( const std::pair< int, int > & node_coords );
+    /**
+     * Delete node from Model
+     * @param node_id - Deleted node id
+     */
+    void DeleteNode( const Polaris::Id & node_id );
+    /**
+     * Delete connection from Model
+     * @param a_node_id -
+     * @param b_node_id
+     */
+    void DeleteConnection( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id );
+    /**
+     * Change node coordinates in Model
+     * @param node_id - Movable node id
+     * @param node_coords - Movable node new coordinates
+     */
+    void MoveNode( const Polaris::Id & node_id, const std::pair< int, int > & node_coords );
+    /**
+     * Changing node Meta
+     * @param node_id - Changing node id
+     * @param meta - New node meta
+     */
+    void FindRoute( const Polaris::Id & a_node_id, const Polaris::Id & b_node_id );
+    /**
+     * Changing floor
+     * @param floor_number - New floor number
+     */
+    void ChangeFloor( const int & floor_number );
 
 private:
+    // Pointer to Model object
+    std::shared_ptr< ModelInterface > model_;
 };
 
 } // namespace Polaris
 
-#endif //MAINAPP_GRAPH_CONTROLLER_H
+#endif // GRAPH_CONTROLLER_H

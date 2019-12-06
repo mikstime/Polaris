@@ -11,13 +11,13 @@ using Polaris::Meta;
 class MockView : public View
 {
 public:
-    MOCK_METHOD2( BuildItems, void( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) );
+    MOCK_METHOD2(InitMap, void( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph ) );
     MOCK_METHOD1( DrawThePath, void( std::vector< size_t > path ) );
-    MOCK_METHOD1( OnMetaChanged, void( const Meta & meta ) );
-    MOCK_METHOD1( OnMetaAdded, void( const Meta & meta ) );
-    MOCK_METHOD1( OnMetaRemoved, void( const Meta & meta ) );
-    MOCK_METHOD1( OnConnectionAdded, void( const GraphConnection & connection ) );
-    MOCK_METHOD1( OnConnectionRemoved, void( const GraphConnection & connection ) );
+    MOCK_METHOD1(ChangeRoom, void( const Meta & meta ) );
+    MOCK_METHOD1(AddRoom, void( const Meta & meta ) );
+    MOCK_METHOD1(RemoveRoom, void( const Meta & meta ) );
+    MOCK_METHOD1(AddConnection, void( const GraphConnection & connection ) );
+    MOCK_METHOD1(RemoveConnection, void( const GraphConnection & connection ) );
 
     MOCK_CONST_METHOD0( GetSelectedNode, size_t() );
     MOCK_CONST_METHOD0( GetSelectedNodes, std::pair< size_t, size_t >() );

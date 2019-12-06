@@ -1,9 +1,11 @@
-#ifndef MAINAPP_VIEW_CONTROLLER_H
-#define MAINAPP_VIEW_CONTROLLER_H
+#ifndef VIEW_CONTROLLER_H
+#define VIEW_CONTROLLER_H
 
 #include <QtCore/QObject>
 #include <utility>
-#include "node_data.h"
+
+#include "typedefs.h"
+#include "include/graphic_view.h"
 
 namespace Polaris
 {
@@ -13,27 +15,42 @@ class ViewController : public QObject
     Q_OBJECT
 
 public:
-    ViewController();
-
+    /**
+     * Constructor
+     * @param view - pointer to View object
+     */
+    explicit ViewController( GraphicView * view );
+    /**
+     * Update selected nodes data
+     */
+    void UpdateSelectedNodes();
+    /**
+     * Update selected node coordinates
+     */
+    void UpdateNodeCoordinates();
+    /**
+     * Get node ids
+     * @return - Two ids of selected nodes or EMPTY if not selected
+     */
     std::pair< int, int > GetNodeIds();
+    /**
+     * Get node coordinates
+     * @return - Two pairs of node coordinates
+     */
+    std::pair< Coordinate, Coordinate > GetNodeCoords();
 
 private:
+    // Pointer to View object
+    GraphicView * view_;
+
     int floor_number_;
-    NodeData a_node_data_;
-    NodeData b_node_data_;
 
-signals:
-    void GetSelectedNode();
-    void GetSelectedNodes();
-    void GetNodeCoordinates();
-    void GetFloorNumber();
+    Id first_node_;
+    Id second_node_;
 
-public slots:
-    void SetSelectedNode( int node_id );
-    void SetNodeCoordinates( int x, int y );
-    void SetNodesCoordinates( int a_x, int a_y, int b_x, int b_y );
+    std::pair< Coordinate, Coordinate > coords_;
 };
 
 } // namespace Polaris
 
-#endif //MAINAPP_VIEW_CONTROLLER_H
+#endif // VIEW_CONTROLLER_H

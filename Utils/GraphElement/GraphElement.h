@@ -2,6 +2,7 @@
 #define GRAPHELEMENT_HPP
 
 #include "typedefs.h"
+
 namespace Polaris
 {
 /******************************************************************************
@@ -10,8 +11,9 @@ namespace Polaris
 class GraphElement
 {
 private:
-    Id id_;
+
 public:
+    Id id_;
     /**************************************************************************
      * GraphElement constructor. Creates uuid.
      * id never equals to 0
@@ -25,7 +27,7 @@ public:
     /**************************************************************************
      * GetId - returns id of element
      *************************************************************************/
-    [[nodiscard]] Id GetId() const { return id_; };
+    Id GetId() const { return id_; };
 };
 }//namespace Polaris
 

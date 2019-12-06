@@ -4,6 +4,7 @@
 #include "GraphConnection/GraphConnection.h"
 #include <vector>
 #include "typedefs.h"
+
 namespace Polaris
 {
 /******************************************************************************

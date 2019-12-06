@@ -2,7 +2,7 @@
 
 using Polaris::GraphicItem;
 
-GraphicItem::GraphicItem( const size_t & id, const int8_t & floor, const std::string & role )
+GraphicItem::GraphicItem( const size_t & id, const int8_t & floor, const Polaris::Role & role )
 : id_( id ),
 floor_( floor ),
 role_( role )
@@ -20,7 +20,12 @@ int8_t GraphicItem::GetFloor() const
     return floor_;
 }
 
-std::string GraphicItem::GetRole() const
+Polaris::Role GraphicItem::GetRole() const
 {
     return role_;
+}
+
+void GraphicItem::SetDefaultColor()
+{
+    cur_color_ =  def_color_;
 }

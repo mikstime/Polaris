@@ -8,6 +8,7 @@
 #include <vector> // std::vector
 #include <map> //std::map
 #include <set> //std::set
+
 namespace Polaris
 {
 class NodeComparator

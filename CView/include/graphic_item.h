@@ -2,6 +2,7 @@
 #define MAINAPP_GRAPHICITEM_H
 
 #include <string>
+#include "typedefs.h"
 #include <QGraphicsItem>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsEllipseItem>
@@ -11,22 +12,28 @@ namespace Polaris
     class GraphicItem : public QGraphicsItem
     {
     public:
-        explicit GraphicItem( const size_t & id, const int8_t & floor, const std::string & role );
+
+        explicit GraphicItem( const Id & id, const int8_t & floor = 0, const Role & role = Role::MARK );
         virtual ~GraphicItem() = default;
 
-        size_t GetId() const;
+        Id GetId() const;
         int8_t GetFloor() const;
-        std::string GetRole() const;
-        virtual void SetColor( const QColor & color ) = 0;
-        virtual void ResetColor() = 0;
-        virtual void SetSelection() = 0;
-        virtual void ResetSelection() = 0;
+        Role GetRole() const;
+        void SetDefaultColor();
+        virtual void SetColor( const QColor & color ) { return; }
+        virtual void SetSelection() { return; }
+        virtual void ResetSelection() { return; }
 
-    private:
-        size_t id_;
+    protected:
+        Id id_;
         int8_t floor_;
-        std::string role_;
-        // TODO перенести общие поля в родительский класс
+        Role role_;
+        QColor cur_color_;
+        QColor def_color_;
+
+        virtual void ResetColor() { return; }
+        void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override { return; }
+        QRectF boundingRect() const override { return QRectF(); }
     };
 } // namespace Polaris
 

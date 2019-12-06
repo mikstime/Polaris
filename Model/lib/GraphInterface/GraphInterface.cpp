@@ -1,6 +1,7 @@
 #include "include/GraphInterface/GraphInterface.h"
 #include <boost/container/flat_set.hpp>
 #include <utility> //std::pair
+#include <algorithm>
 using namespace Polaris;
 bool GraphInterface::AddConnection(
         GraphNode & firstNode,

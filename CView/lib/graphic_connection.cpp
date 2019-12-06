@@ -5,14 +5,12 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t & id,
                                       const size_t & floor )
-: GraphicItem( id, floor, "connection" ),
+: GraphicItem( id, floor, Polaris::Role::CONNECTION ),
 left_( left ),
-right_( right ),
-color_( Qt::black )
+right_( right )
 {
-    // TODO инициализация
     ResetColor();
-    show();
+    this->show();
 }
 
 double GraphicConnection::GetPrice() const
@@ -22,12 +20,12 @@ double GraphicConnection::GetPrice() const
 
 void GraphicConnection::SetColor( const QColor & color )
 {
-    color_ = color;
+    cur_color_ = color;
 }
 
 void GraphicConnection::ResetColor()
 {
-    color_ = Qt::black;
+    cur_color_ = Qt::black;
 }
 
 void GraphicConnection::SetSelection()
@@ -37,12 +35,12 @@ void GraphicConnection::SetSelection()
 
 void GraphicConnection::ResetSelection()
 {
-    ResetColor();
+    SetDefaultColor();
 }
 
 void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget )
 {
-    painter->setPen( color_ );
+    painter->setPen(cur_color_ );
     painter->drawLine( left_, right_ );
 
     Q_UNUSED(option);
@@ -52,4 +50,13 @@ void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsIte
 QRectF GraphicConnection::boundingRect() const
 {
     return QRectF( left_, right_ ).normalized();
+}
+
+QPainterPath GraphicConnection::shape() const
+{
+    // TODO проверить
+    QPainterPath path;
+    path.moveTo( left_ );
+    path.lineTo( right_ );
+    return path;
 }

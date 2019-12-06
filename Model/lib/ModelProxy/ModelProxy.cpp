@@ -1,6 +1,7 @@
 #include <include/Search/Search.h>
 #include "include/ModelProxy/ModelProxy.h"
 #include "include/GraphInterface/GraphInterface.h"
+
 using namespace Polaris;
 bool ModelProxy::AddConnection( const GraphConnection & connection,
                                 Model & model, ModelObserver * observer )
