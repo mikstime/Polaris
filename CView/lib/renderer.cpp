@@ -36,6 +36,7 @@ void Renderer::SetFloor( const int8_t floor )
     {
         max_floor_ = floor;
     }
+    current_floor_ = floor;
 }
 
 void Renderer::wheelEvent( QWheelEvent * event )

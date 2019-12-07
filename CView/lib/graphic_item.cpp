@@ -25,6 +25,11 @@ Polaris::Role GraphicItem::GetRole() const
     return role_;
 }
 
+QColor GraphicItem::GetColor() const
+{
+    return cur_color_;
+}
+
 void GraphicItem::SetDefaultColor()
 {
     cur_color_ =  def_color_;

@@ -30,6 +30,7 @@ namespace Polaris
         void OnRoomRemoved( const Meta & meta );
         void OnConnectionAdded( const GraphConnection & connection );
         void OnConnectionRemoved( const GraphConnection & connection );
+        void EraseItems();
 
     private:
         std::shared_ptr< ItemController >item_cotroller_;
