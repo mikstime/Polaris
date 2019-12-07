@@ -1,5 +1,7 @@
+#include <iostream>
 #include "include/ModelInterface/ModelInterface.h"
 #include "typedefs.h"
+
 /******************************************************************************
  * AddConnection Methods
  *****************************************************************************/

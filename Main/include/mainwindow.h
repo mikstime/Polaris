@@ -11,6 +11,8 @@
 #include "include/graphic_view.h"
 #include "include/button_click_handler.h"
 #include "include/connection_form.h"
+#include "include/view_sub.h"
+#include "include/ModelSubscriber/ModelSubscriber.h"
 
 namespace Polaris
 {
@@ -42,6 +44,7 @@ private:
     std::shared_ptr< ConnectionForm > connection_form_;
     std::shared_ptr< ModelInterface > model_;
 
+    ViewSub * view_sub_;
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ButtonClickHandler > button_click_handler_;
 

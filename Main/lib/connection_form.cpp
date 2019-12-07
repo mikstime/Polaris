@@ -1,7 +1,7 @@
 #include "include/connection_form.h"
 
 Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface * model ) :
-        button_panel_( button_panel ), model_( model )
+        button_panel_( button_panel ), model_( model ), first_node_( EMPTY ), second_node_( EMPTY )
 {
     // Init price widgets
     auto * price_label = new QLabel( "Стоимость" );

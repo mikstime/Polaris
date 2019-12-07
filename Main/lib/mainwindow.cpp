@@ -33,6 +33,11 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     // Creating View object
     view_ = std::make_shared< GraphicView >( this->size(), main_layout, this );
 
+    // Creating ViewSub object
+    view_sub_ = new ViewSub( view_.get() );
+
+    model_->Subscribe( view_sub_ );
+
     // Creating ViewController object
     view_controller_ = std::make_shared< ViewController >( view_.get() );
 

@@ -1,5 +1,7 @@
 #include "include/graph_controller.h"
 
+#include <QDebug>
+
 Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
     model_( model )
 {
@@ -7,6 +9,7 @@ Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
 
 void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
 {
+    qInfo() << "GraphController: In AddNode";
     // Creating node
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
