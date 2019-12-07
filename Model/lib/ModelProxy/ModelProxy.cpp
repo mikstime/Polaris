@@ -133,14 +133,17 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
     Graph g = model.graph.getGraph();
     std::vector< Meta > newPath;
     std::vector< GraphConnection > newConnections;
-    for( auto it = path.begin(); it != path.end() - 1; it++ )
+    if( !path.empty() )
     {
-        //@TODO test
-        newPath.push_back( model.meta[ it->GetId() ] );
-        newConnections.push_back(
-                model.graph.getConnection(
-                        it->GetId(),
-                        (it + 1)->GetId() ) );
+        for ( auto it = path.begin(); it != path.end() - 1; it++ )
+        {
+            //@TODO test
+            newPath.push_back( model.meta[it->GetId()] );
+            newConnections.push_back(
+                    model.graph.getConnection(
+                            it->GetId(),
+                            ( it + 1 )->GetId()));
+        }
     }
     observer->PathFound(newPath, newConnections );
     return !newPath.empty();
