@@ -4,7 +4,7 @@
 
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
         ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel ) :
-        node_form_( node_form ), view_controller_( view_controller ), graph_controller_( graph_controller ), button_panel_( button_panel )
+        node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ), graph_controller_( graph_controller ), button_panel_( button_panel )
 {
 }
 
@@ -12,25 +12,26 @@ void Polaris::ButtonClickHandler::AddButtonClick()
 {
     std::pair< Coordinate, Coordinate > coordinates = view_controller_->GetNodeCoords();
     std::pair< Id, Id > ids = view_controller_->GetNodeIds();
-    if( coordinates.first != 0 && coordinates.second != 0 )
+    qInfo() << "ids: " << ids.first << ", " << ids.second;
+    if( ids.first != 0 && ids.second != 0 )
+    {
+        qInfo() << "Add button: Two node selected";
+        // Opening connection form
+        connection_form_->SetNodes( ids.first, ids.second );
+        connection_form_->show();
+        button_panel_->hide();
+    }
+    else if( coordinates.first != 0 && coordinates.second != 0 )
     {
         qInfo() << "Add button: One node selected";
         // Creating room
         std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
-        graph_controller_->AddNode( first_coords );
+        int id = graph_controller_->AddNode( first_coords );
 
         // Opening node form
-        node_form_->SetCurrentNodeParams( ids.first, first_coords.first, first_coords.second );
+        node_form_->SetCurrentNodeParams( id, first_coords.first, first_coords.second );
         node_form_->show();
         button_panel_->hide();
-    }
-    else if( ids.first != 0 && ids.second != 0 )
-    {
-        qInfo() << "Add button: Two node selected";
-        // Opening connection form
-//        connection_form_->SetNodes( ids.first, ids.second );
-//        connection_form_->show();
-//        button_panel_->hide();
     }
     qInfo() << "Add button: Nodes not selected";
 }
@@ -86,8 +87,9 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
     {
         qInfo() << "Find route button: Two node selected";
         graph_controller_->FindRoute( ids.first, ids.second );
+        return;
     }
-    qInfo() << "Find route button: Two node node selected";
+    qInfo() << "Find route button: Two node not selected";
 }
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()

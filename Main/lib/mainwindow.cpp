@@ -13,7 +13,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_panel_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating NodeForm object
-    node_form_ = std::make_shared< NodeForm >( button_panel_.get() );
+    node_form_ = std::make_shared< NodeForm >( button_panel_.get(), model_.get() );
     node_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating ConnectionForm object
@@ -34,7 +34,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     view_ = std::make_shared< GraphicView >( this->size(), main_layout, this );
 
     // Creating ViewSub object
-    view_sub_ = new ViewSub( view_.get() );
+    view_sub_ = new ViewSub( view_ );
 
     model_->Subscribe( view_sub_ );
 

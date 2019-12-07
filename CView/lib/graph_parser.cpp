@@ -85,6 +85,8 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
+    item_cotroller_->ResetCurrentNode();
+    item_cotroller_->ResetPreviousNode();
     EraseItemById( meta.graph_node_id );
 }
 
@@ -108,6 +110,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
+    item_cotroller_->ResetCurrentNode();
+    item_cotroller_->ResetPreviousNode();
     EraseItemById( connection.GetId() );
 }
 
