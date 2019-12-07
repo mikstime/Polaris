@@ -418,7 +418,7 @@ TEST( SearchTest, SQPATH )
     ConnectionParams c12, c23, c13, c34;
     c12.cost = 4;
     c23.cost = 5;
-    c13.cost = 4;
+    c13.cost = 5;
     c34.cost = 3;
     g.AddConnection( n1, n2, c12 );
     g.AddConnection( n2, n3, c23 );
