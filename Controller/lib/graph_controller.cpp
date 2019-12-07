@@ -1,16 +1,19 @@
 #include "include/graph_controller.h"
 
+#include <QDebug>
+
 Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
     model_( model )
 {
 }
 
-void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
+int Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
 {
+    qInfo() << "GraphController: In AddNode";
     // Creating node
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
-    Polaris::Id new_node_id = new_node.GetId();
+    return new_node.GetId();
 }
 
 void Polaris::GraphController::DeleteNode( const Polaris::Id & node_id )
@@ -39,5 +42,5 @@ void Polaris::GraphController::FindRoute( const Polaris::Id & a_node_id, const P
 
 void Polaris::GraphController::ChangeFloor( const int & floor_number )
 {
-    // TODO: ChangeFloor definition
+    // TODO: RedrawFloor definition
 }

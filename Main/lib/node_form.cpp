@@ -1,6 +1,7 @@
 #include "include/node_form.h"
 
-Polaris::NodeForm::NodeForm( QWidget * button_panel ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel )
+Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ),
+        button_panel_( button_panel ), model_( model )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
@@ -96,7 +97,7 @@ void Polaris::NodeForm::SaveButtonClick()
 
     Meta meta = ConstructMeta( room_number, floor, role );
 
-    // TODO: Call ChangeMeta from ModelInterface
+    model_->ChangeMeta( id_, meta );
 
     // Clearing input fields
     room_number_input_->clear();

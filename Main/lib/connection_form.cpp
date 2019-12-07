@@ -1,7 +1,7 @@
 #include "include/connection_form.h"
 
 Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface * model ) :
-        button_panel_( button_panel ), model_( model )
+        button_panel_( button_panel ), model_( model ), first_node_( EMPTY ), second_node_( EMPTY )
 {
     // Init price widgets
     auto * price_label = new QLabel( "Стоимость" );
@@ -9,6 +9,7 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
 
     // Creating save button
     save_button_ = new QPushButton( "Сохранить" );
+    connect( save_button_, SIGNAL( clicked() ), this, SLOT( SaveButtonClick() ) );
 
     // Init and set layout
     main_layout_ = new QVBoxLayout;
@@ -38,4 +39,7 @@ void Polaris::ConnectionForm::SaveButtonClick()
 
     GraphConnection new_connection = GraphConnection( first_node_, second_node_, price );
     model_->AddConnection( new_connection );
+
+    this->hide();
+    button_panel_->show();
 }
