@@ -55,11 +55,5 @@ jobs:
           name: View Testing
           command: './bin/view_tests'
       - run:
-          name: Controller Testing
-          command: './bin/controller_tests'
-      - run:
-          name: Main Testing
-          command: './bin/main_tests'
-      - run:
           name: Valgrind check
           command: 'valgrind --leak-check=yes ./bin/mainApp'
