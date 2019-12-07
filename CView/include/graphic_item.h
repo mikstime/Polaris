@@ -12,13 +12,14 @@ namespace Polaris
     class GraphicItem : public QGraphicsItem
     {
     public:
-
+        GraphicItem() = default;
         explicit GraphicItem( const Id & id, const int8_t & floor = 0, const Role & role = Role::MARK );
         virtual ~GraphicItem() = default;
 
         Id GetId() const;
         int8_t GetFloor() const;
         Role GetRole() const;
+        QColor GetColor() const;
         void SetDefaultColor();
         virtual void SetColor( const QColor & color ) { return; }
         virtual void SetSelection() { return; }

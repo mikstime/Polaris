@@ -33,7 +33,8 @@ public:
     void RemoveRoom(const Meta & meta ) override;
     void AddConnection(const GraphConnection & connection ) override;
     void RemoveConnection(const GraphConnection & connection ) override;
-
+    bool FloorUp() override;
+    bool FloorDown() override;
     // запрашивает выбранную ноду
     size_t GetSelectedNode() const override;
     // запрашивает пару для соединения
@@ -44,6 +45,7 @@ public:
     int8_t GetFloorNumber() const override;
     // задать выкладку
     void SetLayout( QHBoxLayout * const layout );
+    void SetParser( std::shared_ptr< GraphParser > graphic_parser );
 
 private:
     // TODO будут ли работать указатели?

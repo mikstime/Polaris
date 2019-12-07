@@ -14,11 +14,11 @@ public:
     MOCK_CONST_METHOD0( GetRole, std::string() );
 
     MOCK_METHOD3( paint, void( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) );
-//    MOCK_CONST_METHOD0( boundingRect, QRectF() );
-    QRectF boundingRect() const
-    {
-        return QRectF(-10, -10, 20, 20);
-    }
+    MOCK_CONST_METHOD0( boundingRect, QRectF() );
+//    QRectF boundingRect() const
+//    {
+//        return QRectF(-10, -10, 20, 20);
+//    }
 };
 
 #endif //MAINAPP_MOCK_GRAPHIC_ITEM_H

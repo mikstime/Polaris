@@ -9,6 +9,7 @@
 #include "GraphConnection/GraphConnection.h"
 #include "include/node_form.h"
 #include "include/ModelInterface/ModelInterface.h"
+#include "typedefs.h"
 
 namespace Polaris
 {
@@ -25,7 +26,7 @@ public:
      * Add node to Model
      * @param node_coords - New node coordinates
      */
-    void AddNode( const std::pair< int, int > & node_coords );
+    int AddNode( const std::pair< int, int > & node_coords );
     /**
      * Delete node from Model
      * @param node_id - Deleted node id

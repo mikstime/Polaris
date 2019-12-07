@@ -1,27 +1,31 @@
 #include "include/node_form.h"
 
-Polaris::NodeForm::NodeForm( QWidget * button_panel ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel )
+Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ),
+        button_panel_( button_panel ), model_( model )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
 
-    room_number_label_ = new QLabel( "Номер комнаты" );
+    auto * room_number_label = new QLabel( "Номер комнаты" );
     room_number_input_ = new QLineEdit;
 
-    room_number_layout->addWidget( room_number_label_ );
+    room_number_layout->addWidget( room_number_label );
     room_number_layout->addWidget( room_number_input_ );
 
     // Init floor input field
     auto * floor_layout = new QHBoxLayout;
 
-    floor_label_ = new QLabel( "Номер этажа" );
+    auto * floor_label = new QLabel( "Номер этажа" );
     floor_input_ = new QLineEdit;
 
-    floor_layout->addWidget( floor_label_ );
+    floor_layout->addWidget( floor_label );
     floor_layout->addWidget( floor_input_ );
 
     // Init role radio buttons
     auto * role_layout = new QVBoxLayout;
+
+    auto * role_label = new QLabel( "Тип" );
+    role_layout->addWidget( role_label );
 
     role_buttons_[0] = new QRadioButton( "Тип 1" );
     role_buttons_[1] = new QRadioButton( "Тип 2" );
@@ -93,7 +97,7 @@ void Polaris::NodeForm::SaveButtonClick()
 
     Meta meta = ConstructMeta( room_number, floor, role );
 
-    // TODO: Call ChangeMeta from ModelInterface
+    model_->ChangeMeta( id_, meta );
 
     // Clearing input fields
     room_number_input_->clear();

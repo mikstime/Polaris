@@ -10,8 +10,6 @@
 
 namespace Polaris
 {
-struct Meta;
-struct Graph;
 /******************************************************************************
  * Model structure is used for storing data about the room graph
  * and it's meta information. All logic is provided in ModelInterface.

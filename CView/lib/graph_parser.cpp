@@ -17,12 +17,20 @@ GraphParser::GraphParser( shared_ptr< ItemController > & item_controller )
 
 GraphParser::~GraphParser()
 {
-        items_in_controller_.erase( items_in_controller_.begin(), items_in_controller_.end() );
+    this->EraseItems();
 }
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-    // TODO собирается карта
+    // TODO потоки
+    for( const auto & k : meta )
+    {
+        this->OnRoomAdded( k );
+    }
+    for( const auto & k : graph )
+    {
+        this->OnConnectionAdded( k );
+    }
 }
 
 // TODO не объект нод, а объект меты
@@ -77,6 +85,8 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
+    item_cotroller_->ResetCurrentNode();
+    item_cotroller_->ResetPreviousNode();
     EraseItemById( meta.graph_node_id );
 }
 
@@ -100,6 +110,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
+    item_cotroller_->ResetCurrentNode();
+    item_cotroller_->ResetPreviousNode();
     EraseItemById( connection.GetId() );
 }
 
@@ -112,6 +124,11 @@ std::unordered_map< Polaris::Id, GraphicItem * >::iterator GraphParser::FindByPo
                                       return value.second == cur_pointer;
                                   });
     return cur_item;
+}
+
+void GraphParser::EraseItems()
+{
+    items_in_controller_.erase( items_in_controller_.begin(), items_in_controller_.end() );
 }
 
 bool GraphParser::EraseItemById( const Id cur_id )

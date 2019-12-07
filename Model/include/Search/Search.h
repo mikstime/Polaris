@@ -6,20 +6,21 @@
 #include "GraphNode/GraphNode.h"
 #include "include/GraphInterface/GraphInterface.h"
 #include "include/Search/PriorityQueue.h"
-#include <Meta/Meta.h>
+#include "Meta/Meta.h"
+#include "typedefs.h"
 namespace Polaris
 {
 class Search
 {
 using Path = std::vector< GraphNode >;
-using ID = size_t;
 public:
-    Search();
-    Search( Search const & );
-    Search( Search && ) noexcept;
-    ~Search();
+    Search() = delete;
+    Search( Search const & ) = delete;
+    Search( Search && ) = delete;
+    ~Search() = delete;
     static Path FindPath( GraphInterface &, GraphNode &, GraphNode & );
-    static Path FindPath( GraphInterface &, const ID & , const ID & );
+    static Path FindPath( GraphInterface &, const Id & , const Id & );
+    //@TODO A* algorithm
 //    Path FindPath( Graph &, const std::vector< Meta > & meta, const GraphNode &, const GraphNode & );
 //    Path FindPath( Graph &, const std::vector< Meta > & meta, const ID & , const ID & );
 };

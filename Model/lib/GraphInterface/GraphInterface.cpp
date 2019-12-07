@@ -1,5 +1,4 @@
 #include "include/GraphInterface/GraphInterface.h"
-#include <boost/container/flat_set.hpp>
 #include <utility> //std::pair
 #include <algorithm>
 using namespace Polaris;
@@ -167,7 +166,8 @@ bool GraphInterface::AddConnection(
         const GraphConnection & connection )
 {
     std::pair< Id, Id > key( connection.from, connection.to );
-    if( graph_.connections.find( key ) != graph_.connections.end() )
+
+    if( AreConnected( connection.from, connection.to ) )
         return false;
     if( !HasNode( connection.from ) || !HasNode( connection.to ) )
         return false;
