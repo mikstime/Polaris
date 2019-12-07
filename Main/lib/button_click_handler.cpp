@@ -33,7 +33,8 @@ void Polaris::ButtonClickHandler::AddButtonClick()
         node_form_->show();
         button_panel_->hide();
     }
-    qInfo() << "Add button: Nodes not selected";
+    else
+        qInfo() << "Add button: Nodes not selected";
 }
 
 void Polaris::ButtonClickHandler::DeleteButtonClick()
@@ -51,7 +52,8 @@ void Polaris::ButtonClickHandler::DeleteButtonClick()
         // Deleting connection
         graph_controller_->DeleteConnection( ids.first, ids.second );
     }
-    qInfo() << "Delete button: Nodes not selected";
+    else
+        qInfo() << "Delete button: Nodes not selected";
 }
 
 void Polaris::ButtonClickHandler::MoveButtonClick()
@@ -63,7 +65,8 @@ void Polaris::ButtonClickHandler::MoveButtonClick()
         std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
         graph_controller_->MoveNode( first_id, first_coords );
     }
-    qInfo() << "Move button: Node not selected";
+    else
+        qInfo() << "Move button: Node not selected";
 }
 
 void Polaris::ButtonClickHandler::ChangeButtonClick()
@@ -77,7 +80,8 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
         node_form_->show();
         button_panel_->hide();
     }
-    qInfo() << "Change button: Node not selected";
+    else
+        qInfo() << "Change button: Node not selected";
 }
 
 void Polaris::ButtonClickHandler::FindRouteButtonClick()
@@ -87,9 +91,9 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
     {
         qInfo() << "Find route button: Two node selected";
         graph_controller_->FindRoute( ids.first, ids.second );
-        return;
     }
-    qInfo() << "Find route button: Two node not selected";
+    else
+        qInfo() << "Find route button: Two node not selected";
 }
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()
