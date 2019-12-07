@@ -50,8 +50,8 @@ target_link_libraries( Model ${Boost_LIBRARIES} Utils )
 #add_executable( model_interface_tests lib/ModelInterface/model_interface_tests.cpp )
 #target_link_libraries( model_interface_tests Model ${GTEST_LIBRARIES} )
 #Tests for Search
-#add_executable( search_tests lib/Search/search_tests.cpp )
-#target_link_libraries( search_tests Model ${GTEST_LIBRARIES} )
+add_executable( search_tests lib/Search/search_tests.cpp )
+target_link_libraries( search_tests Model ${GTEST_LIBRARIES} )
 #Model tests
 add_executable( model_tests model_tests.cpp )
 target_link_libraries( model_tests ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} Model )
