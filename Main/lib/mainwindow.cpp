@@ -42,22 +42,22 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     view_controller_ = std::make_shared< ViewController >( view_.get() );
 
     // Creating buttons
-    add_button_ = new QPushButton( "Добавить" );
-    delete_button_ = new QPushButton( "Удалить" );
-    move_button_ = new QPushButton( "Переместить" );
-    change_button_ = new QPushButton( "Изменить" );
-    find_route_button_ = new QPushButton( "Найти маршрут" );
-    floor_up_button_ = new QPushButton( "Этаж вверх" );
-    floor_down_button_ = new QPushButton( "Этаж вниз" );
+    buttons_["add"] = new QPushButton( "Добавить" );
+    buttons_["delete"] = new QPushButton( "Удалить" );
+    buttons_["move"] = new QPushButton( "Переместить" );
+    buttons_["change"] = new QPushButton( "Изменить" );
+    buttons_["find_route"] = new QPushButton( "Найти маршрут" );
+    buttons_["floor_up"] = new QPushButton( "Этаж вверх" );
+    buttons_["floor_down"] = new QPushButton( "Этаж вниз" );
 
     button_layout_->addStretch();
-    button_layout_->addWidget( add_button_ );
-    button_layout_->addWidget( delete_button_ );
-    button_layout_->addWidget( move_button_ );
-    button_layout_->addWidget( change_button_ );
-    button_layout_->addWidget( find_route_button_ );
-    button_layout_->addWidget( floor_up_button_ );
-    button_layout_->addWidget( floor_down_button_ );
+    button_layout_->addWidget( buttons_["add"] );
+    button_layout_->addWidget( buttons_["delete"] );
+    button_layout_->addWidget( buttons_["move"] );
+    button_layout_->addWidget( buttons_["change"] );
+    button_layout_->addWidget( buttons_["find_route"] );
+    button_layout_->addWidget( buttons_["floor_up"] );
+    button_layout_->addWidget( buttons_["floor_down"] );
     button_layout_->addStretch();
 
     button_panel_->setLayout( button_layout_ );
@@ -72,11 +72,11 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
 
 void Polaris::MainWindow::ConnectButtons()
 {
-    connect( add_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( AddButtonClick() ) );
-    connect( delete_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( DeleteButtonClick() ) );
-    connect( move_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( MoveButtonClick() ) );
-    connect( change_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( ChangeButtonClick() ) );
-    connect( find_route_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FindRouteButtonClick() ) );
-    connect( floor_up_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );
-    connect( floor_down_button_, SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorDownButtonClick() ) );
+    connect( buttons_["add"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( AddButtonClick() ) );
+    connect( buttons_["delete"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( DeleteButtonClick() ) );
+    connect( buttons_["move"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( MoveButtonClick() ) );
+    connect( buttons_["change"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( ChangeButtonClick() ) );
+    connect( buttons_["find_route"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FindRouteButtonClick() ) );
+    connect( buttons_["floor_up"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );
+    connect( buttons_["floor_down"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorDownButtonClick() ) );
 }

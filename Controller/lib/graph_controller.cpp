@@ -13,7 +13,6 @@ void Polaris::GraphController::AddNode( const std::pair< int, int > & node_coord
     // Creating node
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
-    Polaris::Id new_node_id = new_node.GetId();
 }
 
 void Polaris::GraphController::DeleteNode( const Polaris::Id & node_id )
