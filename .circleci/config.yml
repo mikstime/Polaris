@@ -53,7 +53,7 @@ jobs:
           command: './bin/model_tests'
       - run:
           name: View Testing
-          command: './bin/view_tests'
+          command: './bin/view_tests -platform offscreen'
       - run:
           name: Valgrind check
           command: 'valgrind --leak-check=yes ./bin/mainApp'
