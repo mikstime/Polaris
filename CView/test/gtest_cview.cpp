@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+//#include <gmock/gmock.h>
 #include "include/graphic_connection.h"
 #include "include/graphic_view.h"
 #include "include/graph_parser.h"
@@ -20,11 +20,11 @@ using Polaris::Role;
 
 using std::shared_ptr;
 
-using ::testing::AtLeast;
-using ::testing::DoAll;
-using ::testing::SetArgReferee;
-using ::testing::Return;
-using ::testing::_;
+//using ::testing::AtLeast;
+//using ::testing::DoAll;
+//using ::testing::SetArgReferee;
+//using ::testing::Return;
+//using ::testing::_;
 
 TEST( Item, Init )
 {
@@ -196,7 +196,7 @@ TEST_F( Parser, AddConnection )
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
-    ::testing::InitGoogleMock(&argc, argv);
+//    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

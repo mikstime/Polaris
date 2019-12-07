@@ -18,7 +18,7 @@ find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
 
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories(${GMOCK_INCLUDE_DIRS})
+#include_directories(${GMOCK_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
 set(VIEW_HEADERS include/graph_parser.h include/graphic_connection.h include/graphic_item.h include/graphic_room.h
@@ -31,9 +31,11 @@ target_include_directories(CView PUBLIC .)
 
 target_link_libraries(CView PRIVATE Utils Qt5::Widgets)
 
-add_executable(view_tests
-        test/gtest_cview.cpp test/mock_controller.h test/mock_graphic_item.h test/mock_view.h
-        test/mock_renderer.h test/mock_parser.h
-        )
+set(VIEW_TEST_SOURCES test/gtest_cview.cpp)
 
-target_link_libraries(view_tests CView Utils Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} -lgmock)
+#set(VIEW_TEST_HEADERS test/mock_controller.h test/mock_graphic_item.h test/mock_view.h
+#        test/mock_renderer.h test/mock_parser.h)
+
+add_executable(view_tests ${VIEW_TEST_SOURCES})
+
+target_link_libraries(view_tests CView Utils Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
