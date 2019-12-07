@@ -20,6 +20,8 @@ namespace Polaris
         virtual void SetCurPath( std::vector< GraphicItem * > & cur_path );
         virtual void mousePressEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
+        void ResetCurrentNode();
+        void ResetPreviousNode();
 
     private:
         GraphicItem * current_node_;
@@ -30,8 +32,6 @@ namespace Polaris
 
         void SelectCurrentNode(GraphicItem * const new_current );
         void SelectPreviousNode(GraphicItem * const new_previous );
-        void ResetCurrentNode();
-        void ResetPreviousNode();
         void ResetPath();
     };
 } // namespace Polaris

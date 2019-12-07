@@ -28,8 +28,13 @@ public:
     void onMetaRemoved(const Meta & meta ) override;
     void onConnectionAdded( const GraphConnection & connection ) override;
     void onConnectionRemoved( const GraphConnection & connection ) override;
+<<<<<<< HEAD
     void onNodeAdded( const GraphNode & node ) override;
     void onNodeRemoved( const GraphNode & node ) override;
+=======
+    void onNodeAdded( const GraphNode & node ) override {};
+    void onNodeRemoved( const GraphNode & node ) override {};
+>>>>>>> 7e35ed18dd38f5f0f154bad74c19dc862007f9ee
 private:
     std::shared_ptr< View > view_;
 

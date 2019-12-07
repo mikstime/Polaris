@@ -25,7 +25,9 @@ ItemController::~ItemController()
 
 size_t ItemController::GetCurrentNode() const
 {
+    qInfo() << current_node_;
     return current_node_ != nullptr ? current_node_->GetId() : 0;
+
 }
 
 size_t ItemController::GetPreviousNode() const
@@ -127,6 +129,7 @@ void ItemController::SelectCurrentNode( GraphicItem * const new_current )
     if( current_node_ != nullptr )
     {
         current_node_->ResetSelection();
+        return;
     }
 
     current_node_ = new_current;
@@ -138,6 +141,7 @@ void ItemController::SelectPreviousNode( GraphicItem * const new_current )
     if( previous_node_ != nullptr )
     {
         previous_node_->ResetSelection();
+        return;
     }
 
     previous_node_ = new_current;

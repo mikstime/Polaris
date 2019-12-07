@@ -63,7 +63,7 @@ bool ModelProxy::AddNode( GraphNode & node, Model & model,
         // create meta.
         new_meta.graph_node_id = node.GetId();
         model.meta[ new_meta.graph_node_id ] = new_meta;
-        observer->MetaAdded( new_meta );
+//        observer->MetaAdded( new_meta );
         return true;
     }
     return false;

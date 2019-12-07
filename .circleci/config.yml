@@ -55,11 +55,5 @@ jobs:
           name: View Testing
           command: './bin/view_tests -platform offscreen'
       - run:
-          name: Controller Testing
-          command: './bin/controller_tests'
-      - run:
-          name: Main Testing
-          command: './bin/main_tests'
-      - run:
           name: Valgrind check
-          command: 'valgrind --leak-check=yes ./bin/mainApp'
+          command: 'valgrind --leak-check=yes ./bin/MainApp -platform offscreen'
