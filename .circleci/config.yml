@@ -41,7 +41,7 @@ jobs:
           command: 'apt-get update && sudo apt-get install -y libgtest-dev'
       - run:
           name: Gtes2
-          command: 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/local/lib'
+          command: 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && ls -la usr/local && sudo cp *.a /usr/local/lib'
       - run:
           name: Creating Build Files
           command: 'cmake -H. -Bbuild'
