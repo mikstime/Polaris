@@ -31,9 +31,9 @@ target_include_directories(CView PUBLIC .)
 
 target_link_libraries(CView PRIVATE Utils Qt5::Widgets)
 
-add_executable(CView_test
+add_executable(view_tests
         test/gtest_cview.cpp test/mock_controller.h test/mock_graphic_item.h test/mock_view.h
         test/mock_renderer.h test/mock_parser.h
         )
 
-target_link_libraries(CView_test CView Utils Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} -lgmock)
+target_link_libraries(view_tests CView Utils Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} -lgmock)
