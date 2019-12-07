@@ -72,7 +72,7 @@ void GraphParser::OnRoomChanged( const Meta & meta )
         item_cotroller_->update();
     } else
     {
-        OnRoomAdded( meta );
+//        OnRoomAdded( meta );
     }
 }
 
