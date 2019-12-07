@@ -207,6 +207,7 @@ bool Writer::Exchange( const std::string & path )
     {
         int nbytes;
         char buffer[1024];
+        std::ifstream source;
         source.read(buffer, 1024);
         nbytes = write((int)data->GetDeskriptor(), buffer, strlen(buffer) + 1);
         if (nbytes < 0)
