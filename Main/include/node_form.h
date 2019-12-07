@@ -12,6 +12,7 @@
 
 #include "Meta/Meta.h"
 #include "typedefs.h"
+#include "include/ModelInterface/ModelInterface.h"
 
 namespace Polaris
 {
@@ -23,9 +24,10 @@ class NodeForm : public QWidget
 public:
     /**
      * Constructor
-     * @param button_panel - pointer to button panel
+     * @param button_panel - Pointer to button panel
+     * @param model - Pointer to Model object
      */
-    explicit NodeForm( QWidget * button_panel );
+    explicit NodeForm( QWidget * button_panel, ModelInterface * model );
     /**
      * Set current node id and coordinates
      * @param id - node id
@@ -38,6 +40,7 @@ private:
     Polaris::Meta ConstructMeta( const std::string & room_number, const int8_t & floor, const Role & role );
 
     std::shared_ptr< QWidget > button_panel_;
+    std::shared_ptr< ModelInterface > model_;
 
     // Current node constant params
     Id id_;

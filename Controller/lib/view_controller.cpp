@@ -9,9 +9,18 @@ Polaris::ViewController::ViewController( GraphicView * view ) : view_( view ), f
 
 void Polaris::ViewController::UpdateSelectedNodes()
 {
+    Id id = view_->GetSelectedNode();
     std::pair< Id, Id > ids = view_->GetSelectedNodes();
-    first_node_ = ids.first;
-    second_node_ = ids.second;
+    if( ids.first != 0 && ids.second != 0 )
+    {
+        first_node_ = ids.first;
+        second_node_ = ids.second;
+    }
+    else if( id != 0 )
+    {
+        first_node_ = id;
+        second_node_ = EMPTY;
+    }
 }
 
 void Polaris::ViewController::UpdateNodeCoordinates()
