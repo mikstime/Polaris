@@ -61,6 +61,16 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
     graph_parser_->OnConnectionRemoved( connection );
 }
 
+bool GraphicView::FloorUp() 
+{
+    return renderer_->FloorUp();
+}
+
+bool GraphicView::FloorDown()
+{
+    return renderer_->FloorDown();
+}
+
 size_t GraphicView::GetSelectedNode() const
 {
     return item_controller_->GetCurrentNode();
@@ -68,7 +78,18 @@ size_t GraphicView::GetSelectedNode() const
 
 std::pair< size_t, size_t > GraphicView::GetSelectedNodes() const
 {
-    return std::make_pair( item_controller_->GetCurrentNode(), item_controller_->GetPreviousNode() );
+    Id first = item_controller_->GetCurrentNode();
+    Id second = item_controller_->GetPreviousNode();
+    std::pair< Id, Id > result;
+    if( first != 0 && second != 0 )
+    {
+        result = std::make_pair( first, second );
+    }
+    else
+    {
+        result = std::make_pair( 0, 0 );
+    }
+    return result;
 }
 
 QPointF GraphicView::GetNodeCoordinates() const
@@ -85,4 +106,9 @@ void GraphicView::SetLayout( QHBoxLayout * const layout )
 {
     if( layout != nullptr )
         layout->addWidget( renderer_.get() );
+}
+
+void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
+{
+    graph_parser_ = graph_parser;
 }

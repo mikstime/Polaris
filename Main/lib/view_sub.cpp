@@ -1,46 +1,45 @@
 #include "include/view_sub.h"
-#include "include/view.h"
 
 using Polaris::ViewSub;
 
-ViewSub::ViewSub( View * view )
+ViewSub::ViewSub( std::shared_ptr< View > view )
 : view_( view )
 {
 
 }
 
-void ViewSub::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+//void ViewSub::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
+//{
+//    view_->BuildItems( meta, graph );
+//}
+
+void ViewSub::onPathFound( std::vector< Meta > & nodes,
+                           std::vector< GraphConnection > & connections )
 {
-    view_->BuildItems( meta, graph );
+    view_->DrawThePath( nodes, connections );
 }
 
-void ViewSub::onPathFound( const std::vector< const GraphNode > & nodes,
-                           const std::vector< const GraphConnection > & connections )
+void ViewSub::onMetaChanged( const Meta & meta )
 {
-// TODO   view_->DrawThePath( path );
+    view_->ChangeRoom( meta );
 }
 
-void ViewSub::OnMetaChanged( const Meta & meta )
+void ViewSub::onMetaAdded(const Meta & meta )
 {
-    view_->OnMetaChanged( meta );
+    view_->AddRoom( meta );
 }
 
-void ViewSub::OnMetaAdded(const Meta & meta )
+void ViewSub::onMetaRemoved(const Meta & meta )
 {
-    view_->OnMetaAdded( meta );
+    view_->RemoveRoom( meta );
 }
 
-void ViewSub::OnMetaRemoved(const Meta & meta )
+void ViewSub::onConnectionAdded( const GraphConnection & connection )
 {
-    view_->OnMetaRemoved( meta );
+    view_->AddConnection( connection );
 }
 
-void ViewSub::OnConnectionAdded( const GraphConnection & connection )
+void ViewSub::onConnectionRemoved( const GraphConnection & connection )
 {
-    view_->OnConnectionAdded( connection );
-}
-
-void ViewSub::OnConnectionRemoved( const GraphConnection & connection )
-{
-    view_->OnConnectionRemoved( connection );
+    view_->RemoveConnection( connection );
 }

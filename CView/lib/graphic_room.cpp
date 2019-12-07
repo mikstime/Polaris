@@ -2,9 +2,11 @@
 #include "include/graphic_room.h"
 #include <limits>
 #include <string>
+#include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
 
+#include <iostream>
 #include <QDebug>
 
 using std::string;
@@ -28,6 +30,12 @@ size_( rect )
     // TODO инициализация
     ResetColor();
     setPos( node.x, node.y );
+
+    if( node.role == Polaris::Role::ROOM )
+    {
+        setAcceptHoverEvents( true );
+    }
+
     this->show();
 }
 
@@ -129,4 +137,10 @@ QPainterPath GraphicRoom::shape() const
     QPainterPath path;
     path.addEllipse(boundingRect());
     return path;
+}
+
+void GraphicRoom::hoverMoveEvent( QGraphicsSceneHoverEvent * event )
+{
+    // TODO fix
+    setToolTip( info_.c_str() );
 }

@@ -12,7 +12,7 @@ private:
     using key = std::pair< P, T >;
     std::priority_queue< key, std::vector< key >, std::greater< key > > queue_;
 public:
-    bool empty() const {return queue_.empty();};
+    [[nodiscard]] bool empty() const {return queue_.empty();};
     void put( T item, P priority ){
         queue_.emplace( priority, item );
     };

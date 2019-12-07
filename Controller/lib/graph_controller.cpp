@@ -41,5 +41,5 @@ void Polaris::GraphController::FindRoute( const Polaris::Id & a_node_id, const P
 
 void Polaris::GraphController::ChangeFloor( const int & floor_number )
 {
-    // TODO: ChangeFloor definition
+    // TODO: RedrawFloor definition
 }

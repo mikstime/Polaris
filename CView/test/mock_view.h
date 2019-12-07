@@ -21,7 +21,7 @@ public:
 
     MOCK_CONST_METHOD0( GetSelectedNode, size_t() );
     MOCK_CONST_METHOD0( GetSelectedNodes, std::pair< size_t, size_t >() );
-    MOCK_CONST_METHOD0( GetNodeCoordinates, QPoint() );
+    MOCK_CONST_METHOD0( GetNodeCoordinates, QPointF() );
     MOCK_CONST_METHOD0( GetFloorNumber, int8_t() );
 };
 

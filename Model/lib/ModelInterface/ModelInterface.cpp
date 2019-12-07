@@ -13,7 +13,8 @@ bool Polaris::ModelInterface::AddConnection(
     GraphConnection new_connection( firstNode.GetId(),
                                     lastNode.GetId(),
                                     params );
-    return proxy_->AddConnection( new_connection, model_, observer_ );
+    return proxy_->AddConnection( new_connection,
+                               model_, observer_ );
 }
 
 bool Polaris::ModelInterface::AddConnection(
@@ -31,7 +32,7 @@ bool Polaris::ModelInterface::AddConnection(
     return proxy_->AddConnection( new_connection, model_, observer_ );
 }
 /******************************************************************************
- * RemoveConnnectio Methods
+ * RemoveConnection Methods
  *****************************************************************************/
 bool Polaris::ModelInterface::RemoveConnection(
         const Polaris::GraphNode & firstNode,
@@ -45,7 +46,8 @@ bool Polaris::ModelInterface::RemoveConnection(
         const Polaris::Id & firstNodeId,
         const Polaris::Id & lastNodeId )
 {
-    return proxy_->RemoveConnection( firstNodeId, lastNodeId, model_, observer_ );
+    return proxy_->RemoveConnection( firstNodeId, lastNodeId,
+                                  model_, observer_ );
 }
 /******************************************************************************
  * AddNode Methods
@@ -82,7 +84,8 @@ bool Polaris::ModelInterface::FindPath(
         const Polaris::GraphNode & firstNode,
         const Polaris::GraphNode & lastNode )
 {
-    return proxy_->FindPath( firstNode.GetId(), lastNode.GetId(), model_, observer_ );
+    return proxy_->FindPath( firstNode.GetId(), lastNode.GetId(),
+                          model_, observer_ );
 }
 
 bool Polaris::ModelInterface::FindPath(
