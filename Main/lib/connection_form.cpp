@@ -4,7 +4,7 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
         button_panel_( button_panel ), model_( model )
 {
     // Init price widgets
-    price_label_ = new QLabel( "Стоимость" );
+    auto * price_label = new QLabel( "Стоимость" );
     price_edit_ = new QLineEdit;
 
     // Creating save button
@@ -14,7 +14,7 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
     main_layout_ = new QVBoxLayout;
 
     main_layout_->addStretch();
-    main_layout_->addWidget( price_label_ );
+    main_layout_->addWidget( price_label );
     main_layout_->addWidget( price_edit_ );
     main_layout_->addWidget( save_button_ );
     main_layout_->addStretch();

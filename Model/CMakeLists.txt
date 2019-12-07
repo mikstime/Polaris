@@ -32,6 +32,7 @@ set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp
                     lib/ModelInterface/model_interface_tests.cpp )
 #                    include/ModelSubscriber/mock_sub.h outdated. No mocks provided yet
 #Static library
+
 add_library( Model STATIC ${HEADERS} ${SOURCE} )
 target_include_directories( Model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/Utils )
 
@@ -44,6 +45,7 @@ target_link_libraries( Model ${Boost_LIBRARIES} Utils )
 #Tests for GraphInterface class
 add_executable( graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp )
 target_link_libraries( graph_interface_tests Model ${GTEST_LIBRARIES} )
+
 #Tests for ModelInterface class
 add_executable( model_interface_tests lib/ModelInterface/model_interface_tests.cpp )
 target_link_libraries( model_interface_tests Model ${GTEST_LIBRARIES} )

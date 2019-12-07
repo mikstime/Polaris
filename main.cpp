@@ -1,7 +1,6 @@
 #include <QApplication>
 
 #include "Main/include/mainwindow.h"
-#include "Controller/include/view_controller.h"
 #include "Controller/include/graph_controller.h"
 
 int main( int argc, char * argv[] )
