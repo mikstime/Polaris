@@ -39,20 +39,23 @@ void Renderer::SetFloor( const int8_t floor )
     current_floor_ = floor;
 }
 
+bool Renderer::FloorUp()
+{
+    return ChangeFloor( 1 );
+}
+
+bool Renderer::FloorDown()
+{
+    return ChangeFloor( -1 );
+}
+
 void Renderer::wheelEvent( QWheelEvent * event )
 {
     // TODO мягче переключать этажи
     int8_t delta = event->delta();
     delta = delta / abs( delta );
     // Если смена этажа успешна, то он не пустой
-    if( NextFloorEmpty( delta ) )
-    {
-        RaiseEmptyFloor();
-        return;
-    } else
-    {
-        ChangeFloor( delta );
-    }
+    ChangeFloor( delta );
 }
 
 //void Renderer::mousePressEvent( QMouseEvent * event )
@@ -81,7 +84,21 @@ void Renderer::wheelEvent( QWheelEvent * event )
 //    }
 //}
 
-bool Renderer::ChangeFloor( const int8_t & step )
+bool Renderer::ChangeFloor( const int8_t step )
+{
+    if( NextFloorEmpty( step ) )
+    {
+        RaiseEmptyFloor();
+        return false;
+    } else
+    {
+        RedrawFloor( step );
+    }
+
+    return true;
+}
+
+bool Renderer::RedrawFloor(const int8_t step )
 {
     // TODO отображать текущий этаж в фоне
     // новый этаж и лист всех элементов

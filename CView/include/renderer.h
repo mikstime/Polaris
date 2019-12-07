@@ -17,6 +17,8 @@ namespace Polaris
 
         int8_t GetFloor() const;
         void SetFloor( const int8_t floor );
+        bool FloorUp();
+        bool FloorDown();
         void wheelEvent( QWheelEvent * event ) override;
 //        void mousePressEvent( QMouseEvent * event ) override;
 //        void mouseMoveEvent( QMouseEvent * event ) override;
@@ -26,7 +28,8 @@ namespace Polaris
         int8_t min_floor_;
         int8_t max_floor_;
 
-        bool ChangeFloor( const int8_t & step );
+        bool ChangeFloor( const int8_t step );
+        bool RedrawFloor(const int8_t step );
         bool NextFloorEmpty( const int8_t step );
         void RaiseEmptyFloor();
     };

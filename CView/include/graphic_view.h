@@ -33,7 +33,8 @@ public:
     void RemoveRoom(const Meta & meta ) override;
     void AddConnection(const GraphConnection & connection ) override;
     void RemoveConnection(const GraphConnection & connection ) override;
-
+    bool FloorUp() override;
+    bool FloorDown() override;
     // запрашивает выбранную ноду
     size_t GetSelectedNode() const override;
     // запрашивает пару для соединения

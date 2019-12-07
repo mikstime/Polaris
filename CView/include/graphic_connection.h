@@ -2,7 +2,6 @@
 #define CGRAPHICS_CONNECTION_H
 
 #include "graphic_item.h"
-// TODO временный путь до заголовочных файлов
 #include "GraphConnection/GraphConnection.h"
 
 namespace Polaris

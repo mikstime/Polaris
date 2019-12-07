@@ -61,6 +61,16 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
     graph_parser_->OnConnectionRemoved( connection );
 }
 
+bool GraphicView::FloorUp() 
+{
+    return renderer_->FloorUp();
+}
+
+bool GraphicView::FloorDown()
+{
+    return renderer_->FloorDown();
+}
+
 size_t GraphicView::GetSelectedNode() const
 {
     return item_controller_->GetCurrentNode();

@@ -23,7 +23,8 @@ namespace Polaris
         virtual void RemoveRoom(const Meta & meta ) = 0;
         virtual void AddConnection(const GraphConnection & connection ) = 0;
         virtual void RemoveConnection(const GraphConnection & connection ) = 0;
-
+        virtual bool FloorUp() = 0;
+        virtual bool FloorDown() = 0;
         // запрашивает выбранную ноду
         virtual size_t GetSelectedNode() const = 0;
         // запрашивает пару для соединения
