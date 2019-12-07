@@ -36,14 +36,14 @@ public:
     ~MainWindow() = default;
 
 private:
-    GraphicView * view_;
-    ViewController * view_controller_;
-    NodeForm * node_form_;
-    ModelInterface * model_;
+    std::shared_ptr< GraphicView > view_;
+    std::shared_ptr< ViewController > view_controller_;
+    std::shared_ptr< NodeForm > node_form_;
+    std::shared_ptr< ConnectionForm > connection_form_;
+    std::shared_ptr< ModelInterface > model_;
 
-    QHBoxLayout * main_layout_;
-
-    QWidget * button_panel_;
+    std::shared_ptr< QWidget > button_panel_;
+    std::shared_ptr< ButtonClickHandler > button_click_handler_;
 
     QPushButton * add_button_;
     QPushButton * delete_button_;
@@ -53,9 +53,7 @@ private:
     QPushButton * floor_up_button_;
     QPushButton * floor_down_button_;
 
-    ButtonClickHandler * button_click_handler_;
-
-    void InitButtons();
+    void ConnectButtons();
 };
 
 } // namespace Polaris

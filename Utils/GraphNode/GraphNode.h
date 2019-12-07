@@ -16,14 +16,6 @@ struct GraphNode: public GraphElement
 public:
     std::vector< Id > neighbors;
 public:
-//    bool operator==(const GraphNode & __x ) const
-//    {
-//        return GetId() == __x.GetId();
-//    }
-//    bool operator!=(const GraphNode & __x ) const
-//    {
-//        return GetId() != __x.GetId();
-//    }
     friend bool operator>( const GraphNode & l, const GraphNode & r )
     {
         return l.GetId() > r.GetId();

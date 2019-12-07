@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
@@ -17,6 +17,3 @@ set(SOURCE  GraphConnection/GraphConnection.cpp
 add_library( Utils STATIC ${HEADERS} ${SOURCE} )
 include_directories(${GTEST_INCLUDE_DIRS})
 target_include_directories( Utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
-
-add_executable( graph_element_tests GraphElement/graph_element_tests.cpp )
-target_link_libraries(graph_element_tests PUBLIC  Utils )

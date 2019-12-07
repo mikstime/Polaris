@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QRadioButton>
+#include <memory>
 
 #include "Meta/Meta.h"
 #include "typedefs.h"
@@ -24,7 +25,7 @@ public:
      * Constructor
      * @param button_panel - pointer to button panel
      */
-    NodeForm( QWidget * button_panel );
+    explicit NodeForm( QWidget * button_panel );
     /**
      * Set current node id and coordinates
      * @param id - node id
@@ -36,7 +37,7 @@ public:
 private:
     Polaris::Meta ConstructMeta( const std::string & room_number, const int8_t & floor, const Role & role );
 
-    QWidget * button_panel_;
+    std::shared_ptr< QWidget > button_panel_;
 
     // Current node constant params
     Id id_;
@@ -44,16 +45,11 @@ private:
 
     QVBoxLayout * main_layout_;
 
-    // Room number input field
-    QLabel * room_number_label_;
+    // Inputs
     QLineEdit * room_number_input_;
-
-    // Floor number input field
-    QLabel * floor_label_;
     QLineEdit * floor_input_;
 
     // Role radio buttons
-    QLabel * role_label_;
     std::array< QRadioButton *, ROLE_COUNT > role_buttons_;
 
     QPushButton * save_button_;
