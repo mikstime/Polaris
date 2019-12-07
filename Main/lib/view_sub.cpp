@@ -2,7 +2,7 @@
 
 using Polaris::ViewSub;
 
-ViewSub::ViewSub( View * view )
+ViewSub::ViewSub( std::shared_ptr< View > view )
 : view_( view )
 {
 

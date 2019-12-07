@@ -45,6 +45,7 @@ public:
     int8_t GetFloorNumber() const override;
     // задать выкладку
     void SetLayout( QHBoxLayout * const layout );
+    void SetParser( std::shared_ptr< GraphParser > graphic_parser );
 
 private:
     // TODO будут ли работать указатели?

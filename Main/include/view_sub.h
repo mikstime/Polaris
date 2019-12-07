@@ -1,11 +1,11 @@
 #ifndef MAINAPP_VIEW_SUB_H
 #define MAINAPP_VIEW_SUB_H
 
-#include <vector>
 #include "include/view.h"
 #include "include/ModelSubscriber/ModelSubscriber.h"
-// TODO временный путь до заголовочных файлов
-// TODO подключить заголовочный файл сабскрайбера
+#include <vector>
+#include <memory>
+
 
 namespace Polaris
 {
@@ -13,7 +13,7 @@ namespace Polaris
 class ViewSub : public ModelSubscriber
 {
 public:
-    explicit ViewSub( View * view );
+    explicit ViewSub( std::shared_ptr< View > view );
     ViewSub( const ViewSub & ) = delete;
     ViewSub( const ViewSub && ) = delete;
     ViewSub & operator = ( const ViewSub & ) = delete;
@@ -31,7 +31,7 @@ public:
     void onNodeAdded( const GraphNode & node ) override;
     void onNodeRemoved( const GraphNode & node ) override;
 private:
-    View * view_;
+    std::shared_ptr< View > view_;
 
 };
 } // namespace Polaris

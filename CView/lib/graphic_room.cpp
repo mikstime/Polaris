@@ -141,5 +141,6 @@ QPainterPath GraphicRoom::shape() const
 
 void GraphicRoom::hoverMoveEvent( QGraphicsSceneHoverEvent * event )
 {
+    // TODO fix
     setToolTip( info_.c_str() );
 }

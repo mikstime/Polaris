@@ -1,18 +1,10 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "include/graph_parser.h"
 #include "include/graphic_connection.h"
-#include "include/graphic_item.h"
-#include "include/graphic_room.h"
 #include "include/graphic_view.h"
-#include "include/item_controller.h"
-#include <memory>
-#include "mock_controller.h"
-#include "mock_graphic_item.h"
-#include "mock_view.h"
+#include "include/graph_parser.h"
 #include "include/renderer.h"
-#include "include/view.h"
-#include "mock_view.h"
+#include <memory>
 #include <QApplication>
 
 using Polaris::GraphConnection;
@@ -25,7 +17,6 @@ using Polaris::ItemController;
 using Polaris::Meta;
 using Polaris::Renderer;
 using Polaris::Role;
-using Polaris::View;
 
 using std::shared_ptr;
 
@@ -173,29 +164,36 @@ TEST_F( Parser, AddConnection )
     EXPECT_EQ( item_controller_->items().size(), 3 );
 }
 
-class GraphView : public ::testing::Test
-{
-protected:
-    void SetUp()
-    {
-        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
+//class GraphView : public ::testing::Test
+//{
+//protected:
+//    void SetUp()
+//    {
+//        new GraphicView();
+//        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
+//        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
+//        // TODO моки
+//    }
 
-        // TODO моки
-    }
+//    std::shared_ptr< GraphicView > graphic_view_;
+//    std::shared_ptr< MockGraphParser > graph_parser_;
+//};
 
-    std::shared_ptr< GraphicView > graphic_view_;
+//TEST_F( GraphView, Parser )
+//{
+//    EXPECT_CALL( *( graph_parser_.get() ), OnRoomChanged( _ ) ).Times( 1 );
+//    Meta meta = {};
+//    graphic_view_->AddRoom( meta );
+//}
 
-};
-
-class MouseInteraction : public ::testing::Test
-{
-protected:
-    void SetUp()
-    {
-        // TODO тестирование взяимодействия с мышью
-    }
-
-};
+//class MouseInteraction : public ::testing::Test
+//{
+//protected:
+//    void SetUp()
+//    {
+//        // TODO тестирование взяимодействия с мышью
+//    }
+//};
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);

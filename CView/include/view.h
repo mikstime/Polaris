@@ -4,6 +4,7 @@
 #include "Meta/Meta.h"
 #include "GraphNode/GraphNode.h"
 #include "GraphConnection/GraphConnection.h"
+#include <memory>
 #include <QPoint>
 #include <QHBoxLayout>
 

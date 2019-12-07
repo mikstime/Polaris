@@ -33,15 +33,6 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     // Creating View object
     view_ = new GraphicView( this->size(), main_layout_, this );
 
-    Meta a = { 1, "805ю", 120, 120, 2, Role::ROOM };
-    view_->AddRoom( a );
-    Meta b = { 2, "805ю", 220, 120, 1, Role::ROOM };
-    view_->AddRoom( b );
-    Meta e = { 3, "805ю", 320, 120, 1, Role::ROOM };
-    view_->AddRoom( e );
-    GraphConnection c( 3, 2, 10 );
-    view_->AddConnection( c );
-
     // Creating ViewController object
     view_controller_ = new Polaris::ViewController( view_ );
 
