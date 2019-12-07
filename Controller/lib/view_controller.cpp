@@ -30,6 +30,11 @@ void Polaris::ViewController::UpdateNodeCoordinates()
     coords_.second = point.ry();
 }
 
+int8_t Polaris::ViewController::GetCurrentFloor()
+{
+    return view_->GetFloorNumber();
+}
+
 std::pair< int, int > Polaris::ViewController::GetNodeIds()
 {
     UpdateSelectedNodes();

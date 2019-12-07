@@ -1,7 +1,7 @@
 #include "include/node_form.h"
 
-Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ),
-        button_panel_( button_panel ), model_( model )
+Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller ) :
+        id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel ), model_( model ), view_controller_( view_controller )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
@@ -11,15 +11,6 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : 
 
     room_number_layout->addWidget( room_number_label );
     room_number_layout->addWidget( room_number_input_ );
-
-    // Init floor input field
-    auto * floor_layout = new QHBoxLayout;
-
-    auto * floor_label = new QLabel( "Номер этажа" );
-    floor_input_ = new QLineEdit;
-
-    floor_layout->addWidget( floor_label );
-    floor_layout->addWidget( floor_input_ );
 
     // Init role radio buttons
     auto * role_layout = new QVBoxLayout;
@@ -47,7 +38,6 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : 
 
     main_layout_->addStretch();
     main_layout_->addLayout( room_number_layout );
-    main_layout_->addLayout( floor_layout );
     main_layout_->addLayout( role_layout );
     main_layout_->addWidget( save_button_ );
     main_layout_->addStretch();
@@ -83,7 +73,7 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
 void Polaris::NodeForm::SaveButtonClick()
 {
     std::string room_number = room_number_input_->text().toStdString();
-    int8_t floor = floor_input_->text().toInt();
+    int floor = view_controller_->GetCurrentFloor();
 
     Role role = Role::MARK;
     if( role_buttons_[1]->isChecked() )
@@ -99,9 +89,8 @@ void Polaris::NodeForm::SaveButtonClick()
 
     model_->ChangeMeta( id_, meta );
 
-    // Clearing input fields
+    // Clearing input field
     room_number_input_->clear();
-    floor_input_->clear();
 
     // Hide self
     this->hide();
