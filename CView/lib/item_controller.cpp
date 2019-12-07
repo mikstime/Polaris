@@ -21,7 +21,6 @@ path_drawn_( false )
 
 ItemController::~ItemController()
 {
-    clear();
 }
 
 size_t ItemController::GetCurrentNode() const
