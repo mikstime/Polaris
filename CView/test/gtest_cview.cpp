@@ -139,7 +139,6 @@ protected:
 TEST_F( Parser, BuildItems )
 {
     graph_parser_->BuildItems( meta_, graph_ );
-    QList list = item_controller_->items();
 
     EXPECT_EQ( item_controller_->items().size(), 15 );
 }
