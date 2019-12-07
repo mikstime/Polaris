@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
+set( EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin )
 project(MainApp LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

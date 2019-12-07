@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13)
 
 #project(CView LANGUAGES CXX)
 
@@ -32,8 +32,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${GMOCK_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
-add_executable(CView_test
-        test/gtest_cview.cpp test/mock_controller.h test/mock_graphic_item.h test/mock_view.h
-        )
-
-target_link_libraries(CView_test polarisUtils_lib Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}  -lgmock CView)
+#add_executable(CView_test
+#        test/gtest_cview.cpp test/mock_controller.h test/mock_graphic_item.h test/mock_view.h
+#        )
+#
+#target_link_libraries(CView_test polarisUtils_lib Qt5::Widgets ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}  -lgmock CView)

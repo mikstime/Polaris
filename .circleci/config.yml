@@ -13,6 +13,15 @@ jobs:
           name: Installing GCC
           command: 'apt-get update && apt-get install -y gcc g++'
       - run:
+          name: Install g++
+          command: 'sudo apt-get install -y build-essential'
+      - run:
+          name: Install qt creator
+          command: 'sudo apt-get install -y qtcreator'
+      - run:
+          name: Install QT5
+          command: 'sudo apt-get install -y qt5-default'
+      - run:
           name: Install PIP
           command: 'sudo apt-get update && apt-get install python3-pip -y'
       - run:
@@ -27,6 +36,12 @@ jobs:
       - run:
           name: CppCheck
           command: 'cppcheck .'
+      - run:
+          name: Gtest
+          command: 'apt-get update && sudo apt-get install -y libgtest-dev'
+      - run:
+          name: Gtes2
+          command: 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/local/lib'
       - run:
           name: Creating Build Files
           command: 'cmake -H. -Bbuild'
