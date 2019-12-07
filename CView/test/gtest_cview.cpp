@@ -5,7 +5,7 @@
 #include "include/graph_parser.h"
 #include "include/renderer.h"
 #include <memory>
-//#include <QApplication>
+#include <QApplication>
 
 using Polaris::GraphConnection;
 using Polaris::GraphicConnection;
@@ -195,7 +195,7 @@ TEST_F( Parser, AddConnection )
 //};
 
 int main(int argc, char** argv) {
-//    QApplication a(argc, argv);
+    QApplication a(argc, argv, false );
 //    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
