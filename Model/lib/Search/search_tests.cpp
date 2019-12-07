@@ -252,7 +252,7 @@ TEST( SearchTest, NoPathHandle2 )
     correct = "";
     EXPECT_EQ( res_str, correct );
 }
-int main(int argc, char **argv) {
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
-}
+//int main(int argc, char **argv) {
+//    testing::InitGoogleTest();
+//    return RUN_ALL_TESTS();
+//}

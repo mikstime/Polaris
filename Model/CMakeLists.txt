@@ -54,4 +54,4 @@ add_executable( search_tests lib/Search/search_tests.cpp )
 target_link_libraries( search_tests Model ${GTEST_LIBRARIES} )
 #Model tests
 add_executable( model_tests model_tests.cpp )
-target_link_libraries( model_tests ${GTEST_LIBRARIES}  Model )
+target_link_libraries( model_tests ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} Model )
