@@ -39,7 +39,6 @@ private:
     std::shared_ptr< ModelInterface > model_;
 
     // Price input field
-    QLabel * price_label_;
     QLineEdit * price_edit_;
 
     QVBoxLayout * main_layout_;
