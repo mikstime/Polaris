@@ -6,7 +6,6 @@
 #include <QPainter>
 #include <QPainterPath>
 
-#include <iostream>
 #include <QDebug>
 
 using std::string;
@@ -30,11 +29,6 @@ size_( rect )
     // TODO инициализация
     ResetColor();
     setPos( node.x, node.y );
-
-    if( node.role == Polaris::Role::ROOM )
-    {
-        setAcceptHoverEvents( true );
-    }
 
     this->show();
 }
@@ -122,6 +116,8 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setPen( Qt::black );
     painter->setBrush(cur_color_ );
     painter->drawEllipse( size_ );
+    QPointF text_pos = this->pos();
+    painter->drawText( size_, Qt::AlignCenter, info_.c_str() );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -137,10 +133,4 @@ QPainterPath GraphicRoom::shape() const
     QPainterPath path;
     path.addEllipse(boundingRect());
     return path;
-}
-
-void GraphicRoom::hoverMoveEvent( QGraphicsSceneHoverEvent * event )
-{
-    // TODO fix
-    setToolTip( info_.c_str() );
 }

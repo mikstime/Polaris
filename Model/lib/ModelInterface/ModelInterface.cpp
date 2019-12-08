@@ -1,6 +1,4 @@
-#include <iostream>
 #include "include/ModelInterface/ModelInterface.h"
-#include "typedefs.h"
 
 /******************************************************************************
  * AddConnection Methods
@@ -98,13 +96,13 @@ bool Polaris::ModelInterface::FindPath(
  * Observer Methods
  *****************************************************************************/
 bool Polaris::ModelInterface::Subscribe(
-        Polaris::ModelSubscriber * & subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     return proxy_->Subscribe( subscriber, model_, observer_ );
 }
 
 bool Polaris::ModelInterface::Unsubscribe(
-        Polaris::ModelSubscriber * & subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     return proxy_->Unsubscribe( subscriber, model_, observer_ );
 }
@@ -116,4 +114,14 @@ bool Polaris::ModelInterface::ChangeMeta(
         const Polaris::Meta & newMeta )
 {
     return proxy_->ChangeMeta( nodeId, newMeta, model_, observer_ );
+}
+
+bool Polaris::ModelInterface::hasMeta( const Polaris::Id & metaId )
+{
+    // https://stackoverflow.com/a/15792245/11503488
+    return model_.meta.count( metaId ) > 0;
+}
+Polaris::Meta Polaris::ModelInterface::getMeta( const Polaris::Id & metaId )
+{
+    return model_.meta[ metaId ];
 }

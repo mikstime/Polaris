@@ -252,6 +252,32 @@ TEST( SearchTest, NoPathHandle2 )
     correct = "";
     EXPECT_EQ( res_str, correct );
 }
+TEST( SearchTest, SQPATH )
+{
+    //Test failed in demo.
+    GraphInterface g;
+    GraphNode n1{}, n2{}, n3{}, n4{};
+    g.AddNode( n1 );
+    g.AddNode( n2 );
+    g.AddNode( n3 );
+    g.AddNode( n4 );
+    ConnectionParams c12, c23, c13, c34;
+    c12.cost = 4;
+    c23.cost = 5;
+    c13.cost = 4;
+    c34.cost = 3;
+    g.AddConnection( n1, n2, c12 );
+    g.AddConnection( n2, n3, c23 );
+    g.AddConnection( n1, n3, c13 );
+    g.AddConnection( n3, n4, c34 );
+    auto res = Search::FindPath( g, n1.GetId(), n4.GetId() );
+
+    std::string res_str, correct;
+    for( auto & e: res)
+        res_str += std::to_string( e.GetId() ) + " ";
+    correct = std::to_string( n1.GetId() ) + " " + std::to_string( n3.GetId() ) + " " + std::to_string( n4.GetId() ) + " ";
+    EXPECT_EQ( res_str, correct );
+}
 int main(int argc, char **argv) {
     testing::InitGoogleTest();
     return RUN_ALL_TESTS();

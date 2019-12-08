@@ -7,6 +7,8 @@
 #include "Meta/Meta.h"
 #include <utility> //std::move
 #include <vector> //std::vector
+#include <algorithm>
+#include <memory>
 
 namespace Polaris
 {
@@ -14,7 +16,7 @@ class ModelSubscriber;
 class GraphNode;
 class Meta;
 class Model;
-using ModelSubscribers = std::vector< ModelSubscriber * >;
+using ModelSubscribers = std::vector< std::shared_ptr< ModelSubscriber > >;
 /******************************************************************************
  * ModelObserver class provides subscriptions to Model
  * and notifications for subscribers.
@@ -43,7 +45,7 @@ public:
      * Return value:
      * bool - true on success, false if failed.
      *************************************************************************/
-    virtual bool Subscribe( ModelSubscriber * subscriber );
+    virtual bool Subscribe( std::shared_ptr< ModelSubscriber > & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
@@ -51,7 +53,7 @@ public:
      * Return value:
      * bool - true on success, false if failed.
      *************************************************************************/
-    virtual bool unSubscribe( ModelSubscriber * subscriber );
+    virtual bool unSubscribe( std::shared_ptr< ModelSubscriber > & subscriber );
     /**************************************************************************
      * MetaAdded
      * Arguments:

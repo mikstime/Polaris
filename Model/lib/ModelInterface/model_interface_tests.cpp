@@ -5,7 +5,7 @@
 #include "GraphConnection/GraphConnection.h"
 //#include "lib/ModelObserver/model_observer_tests.cpp"
 using namespace Polaris;
-
+//@TODO add mock to check if observer works correctly
 class MockSubScriber: public ModelSubscriber
 {
     void onMetaAdded( const Meta & meta ) override
@@ -43,6 +43,7 @@ class MockSubScriber: public ModelSubscriber
         std::cout << "onNodeRemoved\n";
     }
 };
+
 TEST( ModelInterfaceTest, HandleEvents )
 {
     ModelInterface mi = ModelInterface();
