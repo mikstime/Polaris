@@ -49,7 +49,7 @@ TEST( Room, Init )
 TEST( Connection, Init )
 {
     QPointF point( 50, 50 );
-    GraphicConnection connection( point, point, 1, 2 );
+    GraphicConnection connection( point, point, 1, 2, 3 );
 
     EXPECT_EQ( connection.GetId(), 1 );
     EXPECT_EQ( connection.GetFloor(), 2 );
@@ -80,7 +80,7 @@ TEST( Room, Color )
 TEST( Connection, Color )
 {
     QPointF point( 50, 50 );
-    GraphicConnection connection( point, point, 1, 2 );
+    GraphicConnection connection( point, point, 1, 2, 3 );
 
     QColor cur_color = connection.GetColor();
     connection.SetColor( Qt::blue );
