@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "include/ModelObserver/ModelObserver.h"
-
+//@TODO smart pointer
 bool Polaris::ModelObserver::Subscribe(
         Polaris::ModelSubscriber * subscriber )
 {
@@ -14,7 +14,7 @@ bool Polaris::ModelObserver::Subscribe(
     }
     return false;
 }
-
+//@TODO smart pointer
 bool Polaris::ModelObserver::unSubscribe(
         Polaris::ModelSubscriber * subscriber )
 {

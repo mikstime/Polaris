@@ -5,6 +5,7 @@
 #include "GraphNode/GraphNode.h"
 #include "include/Graph/Graph.h"
 #include "typedefs.h"
+#include <algorithm>
 #include <utility>
 namespace Polaris
 {
@@ -17,7 +18,7 @@ private:
     Graph graph_;
 public:
     GraphInterface(): graph_() {};
-    explicit GraphInterface( Graph & g ): graph_(std::move( g )) {};
+    explicit GraphInterface( Graph & g ): graph_( std::move( g ) ){};
     /**************************************************************************
      * AddConnection
      * Arguments:

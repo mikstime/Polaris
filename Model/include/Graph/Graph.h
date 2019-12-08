@@ -11,17 +11,10 @@
 
 namespace Polaris
 {
-class NodeComparator
-{
-public:
-    bool operator()( const GraphNode & a, const GraphNode & b ) const
-    {
-        return a.GetId() < b.GetId();
-    }
-};
-using GraphConnections = std::map<
-        std::pair< Id, Id >,
-        GraphConnection >;
+// To get and store connections in O(1) time
+using GraphConnections = std::map< std::pair< Id, Id >, GraphConnection >;
+// To get and store nodes in increasing order. Search O(LogN).
+// Insertion up to O(N).
 using GraphNodes = std::set< GraphNode >;
 /******************************************************************************
  * Graph structure stores all vertices and connections in graph.
@@ -39,10 +32,6 @@ public:
      * default constructor
      *************************************************************************/
      Graph():connections(), nodes(){};
-//     Graph(): connections(), nodes(
-//             [](const GraphNode & a, const GraphNode & b)
-//             { return a.getId() < b.getId(); }, boost::container::new_allocator()
-//     ) {};
     /**************************************************************************
      * Graph( nodes, connections )
      * Arguments:
@@ -58,14 +47,14 @@ public:
      * nodes - initial state of nodes. Connections are empty.
      *************************************************************************/
     explicit Graph( GraphNodes  a_nodes )
-    : connections(), nodes(std::move( a_nodes )) {};
+    : connections(), nodes( std::move( a_nodes ) ) {};
     /**************************************************************************
      * Graph( connections )
      * Arguments:
      * connections - initial state of connections. Nodes are empty.
      *************************************************************************/
     explicit Graph( GraphConnections  a_connections )
-    : connections(std::move( a_connections )), nodes() {};
+    : connections( std::move( a_connections ) ), nodes() {};
 };
 } //namespace Polaris
 

@@ -8,7 +8,7 @@
 #include "typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
-
+//@TODO getMeta method
 namespace Polaris
 {
 class ModelProxy;
@@ -142,7 +142,8 @@ public:
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/
-    ModelInterface(): observer_( new ModelObserver ), proxy_( new ModelProxy ), model_() {};
+    ModelInterface():
+    observer_( new ModelObserver ), proxy_( new ModelProxy ), model_() {};
     /**************************************************************************
      * ModelInterface(proxy, model)
      * Arguments:
@@ -151,21 +152,21 @@ public:
      *************************************************************************/
     ModelInterface( ModelProxy * a_proxy, ModelObserver * a_obs,
                     Model  a_model )
-            :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
+    :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
     /**************************************************************************
      * ModelInterface(proxy)
      * Arguments:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      *************************************************************************/
     explicit ModelInterface( ModelProxy * a_proxy )
-            :proxy_( a_proxy ), observer_(), model_() {};
+    :proxy_( a_proxy ), observer_(), model_() {};
     /**************************************************************************
      * ModelInterface(model)
      * Arguments:
      * model - initial state of model.
      *************************************************************************/
     explicit ModelInterface( Model a_model )
-            :proxy_(), observer_(), model_( std::move( a_model ) ) {};
+    :proxy_(), observer_(), model_( std::move( a_model ) ) {};
 };
 } //namespace Polaris
 
