@@ -5,6 +5,14 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
 {
     setWindowTitle( "Polaris" );
 
+    auto * main_layout = new QHBoxLayout;
+
+    // Creating View object
+    view_ = std::make_shared< GraphicView >( this->size(), main_layout, this );
+
+    // Creating ViewController object
+    view_controller_ = std::make_shared< ViewController >( view_.get() );
+
     // Creating button layout
     auto * button_layout_ = new QVBoxLayout;
 
@@ -13,7 +21,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_panel_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating NodeForm object
-    node_form_ = std::make_shared< NodeForm >( button_panel_.get(), model_.get() );
+    node_form_ = std::make_shared< NodeForm >( button_panel_.get(), model_.get(), view_controller_.get() );
     node_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating ConnectionForm object
@@ -21,7 +29,6 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     connection_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Init main layout
-    auto * main_layout = new QHBoxLayout;
     main_layout->addWidget( button_panel_.get() );
     main_layout->addWidget( node_form_.get() );
     main_layout->addWidget( connection_form_.get() );
@@ -30,16 +37,9 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     auto * window = new QWidget;
     window->setLayout( main_layout );
 
-    // Creating View object
-    view_ = std::make_shared< GraphicView >( this->size(), main_layout, this );
-
     // Creating ViewSub object
     view_sub_ = new ViewSub( view_ );
-
     model_->Subscribe( view_sub_ );
-
-    // Creating ViewController object
-    view_controller_ = std::make_shared< ViewController >( view_.get() );
 
     // Creating buttons
     buttons_["add"] = new QPushButton( "Добавить" );

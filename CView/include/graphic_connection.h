@@ -9,7 +9,8 @@ namespace Polaris
     class GraphicConnection : public GraphicItem
     {
     public:
-        explicit GraphicConnection( const QPointF & left, const QPointF & right, const size_t id, const size_t floor );
+        explicit GraphicConnection( const QPointF & left, const QPointF & right, const size_t id,
+                                    const size_t floor, const double cost );
         GraphicConnection( const GraphicConnection & ) = delete;
         GraphicConnection( const GraphicConnection && ) = delete;
         GraphicConnection & operator = ( const GraphicConnection & ) = delete;
@@ -22,6 +23,7 @@ namespace Polaris
 private:
     QPointF left_;
     QPointF right_;
+    double cost_;
 
     void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;

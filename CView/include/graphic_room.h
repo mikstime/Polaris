@@ -31,7 +31,6 @@ private:
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
     QPainterPath shape() const override final;
-    void hoverMoveEvent( QGraphicsSceneHoverEvent * event ) override final;
 
 };
 } // namespace Polaris
