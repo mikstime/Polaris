@@ -38,7 +38,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     window->setLayout( main_layout );
 
     // Creating ViewSub object
-    view_sub_ = new ViewSub( view_ );
+    view_sub_ = std::shared_ptr< ModelSubscriber >( new ViewSub( view_ ) );
     model_->Subscribe( view_sub_ );
 
     // Creating buttons
