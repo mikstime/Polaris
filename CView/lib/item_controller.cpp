@@ -57,7 +57,7 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     // выбранный итем
     QPointF cur_pos = mouse_event->scenePos();
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
-    GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( cur_item );
+    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
     qInfo() << mouse_event->scenePos() << " : " << cast_item;
 
     if( ! path_drawn_ )
@@ -97,7 +97,7 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
     QPointF cur_pos = mouse_event->scenePos();
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
-    GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( cur_item );
+    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
     qInfo() << cur_pos << " : " << cast_item;
 
     // TODO разбить на фукнции по событиям разных кликов
@@ -121,6 +121,7 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
         }
     }
     // обновить сцену
+    qInfo() << current_node_ << " : " << previous_node_;
     this->update();
 }
 
@@ -129,7 +130,6 @@ void ItemController::SelectCurrentNode( GraphicItem * const new_current )
     if( current_node_ != nullptr )
     {
         current_node_->ResetSelection();
-        return;
     }
 
     current_node_ = new_current;

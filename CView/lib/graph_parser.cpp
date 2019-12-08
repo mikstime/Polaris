@@ -37,6 +37,17 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
+    qInfo() << "Path";
+    for( auto k : nodes )
+    {
+        qInfo() << k.room_number.c_str();
+    }
+    qInfo() << "Con";
+    for( auto k : connections )
+    {
+        qInfo() << k.GetId();
+    }
+
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
@@ -72,7 +83,7 @@ void GraphParser::OnRoomChanged( const Meta & meta )
         item_cotroller_->update();
     } else
     {
-//        OnRoomAdded( meta );
+        OnRoomAdded( meta );
     }
 }
 
@@ -103,7 +114,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
                                                           ( * to_room ).second->pos(),
                                                           connection.GetId(),
                                                           std::min( ( * from_room ).second->GetFloor(),
-                                                                    ( * to_room ).second->GetFloor() ) );
+                                                                    ( * to_room ).second->GetFloor() ),
+                                                                    connection.cost );
     item_cotroller_->addItem( nw_connection );
     items_in_controller_.insert( std::make_pair( connection.GetId(), nw_connection ) );
 }
@@ -137,7 +149,6 @@ bool GraphParser::EraseItemById( const Id cur_id )
 
     if( cur_item != items_in_controller_.end() )
     {
-        qInfo() << " ! ";
         auto pair = * cur_item;
         item_cotroller_->removeItem( pair.second );
         // TODO смартпоинтер?
