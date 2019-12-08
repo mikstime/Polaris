@@ -1,7 +1,6 @@
 #include <iostream>
 #include "../include/Client.h"
 
-
 using namespace Polaris;
 
 Client::Client( const Operation & operation, const Location & location )
@@ -14,211 +13,187 @@ Client::Client( const Operation & operation, const Location & location )
         client = nullptr;
 }
 
-bool Client::FileSharing(const std::string& path)
+bool Client::FileSharing( const std::string& path )
 {
     return client->Exchange( path );
 }
 
-Operation ClientAbstr::GetOperation()
-{
-    return data->GetOperation();
-}
-
-ClientAbstr::ClientAbstr( const Location & location , const Operation & operation)
+ClientAbstr::ClientAbstr( const Location & location ,
+                        const Operation & operation )
 {
     if ( location == Location::NETWORK )
     {
-        data = new Network(operation);
+        data = new Network( operation );
         lct = Location::NETWORK;
     }
     else if ( location == Location::LOCALHOST )
     {
-        data = new Localhost(operation);
+        data = new Localhost( operation );
         lct = Location::LOCALHOST;
     }
-    else
-    {
-        data = nullptr;
-    }
 }
 
-Operation ClientImple::GetOperation()
-{
-    return opr;
-}
-
-Network::Network( const Operation & operation )
-{
-    opr = operation;
-
-    sock = -1;
-    port = 8080;
-    host = "127.0.0.1";
-}
-
-int Network::OpenConnection()
+ClientImple::ClientImple( const Operation & operation ) :
+host( HOST ), port( PORT )
 {
     sock = socket( PF_INET, SOCK_STREAM, 0 );
-    struct sockaddr_in servername {};
     if (sock < 0 )
     {
-        perror( "socket (client)" );
-        exit( EXIT_FAILURE );
+        throw std::runtime_error( "Client construction failed: " +
+                                  std::string( strerror( errno ) ) );
     }
-    InitSockaddr( & servername, host.c_str(), port );
-    if ( 0 > connect( sock, ( struct sockaddr * ) & servername, sizeof( servername ) ) )
+    InitSockaddr();
+}
+
+void ClientImple::InitSockaddr()
+{
+    struct hostent * hostinfo = nullptr;
+    servername.sin_family = AF_INET;
+    servername.sin_port = htons( port );
+    hostinfo = gethostbyname( host.c_str() );
+    if ( hostinfo == nullptr)
     {
-        perror( "connect (client)" );
-        exit( EXIT_FAILURE );
+        throw std::runtime_error( "Unknown host: " +
+                                std::string( strerror( errno ) ) );
     }
-    return 0;
+    servername.sin_addr = * ( struct in_addr * )hostinfo->h_addr;
 }
 
-int Network::CloseConnection()
+std::tuple<std::string, int, int> ClientImple::CollectInfo()
 {
-        return close(sock);
+    return std::make_tuple( host, sock, port );
 }
 
-int Network::GetDeskriptor()
+Network::Network( const Operation & operation ) : ClientImple( operation )
 {
-    return sock;
+
 }
 
-void Network::InitSockaddr(struct sockaddr_in * name, const char* hostname, int port)
+void Network::OpenConnection()
 {
-    struct hostent * hostinfo;
-    name->sin_family = AF_INET;
-    name->sin_port = htons(port);
-    hostinfo = gethostbyname(hostname);
-    if (hostinfo == NULL) {
-        fprintf(stderr, "Unknown host %s.\n", hostname);
-        exit(EXIT_FAILURE);
+
+}
+
+void Network::CloseConnection()
+{
+
+}
+
+Localhost::Localhost( const Operation & operation ) : ClientImple( operation )
+{
+}
+
+void Localhost::OpenConnection()
+{
+    if ( 0 > connect( sock, ( struct sockaddr * ) & servername,
+            sizeof( servername ) ) )
+    {
+        throw std::runtime_error( "Open connection failed: " +
+                                std::string( strerror( errno ) ) );
     }
-    name->sin_addr = *(struct in_addr*)hostinfo->h_addr;
 }
 
-const std::string & Network::GetPath()
+void Localhost::CloseConnection()
 {
-    return nullptr;
-}
-
-Localhost::Localhost( const Operation & operation )
-{
-    opr = operation;
-}
-
-int Localhost::OpenConnection()
-{
-    return 1;
-}
-
-int Localhost::CloseConnection()
-{
-    return 1;
-}
-
-int Localhost::GetDeskriptor()
-{
-    return 0;
-}
-
-const std::string & Localhost::GetPath()
-{
-    return file;
+    close(sock);
 }
 
 bool Reader::Exchange( const std::string & path )
 {
-    if(data->OpenConnection() != 1)
-        return false;
-    if(lct == Location::LOCALHOST)
+    try
     {
-        std::ifstream source;
-        source.open(path);
-        std::ofstream fin;
-        fin.open(data->GetPath());
-        std::string msg;
-        std::string tmp;
-        while( getline( source, tmp ) )
+        data->OpenConnection();
+    }
+    catch ( std::runtime_error & exception )
+    {
+        return false;
+    }
+    std::tuple<std::string, int, int> info = data->CollectInfo();
+    if( lct == Location::LOCALHOST )
+    {
+        std::string msg = "G";
+        int num_bytes;
+        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+        if ( num_bytes < 0 )
         {
-            msg += tmp;
+            throw std::runtime_error( "write failed: " +
+                                     std::string( strerror( errno ) ) );
         }
-        fin.write(msg.c_str(), msg.size());
-        data->CloseConnection();
-        return true;
+        int n = ::recv( std::get< 1 >( info ), buffer, sizeof(buffer),
+                 MSG_NOSIGNAL );
+        if ( -1 == n && errno != EAGAIN )
+            throw std::runtime_error( "read failed: " +
+                                     std::string( strerror( errno ) ) );
+        if ( 0 == n )
+            throw std::runtime_error( "client: " + std::to_string(
+                                 std::get< 1 >( info ) ) + " disconnected" );
+        if ( -1 == n )
+            throw std::runtime_error( "client: " + std::to_string(
+                                  std::get< 1 >( info ) ) + " timeouted" );
+
+        std::string returned_msg( buffer, buffer + n );
+        std::ofstream fout;
+        fout.open( path );
+        fout.write(returned_msg.c_str(), returned_msg.size());
+        fout.close();
+        returned_msg.clear();
     }
     else if (lct == Location::NETWORK)
     {
-        int count;
-        std::string msg = "G";
-        count = write(data->GetDeskriptor(), msg.c_str(), msg.size() + 1);
-        if (count < 0)
-            throw std::runtime_error("write failed: " + std::string(strerror(errno)));
-        std::cerr << "write message " << msg << " to socket" << std::endl;
 
-        char buf[1024];
-        int n = ::recv(data->GetDeskriptor(), buf, sizeof(buf), MSG_NOSIGNAL);
-
-        if (-1 == n && errno != EAGAIN)
-            throw std::runtime_error("read failed: " + std::string(strerror(errno)));
-        if (0 == n)
-            throw std::runtime_error("client: " + std::to_string(data->GetDeskriptor()) +
-                                     " disconnected");
-        if (-1 == n)
-            throw std::runtime_error("client: " + std::to_string(data->GetDeskriptor()) +
-                                     " timeouted");
-
-        std::string ret(buf, buf + n);
-        while (ret.back() == '\r' || ret.back() == '\n')
-            ret.pop_back();
-        std::cerr << "client: " << data->GetDeskriptor() << ", recv: \n"
-                  << ret << " [" << n << " bytes]" << std::endl;
-        std::ifstream source;
-        source.open(path);
-        std::ofstream fin;
-        data->CloseConnection();
-        return true;
     }
     data->CloseConnection();
-    return false;
+    return true;
 }
 
 bool Writer::Exchange( const std::string & path )
 {
-
-    if(data->OpenConnection() == -1)
+    try
+    {
+        data->OpenConnection();
+    }
+    catch (std::runtime_error & exception)
+    {
         return false;
+    }
+    std::tuple<std::string, int, int> info = data->CollectInfo();
     if(lct == Location::LOCALHOST)
     {
-        std::ofstream fout;
-        fout.open(data->GetPath());
-        std::ifstream source;
-        source.open(path);
-        std::string msg;
-        std::string tmp;
-        while( getline( source, tmp ) )
-        {
-            msg += tmp;
-        }
-        data->CloseConnection();
-        return true;
+
     }
     else if (lct == Location::NETWORK)
     {
-        int nbytes;
-        char buffer[1024];
-        std::ifstream source;
-        source.read(buffer, 1024);
-        nbytes = write((int)data->GetDeskriptor(), buffer, strlen(buffer) + 1);
-        if (nbytes < 0)
+        std::string msg;
+        int num_bytes;
+        std::ifstream fin;
+        fin.open( path );
+        std::string tmp;
+        while( getline( fin, tmp ) )
         {
-            data->CloseConnection();
-            return false;
+            msg += tmp + "\n";
         }
-        std::cerr << "write message to socket \n" << std::endl;
-        data->CloseConnection();
-        return true;
+        msg.pop_back();
+        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+        if ( num_bytes < 0 )
+        {
+            throw std::runtime_error( "write failed: " +
+                                    std::string( strerror( errno ) ) );
+        }
+        int n = ::recv( std::get< 1 >( info ), buffer, sizeof(buffer),
+                         MSG_NOSIGNAL);
+
+        if (-1 == n && errno != EAGAIN)
+            throw std::runtime_error("read failed: " + std::string(strerror(errno)));
+        if (0 == n)
+            throw std::runtime_error("client: " +
+                    std::to_string( std::get< 1 >( info ) ) + " disconnected");
+        if (-1 == n)
+            throw std::runtime_error("client: " +
+                     std::to_string( std::get< 1 >( info ) ) + " timeouted");
+
+        std::string returned_msg( buffer, buffer + n );
+        std::cerr << returned_msg << std::endl;
     }
     data->CloseConnection();
-    return false;
+    return true;
 }
