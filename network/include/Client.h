@@ -15,6 +15,7 @@
 #include <fstream>
 #include <cstdio>
 #include <cstdlib>
+#include <tuple>
 
 namespace Polaris
 {
@@ -23,6 +24,11 @@ namespace Polaris
     class ClientImple;
     class ClientAbstr;
     class Client;
+    class Reader;
+    class Writer;
+
+    #define PORT 8080
+    #define HOST "127.0.0.1"
 
     enum class Location
     {
@@ -45,6 +51,7 @@ namespace Polaris
 
     private:
         ClientAbstr * client;
+
     };
 
     class ClientAbstr
@@ -53,27 +60,29 @@ namespace Polaris
         ClientAbstr( const Location & location, const Operation & operation );
         virtual ~ClientAbstr() = default;
         virtual bool Exchange(  const std::string & path  ) = 0;
-        Operation GetOperation();
 
     protected:
         ClientImple * data;
         Location lct;
+        char buffer[1024];
 
     };
 
     class ClientImple
     {
     public:
+        explicit ClientImple( const Operation & operation );
         virtual ~ClientImple() = default;;
-        virtual int OpenConnection() = 0;
-        virtual int CloseConnection() = 0;
-        virtual int GetDeskriptor() = 0;
-        virtual const std::string & GetPath() = 0;
-        Operation GetOperation();
+        virtual void OpenConnection() = 0;
+        virtual void CloseConnection() = 0;
+        void InitSockaddr();
+        std::tuple<std::string, int, int> CollectInfo();
 
     protected:
-        Operation opr;
-
+        std::string host;
+        int sock;
+        int port;
+        struct sockaddr_in servername;
     };
 
     class Network : public ClientImple
@@ -81,16 +90,10 @@ namespace Polaris
     public:
         explicit Network( const Operation & operation );
         ~Network() override = default;
-        int OpenConnection() override;
-        int CloseConnection() override;
-        const std::string & GetPath() override;
-        int GetDeskriptor() override;
-        void InitSockaddr(struct sockaddr_in * name, const char * hostname, int port);
+        void OpenConnection() override;
+        void CloseConnection() override;
 
     private:
-        std::string host;
-        int sock;
-        int port;
 
     };
 
@@ -99,20 +102,18 @@ namespace Polaris
     public:
         explicit Localhost( const Operation & operation );
         ~Localhost() override = default;
-        int OpenConnection() override;
-        int CloseConnection() override;
-        int GetDeskriptor() override;
-        const std::string & GetPath() override;
+        void OpenConnection() override;
+        void CloseConnection() override;
 
     private:
-        std::string file;
-      
+
     };
 
     class Reader : public ClientAbstr
     {
     public:
-        Reader( const Location & location, const Operation & operation  ) : ClientAbstr( location, operation ) {}
+        Reader( const Location & location, const Operation & operation  ):
+                                    ClientAbstr( location, operation ) {}
         bool Exchange( const std::string & path  ) override;
 
     };
@@ -120,7 +121,8 @@ namespace Polaris
     class Writer : public ClientAbstr
     {
     public:
-        Writer( const Location & location, const Operation & operation ) : ClientAbstr( location, operation ) {}
+        Writer( const Location & location, const Operation & operation ) :
+                                    ClientAbstr( location, operation ) {}
         bool Exchange( const std::string & path  ) override;
 
     };
