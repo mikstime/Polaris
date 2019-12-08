@@ -31,10 +31,15 @@ public:
      */
     explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller );
     /**
+     * Set current node id
+     * @param id - Node id
+     */
+    void SetCurrentNodeParams( const Id & id );
+    /**
      * Set current node id and coordinates
-     * @param id - node id
-     * @param x - node x-coordinate
-     * @param y - node y-coordinate
+     * @param id - Node id
+     * @param x - Node x-coordinate
+     * @param y - Node y-coordinate
      */
     void SetCurrentNodeParams( const Id & id, const Coordinate & x, const Coordinate & y );
 

@@ -44,12 +44,19 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     this->hide();
 }
 
+void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id )
+{
+    id_ = id;
+}
+
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
         const Polaris::Coordinate & x, const Polaris::Coordinate & y )
 {
     id_ = id;
     x_ = x;
     y_ = y;
+
+    // TODO: Get meta params from Model
 }
 
 Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
