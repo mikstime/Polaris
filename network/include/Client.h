@@ -45,7 +45,6 @@ namespace Polaris
 
     private:
         ClientAbstr * client;
-
     };
 
     class ClientAbstr
@@ -107,6 +106,7 @@ namespace Polaris
 
     private:
         std::string file;
+      
     };
 
     class Reader : public ClientAbstr

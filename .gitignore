@@ -1,6 +1,3 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
@@ -30,3 +27,30 @@
 *.exe
 *.out
 *.app
+
+# Qt Creator files
+*.user
+*.autosave
+
+# Clion files
+.idea/
+
+# Build files
+cmake-build-debug/
+cmake-build-release/
+build/
+
+# CView ignores
+CView/.idea/
+CView/cmake-build-debug/
+CView/main.cpp
+CView/capp.cpp
+CView/capp.h
+CView/capp.ui
+CView/CMakeLists.txt.user
+mainwindow/
+tests_CView/
+
+# IDE files
+*.user
+*.autosave
