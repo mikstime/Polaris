@@ -18,11 +18,9 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     auto * role_label = new QLabel( "Тип" );
     role_layout->addWidget( role_label );
 
-    role_buttons_[0] = new QRadioButton( "Тип 1" );
-    role_buttons_[1] = new QRadioButton( "Тип 2" );
-    role_buttons_[2] = new QRadioButton( "Тип 3" );
-    role_buttons_[3] = new QRadioButton( "Тип 4" );
-    role_buttons_[4] = new QRadioButton( "Тип 5" );
+    role_buttons_[0] = new QRadioButton( "Комната" );
+    role_buttons_[1] = new QRadioButton( "Коридор" );
+    role_buttons_[2] = new QRadioButton( "Лестница" );
 
     role_buttons_[0]->setChecked( true );
 
@@ -75,15 +73,11 @@ void Polaris::NodeForm::SaveButtonClick()
     std::string room_number = room_number_input_->text().toStdString();
     int floor = view_controller_->GetCurrentFloor();
 
-    Role role = Role::MARK;
+    Role role = Role::ROOM;
     if( role_buttons_[1]->isChecked() )
-        role = Role::ROOM;
-    else if( role_buttons_[2]->isChecked() )
         role = Role::HALL;
-    else if( role_buttons_[3]->isChecked() )
+    else if( role_buttons_[2]->isChecked() )
         role = Role::STAIR;
-    else if( role_buttons_[4]->isChecked() )
-        role = Role::CONNECTION;
 
     Meta meta = ConstructMeta( room_number, floor, role );
 

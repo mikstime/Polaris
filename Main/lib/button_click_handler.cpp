@@ -98,7 +98,6 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()
 {
-
 }
 
 void Polaris::ButtonClickHandler::FloorDownButtonClick()
