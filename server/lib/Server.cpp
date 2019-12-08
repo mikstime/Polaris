@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/Server.h"
 
 using namespace Polaris;
@@ -39,12 +40,13 @@ Engine::Engine(int port)
     CreateServerSocket( port );
 }
 
-void Engine::NonBlocked( int sd, bool opt ) noexcept(false)
+void Engine::NonBlocked( int sd, bool opt )
 {
     int f1 = fcntl( sd, F_GETFL, 0 );
     int f2 = ( opt ) ? ( f1 | O_NONBLOCK ) : ( f1 & ~O_NONBLOCK );
     if ( fcntl( sd, F_SETFL, f2 ) == -1 )
-        throw std::runtime_error( "make nonblocked: " + std::string( strerror( errno ) ) );
+        throw std::runtime_error( "Make nonblocked: " +
+                                std::string( strerror( errno ) ) );
 }
 
 int Engine::Listener() const
@@ -52,7 +54,7 @@ int Engine::Listener() const
     return m_Listener;
 }
 
-Server::Server(int port) : Engine(port)
+Server::Server( int port ) : Engine( port )
 {
     Clients.clear();
 }
@@ -91,14 +93,14 @@ void Server::EventLoop()
         }
         if ( FD_ISSET( Listener(), &read_fds ) )
         {
-            printf( "request received. accept it\n" );
+            std::cerr << "Request received!" << std::endl;
             int sock = accept( Listener(), nullptr, nullptr );
             if ( sock < 0 )
             {
                 perror( "accept" );
                 exit( 3 );
             }
-            printf( "request accepted\n" );
+            std::cerr << "Request accepted!" << std::endl;
             NonBlocked( sock, true );
             Clients.insert( sock );
         }
@@ -124,13 +126,15 @@ void Server::EventLoop()
                     char c;
                     while( getline( fin, tmp ) )
                     {
-                        msg += tmp;
+                        msg += tmp + "\n";
                     }
+                    msg.pop_back();
                     size_t left = msg.size();
                     ssize_t sent = 0;
                     while ( left > 0 )
                     {
-                        sent = ::send( client, msg.data() + sent, msg.size() - sent, 0 );
+                        sent = ::send( client, msg.data() + sent,
+                                      msg.size() - sent, 0 );
                         if ( -1 == sent )
                             throw std::runtime_error( std::string( strerror( errno ) ) );
                         left -= sent;
@@ -139,6 +143,7 @@ void Server::EventLoop()
                 else
                 {
                     std::string data_from_socket( buf, buf + size_of_data );
+                    data_from_socket.pop_back();
                     std::ofstream fout;
                     fout.open( "data.txt" );
                     if( !fout.is_open() )
