@@ -9,38 +9,60 @@ Polaris::ViewController::ViewController( GraphicView * view ) : view_( view ), f
 
 void Polaris::ViewController::UpdateSelectedNodes()
 {
-    Id id = view_->GetSelectedNode();
+    // Pair of selected nodes ids,
+    // if selected less than two nodes equals (EMPTY, EMPTY)
     std::pair< Id, Id > ids = view_->GetSelectedNodes();
-    if( ids.first != 0 && ids.second != 0 )
+
+    if( ids.first != EMPTY && ids.second != EMPTY )
     {
         first_node_ = ids.first;
         second_node_ = ids.second;
     }
-    else if( id != 0 )
+    else
     {
-        first_node_ = id;
+        // Selected node id,
+        // if nodes not selected equals EMPTY
+        Id id = view_->GetSelectedNode();
+
+        if( id != EMPTY )
+            first_node_ = id;
+        else
+            first_node_ = EMPTY;
+
         second_node_ = EMPTY;
     }
 }
 
 void Polaris::ViewController::UpdateNodeCoordinates()
 {
+    // Coordinates of selected nodes,
+    // if selected not only one node equals (EMPTY, EMPTY)
     QPointF point = view_->GetNodeCoordinates();
+
+    // Set new coordinates
     coords_.first = point.rx();
     coords_.second = point.ry();
 }
 
+int8_t Polaris::ViewController::GetCurrentFloor()
+{
+    return view_->GetFloorNumber();
+}
+
 std::pair< int, int > Polaris::ViewController::GetNodeIds()
 {
+    // Update selected nodes data
     UpdateSelectedNodes();
 
-    std::pair< int, int > pair = { first_node_, second_node_ };
-    return pair;
+    // Return pair of selected nodes ids
+    return std::make_pair( first_node_, second_node_ );
 }
 
 std::pair< Polaris::Coordinate, Polaris::Coordinate > Polaris::ViewController::GetNodeCoords()
 {
+    // Update selected node coordinates
     UpdateNodeCoordinates();
 
+    // Return pair of coordinates
     return coords_;
 }
