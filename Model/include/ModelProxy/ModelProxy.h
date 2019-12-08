@@ -6,6 +6,7 @@
 #include "include/GraphInterface/GraphInterface.h"
 #include "GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
+#include <memory>
 
 namespace Polaris
 {

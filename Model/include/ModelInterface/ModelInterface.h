@@ -8,6 +8,7 @@
 #include "typedefs.h"
 #include <cstddef>//std::size_t
 #include <utility>//std::move
+#include <memory>
 //@TODO getMeta method
 namespace Polaris
 {
@@ -139,6 +140,22 @@ public:
      * proxy - proxy to be set.
      *************************************************************************/
     void setObserver( std::shared_ptr< ModelObserver > & o ) { observer_ = o; }
+    /**************************************************************************
+     * hasMeta
+     * Arguments:
+     * metaId - id of meta to be returned
+     * Return value:
+     * true if has, otherwise false
+     *************************************************************************/
+    bool hasMeta( const Id & metaId );
+    /**************************************************************************
+     * getMeta
+     * Arguments:
+     * metaId - id of meta to be returned
+     * Return value:
+     * meta itself
+     *************************************************************************/
+    Meta getMeta( const Id & metaId );
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/

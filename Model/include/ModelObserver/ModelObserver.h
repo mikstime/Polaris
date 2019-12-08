@@ -7,6 +7,8 @@
 #include "Meta/Meta.h"
 #include <utility> //std::move
 #include <vector> //std::vector
+#include <algorithm>
+#include <memory>
 
 namespace Polaris
 {

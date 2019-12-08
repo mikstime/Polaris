@@ -407,6 +407,7 @@ TEST( SearchTest, NoPathHandle2 )
     correct = "";
     EXPECT_EQ( res_str, correct );
 }
+
 TEST( SearchTest, SQPATH )
 {
     //Test failed in demo.
@@ -436,6 +437,26 @@ TEST( SearchTest, SQPATH )
               std::to_string( n4.GetId() ) + " ";
 
     EXPECT_EQ( res_str, correct );
+}
+
+TEST( SearchTest, SetGetMeta )
+{
+    ModelInterface m;
+    GraphNode n1, n2, n3, n4;
+    m.AddNode( n1 );
+    m.AddNode( n2 );
+
+    EXPECT_TRUE( m.hasMeta( n1.GetId() ) );
+    EXPECT_TRUE( m.hasMeta( n2.GetId() ) );
+    EXPECT_FALSE( m.hasMeta( n3.GetId() ) );
+    m.AddNode( n3 );
+    EXPECT_TRUE( m.hasMeta( n3.GetId() ) );
+    Meta m1 = m.getMeta( n1.GetId() );
+    EXPECT_EQ( m1.graph_node_id, n1.GetId() );
+    Meta m2 = m.getMeta( n2.GetId() );
+    EXPECT_EQ( m2.graph_node_id, n2.GetId() );
+    Meta m3 = m.getMeta( n3.GetId() );
+    EXPECT_EQ( m3.graph_node_id, n3.GetId() );
 }
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

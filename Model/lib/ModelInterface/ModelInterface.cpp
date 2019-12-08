@@ -115,3 +115,13 @@ bool Polaris::ModelInterface::ChangeMeta(
 {
     return proxy_->ChangeMeta( nodeId, newMeta, model_, observer_ );
 }
+
+bool Polaris::ModelInterface::hasMeta( const Polaris::Id & metaId )
+{
+    // https://stackoverflow.com/a/15792245/11503488
+    return model_.meta.count( metaId ) > 0;
+}
+Polaris::Meta Polaris::ModelInterface::getMeta( const Polaris::Id & metaId )
+{
+    return model_.meta[ metaId ];
+}
