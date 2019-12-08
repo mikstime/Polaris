@@ -1,37 +1,28 @@
-#include <QtCore/QObject>
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
-#include "view_controller.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-struct GraphicsView : public QObject
+#include "include/view_controller.h"
+#include "include/graphic_view.h"
+
+using Polaris::ViewController;
+using Polaris::GraphicView;
+
+class MockGraphicView : public GraphicView
 {
-    virtual void GetSelectedNode() = 0;
+    MOCK_METHOD0( GetFloorNumber, void() );
 };
 
-struct MockGraphicsView : public GraphicsView
+TEST( ViewController, Floor )
 {
-    MOCK_METHOD0( GetSelectedNode, void() );
-};
+    MockGraphicView view;
+    ViewController view_controller( & view );
 
-struct ViewControllerTest : public ::testing::Test
-{
-    MockGraphicsView graphics_view_;
-    Polaris::ViewController view_controller_;
-
-    ViewControllerTest() {
-        QObject::connect( & view_controller_, & Polaris::ViewController::GetSelectedNode,
-                & graphics_view_, & MockGraphicsView::GetSelectedNode);
-    }
-};
-
-TEST_F( ViewControllerTest, emitGetSelectedNode )
-{
-    EXPECT_CALL( graphics_view_, GetSelectedNode() );
-    view_controller_.GetSelectedNode();
+    EXPECT_EQ( view_controller.GetCurrentFloor(), 1 );
 }
 
 int main(int argc, char** argv)
 {
+    ::testing::InitGoogleMock( & argc, argv );
     ::testing::InitGoogleTest( & argc, argv );
     return RUN_ALL_TESTS();
 }
