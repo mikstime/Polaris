@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/Server.h"
 
 using namespace Polaris;
