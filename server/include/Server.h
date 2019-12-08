@@ -14,6 +14,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <fstream>
+#include <iostream>
 
 namespace Polaris
 {
@@ -23,7 +24,7 @@ namespace Polaris
         int CreateServerSocket( int port );
     public:
         explicit Engine( int port );
-        void NonBlocked( int sd, bool opt ) noexcept( false );
+        void NonBlocked( int sd, bool opt );
         virtual void run() = 0;
         int Listener() const;
     };
