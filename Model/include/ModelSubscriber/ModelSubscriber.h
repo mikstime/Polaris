@@ -40,7 +40,7 @@ public:
     /**************************************************************************
      * onConnectionAdded
      * Arguments:
-     * firstNode and lastNode - nodes that was connected
+     * Connection containing linked nodes ids and params
      *************************************************************************/
     virtual void onConnectionAdded( const GraphConnection & connection ) = 0;
     /**************************************************************************
@@ -52,7 +52,8 @@ public:
     /**************************************************************************
      * onPathFound
      * Arguments:
-     * nodes - list of nodes to be drawn
+     * path - vector of meta related to nodes forming a path
+     * connections - vector of connections related to specified nodes
      *************************************************************************/
     virtual void onPathFound(
             std::vector< Meta > & path,

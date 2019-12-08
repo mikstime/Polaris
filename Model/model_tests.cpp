@@ -6,7 +6,7 @@
 #include <include/Search/Search.h>
 #include <GraphConnection/GraphConnection.h> // ConnectionParams
 using namespace Polaris;
-
+//@TODO implement
 //class MockSubScriber: public ModelSubscriber
 //{
 //    MOCK_METHOD(
@@ -133,7 +133,8 @@ class MockSubScriber: public ModelSubscriber
 TEST( ModelInterfaceTest, HandleEvents )
 {
     ModelInterface mi = ModelInterface();
-    ModelSubscriber * sub = new MockSubScriber;
+    std::shared_ptr< ModelSubscriber > sub =
+            std::shared_ptr< ModelSubscriber >(new MockSubScriber );
     GraphNode n1, n2; ConnectionParams c; c.cost = 4;
     GraphNode n3;
 
@@ -405,6 +406,57 @@ TEST( SearchTest, NoPathHandle2 )
         res_str += std::to_string( e.GetId() ) + " ";
     correct = "";
     EXPECT_EQ( res_str, correct );
+}
+
+TEST( SearchTest, SQPATH )
+{
+    //Test failed in demo.
+    GraphInterface g;
+    GraphNode n1{}, n2{}, n3{}, n4{};
+    g.AddNode( n1 );
+    g.AddNode( n2 );
+    g.AddNode( n3 );
+    g.AddNode( n4 );
+    ConnectionParams c12, c23, c13, c34;
+    c12.cost = 4;
+    c23.cost = 5;
+    c13.cost = 5;
+    c34.cost = 3;
+    g.AddConnection( n1, n2, c12 );
+    g.AddConnection( n2, n3, c23 );
+    g.AddConnection( n1, n3, c13 );
+    g.AddConnection( n3, n4, c34 );
+    auto res = Search::FindPath( g, n1.GetId(), n4.GetId() );
+
+    std::string res_str, correct;
+    for( auto & e: res)
+        res_str += std::to_string( e.GetId() ) + " ";
+
+    correct = std::to_string( n1.GetId() ) + " " +
+              std::to_string( n3.GetId() ) + " " +
+              std::to_string( n4.GetId() ) + " ";
+
+    EXPECT_EQ( res_str, correct );
+}
+
+TEST( SearchTest, SetGetMeta )
+{
+    ModelInterface m;
+    GraphNode n1, n2, n3, n4;
+    m.AddNode( n1 );
+    m.AddNode( n2 );
+
+    EXPECT_TRUE( m.hasMeta( n1.GetId() ) );
+    EXPECT_TRUE( m.hasMeta( n2.GetId() ) );
+    EXPECT_FALSE( m.hasMeta( n3.GetId() ) );
+    m.AddNode( n3 );
+    EXPECT_TRUE( m.hasMeta( n3.GetId() ) );
+    Meta m1 = m.getMeta( n1.GetId() );
+    EXPECT_EQ( m1.graph_node_id, n1.GetId() );
+    Meta m2 = m.getMeta( n2.GetId() );
+    EXPECT_EQ( m2.graph_node_id, n2.GetId() );
+    Meta m3 = m.getMeta( n3.GetId() );
+    EXPECT_EQ( m3.graph_node_id, n3.GetId() );
 }
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

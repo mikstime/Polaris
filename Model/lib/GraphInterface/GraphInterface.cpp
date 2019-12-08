@@ -1,13 +1,11 @@
 #include "include/GraphInterface/GraphInterface.h"
-#include <utility> //std::pair
-#include <algorithm>
 using namespace Polaris;
 bool GraphInterface::AddConnection(
         GraphNode & firstNode,
         GraphNode & lastNode,
         const ConnectionParams & params )
 {
-    //Delegate to AddConnection( Id, Id ).
+    // Delegate to AddConnection( Id, Id ).
     return AddConnection( firstNode.GetId(), lastNode.GetId(), params );
 }
 
@@ -25,13 +23,14 @@ bool GraphInterface::AddConnection(
         return false;
     // Create connection object.
     GraphConnection new_connection( firstNodeId, lastNodeId, params );
+    // update neighbors
     GraphNode & n1 = getNode( firstNodeId );
     GraphNode & n2 = getNode( lastNodeId  );
     n1.neighbors.push_back( lastNodeId );
     n2.neighbors.push_back( firstNodeId );
     // Create a key ( pair ).
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
-
+    // store connection
     graph_.connections[ key ] = new_connection;
     return true;
 }
@@ -40,6 +39,7 @@ bool GraphInterface::RemoveConnection(
         const GraphNode & firstNode,
         const GraphNode & lastNode )
 {
+    //Delegate to RemoveConnection( Id, Id ).
     return RemoveConnection( firstNode.GetId(), lastNode.GetId() );
 }
 
@@ -47,15 +47,20 @@ bool GraphInterface::RemoveConnection(
         Id firstNodeId,
         Id lastNodeId )
 {
+    // Connection does not exists
     if( !AreConnected( firstNodeId, lastNodeId ) )
         return false;
+    // key
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
+    // Remove neighbour from first node
     if( HasNode( firstNodeId ) )
     {
         GraphNode & n1 = getNode( firstNodeId );
-        auto it = std::find( n1.neighbors.begin(), n1.neighbors.end(), lastNodeId );
+        auto it = std::find( n1.neighbors.begin(),
+                             n1.neighbors.end(), lastNodeId );
         n1.neighbors.erase( it );
     }
+    // Remove neighbour from second node
     if( HasNode( lastNodeId ) )
     {
         GraphNode & n2 = getNode( lastNodeId );
@@ -70,6 +75,7 @@ bool GraphInterface::RemoveConnection(
 
 bool GraphInterface::AddNode( GraphNode & node )
 {
+    // Node already exists
     if( HasNode( node ) )
         return false;
     graph_.nodes.insert( node );
@@ -86,6 +92,7 @@ bool GraphInterface::RemoveNode( GraphNode & node )
     // Remove all related connections
     for( auto n_id : it->neighbors )
     {
+        // Remove all connections linked to node
         RemoveConnection( n_id, node.GetId() );
         RemoveConnection( node.GetId(), n_id );
     }
@@ -119,8 +126,8 @@ bool GraphInterface::AreConnected(
     return AreConnected( firstNode.GetId(), lastNode.GetId() );
 }
 
-bool GraphInterface::AreConnected( Id firstNodeId,
-                                            Id lastNodeId ) {
+bool GraphInterface::AreConnected( Id firstNodeId, Id lastNodeId )
+{
     std::pair< Id, Id > key( firstNodeId, lastNodeId );
     return graph_.connections.find( key ) != graph_.connections.end();
 }
@@ -185,5 +192,5 @@ GraphNode & GraphInterface::getNode( Id nodeId )
 {
     GraphNode n( nodeId );
     //O( LogN )
-    return const_cast<GraphNode &>( * graph_.nodes.find( n ) );
+    return const_cast< GraphNode & >( * graph_.nodes.find( n ) );
 }

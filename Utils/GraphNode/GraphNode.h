@@ -18,18 +18,22 @@ public:
 public:
     friend bool operator>( const GraphNode & l, const GraphNode & r )
     {
+        // neighbors does not compare. only id matters
         return l.GetId() > r.GetId();
     }
     friend bool operator<( const GraphNode & l, const GraphNode & r )
     {
+        // neighbors does not compare. only id matters
         return l.GetId() < r.GetId();
     }
     friend bool operator==( const GraphNode & l, const GraphNode & r )
     {
+        // neighbors does not compare. only id matters
         return l.GetId() == r.GetId();
     }
     friend bool operator!=( const GraphNode & l, const GraphNode & r )
     {
+        // neighbors does not compare. only id matters
         return l.GetId() != r.GetId();
     }
     /**************************************************************************
