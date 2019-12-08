@@ -30,6 +30,7 @@ public:
     void onConnectionRemoved( const GraphConnection & connection ) override;
     void onNodeAdded( const GraphNode & node ) override {};
     void onNodeRemoved( const GraphNode & node ) override {};
+
 private:
     std::shared_ptr< View > view_;
 

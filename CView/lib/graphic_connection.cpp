@@ -4,10 +4,11 @@
 using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & left, const QPointF & right, const size_t id,
-                                      const size_t floor )
+                                      const size_t floor, const double cost )
 : GraphicItem( id, floor, Polaris::Role::CONNECTION ),
 left_( left ),
-right_( right )
+right_( right ),
+cost_( cost )
 {
     ResetColor();
     this->show();
@@ -37,6 +38,7 @@ void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsIte
 {
     painter->setPen(cur_color_ );
     painter->drawLine( left_, right_ );
+//    painter->drawText( QRectF( left_, right_ ), Qt::AlignCenter, QString::number( cost_ ) );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);

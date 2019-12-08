@@ -22,6 +22,7 @@ namespace Polaris
         virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         void ResetCurrentNode();
         void ResetPreviousNode();
+
     private:
         GraphicItem * current_node_;
         GraphicItem * previous_node_;
