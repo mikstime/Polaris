@@ -2,7 +2,7 @@
 #include "include/ModelObserver/ModelObserver.h"
 //@TODO smart pointer
 bool Polaris::ModelObserver::Subscribe(
-        Polaris::ModelSubscriber * subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     // just add subscriber at the end of the vector
     auto it = std::find( subscribers_.begin(),
@@ -16,7 +16,7 @@ bool Polaris::ModelObserver::Subscribe(
 }
 //@TODO smart pointer
 bool Polaris::ModelObserver::unSubscribe(
-        Polaris::ModelSubscriber * subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     // find subscriber in vector
     auto it = std::find( subscribers_.begin(),

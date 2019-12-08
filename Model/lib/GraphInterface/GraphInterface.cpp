@@ -5,7 +5,7 @@ bool GraphInterface::AddConnection(
         GraphNode & lastNode,
         const ConnectionParams & params )
 {
-    //Delegate to AddConnection( Id, Id ).
+    // Delegate to AddConnection( Id, Id ).
     return AddConnection( firstNode.GetId(), lastNode.GetId(), params );
 }
 
@@ -192,5 +192,5 @@ GraphNode & GraphInterface::getNode( Id nodeId )
 {
     GraphNode n( nodeId );
     //O( LogN )
-    return const_cast<GraphNode &>( * graph_.nodes.find( n ) );
+    return const_cast< GraphNode & >( * graph_.nodes.find( n ) );
 }

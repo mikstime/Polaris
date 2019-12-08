@@ -3,16 +3,12 @@
 
 #include "include/ModelSubscriber/ModelSubscriber.h"
 #include "include/ModelObserver/ModelObserver.h"
+#include "include/GraphInterface/GraphInterface.h"
 #include "GraphNode/GraphNode.h"
 #include "include/Model/Model.h"
-#include <cstddef>//std::size_t
 
 namespace Polaris
 {
-class ModelSubscriber;
-using Id = std::size_t;
-struct GraphNode;
-struct Model;
 /******************************************************************************
  * ModelProxy class responsible for managing Model data
  * and sending notifications.
@@ -29,7 +25,7 @@ public:
      *************************************************************************/
     virtual bool AddConnection( const GraphConnection & connection,
                                 Model & model,
-                                ModelObserver * observer );
+                                std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * AddConnection
      * Arguments:
@@ -39,7 +35,7 @@ public:
     virtual bool AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                                 const ConnectionParams & params,
                                 Model & model,
-                                ModelObserver * observer );
+                                std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -50,7 +46,7 @@ public:
     virtual bool RemoveConnection( const GraphNode & firstNode,
                                    const GraphNode & lastNode,
                                    Model & model,
-                                   ModelObserver * observer );
+                                   std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * RemoveConnection
      * Arguments:
@@ -60,7 +56,7 @@ public:
     virtual bool RemoveConnection( const Id & firstNodeId,
                                    const Id & lastNodeId,
                                    Model & model,
-                                   ModelObserver * observer );
+                                   std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -68,7 +64,7 @@ public:
      * model - model to add in
      *************************************************************************/
     virtual bool AddNode( GraphNode & node, Model & model,
-                          ModelObserver * observer );
+                          std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * ChangeMeta
      * Arguments:
@@ -77,7 +73,7 @@ public:
      * model - model to add in
      *************************************************************************/
      virtual bool ChangeMeta( const Id & nodeId, const Meta & meta,
-                              Model & model, ModelObserver * observer );
+                              Model & model, std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * RemoveNode
      * Arguments:
@@ -85,7 +81,7 @@ public:
      * model - model to remove in
      *************************************************************************/
     virtual bool RemoveNode( GraphNode & node, Model & model,
-                             ModelObserver * observer );
+                             std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * AddNode
      * Arguments:
@@ -93,7 +89,7 @@ public:
      * model - model to remove in
      *************************************************************************/
     virtual bool RemoveNode( Id nodeId, Model & model,
-                             ModelObserver * observer );
+                             std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
@@ -102,7 +98,7 @@ public:
      *************************************************************************/
     virtual bool FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode, Model & model,
-                           ModelObserver * observer );
+                           std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * FindPath
      * Arguments:
@@ -110,25 +106,25 @@ public:
      * model - model to search in. (Only graph is used)
      *************************************************************************/
     virtual bool FindPath( Id firstNodeId, Id lastNodeId, Model & model,
-                           ModelObserver * observer );
+                           std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * Subscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Subscribe( ModelSubscriber * & subscriber,
+    virtual bool Subscribe( std::shared_ptr< ModelSubscriber > & subscriber,
                             const Model & model,
-                            ModelObserver * observer );
+                            std::shared_ptr< ModelObserver > & observer );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - notification receiver. Must inherit from ModelSubscriber.
      * model - model to subscribe
      *************************************************************************/
-    virtual bool Unsubscribe( ModelSubscriber * & subscriber,
+    virtual bool Unsubscribe( std::shared_ptr< ModelSubscriber > & subscriber,
                               const Model & model,
-                              ModelObserver * observer );
+                              std::shared_ptr< ModelObserver > & observer );
 };
 } //namespace Polaris
 

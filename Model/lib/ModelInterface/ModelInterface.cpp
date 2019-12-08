@@ -96,13 +96,13 @@ bool Polaris::ModelInterface::FindPath(
  * Observer Methods
  *****************************************************************************/
 bool Polaris::ModelInterface::Subscribe(
-        Polaris::ModelSubscriber * & subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     return proxy_->Subscribe( subscriber, model_, observer_ );
 }
 
 bool Polaris::ModelInterface::Unsubscribe(
-        Polaris::ModelSubscriber * & subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     return proxy_->Unsubscribe( subscriber, model_, observer_ );
 }

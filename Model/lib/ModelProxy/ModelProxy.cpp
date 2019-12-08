@@ -1,13 +1,13 @@
 #include "include/Search/Search.h"
 #include "include/ModelProxy/ModelProxy.h"
-#include "include/GraphInterface/GraphInterface.h"
-//@TODO smart pointer instead of ModelObserver * observer
+
 using namespace Polaris;
 /******************************************************************************
  * AddConnection Methods
  *****************************************************************************/
 bool ModelProxy::AddConnection( const GraphConnection & connection,
-                                Model & model, ModelObserver * observer )
+                                Model & model,
+                                std::shared_ptr< ModelObserver > & observer )
 {
     // Try to add connection
     if( model.graph.AddConnection( connection ) )
@@ -21,13 +21,14 @@ bool ModelProxy::AddConnection( const GraphConnection & connection,
 
 bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
                                 const ConnectionParams & params,
-                                Model & model, ModelObserver * observer )
+                                Model & model,
+                                std::shared_ptr< ModelObserver > & observer )
 {
     // Try to add connection
     if( model.graph.AddConnection( firstNodeId, lastNodeId, params ) )
     {
         // Notify
-        auto c = model.graph.getConnection ( firstNodeId, lastNodeId );
+        auto c( model.graph.getConnection( firstNodeId, lastNodeId ) );
         observer->ConnectionAdded( c );
         return true;
     }
@@ -39,7 +40,7 @@ bool ModelProxy::AddConnection( const Id & firstNodeId, const Id & lastNodeId,
 bool ModelProxy::RemoveConnection( const GraphNode & firstNode,
                                    const GraphNode & lastNode,
                                    Model & model,
-                                   ModelObserver * observer )
+                                   std::shared_ptr< ModelObserver > & observer )
 {
     // Delegate to RemoveConnection( Id, Id, model, observer )
     return RemoveConnection( firstNode.GetId(), lastNode.GetId(),
@@ -49,13 +50,13 @@ bool ModelProxy::RemoveConnection( const GraphNode & firstNode,
 bool ModelProxy::RemoveConnection( const Id & firstNodeId,
                                    const Id & lastNodeId,
                                    Model & model,
-                                   ModelObserver * observer )
+                                   std::shared_ptr< ModelObserver > & observer )
 {
     // Connection exists
     if( !model.graph.AreConnected( firstNodeId, lastNodeId ) )
         return false; // failed
     // Get connection
-    auto connection = model.graph.getConnection( firstNodeId, lastNodeId );
+    auto connection( model.graph.getConnection( firstNodeId, lastNodeId ) );
     // Try to remove from graph
     if( model.graph.RemoveConnection( firstNodeId, lastNodeId ) )
     {
@@ -69,7 +70,7 @@ bool ModelProxy::RemoveConnection( const Id & firstNodeId,
  * AddNode Methods
  *****************************************************************************/
 bool ModelProxy::AddNode( GraphNode & node, Model & model,
-                          ModelObserver * observer )
+                          std::shared_ptr< ModelObserver > & observer )
 {
     // Try to add node in graph
     if( model.graph.AddNode( node ) )
@@ -90,7 +91,7 @@ bool ModelProxy::AddNode( GraphNode & node, Model & model,
  * RemoveNode Methods
  *****************************************************************************/
 bool ModelProxy::RemoveNode( GraphNode & node, Model & model,
-                             ModelObserver * observer )
+                             std::shared_ptr< ModelObserver > & observer )
 {
     // Try to remove Node
     if( model.graph.RemoveNode( node ) )
@@ -107,7 +108,7 @@ bool ModelProxy::RemoveNode( GraphNode & node, Model & model,
 }
 
 bool ModelProxy::RemoveNode( Id nodeId, Model & model,
-                             ModelObserver * observer )
+                             std::shared_ptr< ModelObserver > & observer )
 {
     // No node in graph.
     if( !model.graph.HasNode( nodeId ) )
@@ -146,24 +147,28 @@ bool ModelProxy::RemoveNode( Id nodeId, Model & model,
  *****************************************************************************/
 bool ModelProxy::FindPath( const GraphNode & firstNode,
                            const GraphNode & lastNode,
-                           Model & model, ModelObserver * observer )
+                           Model & model,
+                           std::shared_ptr< ModelObserver > & observer )
 {
     // Delegate to FindPath( Id, Id, model, observer )
     return FindPath( firstNode.GetId(), lastNode.GetId(), model, observer );
 }
-//@TODO testing and add comments
 bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
-                           Model & model, ModelObserver * observer )
+                           Model & model,
+                           std::shared_ptr< ModelObserver > & observer )
 {
+    // Find path
     std::vector< GraphNode > path = Search::FindPath(
             model.graph, firstNodeId, lastNodeId );
-
+    // Retrieve graph
     Graph g = model.graph.getGraph();
+    // To store transformed path and connections
     std::vector< Meta > newPath;
     std::vector< GraphConnection > newConnections;
     if( !path.empty() ) {
-        for( auto it = path.begin(); it != path.end() - 1; it++ ) {
-            //@TODO test
+        // Prepare meta and connections.
+        for( auto it = path.begin(); it != path.end() - 1; it++ )
+        {
             newPath.push_back( model.meta[ it->GetId() ] );
             newConnections.push_back(
                     model.graph.getConnection(
@@ -178,16 +183,16 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
 /******************************************************************************
  * Observer Methods
  *****************************************************************************/
-bool ModelProxy::Subscribe( ModelSubscriber * & subscriber,
+bool ModelProxy::Subscribe( std::shared_ptr< ModelSubscriber > & subscriber,
                             const Model & model,
-                            ModelObserver * observer )
+                            std::shared_ptr< ModelObserver > & observer )
 {
     return observer->Subscribe( subscriber );
 }
 
-bool ModelProxy::Unsubscribe( ModelSubscriber * & subscriber,
+bool ModelProxy::Unsubscribe( std::shared_ptr< ModelSubscriber > & subscriber,
                               const Model & model,
-                              ModelObserver * observer )
+                              std::shared_ptr< ModelObserver > & observer )
 {
     return observer->unSubscribe( subscriber );
 }
@@ -195,7 +200,8 @@ bool ModelProxy::Unsubscribe( ModelSubscriber * & subscriber,
  * ChangeMeta Methods
  *****************************************************************************/
 bool ModelProxy::ChangeMeta( const Id & nodeId, const Meta & meta,
-                             Model & model, ModelObserver *observer )
+                             Model & model,
+                             std::shared_ptr< ModelObserver > & observer )
 {
     // If meta belongs to other node
     if( meta.graph_node_id != nodeId )

@@ -20,8 +20,8 @@ struct Model;
 class ModelInterface
 {
 private:
-    ModelObserver * observer_;
-    ModelProxy * proxy_;
+    std::shared_ptr< ModelObserver > observer_;
+    std::shared_ptr<  ModelProxy > proxy_;
     Model model_;
 public:
     /**************************************************************************
@@ -113,13 +113,13 @@ public:
      * Arguments:
      * subscriber - subscribe for all updates. Documented in ModelSubscriber
      *************************************************************************/
-    bool Subscribe( ModelSubscriber * & subscriber );
+    bool Subscribe( std::shared_ptr< ModelSubscriber > & subscriber );
     /**************************************************************************
      * Unsubscribe
      * Arguments:
      * subscriber - unsubscribe from updates
      *************************************************************************/
-    bool Unsubscribe( ModelSubscriber * & subscriber );
+    bool Unsubscribe( std::shared_ptr< ModelSubscriber > & subscriber );
     /**************************************************************************
      * ChangeMeta
      * Arguments:
@@ -132,13 +132,13 @@ public:
      * Arguments:
      * proxy - proxy to be set.
      *************************************************************************/
-    void setProxy( ModelProxy * proxy ) { proxy_ = proxy; }
+    void setProxy( std::shared_ptr< ModelProxy > & proxy ) { proxy_ = proxy; }
     /**************************************************************************
      * setProxy
      * Arguments:
      * proxy - proxy to be set.
      *************************************************************************/
-    void setObserver( ModelObserver * obs ) { observer_ = obs; }
+    void setObserver( std::shared_ptr< ModelObserver > & o ) { observer_ = o; }
     /**************************************************************************
      * ModelInterface() - default constructor
      *************************************************************************/
@@ -150,7 +150,8 @@ public:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      * model - initial state of model.
      *************************************************************************/
-    ModelInterface( ModelProxy * a_proxy, ModelObserver * a_obs,
+    ModelInterface( std::shared_ptr< ModelProxy > & a_proxy,
+                    std::shared_ptr< ModelObserver > & a_obs,
                     Model  a_model )
     :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
     /**************************************************************************

@@ -6,7 +6,7 @@
 #include <include/Search/Search.h>
 #include <GraphConnection/GraphConnection.h> // ConnectionParams
 using namespace Polaris;
-
+//@TODO implement
 //class MockSubScriber: public ModelSubscriber
 //{
 //    MOCK_METHOD(
@@ -133,7 +133,8 @@ class MockSubScriber: public ModelSubscriber
 TEST( ModelInterfaceTest, HandleEvents )
 {
     ModelInterface mi = ModelInterface();
-    ModelSubscriber * sub = new MockSubScriber;
+    std::shared_ptr< ModelSubscriber > sub =
+            std::shared_ptr< ModelSubscriber >(new MockSubScriber );
     GraphNode n1, n2; ConnectionParams c; c.cost = 4;
     GraphNode n3;
 
@@ -429,7 +430,11 @@ TEST( SearchTest, SQPATH )
     std::string res_str, correct;
     for( auto & e: res)
         res_str += std::to_string( e.GetId() ) + " ";
-    correct = std::to_string( n1.GetId() ) + " " + std::to_string( n3.GetId() ) + " " + std::to_string( n4.GetId() ) + " ";
+
+    correct = std::to_string( n1.GetId() ) + " " +
+              std::to_string( n3.GetId() ) + " " +
+              std::to_string( n4.GetId() ) + " ";
+
     EXPECT_EQ( res_str, correct );
 }
 int main(int argc, char **argv) {
