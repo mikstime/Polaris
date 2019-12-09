@@ -15,12 +15,13 @@ enum class Role
     ROOM,
     HALL,
     STAIR,
-    CONNECTION
+    CONNECTION,
+    GEOMETRY
 };
 
 const char EMPTY = 0;
 
-const size_t ROLE_COUNT = 5;
+const size_t ROLE_COUNT = 6;
 } //namespace Polaris
 
 #endif

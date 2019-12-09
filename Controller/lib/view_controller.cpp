@@ -1,4 +1,5 @@
 #include "include/view_controller.h"
+#include <QDebug>
 
 Polaris::ViewController::ViewController( GraphicView * view ) : view_( view ), floor_number_( 1 ),
         first_node_( EMPTY ), second_node_( EMPTY )
@@ -11,6 +12,8 @@ void Polaris::ViewController::UpdateSelectedNodes()
 {
     Id id = view_->GetSelectedNode();
     std::pair< Id, Id > ids = view_->GetSelectedNodes();
+    qInfo() << ids;
+    qInfo() << id;
     if( ids.first != 0 && ids.second != 0 )
     {
         first_node_ = ids.first;

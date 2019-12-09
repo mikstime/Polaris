@@ -1,6 +1,4 @@
 #include "include/item_controller.h"
-#include "include/graphic_item.h"
-#include "include/graphic_room.h"
 #include <string>
 #include <QGraphicsSceneMouseEvent>
 
@@ -10,8 +8,11 @@ using std::string_literals::operator""s;
 using Polaris::GraphicRoom;
 using Polaris::ItemController;
 
-ItemController::ItemController( const QRect & scene_rect, QObject * parent )
+ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollaction > items_in_controller,
+                                QObject * parent )
 : QGraphicsScene( scene_rect, parent ),
+editor_( std::make_unique< Editor >( this ) ),
+items_in_controller_( items_in_controller ),
 current_node_( nullptr ),
 previous_node_( nullptr ),
 path_drawn_( false )
@@ -25,9 +26,7 @@ ItemController::~ItemController()
 
 size_t ItemController::GetCurrentNode() const
 {
-    qInfo() << current_node_;
     return current_node_ != nullptr ? current_node_->GetId() : 0;
-
 }
 
 size_t ItemController::GetPreviousNode() const
@@ -58,7 +57,6 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     QPointF cur_pos = mouse_event->scenePos();
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
-    qInfo() << mouse_event->scenePos() << " : " << cast_item;
 
     if( ! path_drawn_ )
         ResetPath();
@@ -98,7 +96,6 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
     QPointF cur_pos = mouse_event->scenePos();
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
-    qInfo() << cur_pos << " : " << cast_item;
 
     // TODO разбить на фукнции по событиям разных кликов
     if( mouse_event->button() == Qt::MouseButton::LeftButton )
@@ -125,6 +122,29 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
     this->update();
 }
 
+void ItemController::ResetCurrentNode()
+{
+    if( current_node_ != nullptr )
+    {
+        current_node_->ResetSelection();
+        current_node_ = nullptr;
+    }
+}
+
+void ItemController::ResetPreviousNode()
+{
+    if( previous_node_ != nullptr )
+    {
+        previous_node_->ResetSelection();
+        previous_node_ = nullptr;
+    }
+}
+
+bool ItemController::ChangeMode( bool edit )
+{
+    is_edit_ != is_edit_;
+}
+
 void ItemController::SelectCurrentNode( GraphicItem * const new_current )
 {
     if( current_node_ != nullptr )
@@ -146,24 +166,6 @@ void ItemController::SelectPreviousNode( GraphicItem * const new_current )
 
     previous_node_ = new_current;
     previous_node_->SetSelection();
-}
-
-void ItemController::ResetCurrentNode()
-{
-    if( current_node_ != nullptr )
-    {
-        current_node_->ResetSelection();
-        current_node_ = nullptr;
-    }
-}
-
-void ItemController::ResetPreviousNode()
-{
-    if( previous_node_ != nullptr )
-    {
-        previous_node_->ResetSelection();
-        previous_node_ = nullptr;
-    }
 }
 
 void ItemController::ResetPath()

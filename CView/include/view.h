@@ -36,6 +36,8 @@ namespace Polaris
         virtual int8_t GetFloorNumber() const = 0;
         // задать выкладку
         virtual void SetLayout( QHBoxLayout * const layout ) = 0;
+        // войти в режим редактирования
+        virtual bool ChangeMode( bool edit ) = 0;
     };
 } // namespace Polaris
 
