@@ -68,27 +68,26 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
                                       cast_item->GetRole() == Polaris::Role::HALL ||
                                       cast_item->GetRole() == Polaris::Role::STAIR ) ) // выбор комнаты
         {
-            SelectCurrentNode( cast_item );
-            ResetPreviousNode();
-            mark_down_.hide();
-        }
-        else if( cast_item != nullptr && cast_item->GetRole() == Polaris::Role::MARK ) // выбор марки
-        {
-            mark_down_.hide();
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                qInfo() << "!!!!!!!";
+                RoomPressedRightCtrl( cast_item, cur_pos );
+            }
+            else
+            {
+                RoomPressedLeft(cast_item, cur_pos);
+            }
         }
         else if( cast_item == nullptr ) // клик по постому пространству экрана
         {
-            // TODO reset all nodes
-            ResetPreviousNode();
-            mark_down_.setPos( cur_pos );
-            mark_down_.show();
+            EmptyPressedLeft(cur_pos);
         }
     }
     else if ( mouse_event->button() == Qt::MouseButton::RightButton && cur_item == nullptr ) // правая кнопка
     {
-        ResetCurrentNode();
-        ResetPreviousNode();
+        EmptyPressedRight( cur_pos );
     }
+    this->update();
 }
 
 void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
@@ -104,21 +103,13 @@ void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
                                       cast_item->GetRole() == Polaris::Role::HALL ||
                                       cast_item->GetRole() == Polaris::Role::STAIR ) ) // соединить ноды
         {
-            if( cur_item != current_node_ ) // если соединение не с самим собой
-            {
-                SelectPreviousNode( cast_item );
-                mark_down_.hide();
-            }
+
         }
         else // сбросить соединение
         {
-            ResetCurrentNode();
-            ResetPreviousNode();
-            // TODO метку не прячем. Когда перемещать метку
+            EmptyReleaseLeft( cur_pos );
         }
     }
-    // обновить сцену
-    qInfo() << current_node_ << " : " << previous_node_;
     this->update();
 }
 
@@ -164,8 +155,17 @@ void ItemController::SelectPreviousNode( GraphicItem * const new_current )
         return;
     }
 
-    previous_node_ = new_current;
-    previous_node_->SetSelection();
+    if( current_node_ != nullptr )
+    {
+        previous_node_ = new_current;
+        previous_node_->SetSelection();
+    }
+    else
+    {
+        current_node_ = new_current;
+        current_node_->SetSelection();
+    }
+
 }
 
 void ItemController::ResetPath()
@@ -177,4 +177,58 @@ void ItemController::ResetPath()
 
     cur_path_.erase( cur_path_.begin(), cur_path_.end() );
     path_drawn_ =false;
+}
+
+void ItemController::RoomPressedLeft(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    SelectCurrentNode( cur_item );
+    ResetPreviousNode();
+    mark_down_.hide();
+}
+
+void ItemController::EmptyPressedLeft(const QPointF & cur_pos )
+{
+    ResetPreviousNode();
+    mark_down_.setPos( cur_pos );
+    mark_down_.show();
+}
+
+void ItemController::RoomPressedRightCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    SelectPreviousNode( cur_item );
+}
+
+void ItemController::EmptyPressedRight(const QPointF & cur_pos )
+{
+    ResetCurrentNode();
+    ResetPreviousNode();
+}
+
+void ItemController::RoomReleaseLeft(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    if( cur_item != current_node_ ) // если соединение не с самим собой
+    {
+        SelectPreviousNode( cur_item );
+        mark_down_.hide();
+    }
+}
+
+void ItemController::EmptyReleaseLeft(const QPointF & cur_pos )
+{
+    ResetCurrentNode();
+    ResetPreviousNode();
+}
+
+void ItemController::RoomReleaseRight(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    if( cur_item != current_node_ ) // если соединение не с самим собой
+    {
+        SelectPreviousNode( cur_item );
+        mark_down_.hide();
+    }
+}
+
+void ItemController::EmptyReleaseRight(const QPointF & cur_pos )
+{
+
 }

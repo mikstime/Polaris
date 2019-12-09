@@ -8,32 +8,22 @@ namespace Polaris {
     class GraphicPolygon : public GraphicItem {
     public:
         explicit GraphicPolygon();
-
-        explicit GraphicPolygon(const std::vector<QPointF> &points);
-
-        GraphicPolygon(const GraphicPolygon &) = delete;
-
+        explicit GraphicPolygon( const size_t floor, const std::vector< QPointF > & points );
+        GraphicPolygon( const GraphicPolygon & ) = delete;
         GraphicPolygon(const GraphicPolygon &&) = delete;
 
-        GraphicPolygon &operator=(const GraphicPolygon &room);
-
-        GraphicPolygon &operator=(const GraphicPolygon &&room);
-
-        void SetColor(const QColor &color) override;
-
+        GraphicPolygon & operator = ( const GraphicPolygon & room );
+        GraphicPolygon & operator = ( const GraphicPolygon && room );
+        void SetColor( const QColor & color ) override;
         void SetSelection() override;
-
         void ResetSelection() override;
-
+        const std::vector< QPointF > & GetForm() const;
     private:
-        std::vector<QPointF> form_;
+        std::vector< QPointF > form_;
 
         void ResetColor() override;
-
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override final;
-
+        void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
         QRectF boundingRect() const override final;
-
         QPainterPath shape() const override final;
 
     };

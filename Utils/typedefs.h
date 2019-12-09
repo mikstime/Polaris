@@ -16,7 +16,7 @@ enum class Role
     HALL,
     STAIR,
     CONNECTION,
-    GEOMETRY
+    POLYGON
 };
 
 const char EMPTY = 0;

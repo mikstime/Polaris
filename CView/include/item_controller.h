@@ -41,6 +41,14 @@ namespace Polaris
         void SelectCurrentNode(GraphicItem * const new_current );
         void SelectPreviousNode(GraphicItem * const new_previous );
         void ResetPath();
+        void RoomPressedLeft(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void EmptyPressedLeft(const QPointF & cur_pos );
+        void RoomPressedRightCtrl(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void EmptyPressedRight(const QPointF & cur_pos );
+        void RoomReleaseLeft(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void EmptyReleaseLeft(const QPointF & cur_pos );
+        void RoomReleaseRight(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void EmptyReleaseRight(const QPointF & cur_pos );
     };
 } // namespace Polaris
 
