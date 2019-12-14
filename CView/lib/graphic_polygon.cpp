@@ -92,6 +92,7 @@ void GraphicPolygon::paint( QPainter * painter, const QStyleOptionGraphicsItem *
 
 QRectF GraphicPolygon::boundingRect() const
 {
+    //TODO rect
 //    QPointF left = * std::min_element( form_.begin(), form_.end() );
 //    QPointF right = * std::max_element( form_.begin(), form_.end() );
     QPointF left( -20, -20 );
