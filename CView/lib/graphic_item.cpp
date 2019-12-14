@@ -34,5 +34,6 @@ QColor GraphicItem::GetColor() const
 
 void GraphicItem::SetDefaultColor()
 {
+    qInfo() << "ХЕР";
     cur_color_ =  def_color_;
 }

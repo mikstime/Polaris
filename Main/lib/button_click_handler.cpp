@@ -132,3 +132,7 @@ void Polaris::ButtonClickHandler::FloorUpButtonClick()
 void Polaris::ButtonClickHandler::FloorDownButtonClick()
 {
 }
+
+void Polaris::ButtonClickHandler::EditMapButtonClick()
+{
+}
