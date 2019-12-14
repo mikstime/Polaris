@@ -47,11 +47,18 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id )
 {
     id_ = id;
+
+    Meta meta = model_->getMeta( id );
+
+    x_ = meta.x;
+    y_ = meta.y;
 }
 
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
         const Polaris::Coordinate & x, const Polaris::Coordinate & y )
 {
+    Meta cur_meta = model_->getMeta( id );
+
     id_ = id;
     x_ = x;
     y_ = y;
