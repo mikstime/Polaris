@@ -45,7 +45,7 @@ private:
     std::shared_ptr< ConnectionForm > connection_form_;
     std::shared_ptr< ModelInterface > model_;
 
-    ModelSubscriber * view_sub_;
+    std::shared_ptr< ModelSubscriber > view_sub_;
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ButtonClickHandler > button_click_handler_;
 

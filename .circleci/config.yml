@@ -49,11 +49,11 @@ jobs:
           name: Creating Binary Files
           command: 'cmake --build build'
       - run:
+          name: Utils Testing
+          command: './bin/utils_tests'
+      - run:
           name: Model Testing
           command: './bin/model_tests'
       - run:
           name: View Testing
           command: './bin/view_tests -platform offscreen'
-#      - run:
-#          name: Valgrind check
-#          command: 'valgrind --leak-check=yes ./bin/MainApp -platform offscreen'

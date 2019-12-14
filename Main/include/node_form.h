@@ -13,6 +13,7 @@
 #include "Meta/Meta.h"
 #include "typedefs.h"
 #include "include/ModelInterface/ModelInterface.h"
+#include "include/view_controller.h"
 
 namespace Polaris
 {
@@ -26,13 +27,19 @@ public:
      * Constructor
      * @param button_panel - Pointer to button panel
      * @param model - Pointer to Model object
+     * @param view_controller - Pointer to ViewController object
      */
-    explicit NodeForm( QWidget * button_panel, ModelInterface * model );
+    explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller );
+    /**
+     * Set current node id
+     * @param id - Node id
+     */
+    void SetCurrentNodeParams( const Id & id );
     /**
      * Set current node id and coordinates
-     * @param id - node id
-     * @param x - node x-coordinate
-     * @param y - node y-coordinate
+     * @param id - Node id
+     * @param x - Node x-coordinate
+     * @param y - Node y-coordinate
      */
     void SetCurrentNodeParams( const Id & id, const Coordinate & x, const Coordinate & y );
 
@@ -41,6 +48,7 @@ private:
 
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ModelInterface > model_;
+    std::shared_ptr< ViewController > view_controller_;
 
     // Current node constant params
     Id id_;
@@ -50,7 +58,6 @@ private:
 
     // Inputs
     QLineEdit * room_number_input_;
-    QLineEdit * floor_input_;
 
     // Role radio buttons
     std::array< QRadioButton *, ROLE_COUNT > role_buttons_;

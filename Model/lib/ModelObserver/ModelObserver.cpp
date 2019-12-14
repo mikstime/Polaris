@@ -1,8 +1,7 @@
-#include <algorithm>
 #include "include/ModelObserver/ModelObserver.h"
 
 bool Polaris::ModelObserver::Subscribe(
-        Polaris::ModelSubscriber * subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     // just add subscriber at the end of the vector
     auto it = std::find( subscribers_.begin(),
@@ -16,7 +15,7 @@ bool Polaris::ModelObserver::Subscribe(
 }
 
 bool Polaris::ModelObserver::unSubscribe(
-        Polaris::ModelSubscriber * subscriber )
+        std::shared_ptr< ModelSubscriber > & subscriber )
 {
     // find subscriber in vector
     auto it = std::find( subscribers_.begin(),
@@ -33,34 +32,34 @@ bool Polaris::ModelObserver::unSubscribe(
 void Polaris::ModelObserver::MetaAdded( const Polaris::Meta & meta )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onMetaAdded( meta );
 }
 
 void Polaris::ModelObserver::MetaChanged( const Polaris::Meta & meta )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onMetaChanged( meta );
 }
 void Polaris::ModelObserver::MetaRemoved( const Polaris::Meta & meta )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onMetaRemoved( meta );
 }
 
 void Polaris::ModelObserver::NodeAdded( const Polaris::GraphNode & node )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onNodeAdded( node );
 }
 
 void Polaris::ModelObserver::NodeRemoved( const Polaris::GraphNode & node )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onNodeRemoved( node );
 }
 
@@ -68,7 +67,7 @@ void Polaris::ModelObserver::ConnectionRemoved(
         const Polaris::GraphConnection & connection )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onConnectionRemoved( connection );
 }
 
@@ -76,7 +75,7 @@ void Polaris::ModelObserver::ConnectionAdded(
         const Polaris::GraphConnection & connection )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onConnectionAdded( connection );
 }
 
@@ -85,6 +84,6 @@ void Polaris::ModelObserver::PathFound(
         std::vector< GraphConnection > & connections )
 {
     // Loop through subscribers and notify them.
-    for( auto sub : subscribers_ )
+    for( const auto & sub : subscribers_ )
         sub->onPathFound( path, connections );
 }

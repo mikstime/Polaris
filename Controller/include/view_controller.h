@@ -29,6 +29,11 @@ public:
      */
     void UpdateNodeCoordinates();
     /**
+     * Get current floor
+     * @return - Floor number
+     */
+    int8_t GetCurrentFloor();
+    /**
      * Get node ids
      * @return - Two ids of selected nodes or EMPTY if not selected
      */

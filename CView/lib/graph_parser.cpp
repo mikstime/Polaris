@@ -38,6 +38,17 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
+    qInfo() << "Path";
+    for( auto k : nodes )
+    {
+        qInfo() << k.room_number.c_str();
+    }
+    qInfo() << "Con";
+    for( auto k : connections )
+    {
+        qInfo() << k.GetId();
+    }
+
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
@@ -123,7 +134,13 @@ bool GraphParser::EraseItem( const Id cur_id )
 
     if( cur_item != nullptr )
     {
+        // TODO проверить
         item_controller_->removeItem(cur_item );
+//        auto pair = * cur_item;
+//        item_cotroller_->removeItem( pair.second );
+//        // TODO смартпоинтер?
+//        delete pair.second;
+//        items_in_controller_.erase( cur_item );
 
         return true;
     }

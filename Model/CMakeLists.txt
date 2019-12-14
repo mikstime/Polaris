@@ -5,10 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#find_package( Boost REQUIRED )
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
-set(Boost_USE_STATIC_LIBS        ON)
 
 set(HEADERS include/Graph/Graph.h
             include/GraphInterface/GraphInterface.h
@@ -50,8 +48,7 @@ target_link_libraries( Model ${Boost_LIBRARIES} Utils )
 #add_executable( model_interface_tests lib/ModelInterface/model_interface_tests.cpp )
 #target_link_libraries( model_interface_tests Model ${GTEST_LIBRARIES} )
 #Tests for Search
-#add_executable( search_tests lib/Search/search_tests.cpp )
-#target_link_libraries( search_tests Model ${GTEST_LIBRARIES} )
+#
 #Model tests
 add_executable( model_tests model_tests.cpp )
 target_link_libraries( model_tests ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} Model )

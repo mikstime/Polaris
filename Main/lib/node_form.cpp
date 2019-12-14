@@ -1,7 +1,7 @@
 #include "include/node_form.h"
 
-Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : id_( EMPTY ), x_( EMPTY ), y_( EMPTY ),
-        button_panel_( button_panel ), model_( model )
+Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller ) :
+        id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel ), model_( model ), view_controller_( view_controller )
 {
     // Input room number input field
     auto * room_number_layout = new QHBoxLayout;
@@ -12,26 +12,15 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : 
     room_number_layout->addWidget( room_number_label );
     room_number_layout->addWidget( room_number_input_ );
 
-    // Init floor input field
-    auto * floor_layout = new QHBoxLayout;
-
-    auto * floor_label = new QLabel( "Номер этажа" );
-    floor_input_ = new QLineEdit;
-
-    floor_layout->addWidget( floor_label );
-    floor_layout->addWidget( floor_input_ );
-
     // Init role radio buttons
     auto * role_layout = new QVBoxLayout;
 
     auto * role_label = new QLabel( "Тип" );
     role_layout->addWidget( role_label );
 
-    role_buttons_[0] = new QRadioButton( "Тип 1" );
-    role_buttons_[1] = new QRadioButton( "Тип 2" );
-    role_buttons_[2] = new QRadioButton( "Тип 3" );
-    role_buttons_[3] = new QRadioButton( "Тип 4" );
-    role_buttons_[4] = new QRadioButton( "Тип 5" );
+    role_buttons_[0] = new QRadioButton( "Комната" );
+    role_buttons_[1] = new QRadioButton( "Коридор" );
+    role_buttons_[2] = new QRadioButton( "Лестница" );
 
     role_buttons_[0]->setChecked( true );
 
@@ -47,7 +36,6 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : 
 
     main_layout_->addStretch();
     main_layout_->addLayout( room_number_layout );
-    main_layout_->addLayout( floor_layout );
     main_layout_->addLayout( role_layout );
     main_layout_->addWidget( save_button_ );
     main_layout_->addStretch();
@@ -56,12 +44,19 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model ) : 
     this->hide();
 }
 
+void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id )
+{
+    id_ = id;
+}
+
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
         const Polaris::Coordinate & x, const Polaris::Coordinate & y )
 {
     id_ = id;
     x_ = x;
     y_ = y;
+
+    // TODO: Get meta params from Model
 }
 
 Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
@@ -83,25 +78,20 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
 void Polaris::NodeForm::SaveButtonClick()
 {
     std::string room_number = room_number_input_->text().toStdString();
-    int8_t floor = floor_input_->text().toInt();
+    int floor = view_controller_->GetCurrentFloor();
 
-    Role role = Role::MARK;
+    Role role = Role::ROOM;
     if( role_buttons_[1]->isChecked() )
-        role = Role::ROOM;
-    else if( role_buttons_[2]->isChecked() )
         role = Role::HALL;
-    else if( role_buttons_[3]->isChecked() )
+    else if( role_buttons_[2]->isChecked() )
         role = Role::STAIR;
-    else if( role_buttons_[4]->isChecked() )
-        role = Role::CONNECTION;
 
     Meta meta = ConstructMeta( room_number, floor, role );
 
     model_->ChangeMeta( id_, meta );
 
-    // Clearing input fields
+    // Clearing input field
     room_number_input_->clear();
-    floor_input_->clear();
 
     // Hide self
     this->hide();
