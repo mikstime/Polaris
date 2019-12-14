@@ -49,6 +49,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     buttons_["find_route"] = new QPushButton( "Найти маршрут" );
     buttons_["floor_up"] = new QPushButton( "Этаж вверх" );
     buttons_["floor_down"] = new QPushButton( "Этаж вниз" );
+    buttons_["edit_map"] = new QPushButton( "Редактировать карту" );  
 
     button_layout_->addStretch();
     button_layout_->addWidget( buttons_["add"] );
@@ -58,6 +59,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_layout_->addWidget( buttons_["find_route"] );
     button_layout_->addWidget( buttons_["floor_up"] );
     button_layout_->addWidget( buttons_["floor_down"] );
+    button_layout_->addWidget( buttons_["edit_map"] );
     button_layout_->addStretch();
 
     button_panel_->setLayout( button_layout_ );
@@ -79,4 +81,5 @@ void Polaris::MainWindow::ConnectButtons()
     connect( buttons_["find_route"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FindRouteButtonClick() ) );
     connect( buttons_["floor_up"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );
     connect( buttons_["floor_down"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorDownButtonClick() ) );
+    connect( buttons_["edit_map"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( EditMapButtonClick() ) );  
 }
