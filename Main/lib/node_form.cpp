@@ -24,7 +24,7 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
 
     role_buttons_[0]->setChecked( true );
 
-    for( int i = 0; i < ROLE_COUNT; ++i )
+    for( int i = 0; i < 3; ++i )
         role_layout->addWidget( role_buttons_[i] );
 
     // Init and connect save button

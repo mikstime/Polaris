@@ -29,7 +29,7 @@ int8_t Renderer::GetFloor() const
 
 void Renderer::SetFloor( const int8_t floor )
 {
-    if( floor < min_floor_ )
+    if( floor <= min_floor_ )
     {
         min_floor_ = floor;
     } else if ( floor > max_floor_ )

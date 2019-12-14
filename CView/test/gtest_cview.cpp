@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
-//#include <gmock/gmock.h>
+#include <gmock/gmock.h>
 #include "include/graphic_connection.h"
-#include "include/graphic_view.h"
-#include "include/graph_parser.h"
-#include "include/renderer.h"
+#include "mock_controller.h"
+#include "mock_graphic_item.h"
+#include "mock_parser.h"
+#include "mock_renderer.h"
+#include "mock_view.h"
 #include <memory>
 #include <QApplication>
 
@@ -20,11 +22,11 @@ using Polaris::Role;
 
 using std::shared_ptr;
 
-//using ::testing::AtLeast;
-//using ::testing::DoAll;
-//using ::testing::SetArgReferee;
-//using ::testing::Return;
-//using ::testing::_;
+using ::testing::AtLeast;
+using ::testing::DoAll;
+using ::testing::SetArgReferee;
+using ::testing::Return;
+using ::testing::_;
 
 TEST( Item, Init )
 {
@@ -163,27 +165,26 @@ TEST_F( Parser, AddConnection )
     EXPECT_EQ( item_controller_->items().size(), 3 );
 }
 
-//class GraphView : public ::testing::Test
-//{
-//protected:
-//    void SetUp()
-//    {
-//        new GraphicView();
-//        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
-//        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
-//        // TODO моки
-//    }
+class GraphView : public ::testing::Test
+{
+protected:
+    void SetUp()
+    {
+        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
+        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
+        // TODO моки
+    }
 
-//    std::shared_ptr< GraphicView > graphic_view_;
-//    std::shared_ptr< MockGraphParser > graph_parser_;
-//};
+    std::shared_ptr< GraphicView > graphic_view_;
+    std::shared_ptr< MockGraphParser > graph_parser_;
+};
 
-//TEST_F( GraphView, Parser )
-//{
+TEST_F( GraphView, Parser )
+{
 //    EXPECT_CALL( *( graph_parser_.get() ), OnRoomChanged( _ ) ).Times( 1 );
 //    Meta meta = {};
 //    graphic_view_->AddRoom( meta );
-//}
+}
 
 //class MouseInteraction : public ::testing::Test
 //{
@@ -196,7 +197,7 @@ TEST_F( Parser, AddConnection )
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv, false );
-//    ::testing::InitGoogleMock(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
