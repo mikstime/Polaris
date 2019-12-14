@@ -1,5 +1,7 @@
 #include "include/graphic_item.h"
 
+#include <QDebug>
+
 using Polaris::GraphicItem;
 
 GraphicItem::GraphicItem( const size_t & id, const int8_t & floor, const Polaris::Role & role )
@@ -32,5 +34,6 @@ QColor GraphicItem::GetColor() const
 
 void GraphicItem::SetDefaultColor()
 {
+    qInfo() << "ХЕР";
     cur_color_ =  def_color_;
 }

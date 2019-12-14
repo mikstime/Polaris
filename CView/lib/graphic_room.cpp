@@ -49,6 +49,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
     this->info_ = room.info_;
     this->size_ = room.size_;
     this->cur_color_ = room.cur_color_;
+    this->def_color_ = room.def_color_;
     this->setPos( room.pos() );
     qInfo() << "&";
 
@@ -62,6 +63,7 @@ GraphicRoom & GraphicRoom::operator = ( const GraphicRoom && room )
     this->info_ = std::move( room.info_ );
     this->size_ = std::move( room.size_ );
     this->cur_color_ = std::move(room.cur_color_ );
+    this->def_color_ = std::move(room.def_color_ );
     this->setPos( room.pos() );
     qInfo() << "&&";
 
