@@ -42,34 +42,6 @@ GraphicRoom::GraphicRoom( const Meta & node, const QSize & size )
     this->show();
 }
 
-GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
-{
-    this->floor_ = room.floor_;
-    this->role_ = room.role_;
-    this->info_ = room.info_;
-    this->size_ = room.size_;
-    this->cur_color_ = room.cur_color_;
-    this->def_color_ = room.def_color_;
-    this->setPos( room.pos() );
-    qInfo() << "&";
-
-    return * this;
-}
-
-GraphicRoom & GraphicRoom::operator = ( const GraphicRoom && room )
-{
-    this->floor_ = room.floor_;
-    this->role_ = room.role_;
-    this->info_ = std::move( room.info_ );
-    this->size_ = std::move( room.size_ );
-    this->cur_color_ = std::move(room.cur_color_ );
-    this->def_color_ = std::move(room.def_color_ );
-    this->setPos( room.pos() );
-    qInfo() << "&&";
-
-    return * this;
-}
-
 std::string GraphicRoom::GetInfo() const
 {
     return info_;
@@ -79,6 +51,16 @@ void GraphicRoom::SetColor( const QColor & color )
 {
     cur_color_ = color;
 }
+
+void GraphicRoom::SetMeta( const Meta & nw_meta )
+{
+    setPos( nw_meta.x, nw_meta.y );
+    floor_ = nw_meta.floor;
+    role_ = nw_meta.role;
+    info_ = nw_meta.room_number;
+    ResetColor();
+}
+
 
 void GraphicRoom::ResetColor()
 {

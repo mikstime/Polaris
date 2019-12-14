@@ -70,8 +70,7 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             if( mouse_event->modifiers() & Qt::ControlModifier )
             {
-                qInfo() << "!!!!!!!";
-                RoomPressedRightCtrl( cast_item, cur_pos );
+                RoomPressedLeftCtrl(cast_item, cur_pos);
             }
             else
             {
@@ -80,7 +79,14 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         }
         else if( cast_item == nullptr ) // клик по постому пространству экрана
         {
-            EmptyPressedLeft(cur_pos);
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                EmptyPressedLeftCtrl(cast_item, cur_pos);
+            }
+            else
+            {
+                EmptyPressedLeft(cur_pos);
+            }
         }
     }
     else if ( mouse_event->button() == Qt::MouseButton::RightButton && cur_item == nullptr ) // правая кнопка
@@ -152,7 +158,7 @@ void ItemController::SelectPreviousNode( GraphicItem * const new_current )
     if( previous_node_ != nullptr )
     {
         previous_node_->ResetSelection();
-        return;
+//        previous_node_ = new_current;
     }
 
     if( current_node_ != nullptr )
@@ -193,9 +199,17 @@ void ItemController::EmptyPressedLeft(const QPointF & cur_pos )
     mark_down_.show();
 }
 
-void ItemController::RoomPressedRightCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
+void ItemController::RoomPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
 {
+    mark_down_.hide();
     SelectPreviousNode( cur_item );
+}
+
+void ItemController::EmptyPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    ResetPreviousNode();
+    mark_down_.setPos( cur_pos );
+    mark_down_.show();
 }
 
 void ItemController::EmptyPressedRight(const QPointF & cur_pos )
@@ -215,8 +229,7 @@ void ItemController::RoomReleaseLeft(GraphicItem * const cur_item, const QPointF
 
 void ItemController::EmptyReleaseLeft(const QPointF & cur_pos )
 {
-    ResetCurrentNode();
-    ResetPreviousNode();
+
 }
 
 void ItemController::RoomReleaseRight(GraphicItem * const cur_item, const QPointF & cur_pos )

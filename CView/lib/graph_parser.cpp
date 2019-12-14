@@ -77,10 +77,12 @@ void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
 void GraphParser::OnRoomChanged( const Meta & meta )
 {
     GraphicItem * cur_room = items_in_controller_->FindById( meta.graph_node_id );
+    qInfo() << "Change";
 
     if( cur_room != nullptr )
     {
-        * static_cast< GraphicRoom * >( cur_room ) = GraphicRoom( meta );
+        GraphicRoom * cast_room = static_cast< GraphicRoom * >( cur_room );
+        cast_room->SetMeta( meta );
         item_controller_->update();
     } else
     {
@@ -97,6 +99,8 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
+    qInfo() << "Removed";
+
     item_controller_->ResetCurrentNode();
     item_controller_->ResetPreviousNode();
     EraseItem( meta.graph_node_id );
@@ -141,6 +145,7 @@ bool GraphParser::EraseItem( const Id cur_id )
 //        // TODO смартпоинтер?
 //        delete pair.second;
 //        items_in_controller_.erase( cur_item );
+        delete cur_item;
 
         return true;
     }

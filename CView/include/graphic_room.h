@@ -15,12 +15,13 @@ public:
     explicit GraphicRoom( const Meta & node, const QSize & size = QSize( 40, 40 ) );
     GraphicRoom( const GraphicRoom & ) = delete;
     GraphicRoom( const GraphicRoom && ) = delete;
-    GraphicRoom & operator = ( const GraphicRoom & room );
-    GraphicRoom & operator = ( const GraphicRoom && room );
+    GraphicRoom & operator = ( const GraphicRoom & room ) = delete;
+    GraphicRoom & operator = ( const GraphicRoom && room ) = delete;
 
     std::string GetInfo() const;
     void SetColor( const QColor & color ) override;
     void SetSelection() override;
+    void SetMeta( const Meta & nw_meta );
     void ResetSelection() override;
 
 private:
