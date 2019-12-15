@@ -135,4 +135,5 @@ void Polaris::ButtonClickHandler::FloorDownButtonClick()
 
 void Polaris::ButtonClickHandler::EditMapButtonClick()
 {
+    view_controller_->EditMap();
 }

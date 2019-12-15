@@ -43,7 +43,9 @@ public:
     QPointF GetNodeCoordinates() const override;
     // запрашивает текущий этаж
     int8_t GetFloorNumber() const override;
-    // задать выкладку
+    // получить новую форму
+    QPolygonF GetNewForm() const override;
+// задать выкладку
     void SetLayout( QHBoxLayout * const layout );
     void SetParser( std::shared_ptr< GraphParser > graphic_parser );
     // войти в режим редактирования

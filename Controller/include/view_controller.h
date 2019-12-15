@@ -44,6 +44,9 @@ public:
      */
     std::pair< Coordinate, Coordinate > GetNodeCoords();
 
+    //TODO Реализация переключения
+    void EditMap();
+
 private:
     // Pointer to View object
     GraphicView * view_;

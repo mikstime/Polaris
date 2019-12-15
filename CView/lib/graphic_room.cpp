@@ -12,7 +12,7 @@ using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
         :GraphicItem( std::numeric_limits< size_t >::max(), 0, Polaris::Role::MARK ),
-         size_( QRect(-10, -10, 20, 20) )
+         size_( QRectF(-10, -10, 20, 20) )
 {
     // TODO инициализация
     ResetColor();
@@ -27,24 +27,29 @@ size_( rect )
 {
     // TODO инициализация
     ResetColor();
-    setPos( node.x, node.y );
+    setPos( node.coordinates );
 
     this->show();
 }
 
-GraphicRoom::GraphicRoom( const Meta & node, const QSize & size )
+GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
           info_( node.room_number ),
-          size_( - size.width() / 2, - size.height() / 2, size.width(), size.height() )
+          size_( node.size )
 {
     ResetColor();
-    setPos( node.x, node.y );
+    setPos( node.coordinates );
     this->show();
 }
 
 std::string GraphicRoom::GetInfo() const
 {
     return info_;
+}
+
+QPolygonF GraphicRoom::GetSize() const
+{
+    return size_;
 }
 
 void GraphicRoom::SetColor( const QColor & color )
@@ -54,7 +59,8 @@ void GraphicRoom::SetColor( const QColor & color )
 
 void GraphicRoom::SetMeta( const Meta & nw_meta )
 {
-    setPos( nw_meta.x, nw_meta.y );
+    setPos( nw_meta.coordinates );
+    size_ = nw_meta.size;
     floor_ = nw_meta.floor;
     role_ = nw_meta.role;
     info_ = nw_meta.room_number;
@@ -98,9 +104,9 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
 {
     painter->setPen( Qt::black );
     painter->setBrush(cur_color_ );
-    painter->drawEllipse( size_ );
+    painter->drawPolygon( size_ );
     QPointF text_pos = this->pos();
-    painter->drawText( size_, Qt::AlignCenter, info_.c_str() );
+    painter->drawText( size_.boundingRect(), Qt::AlignCenter, info_.c_str() );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -108,12 +114,12 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
 
 QRectF GraphicRoom::boundingRect() const
 {
-    return QRectF( size_ ).normalized();
+    return size_.boundingRect();
 }
 
 QPainterPath GraphicRoom::shape() const
 {
     QPainterPath path;
-    path.addEllipse(boundingRect());
+    path.addPolygon( size_ );
     return path;
 }

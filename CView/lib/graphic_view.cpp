@@ -107,6 +107,11 @@ int8_t GraphicView::GetFloorNumber() const
     return renderer_->GetFloor();
 }
 
+QPolygonF GraphicView::GetNewForm() const
+{
+    return item_controller_->GetNewForm();
+}
+
 void GraphicView::SetLayout( QHBoxLayout * const layout )
 {
     if( layout != nullptr )
@@ -120,5 +125,5 @@ void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
 
 bool GraphicView::ChangeMode( bool edit )
 {
-    item_controller_->ChangeMode( edit );
+    return item_controller_->ChangeMode( edit );
 }

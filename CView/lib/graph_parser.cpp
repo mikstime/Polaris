@@ -28,10 +28,6 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     {
         this->OnRoomAdded( k );
     }
-    for( const auto & k : graph )
-    {
-        this->OnConnectionAdded( k );
-    }
 }
 
 // TODO не объект нод, а объект меты
@@ -43,27 +39,12 @@ void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
     {
         qInfo() << k.room_number.c_str();
     }
-    qInfo() << "Con";
-    for( auto k : connections )
-    {
-        qInfo() << k.GetId();
-    }
 
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
     {
         GraphicItem * cur_item = items_in_controller_->FindById( k.graph_node_id );
-
-        if( cur_item != nullptr )
-        {
-            path.push_back( cur_item );
-        }
-    }
-
-    for( const auto & k : connections )
-    {
-        auto cur_item = items_in_controller_->FindById( k.GetId() );
 
         if( cur_item != nullptr )
         {
@@ -115,21 +96,21 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     if( from_room == nullptr || to_room == nullptr )
         return;
 
-    GraphicItem * nw_connection =  new GraphicConnection( from_room->pos(),
-                                                          to_room->pos(),
-                                                          connection.GetId(),
-                                                          std::min( from_room->GetFloor(),
-                                                                    to_room->GetFloor() ),
-                                                                    connection.cost );
-    item_controller_->addItem(nw_connection );
-    items_in_controller_->AddItem(  nw_connection, connection.GetId() );
+//    GraphicItem * nw_connection =  new GraphicConnection( from_room->pos(),
+//                                                          to_room->pos(),
+//                                                          connection.GetId(),
+//                                                          std::min( from_room->GetFloor(),
+//                                                                    to_room->GetFloor() ),
+//                                                                    connection.cost );
+//    item_controller_->addItem(nw_connection );
+//    items_in_controller_->AddItem(  nw_connection, connection.GetId() );
 }
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
     item_controller_->ResetCurrentNode();
     item_controller_->ResetPreviousNode();
-    EraseItem( connection.GetId() );
+//    EraseItem( connection.GetId() );
 }
 
 bool GraphParser::EraseItem( const Id cur_id )

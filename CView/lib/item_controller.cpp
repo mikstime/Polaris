@@ -15,7 +15,8 @@ editor_( std::make_unique< Editor >( this ) ),
 items_in_controller_( items_in_controller ),
 current_node_( nullptr ),
 previous_node_( nullptr ),
-path_drawn_( false )
+path_drawn_( false ),
+is_edit_( false )
 {
     this->addItem( & mark_down_ );
 }
@@ -37,6 +38,18 @@ size_t ItemController::GetPreviousNode() const
 QPointF ItemController::GetMarkDownPos() const
 {
     return mark_down_.isVisible() ? mark_down_.pos() : QPointF( -1, -1 );
+}
+
+QPolygonF ItemController::GetNewForm() const
+{
+    if( is_edit_ )
+    {
+        return editor_->GetNewForm();
+    }
+    else
+    {
+        return QPolygonF();
+    }
 }
 
 void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
@@ -61,8 +74,31 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     if( ! path_drawn_ )
         ResetPath();
 
-    // TODO разбить на фукнции по событиям разных кликов
-    if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+    if( is_edit_ )
+    //TODO еренести в хэндлклик
+    {
+        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
+                                      cast_item->GetRole() == Polaris::Role::HALL ||
+                                      cast_item->GetRole() == Polaris::Role::STAIR ) )
+        {
+            editor_->AddConnections( cast_item->GetSize() );
+        }
+        else if( cast_item != nullptr && cast_item->GetRole() == Polaris::Role::CONNECTION )
+        {
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                editor_->SelectConnection( cast_item );
+            }
+            else
+            {
+                editor_->EraseItem( cast_item );
+            }
+        } else if( cast_item == nullptr )
+        {
+            editor_->AddConnection( cur_pos );
+        }
+    }
+    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
     {
         if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
                                       cast_item->GetRole() == Polaris::Role::HALL ||
@@ -98,25 +134,25 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 
 void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    QPointF cur_pos = mouse_event->scenePos();
-    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
-    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
-
-    // TODO разбить на фукнции по событиям разных кликов
-    if( mouse_event->button() == Qt::MouseButton::LeftButton )
-    {
-        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
-                                      cast_item->GetRole() == Polaris::Role::HALL ||
-                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // соединить ноды
-        {
-
-        }
-        else // сбросить соединение
-        {
-            EmptyReleaseLeft( cur_pos );
-        }
-    }
-    this->update();
+//    QPointF cur_pos = mouse_event->scenePos();
+//    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
+//    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
+//
+//    // TODO разбить на фукнции по событиям разных кликов
+//    if( mouse_event->button() == Qt::MouseButton::LeftButton )
+//    {
+//        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
+//                                      cast_item->GetRole() == Polaris::Role::HALL ||
+//                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // соединить ноды
+//        {
+//
+//        }
+//        else // сбросить соединение
+//        {
+//
+//        }
+//    }
+//    this->update();
 }
 
 void ItemController::ResetCurrentNode()
@@ -139,7 +175,11 @@ void ItemController::ResetPreviousNode()
 
 bool ItemController::ChangeMode( bool edit )
 {
+    if( is_edit_ )
+        editor_->FinishEditing();
     is_edit_ != is_edit_;
+    qInfo() << is_edit_;
+    return  is_edit_;
 }
 
 void ItemController::SelectCurrentNode( GraphicItem * const new_current )
