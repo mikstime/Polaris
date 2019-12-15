@@ -26,11 +26,12 @@ namespace Polaris
         void EraseItem( GraphicItem * const item );
         void FinishEditing();
         QPolygonF GetNewForm() const;
+        QPointF GetPos() const;
 
     private:
         std::unique_ptr< QGraphicsScene > scene_;
         std::list< GraphicItem * > connections_;
-        QPolygonF selected_;
+        std::vector< QPointF > selected_;
     };
 } // namespace Polaris
 

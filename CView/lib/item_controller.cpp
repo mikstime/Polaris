@@ -37,7 +37,8 @@ size_t ItemController::GetPreviousNode() const
 
 QPointF ItemController::GetMarkDownPos() const
 {
-    return mark_down_.isVisible() ? mark_down_.pos() : QPointF( -1, -1 );
+
+    return editor_->GetPos();
 }
 
 QPolygonF ItemController::GetNewForm() const
@@ -74,16 +75,14 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     if( ! path_drawn_ )
         ResetPath();
 
-    if( is_edit_ )
+    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton )
     //TODO еренести в хэндлклик
     {
-        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
-                                      cast_item->GetRole() == Polaris::Role::HALL ||
-                                      cast_item->GetRole() == Polaris::Role::STAIR ) )
+        if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION )
         {
             editor_->AddConnections( cast_item->GetSize() );
         }
-        else if( cast_item != nullptr && cast_item->GetRole() == Polaris::Role::CONNECTION )
+        else if( cast_item != nullptr )
         {
             if( mouse_event->modifiers() & Qt::ControlModifier )
             {
@@ -97,12 +96,12 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             editor_->AddConnection( cur_pos );
         }
+        return;
     }
-    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+
+    if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
     {
-        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
-                                      cast_item->GetRole() == Polaris::Role::HALL ||
-                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // выбор комнаты
+        if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION ) // выбор комнаты
         {
             if( mouse_event->modifiers() & Qt::ControlModifier )
             {
@@ -229,27 +228,27 @@ void ItemController::RoomPressedLeft(GraphicItem * const cur_item, const QPointF
 {
     SelectCurrentNode( cur_item );
     ResetPreviousNode();
-    mark_down_.hide();
+//    mark_down_.hide();
 }
 
 void ItemController::EmptyPressedLeft(const QPointF & cur_pos )
 {
     ResetPreviousNode();
-    mark_down_.setPos( cur_pos );
-    mark_down_.show();
+//    mark_down_.setPos( cur_pos );
+//    mark_down_.show();
 }
 
 void ItemController::RoomPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
 {
-    mark_down_.hide();
+//    mark_down_.hide();
     SelectPreviousNode( cur_item );
 }
 
 void ItemController::EmptyPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
 {
     ResetPreviousNode();
-    mark_down_.setPos( cur_pos );
-    mark_down_.show();
+//    mark_down_.setPos( cur_pos );
+//    mark_down_.show();
 }
 
 void ItemController::EmptyPressedRight(const QPointF & cur_pos )
@@ -263,7 +262,7 @@ void ItemController::RoomReleaseLeft(GraphicItem * const cur_item, const QPointF
     if( cur_item != current_node_ ) // если соединение не с самим собой
     {
         SelectPreviousNode( cur_item );
-        mark_down_.hide();
+//        mark_down_.hide();
     }
 }
 
@@ -277,7 +276,7 @@ void ItemController::RoomReleaseRight(GraphicItem * const cur_item, const QPoint
     if( cur_item != current_node_ ) // если соединение не с самим собой
     {
         SelectPreviousNode( cur_item );
-        mark_down_.hide();
+//        mark_down_.hide();
     }
 }
 

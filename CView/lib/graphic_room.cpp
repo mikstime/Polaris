@@ -20,18 +20,6 @@ GraphicRoom::GraphicRoom()
     this->show();
 }
 
-GraphicRoom::GraphicRoom( const Meta & node, const QRectF & rect )
-: GraphicItem( node.graph_node_id, node.floor, node.role ),
-info_( node.room_number ),
-size_( rect )
-{
-    // TODO инициализация
-    ResetColor();
-    setPos( node.coordinates );
-
-    this->show();
-}
-
 GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
           info_( node.room_number ),

@@ -12,7 +12,6 @@ class GraphicRoom : public GraphicItem
 {
 public:
     explicit GraphicRoom();
-    explicit GraphicRoom( const Meta & node, const QRectF & rect );
     explicit GraphicRoom( const Meta & node );
     GraphicRoom( const GraphicRoom & ) = delete;
     GraphicRoom( const GraphicRoom && ) = delete;

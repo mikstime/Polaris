@@ -71,5 +71,31 @@ void Editor::FinishEditing()
 
 QPolygonF Editor::GetNewForm() const
 {
-    return selected_;
+    QPolygonF res;
+    for( const auto & k : selected_ )
+    {
+        res.push_back( k );
+    }
+    return res;
+}
+
+QPointF Editor::GetPos() const
+{
+    if( selected_.empty() )
+    {
+        return QPointF( 0, 0 );
+    }
+    QPointF res = selected_[ 0 ];
+    for( const auto & k : selected_ )
+    {
+        if( k.x() < res.x() )
+        {
+            res.setX( k.x() );
+        }
+        if ( k.y() < res.y() )
+        {
+            res.setY( k.y() );
+        }
+    }
+    return res;
 }
