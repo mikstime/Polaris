@@ -62,6 +62,7 @@ public slots:
      * Floor down button click handler
      */
     void FloorDownButtonClick();
+    void EditMapButtonClick();
 };
 
 } // namespace Polaris

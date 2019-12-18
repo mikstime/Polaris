@@ -1,12 +1,11 @@
 #ifndef MAINAPP_GRAPHPARSER_H
 #define MAINAPP_GRAPHPARSER_H
 
-#include "GraphNode/GraphNode.h"
-#include "GraphConnection/GraphConnection.h"
 #include "item_controller.h"
+#include "item_collaction.h"
+#include "graphic_connection.h"
 #include <unordered_map>
 #include <memory>
-#include "Meta/Meta.h"
 #include <unordered_map>
 #include <vector>
 
@@ -17,7 +16,8 @@ namespace Polaris
     {
     public:
         explicit GraphParser() = default;
-        explicit GraphParser( std::shared_ptr< ItemController > & item_controller );
+        explicit GraphParser( std::shared_ptr< ItemController > & item_controller,
+                              std::shared_ptr< ItemCollaction > items_in_controller );
         virtual ~GraphParser();
         GraphParser( const GraphParser & ) = delete;
         GraphParser( const GraphParser && ) = delete;
@@ -31,15 +31,14 @@ namespace Polaris
         virtual void OnRoomRemoved( const Meta & meta );
         virtual void OnConnectionAdded( const GraphConnection & connection );
         virtual void OnConnectionRemoved( const GraphConnection & connection );
-        void EraseItems();
 
     private:
-        std::shared_ptr< ItemController >item_cotroller_;
+        std::shared_ptr< ItemController >item_controller_;
         // TODO обернуть в отдельный класс
-        std::unordered_map< Id, GraphicItem * > items_in_controller_;
+        std::shared_ptr< ItemCollaction > items_in_controller_;
 
-        std::unordered_map< Id, GraphicItem * >::iterator FindByPointer( const GraphicItem * const cur_item );
-        bool EraseItemById( const Id cur_id );
+        bool EraseItem( const Id id );
+
     };
 } // namespace Polaris
 
