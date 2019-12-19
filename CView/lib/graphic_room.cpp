@@ -27,7 +27,7 @@ GraphicRoom::GraphicRoom( const Meta & node )
           size_( node.size )
 {
     ResetColor();
-    setPos( node.coordinates );
+//    setPos( node.coordinates );
     setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
     this->show();
 }

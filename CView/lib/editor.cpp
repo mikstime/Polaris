@@ -15,14 +15,15 @@ Editor::~Editor()
 }
 
 
-void Editor::AddConnections( const QPolygonF & polygon )
+void Editor::AddConnections( const QPolygonF & polygon, const QPointF & pos )
 {
     for( const auto & k : polygon )
     {
-        GraphicItem * cur_item = static_cast< GraphicItem * >( scene_->itemAt( k, QTransform() ) );
-        if( cur_item == nullptr && cur_item->GetRole() != Role::CONNECTION )
+        QPointF nw_pos = k + pos;
+        GraphicItem * cur_item = static_cast< GraphicItem * >( scene_->itemAt( nw_pos, QTransform() ) );
+        if( cur_item == nullptr || cur_item->GetRole() != Role::CONNECTION )
         {
-            GraphicItem * nw_connection = new GraphicConnection( k );
+            GraphicItem * nw_connection = new GraphicConnection( nw_pos );
             connections_.push_back( nw_connection );
             scene_->addItem( nw_connection );
         }
@@ -47,7 +48,7 @@ void Editor::SelectConnection( GraphicItem * const item )
     else
     {
         item->SetSelection();
-        selected_.push_back( item->pos() );
+        selected_ << item->pos();
     }
 }
 
@@ -72,14 +73,14 @@ void Editor::FinishEditing()
 
 QPolygonF Editor::GetNewForm() const
 {
-    QPolygonF res;
-    for( const auto & k : selected_ )
-    {
-        res.push_back( k );
-    }
-    // TODO изменить
+//    QPolygonF res;
+//    for( const auto & k : selected_ )
+//    {
+//        res.push_back( k );
+//    }
+//    // TODO изменить
 //    res.translate( - GetPos() );
-    return res;
+    return selected_.translated( - GetPos() );
 }
 
 QPointF Editor::GetPos() const
