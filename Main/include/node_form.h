@@ -53,6 +53,7 @@ private:
     // Current node constant params
     Id id_;
     Coordinate x_, y_;
+    QPolygonF size_;
 
     QVBoxLayout * main_layout_;
 
