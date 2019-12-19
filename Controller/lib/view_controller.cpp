@@ -44,6 +44,11 @@ void Polaris::ViewController::UpdateNodeCoordinates()
     coords_.second = point.ry();
 }
 
+QPolygonF Polaris::ViewController::GetNodeForm()
+{
+    return view_->GetNewForm();
+}
+
 int8_t Polaris::ViewController::GetCurrentFloor()
 {
     return view_->GetFloorNumber();
@@ -70,4 +75,16 @@ std::pair< Polaris::Coordinate, Polaris::Coordinate > Polaris::ViewController::G
 void Polaris::ViewController::EditMap()
 {
     view_->ChangeMode( true );
+}
+
+void Polaris::ViewController::FloorUp()
+{
+    if( view_->FloorUp() )
+        ++floor_number_;
+}
+
+void Polaris::ViewController::FloorDown()
+{
+    if( view_->FloorDown() )
+        --floor_number_;
 }

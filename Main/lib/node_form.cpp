@@ -74,10 +74,11 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
     // Set meta params
     meta.graph_node_id = id_;
     meta.room_number = room_number;
-    meta.coordinates.setX(x_);
-    meta.coordinates.setY(y_);
+    meta.coordinates.setX( x_ );
+    meta.coordinates.setY( y_ );
     meta.floor = floor;
     meta.role = role;
+    meta.size = view_controller_->GetNodeForm();
 
     return meta;
 }
