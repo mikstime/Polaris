@@ -19,6 +19,7 @@ struct Meta
 public:
     Id graph_node_id;
     std::string room_number;
+    std::string info;
     QPointF coordinates;
     QPolygonF size;
     int8_t floor;

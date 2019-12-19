@@ -19,6 +19,7 @@ public:
     GraphicRoom & operator = ( const GraphicRoom && room ) = delete;
 
     std::string GetInfo() const;
+    std::string GetRoom() const;
     QPolygonF GetSize() const override;
     void SetColor( const QColor & color ) override;
     void SetSelection() override;

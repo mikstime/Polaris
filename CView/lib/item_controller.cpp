@@ -174,9 +174,10 @@ bool ItemController::ChangeMode( bool edit )
 {
 //    if( is_edit_ )
 //        editor_->FinishEditing();
-    qInfo() << is_edit_;
+    qInfo() << "Editing: " << is_edit_;
     is_edit_ = !is_edit_;
-    qInfo() << is_edit_;
+    editor_->FinishEditing();
+    qInfo() << "Editing: " << is_edit_;
     return  is_edit_;
 }
 

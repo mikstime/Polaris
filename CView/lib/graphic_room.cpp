@@ -23,6 +23,7 @@ GraphicRoom::GraphicRoom()
 GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
           room_number_( node.room_number ),
+          info_( node.info ),
           size_( node.size )
 {
     ResetColor();
@@ -34,6 +35,11 @@ GraphicRoom::GraphicRoom( const Meta & node )
 std::string GraphicRoom::GetInfo() const
 {
     return info_;
+}
+
+std::string GraphicRoom::GetRoom() const
+{
+    return room_number_;
 }
 
 QPolygonF GraphicRoom::GetSize() const
@@ -52,7 +58,8 @@ void GraphicRoom::SetMeta( const Meta & nw_meta )
     size_ = nw_meta.size;
     floor_ = nw_meta.floor;
     role_ = nw_meta.role;
-    info_ = nw_meta.room_number;
+    room_number_ = nw_meta.room_number;
+    info_ = nw_meta.info;
     ResetColor();
 }
 
