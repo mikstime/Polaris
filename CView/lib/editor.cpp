@@ -77,6 +77,8 @@ QPolygonF Editor::GetNewForm() const
     {
         res.push_back( k );
     }
+    // TODO изменить
+//    res.translate( - GetPos() );
     return res;
 }
 

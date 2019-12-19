@@ -1,5 +1,5 @@
 #include "include/node_form.h"
-
+#include <QDebug>
 Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller ) :
         id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel ), model_( model ), view_controller_( view_controller )
 {
@@ -79,7 +79,7 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
     meta.floor = floor;
     meta.role = role;
     meta.size = view_controller_->GetNodeForm();
-
+    qDebug() << meta.size;
     return meta;
 }
 
