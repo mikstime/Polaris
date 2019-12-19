@@ -43,6 +43,7 @@ void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
 void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
+    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::AddRoom(const Meta & meta )

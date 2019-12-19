@@ -8,6 +8,8 @@ GraphicConnection::GraphicConnection( const QPointF & pos )
 {
     ResetColor();
     this->setPos( pos );
+    this->size_.setWidth(20);
+    this->size_.setHeight(20);
     this->show();
 }
 
@@ -38,7 +40,8 @@ void GraphicConnection::ResetSelection()
 
 void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget )
 {
-    painter->setPen(cur_color_ );
+    painter->setPen( Qt::black );
+    painter->setBrush( cur_color_ );
     painter->drawRect( size_ );
 //    painter->drawText( QRectF( left_, right_ ), Qt::AlignCenter, QString::number( cost_ ) );
 

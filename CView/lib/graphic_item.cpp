@@ -21,7 +21,7 @@ role_( role )
 
 bool GraphicItem::IsSelected() const
 {
-    return cur_color_ == def_color_;
+    return cur_color_ != def_color_;
 }
 
 size_t GraphicItem::GetId() const
@@ -46,6 +46,5 @@ QColor GraphicItem::GetColor() const
 
 void GraphicItem::SetDefaultColor()
 {
-    qInfo() << "ХЕР";
     cur_color_ =  def_color_;
 }

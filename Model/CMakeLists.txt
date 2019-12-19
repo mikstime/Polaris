@@ -5,8 +5,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 set(HEADERS include/Graph/Graph.h
             include/GraphInterface/GraphInterface.h
@@ -39,7 +44,7 @@ include_directories( ${GTEST_INCLUDE_DIRS} )
 include_directories( ${GMOCK_INCLUDE_DIRS} )
 include_directories( ${PROJECT_SOURCE_DIR}/Utils/ )
 
-target_link_libraries( Model ${Boost_LIBRARIES} Utils )
+target_link_libraries( Model ${Boost_LIBRARIES} Utils Qt5::Widgets)
 #Tests for GraphInterface class
 #add_executable( graph_interface_tests lib/GraphInterface/graph_interface_tests.cpp )
 #target_link_libraries( graph_interface_tests Model ${GTEST_LIBRARIES} )

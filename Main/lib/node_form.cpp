@@ -50,8 +50,8 @@ void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id )
 
     Meta meta = model_->getMeta( id );
 
-    x_ = meta.x;
-    y_ = meta.y;
+    x_ = meta.coordinates.x();
+    y_ = meta.coordinates.y();
 }
 
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
@@ -74,8 +74,8 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
     // Set meta params
     meta.graph_node_id = id_;
     meta.room_number = room_number;
-    meta.x = x_;
-    meta.y = y_;
+    meta.coordinates.setX(x_);
+    meta.coordinates.setY(y_);
     meta.floor = floor;
     meta.role = role;
 

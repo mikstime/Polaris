@@ -72,7 +72,7 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
 
-    if( ! path_drawn_ )
+    if( path_drawn_ )
         ResetPath();
 
     if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton )
@@ -96,10 +96,8 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             editor_->AddConnection( cur_pos );
         }
-        return;
     }
-
-    if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION ) // выбор комнаты
         {
@@ -174,9 +172,10 @@ void ItemController::ResetPreviousNode()
 
 bool ItemController::ChangeMode( bool edit )
 {
-    if( is_edit_ )
-        editor_->FinishEditing();
-    is_edit_ != is_edit_;
+//    if( is_edit_ )
+//        editor_->FinishEditing();
+    qInfo() << is_edit_;
+    is_edit_ = !is_edit_;
     qInfo() << is_edit_;
     return  is_edit_;
 }

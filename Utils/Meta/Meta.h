@@ -3,6 +3,8 @@
 
 #include <string>
 #include "typedefs.h"
+#include "qpoint.h"
+#include "qpolygon.h"
 
 namespace Polaris
 {

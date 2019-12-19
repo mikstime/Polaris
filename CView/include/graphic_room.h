@@ -27,6 +27,7 @@ public:
 
 private:
     std::string info_;
+    std::string room_number_;
     QPolygonF size_;
 
     void ResetColor() override;

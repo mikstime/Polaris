@@ -10,6 +10,7 @@ Editor::Editor( QGraphicsScene * scene )
 
 Editor::~Editor()
 {
+    FinishEditing();
     scene_.release();
 }
 
@@ -39,14 +40,14 @@ void Editor::SelectConnection( GraphicItem * const item )
 {
     if( item->IsSelected() )
     {
-        item->SetSelection();
-        selected_.push_back( item->pos() );
+        item->ResetSelection();
+        //TODO доделать
+        selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
     }
     else
     {
-        item->SetDefaultColor();
-        //TODO доделать
-        selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
+        item->SetSelection();
+        selected_.push_back( item->pos() );
     }
 }
 

@@ -11,22 +11,23 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
-        :GraphicItem( std::numeric_limits< size_t >::max(), 0, Polaris::Role::MARK ),
+        :GraphicItem( 0, 0, Polaris::Role::MARK ),
          size_( QRectF(-10, -10, 20, 20) )
 {
     // TODO инициализация
     ResetColor();
     setPos( 40, 40 );
-    this->show();
+    this->hide();
 }
 
 GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
-          info_( node.room_number ),
+          room_number_( node.room_number ),
           size_( node.size )
 {
     ResetColor();
     setPos( node.coordinates );
+    setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
     this->show();
 }
 
