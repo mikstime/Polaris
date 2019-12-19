@@ -20,7 +20,7 @@ namespace Polaris
         Editor & operator = ( const Editor && ) = delete;
         ~Editor();
 
-        void AddConnections( const QPolygonF & polygon );
+        void AddConnections( const QPolygonF & polygon, const QPointF & pos );
         void AddConnection( QPointF & pos );
         void SelectConnection( GraphicItem * const item );
         void EraseItem( GraphicItem * const item );
@@ -31,7 +31,7 @@ namespace Polaris
     private:
         std::unique_ptr< QGraphicsScene > scene_;
         std::list< GraphicItem * > connections_;
-        std::vector< QPointF > selected_;
+        QPolygonF selected_;
     };
 } // namespace Polaris
 

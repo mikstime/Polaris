@@ -72,11 +72,6 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
 
-
-    if( cast_item )
-        qInfo() << cast_item;
-
-
     if( path_drawn_ )
         ResetPath();
 
@@ -85,7 +80,7 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION )
         {
-            editor_->AddConnections( cast_item->GetSize() );
+            editor_->AddConnections( cast_item->GetSize(), cast_item->pos() );
         }
         else if( cast_item != nullptr )
         {
@@ -239,6 +234,7 @@ void ItemController::RoomPressedLeft(GraphicItem * const cur_item, const QPointF
 void ItemController::EmptyPressedLeft(const QPointF & cur_pos )
 {
     ResetPreviousNode();
+    ResetCurrentNode();
 //    mark_down_.setPos( cur_pos );
 //    mark_down_.show();
 }
