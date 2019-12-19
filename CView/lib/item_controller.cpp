@@ -62,6 +62,7 @@ void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
         k->SetColor( Qt::red );
     }
 
+    this->update();
     path_drawn_ = true;
 }
 

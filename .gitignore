@@ -50,6 +50,7 @@ CView/capp.ui
 CView/CMakeLists.txt.user
 mainwindow/
 tests_CView/
+bin/
 
 # IDE files
 *.user
