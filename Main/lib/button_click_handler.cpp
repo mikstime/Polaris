@@ -139,7 +139,3 @@ void Polaris::ButtonClickHandler::EditMapButtonClick()
 {
     view_controller_->EditMap();
 }
-
-void Polaris::ButtonClickHandler::EditMapButtonClick()
-{
-}
