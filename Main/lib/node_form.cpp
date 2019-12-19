@@ -1,5 +1,5 @@
 #include "include/node_form.h"
-
+#include <QDebug>
 Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller ) :
         id_( EMPTY ), x_( EMPTY ), y_( EMPTY ), button_panel_( button_panel ), model_( model ), view_controller_( view_controller )
 {
@@ -24,7 +24,7 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
 
     role_buttons_[0]->setChecked( true );
 
-    for( int i = 0; i < ROLE_COUNT; ++i )
+    for( int i = 0; i < 3; ++i )
         role_layout->addWidget( role_buttons_[i] );
 
     // Init and connect save button
@@ -47,11 +47,18 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id )
 {
     id_ = id;
+
+    Meta meta = model_->getMeta( id );
+
+    x_ = meta.coordinates.x();
+    y_ = meta.coordinates.y();
 }
 
 void Polaris::NodeForm::SetCurrentNodeParams( const Polaris::Id & id,
         const Polaris::Coordinate & x, const Polaris::Coordinate & y )
 {
+    Meta cur_meta = model_->getMeta( id );
+
     id_ = id;
     x_ = x;
     y_ = y;
@@ -67,11 +74,12 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( const std::string & room_number,
     // Set meta params
     meta.graph_node_id = id_;
     meta.room_number = room_number;
-    meta.x = x_;
-    meta.y = y_;
+    meta.coordinates.setX( x_ );
+    meta.coordinates.setY( y_ );
     meta.floor = floor;
     meta.role = role;
-
+    meta.size = view_controller_->GetNodeForm();
+    qDebug() << meta.size;
     return meta;
 }
 

@@ -28,6 +28,7 @@ public:
      * Update selected node coordinates
      */
     void UpdateNodeCoordinates();
+    QPolygonF GetNodeForm();
     /**
      * Get current floor
      * @return - Floor number
@@ -43,6 +44,11 @@ public:
      * @return - Two pairs of node coordinates
      */
     std::pair< Coordinate, Coordinate > GetNodeCoords();
+
+    //TODO Реализация переключения
+    void EditMap();
+    void FloorUp();
+    void FloorDown();
 
 private:
     // Pointer to View object

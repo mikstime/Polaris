@@ -12,14 +12,16 @@ namespace Polaris
     class GraphicItem : public QGraphicsItem
     {
     public:
-        GraphicItem() = default;
+        GraphicItem();
         explicit GraphicItem( const Id & id, const int8_t & floor = 0, const Role & role = Role::MARK );
         virtual ~GraphicItem() = default;
 
+        bool IsSelected() const;
         Id GetId() const;
         int8_t GetFloor() const;
         Role GetRole() const;
         QColor GetColor() const;
+        virtual QPolygonF GetSize() const { return QPolygonF(); };
         void SetDefaultColor();
         virtual void SetColor( const QColor & color ) { return; }
         virtual void SetSelection() { return; }

@@ -15,7 +15,7 @@ class GraphicView : public View
 {
 
 public:
-    explicit GraphicView();
+    explicit GraphicView() = default;
     GraphicView( const GraphicView & ) = delete;
     GraphicView( const GraphicView && ) = delete;
 
@@ -43,9 +43,13 @@ public:
     QPointF GetNodeCoordinates() const override;
     // запрашивает текущий этаж
     int8_t GetFloorNumber() const override;
-    // задать выкладку
+    // получить новую форму
+    QPolygonF GetNewForm() const override;
+// задать выкладку
     void SetLayout( QHBoxLayout * const layout );
     void SetParser( std::shared_ptr< GraphParser > graphic_parser );
+    // войти в режим редактирования
+    bool ChangeMode( bool edit ) override;
 
 private:
     // TODO будут ли работать указатели?

@@ -15,11 +15,16 @@ using Polaris::Meta;
 
 // Размер окна и выкладка, на которой будет размещен виджет
 GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
-: item_controller_( new ItemController( QRect( 0, 0, size.width(), size.height() ) ) ),
-  renderer_( new Renderer( item_controller_.get() ) ),
-  graph_parser_( new GraphParser( item_controller_ ) )
 {
+    std::shared_ptr< ItemCollaction > collaction( new ItemCollaction );
+    item_controller_ = std::shared_ptr< ItemController >( new ItemController( QRect( 0, 0,
+                                                                                             size.width(),
+                                                                                             size.height() ),
+                                                                            collaction ) );
+    graph_parser_ = std::shared_ptr< GraphParser >( new GraphParser( item_controller_, collaction ) );
+    renderer_ = std::shared_ptr< Renderer >( new Renderer( item_controller_.get() ) );
     renderer_->setMaximumSize( size );
+
     if( layout != nullptr )
         layout->addWidget( renderer_.get() );
 }
@@ -38,6 +43,7 @@ void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
 void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
+    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::AddRoom(const Meta & meta )
@@ -102,6 +108,11 @@ int8_t GraphicView::GetFloorNumber() const
     return renderer_->GetFloor();
 }
 
+QPolygonF GraphicView::GetNewForm() const
+{
+    return item_controller_->GetNewForm();
+}
+
 void GraphicView::SetLayout( QHBoxLayout * const layout )
 {
     if( layout != nullptr )
@@ -111,4 +122,9 @@ void GraphicView::SetLayout( QHBoxLayout * const layout )
 void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
 {
     graph_parser_ = graph_parser;
+}
+
+bool GraphicView::ChangeMode( bool edit )
+{
+    return item_controller_->ChangeMode( edit );
 }

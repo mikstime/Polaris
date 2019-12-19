@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package( GTest REQUIRED )
 
 set(HEADERS typedefs.h

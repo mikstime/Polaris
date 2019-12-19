@@ -45,7 +45,7 @@ void Polaris::ButtonClickHandler::AddButtonClick()
             button_panel_->hide();
         }
         else
-            qInfo() << "Delete button: Nodes not selected";
+            qInfo() << "Add button: Nodes not selected";
     }
 }
 
@@ -127,8 +127,15 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()
 {
+    view_controller_->FloorUp();
 }
 
 void Polaris::ButtonClickHandler::FloorDownButtonClick()
 {
+    view_controller_->FloorDown();
+}
+
+void Polaris::ButtonClickHandler::EditMapButtonClick()
+{
+    view_controller_->EditMap();
 }

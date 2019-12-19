@@ -1,9 +1,12 @@
 #include <gtest/gtest.h>
-//#include <gmock/gmock.h>
+#include <gmock/gmock.h>
 #include "include/graphic_connection.h"
-#include "include/graphic_view.h"
-#include "include/graph_parser.h"
-#include "include/renderer.h"
+#include "include/item_collaction.h"
+#include "mock_controller.h"
+#include "mock_graphic_item.h"
+#include "mock_parser.h"
+#include "mock_renderer.h"
+#include "mock_view.h"
 #include <memory>
 #include <QApplication>
 
@@ -14,17 +17,18 @@ using Polaris::GraphicItem;
 using Polaris::GraphicRoom;
 using Polaris::GraphicView;
 using Polaris::ItemController;
+using Polaris::ItemCollaction;
 using Polaris::Meta;
 using Polaris::Renderer;
 using Polaris::Role;
 
 using std::shared_ptr;
 
-//using ::testing::AtLeast;
-//using ::testing::DoAll;
-//using ::testing::SetArgReferee;
-//using ::testing::Return;
-//using ::testing::_;
+using ::testing::AtLeast;
+using ::testing::DoAll;
+using ::testing::SetArgReferee;
+using ::testing::Return;
+using ::testing::_;
 
 TEST( Item, Init )
 {
@@ -37,19 +41,21 @@ TEST( Item, Init )
 
 TEST( Room, Init )
 {
-    Meta meta = { 1, "805", 1, 1, 5, Role::ROOM };
+    Meta meta = { 1, "805", "Лаборатория", QPointF( 1, 1 ),
+                  QPolygonF( 0 ), 5, Role::ROOM };
     GraphicRoom room( meta );
 
     EXPECT_EQ( room.GetId(), 1 );
     EXPECT_EQ( room.GetFloor(), 5 );
     EXPECT_EQ( room.GetRole(), Polaris::Role::ROOM );
-    EXPECT_EQ( room.GetInfo(), "805" );
+    EXPECT_EQ( room.GetInfo(), "Лаборатория" );
+    EXPECT_EQ( room.GetRoom(), "805" );
 }
 
 TEST( Connection, Init )
 {
     QPointF point( 50, 50 );
-    GraphicConnection connection( point, point, 1, 2, 3 );
+    GraphicConnection connection( point );
 
     EXPECT_EQ( connection.GetId(), 1 );
     EXPECT_EQ( connection.GetFloor(), 2 );
@@ -58,7 +64,8 @@ TEST( Connection, Init )
 
 TEST( Room, Color )
 {
-    Meta meta = { 1, "805", 1, 1, 5, Role::ROOM };
+    Meta meta = { 1, "805", QPointF( 1, 1 ),
+                  QPolygonF( 0 ), 5, Role::ROOM };
     GraphicRoom room( meta );
 
     QColor cur_color = room.GetColor();
@@ -80,7 +87,7 @@ TEST( Room, Color )
 TEST( Connection, Color )
 {
     QPointF point( 50, 50 );
-    GraphicConnection connection( point, point, 1, 2, 3 );
+    GraphicConnection connection( point );
 
     QColor cur_color = connection.GetColor();
     connection.SetColor( Qt::blue );
@@ -100,7 +107,7 @@ TEST( Connection, Color )
 TEST( Renderer, Floor )
 {
 
-    ItemController item_controller( QRect( 0, 0, 500, 500 ) );
+    ItemController item_controller( QRect( 0, 0, 500, 500 ), nullptr );
     Renderer renderer( & item_controller );
 
     renderer.SetFloor( 5 );
@@ -112,13 +119,15 @@ class Parser : public ::testing::Test
 protected:
     void SetUp()
     {
+        items_in_controller_ = std::shared_ptr< ItemCollaction >( new ItemCollaction );
         item_controller_ = std::shared_ptr< ItemController >( new ItemController( QRect( 0, 0,
-                                                                                     500, 500 ) ) );
-        graph_parser_ = std::shared_ptr< GraphParser >( new GraphParser( item_controller_ ) );
+                                                                                     500, 500 ), items_in_controller_ ) );
+        graph_parser_ = std::shared_ptr< GraphParser >( new GraphParser( item_controller_, items_in_controller_ ) );
 
         for( size_t i = 0; i < 10; i++ )
         {
-            Meta meta = { i, "805ю", 120, 120, 1, Role::ROOM };
+            Meta meta = { i, "805ю", QPointF( 20, 20 ),
+                          QPolygonF( 0 ), 1, Role::ROOM };
             meta_.push_back( meta );
         }
         for( size_t i = 1; i < 5; i++ )
@@ -134,6 +143,7 @@ protected:
     std::vector< GraphConnection > graph_;
     std::shared_ptr< GraphParser > graph_parser_;
     std::shared_ptr< ItemController > item_controller_;
+    std::shared_ptr< ItemCollaction > items_in_controller_;
 };
 
 TEST_F( Parser, BuildItems )
@@ -163,27 +173,26 @@ TEST_F( Parser, AddConnection )
     EXPECT_EQ( item_controller_->items().size(), 3 );
 }
 
-//class GraphView : public ::testing::Test
-//{
-//protected:
-//    void SetUp()
-//    {
-//        new GraphicView();
-//        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
-//        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
-//        // TODO моки
-//    }
+class GraphView : public ::testing::Test
+{
+protected:
+    void SetUp()
+    {
+        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
+        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
+        // TODO моки
+    }
 
-//    std::shared_ptr< GraphicView > graphic_view_;
-//    std::shared_ptr< MockGraphParser > graph_parser_;
-//};
+    std::shared_ptr< GraphicView > graphic_view_;
+    std::shared_ptr< MockGraphParser > graph_parser_;
+};
 
-//TEST_F( GraphView, Parser )
-//{
+TEST_F( GraphView, Parser )
+{
 //    EXPECT_CALL( *( graph_parser_.get() ), OnRoomChanged( _ ) ).Times( 1 );
 //    Meta meta = {};
 //    graphic_view_->AddRoom( meta );
-//}
+}
 
 //class MouseInteraction : public ::testing::Test
 //{
@@ -196,7 +205,7 @@ TEST_F( Parser, AddConnection )
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv, false );
-//    ::testing::InitGoogleMock(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
