@@ -11,63 +11,25 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
-        :GraphicItem( std::numeric_limits< size_t >::max(), 0, Polaris::Role::MARK ),
-         size_( QRect(-10, -10, 20, 20) )
+        :GraphicItem( 0, 0, Polaris::Role::MARK ),
+         size_( QRectF(-10, -10, 20, 20) )
 {
     // TODO инициализация
     ResetColor();
     setPos( 40, 40 );
-    this->show();
+    this->hide();
 }
 
-GraphicRoom::GraphicRoom( const Meta & node, const QRectF & rect )
-: GraphicItem( node.graph_node_id, node.floor, node.role ),
-info_( node.room_number ),
-size_( rect )
-{
-    // TODO инициализация
-    ResetColor();
-    setPos( node.x, node.y );
-
-    this->show();
-}
-
-GraphicRoom::GraphicRoom( const Meta & node, const QSize & size )
+GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
-          info_( node.room_number ),
-          size_( - size.width() / 2, - size.height() / 2, size.width(), size.height() )
+          room_number_( node.room_number ),
+          info_( node.info ),
+          size_( node.size )
 {
     ResetColor();
-    setPos( node.x, node.y );
+    setPos( node.coordinates );
+    setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
     this->show();
-}
-
-GraphicRoom & GraphicRoom::operator = ( const GraphicRoom & room )
-{
-    this->floor_ = room.floor_;
-    this->role_ = room.role_;
-    this->info_ = room.info_;
-    this->size_ = room.size_;
-    this->cur_color_ = room.cur_color_;
-    this->def_color_ = room.def_color_;
-    this->setPos( room.pos() );
-    qInfo() << "&";
-
-    return * this;
-}
-
-GraphicRoom & GraphicRoom::operator = ( const GraphicRoom && room )
-{
-    this->floor_ = room.floor_;
-    this->role_ = room.role_;
-    this->info_ = std::move( room.info_ );
-    this->size_ = std::move( room.size_ );
-    this->cur_color_ = std::move(room.cur_color_ );
-    this->def_color_ = std::move(room.def_color_ );
-    this->setPos( room.pos() );
-    qInfo() << "&&";
-
-    return * this;
 }
 
 std::string GraphicRoom::GetInfo() const
@@ -75,10 +37,32 @@ std::string GraphicRoom::GetInfo() const
     return info_;
 }
 
+std::string GraphicRoom::GetRoom() const
+{
+    return room_number_;
+}
+
+QPolygonF GraphicRoom::GetSize() const
+{
+    return size_;
+}
+
 void GraphicRoom::SetColor( const QColor & color )
 {
     cur_color_ = color;
 }
+
+void GraphicRoom::SetMeta( const Meta & nw_meta )
+{
+    setPos( nw_meta.coordinates );
+    size_ = nw_meta.size;
+    floor_ = nw_meta.floor;
+    role_ = nw_meta.role;
+    room_number_ = nw_meta.room_number;
+    info_ = nw_meta.info;
+    ResetColor();
+}
+
 
 void GraphicRoom::ResetColor()
 {
@@ -116,9 +100,9 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
 {
     painter->setPen( Qt::black );
     painter->setBrush(cur_color_ );
-    painter->drawEllipse( size_ );
+    painter->drawPolygon( size_ );
     QPointF text_pos = this->pos();
-    painter->drawText( size_, Qt::AlignCenter, info_.c_str() );
+    painter->drawText( size_.boundingRect(), Qt::AlignCenter, info_.c_str() );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -126,12 +110,12 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
 
 QRectF GraphicRoom::boundingRect() const
 {
-    return QRectF( size_ ).normalized();
+    return size_.boundingRect();
 }
 
 QPainterPath GraphicRoom::shape() const
 {
     QPainterPath path;
-    path.addEllipse(boundingRect());
+    path.addPolygon( size_ );
     return path;
 }

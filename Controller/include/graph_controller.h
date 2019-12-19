@@ -3,7 +3,7 @@
 
 #include <utility>
 #include <memory>
-
+#include <QGraphicsItem>
 #include "GraphNode/GraphNode.h"
 #include "Meta/Meta.h"
 #include "GraphConnection/GraphConnection.h"

@@ -30,8 +30,8 @@ void Polaris::GraphController::MoveNode( const Polaris::Id & node_id, const std:
 {
     Meta meta;
     meta.graph_node_id = node_id;
-    meta.x = node_coords.first;
-    meta.y = node_coords.second;
+    meta.coordinates.setX(node_coords.first);
+    meta.coordinates.setY(node_coords.second);
     model_->ChangeMeta( node_id, meta );
 }
 
