@@ -66,3 +66,8 @@ std::pair< Polaris::Coordinate, Polaris::Coordinate > Polaris::ViewController::G
     // Return pair of coordinates
     return coords_;
 }
+
+void Polaris::ViewController::EditMap()
+{
+    view_->ChangeMode( true );
+}

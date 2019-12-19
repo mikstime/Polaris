@@ -43,6 +43,7 @@ void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
 void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
+    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::AddRoom(const Meta & meta )
@@ -107,6 +108,11 @@ int8_t GraphicView::GetFloorNumber() const
     return renderer_->GetFloor();
 }
 
+QPolygonF GraphicView::GetNewForm() const
+{
+    return item_controller_->GetNewForm();
+}
+
 void GraphicView::SetLayout( QHBoxLayout * const layout )
 {
     if( layout != nullptr )
@@ -120,5 +126,5 @@ void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
 
 bool GraphicView::ChangeMode( bool edit )
 {
-    item_controller_->ChangeMode( edit );
+    return item_controller_->ChangeMode( edit );
 }

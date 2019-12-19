@@ -1,9 +1,10 @@
 #ifndef MAINAPP_EDITOR_H
 #define MAINAPP_EDITOR_H
 
-#include "graphic_polygon.h"
+#include "graphic_connection.h"
 #include <memory>
 #include <QGraphicsScene>
+#include <list>
 #include <vector>
 
 namespace Polaris
@@ -19,13 +20,18 @@ namespace Polaris
         Editor & operator = ( const Editor && ) = delete;
         ~Editor();
 
-        void InitEditing( std::vector< GraphicPolygon > polygons );
-        void AddPolygon( GraphicPolygon & polygon );
-        void ExitEditing();
+        void AddConnections( const QPolygonF & polygon );
+        void AddConnection( QPointF & pos );
+        void SelectConnection( GraphicItem * const item );
+        void EraseItem( GraphicItem * const item );
+        void FinishEditing();
+        QPolygonF GetNewForm() const;
+        QPointF GetPos() const;
 
     private:
         std::unique_ptr< QGraphicsScene > scene_;
-        std::vector< GraphicItem > item_;
+        std::list< GraphicItem * > connections_;
+        std::vector< QPointF > selected_;
     };
 } // namespace Polaris
 

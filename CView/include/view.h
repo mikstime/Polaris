@@ -34,6 +34,8 @@ namespace Polaris
         virtual QPointF GetNodeCoordinates() const = 0;
         // запрашивает текущий этаж
         virtual int8_t GetFloorNumber() const = 0;
+        // получить новую форму
+        virtual QPolygonF GetNewForm() const = 0;
         // задать выкладку
         virtual void SetLayout( QHBoxLayout * const layout ) = 0;
         // войти в режим редактирования

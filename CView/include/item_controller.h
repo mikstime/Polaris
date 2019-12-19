@@ -20,6 +20,7 @@ namespace Polaris
         size_t GetCurrentNode() const;
         size_t GetPreviousNode() const;
         QPointF GetMarkDownPos() const;
+        QPolygonF GetNewForm() const;
         virtual void SetCurPath( std::vector< GraphicItem * > & cur_path );
         virtual void mousePressEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
@@ -33,7 +34,7 @@ namespace Polaris
         GraphicItem * previous_node_;
         // TODO заменить на смарот поинтер
         GraphicRoom mark_down_;
-        std::shared_ptr< Editor > editor_;
+        std::unique_ptr< Editor > editor_;
         std::shared_ptr< ItemCollaction > items_in_controller_;
         std::vector< GraphicItem * > cur_path_;
         bool path_drawn_;
@@ -43,7 +44,8 @@ namespace Polaris
         void ResetPath();
         void RoomPressedLeft(GraphicItem * const cur_item, const QPointF & cur_pos );
         void EmptyPressedLeft(const QPointF & cur_pos );
-        void RoomPressedRightCtrl(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void RoomPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos );
+        void EmptyPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos );
         void EmptyPressedRight(const QPointF & cur_pos );
         void RoomReleaseLeft(GraphicItem * const cur_item, const QPointF & cur_pos );
         void EmptyReleaseLeft(const QPointF & cur_pos );
