@@ -72,6 +72,11 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
     QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
     GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
 
+
+    if( cast_item )
+        qInfo() << cast_item;
+
+
     if( path_drawn_ )
         ResetPath();
 
