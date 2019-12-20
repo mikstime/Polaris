@@ -44,6 +44,7 @@ void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
     renderer_->SetFloor( meta.floor );
+    item_controller_->ResetEditing();
 }
 
 void GraphicView::AddRoom(const Meta & meta )
@@ -69,11 +70,13 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
 
 bool GraphicView::FloorUp() 
 {
+    item_controller_->ChangeMode( false );
     return renderer_->FloorUp();
 }
 
 bool GraphicView::FloorDown()
 {
+    item_controller_->ChangeMode( false );
     return renderer_->FloorDown();
 }
 

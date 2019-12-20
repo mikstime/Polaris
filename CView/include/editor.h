@@ -24,8 +24,8 @@ namespace Polaris
         void AddConnection( QPointF & pos );
         void SelectConnection( GraphicItem * const item );
         void EraseItem( GraphicItem * const item );
-        void FinishEditing();
-        QPolygonF GetNewForm() const;
+        void ResetEditing();
+        QPolygonF GetNewForm();
         QPointF GetPos() const;
 
     private:
