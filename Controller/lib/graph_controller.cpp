@@ -7,7 +7,7 @@ Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
 {
 }
 
-int Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
+int Polaris::GraphController::AddNode()
 {
     qInfo() << "GraphController: In AddNode";
     // Creating node

@@ -39,6 +39,7 @@
 cmake-build-debug/
 cmake-build-release/
 build/
+bin/
 
 # CView ignores
 CView/.idea/

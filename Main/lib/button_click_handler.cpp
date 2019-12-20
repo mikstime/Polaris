@@ -28,17 +28,18 @@ void Polaris::ButtonClickHandler::AddButtonClick()
     {
         // Coordinates of selected node,
         // if selected not only one node equals (EMPTY, EMPTY)
-        std::pair< Coordinate, Coordinate > coordinates = view_controller_->GetNodeCoords();
+        QPointF coordinates = view_controller_->GetNodeCoords();
 
-        if( coordinates.first != EMPTY && coordinates.second != EMPTY )
+        if( coordinates.rx() != EMPTY && coordinates.ry() != EMPTY )
         {
             qInfo() << "Add button: One node selected";
 
             // Create room and get it id
-            Id id = graph_controller_->AddNode( coordinates );
+            Id id = graph_controller_->AddNode();
 
             // Set current node params
-            node_form_->SetCurrentNodeParams( id, coordinates.first, coordinates.second );
+            node_form_->SetNode( id, STATUS::SAVE );
+            node_form_->SetNodeCoords( coordinates );
 
             // Show form and hide button panel
             node_form_->show();
@@ -76,18 +77,18 @@ void Polaris::ButtonClickHandler::DeleteButtonClick()
         qInfo() << "Delete button: Nodes not selected";
 }
 
-void Polaris::ButtonClickHandler::MoveButtonClick()
-{
-    int first_id = view_controller_->GetNodeIds().first;
-    if( first_id != EMPTY )
-    {
-        qInfo() << "Move button: Node selected";
-        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
-        graph_controller_->MoveNode( first_id, first_coords );
-    }
-    else
-        qInfo() << "Move button: Node not selected";
-}
+//void Polaris::ButtonClickHandler::MoveButtonClick()
+//{
+//    int first_id = view_controller_->GetNodeIds().first;
+//    if( first_id != EMPTY )
+//    {
+//        qInfo() << "Move button: Node selected";
+//        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
+//        graph_controller_->MoveNode( first_id, first_coords );
+//    }
+//    else
+//        qInfo() << "Move button: Node not selected";
+//}
 
 void Polaris::ButtonClickHandler::ChangeButtonClick()
 {
@@ -100,7 +101,7 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
         qInfo() << "Change button: Node selected";
 
         // Set node params
-        node_form_->SetCurrentNodeParams( id );
+        node_form_->SetNode( id, STATUS::CHANGE );
 
         // Show form and hide button panel
         node_form_->show();
