@@ -25,12 +25,15 @@ public:
     void SetColor( const QColor & color ) override;
     void SetSelection() override;
     void SetMeta( const Meta & nw_meta );
+    void SetReacheble( bool reach );
+    bool IsReacheble() const;
     void ResetSelection() override;
 
 private:
     std::string info_;
     std::string room_number_;
     QPolygonF size_;
+    bool reachebele_;
 
     void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;

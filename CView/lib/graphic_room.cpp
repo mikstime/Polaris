@@ -12,7 +12,8 @@ using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
         :GraphicItem( 0, 0, Polaris::Role::MARK ),
-         size_( QRectF(-10, -10, 20, 20) )
+         size_( QRectF(-10, -10, 20, 20) ),
+         reachebele_( false )
 {
     // TODO инициализация
     ResetColor();
@@ -24,10 +25,20 @@ GraphicRoom::GraphicRoom( const Meta & node )
         : GraphicItem( node.graph_node_id, node.floor, node.role ),
           room_number_( node.room_number ),
           info_( node.info ),
-          size_( node.size )
+          size_( node.size ),
+          reachebele_( false )
 {
-    ResetColor();
-//    setPos( node.coordinates );
+    if( role_ == Role::STAIR )
+    {
+        SetReacheble( true );
+    }
+    else
+    {
+        ResetColor();
+    }
+
+    setPos( node.coordinates );
+    qInfo() << node.info.c_str() << " !";
     setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
 
     this->show();
@@ -59,15 +70,34 @@ void GraphicRoom::SetMeta( const Meta & nw_meta )
     size_ = nw_meta.size;
     floor_ = nw_meta.floor;
     role_ = nw_meta.role;
+    if( role_ == Role::STAIR )
+        reachebele_ = true;
     room_number_ = nw_meta.room_number;
     info_ = nw_meta.info;
+
     ResetColor();
 }
 
+void GraphicRoom::SetReacheble( bool reach )
+{
+    reachebele_ = reach;
+    ResetColor();
+}
+
+bool GraphicRoom::IsReacheble() const
+{
+    return reachebele_;
+}
 
 void GraphicRoom::ResetColor()
 {
     //TODO цвет зависит от роли
+    if( ! reachebele_ )
+    {
+        def_color_ = cur_color_ = Qt::darkGray;
+        return;
+    }
+
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {

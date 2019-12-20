@@ -95,6 +95,15 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     if( from_room == nullptr || to_room == nullptr )
         return;
 
+    if( from_room->IsReacheble() && ! to_room->IsReacheble() )
+    {
+        to_room->SetReacheble( true );
+    }
+    else if( ! from_room->IsReacheble() && to_room->IsReacheble() )
+    {
+        from_room->SetReacheble( true );
+    }
+
 //    GraphicItem * nw_connection =  new GraphicConnection( from_room->pos(),
 //                                                          to_room->pos(),
 //                                                          connection.GetId(),
