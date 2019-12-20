@@ -50,7 +50,7 @@ void GraphicView::ChangeRoom(const Meta & meta )
 void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
-    renderer_->SetFloor( meta.floor );
+//    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::RemoveRoom(const Meta & meta )

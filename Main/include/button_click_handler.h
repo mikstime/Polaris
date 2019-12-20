@@ -23,7 +23,8 @@ public:
      * @param graph_controller - pointer to GraphController object
      * @paran button_panel - pointer to button panel
      */
-    ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form, ViewController * controller, GraphController * graph_controller, QWidget * button_panel );
+    ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form, ViewController * controller,
+            GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button );
 
 private:
     // Pointers to other objects
@@ -32,6 +33,8 @@ private:
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ViewController > view_controller_;
     std::shared_ptr< GraphController > graph_controller_;
+
+    QPushButton * change_mode_button_;
 
 public slots:
     /**
@@ -62,7 +65,7 @@ public slots:
      * Floor down button click handler
      */
     void FloorDownButtonClick();
-    void EditMapButtonClick();
+    void ChangeModeButtonClick();
 };
 
 } // namespace Polaris

@@ -66,9 +66,9 @@ QPointF Polaris::ViewController::GetNodeCoords()
     return coords_;
 }
 
-void Polaris::ViewController::ChangeMode()
+void Polaris::ViewController::ChangeMode( bool is_editing )
 {
-    view_->ChangeMode( true );
+    view_->ChangeMode( is_editing );
 }
 
 int Polaris::ViewController::GetFloorNumber()
