@@ -66,7 +66,7 @@ QPointF Polaris::ViewController::GetNodeCoords()
     return coords_;
 }
 
-void Polaris::ViewController::EditMap()
+void Polaris::ViewController::ChangeMode()
 {
     view_->ChangeMode( true );
 }

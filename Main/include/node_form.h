@@ -33,7 +33,6 @@ class NodeForm : public QWidget
 public:
     explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller );
     void SetNode( Id id, STATUS status );
-    void SetNodeCoords( QPointF room_coords );
 
 private:
     Polaris::Meta ConstructMeta( Id room_id = 0, std::string room_number = "", std::string room_info = "",
@@ -48,10 +47,9 @@ private:
     std::shared_ptr< ViewController > view_controller_;
 
     /**
-     * Node params
+     * Node id
      */
     Id room_id_;
-    QPointF room_coords_;
 
     /**
      * Main layout
