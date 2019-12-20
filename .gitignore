@@ -39,6 +39,7 @@
 cmake-build-debug/
 cmake-build-release/
 build/
+bin/
 
 # CView ignores
 CView/.idea/
@@ -50,7 +51,6 @@ CView/capp.ui
 CView/CMakeLists.txt.user
 mainwindow/
 tests_CView/
-bin/
 
 # IDE files
 *.user
