@@ -45,7 +45,7 @@ public:
      */
     QPointF GetNodeCoords();
 
-    void ChangeMode();
+    void ChangeMode( bool is_editing );
     int GetFloorNumber();
     void FloorUp();
     void FloorDown();

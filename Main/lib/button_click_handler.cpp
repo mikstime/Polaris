@@ -3,8 +3,9 @@
 #include <QDebug>
 
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
-        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel ) :
-        node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ), graph_controller_( graph_controller ), button_panel_( button_panel )
+        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button ) :
+        node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ),
+        graph_controller_( graph_controller ), button_panel_( button_panel ), change_mode_button_( change_mode_button )
 {
 }
 
@@ -132,7 +133,16 @@ void Polaris::ButtonClickHandler::FloorDownButtonClick()
     view_controller_->FloorDown();
 }
 
-void Polaris::ButtonClickHandler::EditMapButtonClick()
+void Polaris::ButtonClickHandler::ChangeModeButtonClick()
 {
-    view_controller_->ChangeMode();
+    if( change_mode_button_->text() == "Режим редактирования" )
+    {
+        view_controller_->ChangeMode( true );
+        change_mode_button_->setText( "Режим просмотра" );
+    }
+    else if( change_mode_button_->text() == "Режим просмотра" )
+    {
+        view_controller_->ChangeMode( false );
+        change_mode_button_->setText( "Режим редактирования" );
+    }
 }

@@ -1,6 +1,7 @@
 #include "include/node_form.h"
 
 #include <QDebug>
+#include <utility>
 
 Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller, GraphController * graph_controller ) :
         button_panel_( button_panel ), model_( model ), view_controller_( view_controller ), graph_controller_( graph_controller )
@@ -98,8 +99,8 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( Polaris::Id room_id, std::string
     Meta meta;
 
     meta.graph_node_id = room_id;
-    meta.room_number = room_number;
-    meta.info = room_info;
+    meta.room_number = std::move(room_number);
+    meta.info = std::move(room_info);
     meta.coordinates = room_coords;
     meta.size = room_form;
     meta.floor = room_floor_number;
