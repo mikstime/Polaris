@@ -58,7 +58,6 @@ void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
 void GraphParser::OnRoomChanged( const Meta & meta )
 {
     GraphicItem * cur_room = items_in_controller_->FindById( meta.graph_node_id );
-    qInfo() << "Change";
 
     if( cur_room != nullptr )
     {
@@ -74,7 +73,7 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 void GraphParser::OnRoomAdded( const Meta & meta )
 {
     GraphicItem * nw_room =  new GraphicRoom( meta );
-    item_controller_->addItem(nw_room );
+    item_controller_->addItem( nw_room );
     items_in_controller_->AddItem( nw_room, meta.graph_node_id );
 }
 

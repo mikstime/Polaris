@@ -22,6 +22,7 @@ namespace Polaris
         QPointF GetMarkDownPos() const;
         QPolygonF GetNewForm() const;
         virtual void SetCurPath( std::vector< GraphicItem * > & cur_path );
+        void ResetEditing();
         virtual void mousePressEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event ) override;
         void ResetCurrentNode();

@@ -19,7 +19,7 @@ Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setSceneRect( 0, 0, this->size().width(), this->size().height() );
-//    this->setSceneRect( 0, 0, this->size().width() - 5, this->size().height() - 5 );
+    this->setSceneRect( 0, 0, this->size().width() - 5, this->size().height() - 5 );
 }
 
 int8_t Renderer::GetFloor() const
@@ -51,11 +51,11 @@ bool Renderer::FloorDown()
 
 void Renderer::wheelEvent( QWheelEvent * event )
 {
-    // TODO мягче переключать этажи
-    int8_t delta = event->delta();
-    delta = delta / abs( delta );
-    // Если смена этажа успешна, то он не пустой
-    ChangeFloor( delta );
+//    // TODO мягче переключать этажи
+//    int8_t delta = event->delta();
+//    delta = delta / abs( delta );
+//
+//    ChangeFloor( delta );
 }
 
 //void Renderer::mousePressEvent( QMouseEvent * event )
@@ -136,5 +136,4 @@ bool Renderer::NextFloorEmpty( const int8_t step )
 
 void Renderer::RaiseEmptyFloor()
 {
-    // TODO подменить фон
 }
