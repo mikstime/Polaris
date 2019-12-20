@@ -39,7 +39,6 @@ void Polaris::ButtonClickHandler::AddButtonClick()
 
             // Set current node params
             node_form_->SetNode( id, STATUS::SAVE );
-            node_form_->SetNodeCoords( coordinates );
 
             // Show form and hide button panel
             node_form_->show();
