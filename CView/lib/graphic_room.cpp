@@ -29,6 +29,7 @@ GraphicRoom::GraphicRoom( const Meta & node )
     ResetColor();
 //    setPos( node.coordinates );
     setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
+
     this->show();
 }
 
@@ -102,7 +103,7 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setBrush(cur_color_ );
     painter->drawPolygon( size_ );
     QPointF text_pos = this->pos();
-    painter->drawText( size_.boundingRect(), Qt::AlignCenter, info_.c_str() );
+    painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);

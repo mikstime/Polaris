@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "include/editor.h"
 
 using Polaris::Editor;
@@ -10,10 +11,9 @@ Editor::Editor( QGraphicsScene * scene )
 
 Editor::~Editor()
 {
-    FinishEditing();
+    ResetEditing();
     scene_.release();
 }
-
 
 void Editor::AddConnections( const QPolygonF & polygon, const QPointF & pos )
 {
@@ -35,6 +35,7 @@ void Editor::AddConnection( QPointF & pos )
     GraphicItem * nw_connection = new GraphicConnection( pos );
     connections_.push_back( nw_connection );
     scene_->addItem( nw_connection );
+    SelectConnection( nw_connection );
 }
 
 void Editor::SelectConnection( GraphicItem * const item )
@@ -42,7 +43,6 @@ void Editor::SelectConnection( GraphicItem * const item )
     if( item->IsSelected() )
     {
         item->ResetSelection();
-        //TODO доделать
         selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
     }
     else
@@ -60,7 +60,7 @@ void Editor::EraseItem( GraphicItem * const item )
     delete item;
 }
 
-void Editor::FinishEditing()
+void Editor::ResetEditing()
 {
     for( const auto & k : connections_ )
     {
@@ -71,15 +71,42 @@ void Editor::FinishEditing()
     selected_.erase( selected_.begin(), selected_.end() );
 }
 
-QPolygonF Editor::GetNewForm() const
+class AngleComparator
 {
-//    QPolygonF res;
-//    for( const auto & k : selected_ )
-//    {
-//        res.push_back( k );
-//    }
-//    // TODO изменить
-//    res.translate( - GetPos() );
+    QPointF origin_;
+    QPointF dreference_;
+
+    static double IsSamePoint( QPointF a, QPointF b ) { return a.x() * b.y() - a.y() * b.x(); }
+public:
+    AngleComparator( const QPointF origin, const QPointF reference ) : origin_( origin ), dreference_( reference - origin ) {}
+    bool operator()( const QPointF a, const QPointF b ) const
+    {
+        const QPointF da = a - origin_, db = b - origin_;
+        const double detb = IsSamePoint( dreference_, db );
+
+        if ( detb == 0 && db.x() * dreference_.x() + db.y() * dreference_.y() >= 0 ) 
+            return false;
+
+        const double deta = IsSamePoint( dreference_, da );
+
+        if ( deta == 0 && da.x() * dreference_.x() + da.y() * dreference_.y() >= 0 ) 
+            return true;
+
+        if ( deta * detb >= 0 ) 
+        {
+            return IsSamePoint( da, db ) > 0;
+        }
+
+        return deta > 0;
+    }
+};
+
+QPolygonF Editor::GetNewForm()
+{
+    if( selected_.size() > 3 )
+        std::sort( selected_.begin(), selected_.end(),
+                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+  
     return selected_.translated( - GetPos() );
 }
 
