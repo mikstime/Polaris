@@ -45,8 +45,8 @@ public:
      */
     QPointF GetNodeCoords();
 
-    //TODO Реализация переключения
-    void EditMap();
+    //TODO Реализация переключения-
+    void ChangeMode();
     int GetFloorNumber();
     void FloorUp();
     void FloorDown();

@@ -58,9 +58,33 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     this->hide();
 }
 
-void Polaris::NodeForm::SetNodeCoords( QPointF room_coords )
+void Polaris::NodeForm::SetNode( Id id, STATUS status )
 {
-    room_coords_ = room_coords;
+    room_id_ = id;
+
+    if( status == STATUS::SAVE )
+    {
+        save_button_->show();
+        change_button_->hide();
+    }
+    else if( status == STATUS::CHANGE )
+    {
+        save_button_->hide();
+        change_button_->show();
+
+        Meta old_meta = model_->getMeta( room_id_ );
+        room_number_input_->setText( QString::fromStdString( old_meta.room_number ) );
+        room_info_input_->setText( QString::fromStdString( old_meta.info ) );
+
+        if( old_meta.role == Role::ROOM )
+            role_buttons_[0]->setChecked( true );
+        else if( old_meta.role == Role::HALL )
+            role_buttons_[1]->setChecked( true );
+        else if( old_meta.role == Role::STAIR )
+            role_buttons_[2]->setChecked( true );
+    }
+    else
+        assert( false );
 }
 
 Polaris::Meta Polaris::NodeForm::ConstructMeta( Polaris::Id room_id, std::string room_number, std::string room_info,
@@ -99,42 +123,15 @@ void Polaris::NodeForm::SaveButtonClick()
 
     QPolygonF room_form = view_controller_->GetNodeForm();
 
-    Meta meta = ConstructMeta( room_id_, room_number, room_info, room_coords_, room_form,
+    QPointF room_coords = view_controller_->GetNodeCoords();
+
+    Meta meta = ConstructMeta( room_id_, room_number, room_info, room_coords, room_form,
             room_floor_number, room_role );
 
     model_->ChangeMeta( room_id_, meta );
 
     this->hide();
     button_panel_->show();
-}
-
-void Polaris::NodeForm::SetNode( Id id, STATUS status )
-{
-    room_id_ = id;
-
-    if( status == STATUS::SAVE )
-    {
-        save_button_->show();
-        change_button_->hide();
-    }
-    else if( status == STATUS::CHANGE )
-    {
-        save_button_->hide();
-        change_button_->show();
-
-        Meta old_meta = model_->getMeta( room_id_ );
-        room_number_input_->setText( QString::fromStdString( old_meta.room_number ) );
-        room_info_input_->setText( QString::fromStdString( old_meta.info ) );
-
-        if( old_meta.role == Role::ROOM )
-            role_buttons_[0]->setChecked( true );
-        else if( old_meta.role == Role::HALL )
-            role_buttons_[1]->setChecked( true );
-        else if( old_meta.role == Role::STAIR )
-            role_buttons_[2]->setChecked( true );
-    }
-    else
-        assert( false );
 }
 
 void Polaris::NodeForm::ChangeButtonCLick()
