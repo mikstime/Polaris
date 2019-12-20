@@ -44,7 +44,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     // Creating buttons
     buttons_["add"] = new QPushButton( "Добавить" );
     buttons_["delete"] = new QPushButton( "Удалить" );
-    buttons_["move"] = new QPushButton( "Переместить" );
+//    buttons_["move"] = new QPushButton( "Переместить" );
     buttons_["change"] = new QPushButton( "Изменить" );
     buttons_["find_route"] = new QPushButton( "Найти маршрут" );
     buttons_["floor_up"] = new QPushButton( "Этаж вверх" );
@@ -54,7 +54,7 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_layout_->addStretch();
     button_layout_->addWidget( buttons_["add"] );
     button_layout_->addWidget( buttons_["delete"] );
-    button_layout_->addWidget( buttons_["move"] );
+//    button_layout_->addWidget( buttons_["move"] );
     button_layout_->addWidget( buttons_["change"] );
     button_layout_->addWidget( buttons_["find_route"] );
     button_layout_->addWidget( buttons_["floor_up"] );
@@ -76,7 +76,7 @@ void Polaris::MainWindow::ConnectButtons()
 {
     connect( buttons_["add"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( AddButtonClick() ) );
     connect( buttons_["delete"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( DeleteButtonClick() ) );
-    connect( buttons_["move"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( MoveButtonClick() ) );
+//    connect( buttons_["move"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( MoveButtonClick() ) );
     connect( buttons_["change"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( ChangeButtonClick() ) );
     connect( buttons_["find_route"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FindRouteButtonClick() ) );
     connect( buttons_["floor_up"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );

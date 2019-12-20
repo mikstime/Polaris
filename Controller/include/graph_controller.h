@@ -26,7 +26,7 @@ public:
      * Add node to Model
      * @param node_coords - New node coordinates
      */
-    int AddNode( const std::pair< int, int > & node_coords );
+    int AddNode();
     /**
      * Delete node from Model
      * @param node_id - Deleted node id

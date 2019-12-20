@@ -3,8 +3,6 @@
 Polaris::ViewController::ViewController( GraphicView * view ) : view_( view ), floor_number_( 1 ),
         first_node_( EMPTY ), second_node_( EMPTY )
 {
-    std::pair< Coordinate, Coordinate > coords = { EMPTY, EMPTY };
-    coords_ = coords;
 }
 
 void Polaris::ViewController::UpdateSelectedNodes()
@@ -37,11 +35,7 @@ void Polaris::ViewController::UpdateNodeCoordinates()
 {
     // Coordinates of selected nodes,
     // if selected not only one node equals (EMPTY, EMPTY)
-    QPointF point = view_->GetNodeCoordinates();
-
-    // Set new coordinates
-    coords_.first = point.rx();
-    coords_.second = point.ry();
+    coords_ = view_->GetNodeCoordinates();
 }
 
 QPolygonF Polaris::ViewController::GetNodeForm()
@@ -63,7 +57,7 @@ std::pair< int, int > Polaris::ViewController::GetNodeIds()
     return std::make_pair( first_node_, second_node_ );
 }
 
-std::pair< Polaris::Coordinate, Polaris::Coordinate > Polaris::ViewController::GetNodeCoords()
+QPointF Polaris::ViewController::GetNodeCoords()
 {
     // Update selected node coordinates
     UpdateNodeCoordinates();
@@ -75,6 +69,11 @@ std::pair< Polaris::Coordinate, Polaris::Coordinate > Polaris::ViewController::G
 void Polaris::ViewController::EditMap()
 {
     view_->ChangeMode( true );
+}
+
+int Polaris::ViewController::GetFloorNumber()
+{
+    return view_->GetFloorNumber();
 }
 
 void Polaris::ViewController::FloorUp()
