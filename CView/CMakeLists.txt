@@ -16,7 +16,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/")
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
-find_package( Boost 1.65.1 REQUIRED )
+# find_package( Boost 1.65.1 REQUIRED )
 
 include_directories(${GTEST_INCLUDE_DIRS})
 #include_directories(${GMOCK_INCLUDE_DIRS})
