@@ -45,7 +45,7 @@ public slots:
     /**
      * Move button click handler
      */
-    void MoveButtonClick();
+//    void MoveButtonClick();
     /**
      * Change button click handler
      */
