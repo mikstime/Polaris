@@ -36,7 +36,6 @@ void handleWriteBody(boost::system::error_code const& ec, std::size_t bytesTrans
         {
             throw std::runtime_error{ "handleWriteBody(): sentFileBody != fileSize\n" };
         }
-        std::cout << "sentFileBody: " << sentFileBody << std::endl;
         std::cout << "OK" << std::endl;
     }
 
@@ -69,7 +68,6 @@ void handleReadUntil(boost::system::error_code const& ec, std::size_t bytesTrans
         throw std::runtime_error{ "handleReadUntil() : Unable to open input file: " + filePath };
     }
     fileSize = fs::file_size(filePath);
-    std::cout << "fileSize: " << fileSize << std::endl;
     std::stringstream ss{ "FileName: " + fs::path{ filePath }.filename().string() + "\r\n" + "FileSize: " + std::to_string(fileSize) + "\r\n\r\n" };
     ss.getline(buf, 4096, '*');
     boost::asio::async_write(sock, boost::asio::buffer(buf, ss.str().size()), handleWriteHeader);
@@ -81,13 +79,11 @@ void handleAccept(boost::system::error_code const& ec)
     {
         throw std::runtime_error{ "handleAccept() : " + std::to_string(ec.value()) + ", " + ec.message() };
     }
-    std::cout << "Client accepted\n";
     boost::asio::async_read_until(sock, sBuf, "\r\n\r\n", handleReadUntil);
 }
 
 int main()
 {
-    std::cout << "Server\n";
     try
     {
         tcp::acceptor acc{ io, tcp::endpoint{ tcp::v4(), 8080 } };
