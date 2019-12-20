@@ -43,10 +43,11 @@ public:
      * Get node coordinates
      * @return - Two pairs of node coordinates
      */
-    std::pair< Coordinate, Coordinate > GetNodeCoords();
+    QPointF GetNodeCoords();
 
-    //TODO Реализация переключения
-    void EditMap();
+    //TODO Реализация переключения-
+    void ChangeMode();
+    int GetFloorNumber();
     void FloorUp();
     void FloorDown();
 
@@ -59,7 +60,7 @@ private:
     Id first_node_;
     Id second_node_;
 
-    std::pair< Coordinate, Coordinate > coords_;
+    QPointF coords_;
 };
 
 } // namespace Polaris
