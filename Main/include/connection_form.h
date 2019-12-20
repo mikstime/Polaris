@@ -44,12 +44,17 @@ private:
     QVBoxLayout * main_layout_;
 
     QPushButton * save_button_;
+    QPushButton * cancel_button_;
 
 public slots:
     /**
      * Save button click handler
      */
     void SaveButtonClick();
+    /**
+     * Cancel button click handler
+     */
+    void CancelButtonClick();
 };
 
 } // namespace Polaris

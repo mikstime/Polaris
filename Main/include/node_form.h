@@ -16,6 +16,7 @@
 #include "typedefs.h"
 #include "include/ModelInterface/ModelInterface.h"
 #include "include/view_controller.h"
+#include "include/graph_controller.h"
 
 namespace Polaris
 {
@@ -31,7 +32,7 @@ class NodeForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller );
+    explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller, GraphController * graph_controller );
     void SetNode( Id id, STATUS status );
 
 private:
@@ -45,6 +46,7 @@ private:
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ModelInterface > model_;
     std::shared_ptr< ViewController > view_controller_;
+    std::shared_ptr< GraphController > graph_controller_;
 
     /**
      * Node id
@@ -69,10 +71,12 @@ private:
      */
     QPushButton * save_button_;
     QPushButton * change_button_;
+    QPushButton * cancel_button_;
 
 public slots:
     void SaveButtonClick();
     void ChangeButtonCLick();
+    void CancelButtonClick();
 };
 
 } // namespace Polaris
