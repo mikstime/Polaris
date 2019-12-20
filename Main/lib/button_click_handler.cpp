@@ -3,7 +3,7 @@
 #include <QDebug>
 
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
-        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button ) :
+                                                 ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button ) :
         node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ),
         graph_controller_( graph_controller ), button_panel_( button_panel ), change_mode_button_( change_mode_button )
 {
@@ -36,8 +36,7 @@ void Polaris::ButtonClickHandler::AddButtonClick()
             qInfo() << "Add button: One node selected";
 
             // Set current node params
-            node_form_->SetNode( id, STATUS::SAVE );
-
+            node_form_->SetNode( 0, STATUS::SAVE );
 
             // Show form and hide button panel
             node_form_->show();
