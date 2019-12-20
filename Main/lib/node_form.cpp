@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller ) :
-        button_panel_( button_panel ), model_( model ), view_controller_( view_controller )
+Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller, GraphController * graph_controller ) :
+        button_panel_( button_panel ), model_( model ), view_controller_( view_controller ), graph_controller_( graph_controller )
 {
     // Input input fields
     auto * room_number_layout = new QHBoxLayout;
@@ -43,6 +43,9 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     connect( change_button_, SIGNAL( clicked() ), this, SLOT( ChangeButtonCLick() ) );
     change_button_->hide();
 
+    cancel_button_ = new QPushButton( "Отменить" );
+    connect( cancel_button_, SIGNAL( clicked() ), this, SLOT( CancelButtonClick() ) );
+
     // Init main layout
     main_layout_ = new QVBoxLayout;
 
@@ -52,6 +55,7 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     main_layout_->addLayout( role_layout );
     main_layout_->addWidget( save_button_ );
     main_layout_->addWidget( change_button_ );
+    main_layout_->addWidget( cancel_button_ );
     main_layout_->addStretch();
 
     setLayout( main_layout_ );
@@ -106,6 +110,8 @@ Polaris::Meta Polaris::NodeForm::ConstructMeta( Polaris::Id room_id, std::string
 
 void Polaris::NodeForm::SaveButtonClick()
 {
+    room_id_ = graph_controller_->AddNode();
+
     std::string room_number = room_number_input_->text().toStdString();
     std::string room_info = room_info_input_->text().toStdString();
 
@@ -155,6 +161,12 @@ void Polaris::NodeForm::ChangeButtonCLick()
     model_->ChangeMeta( room_id_, meta );
 
     // Hide self
+    this->hide();
+    button_panel_->show();
+}
+
+void Polaris::NodeForm::CancelButtonClick()
+{
     this->hide();
     button_panel_->show();
 }

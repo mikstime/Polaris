@@ -34,11 +34,8 @@ void Polaris::ButtonClickHandler::AddButtonClick()
         {
             qInfo() << "Add button: One node selected";
 
-            // Create room and get it id
-            Id id = graph_controller_->AddNode();
-
             // Set current node params
-            node_form_->SetNode( id, STATUS::SAVE );
+            node_form_->SetNode( 0, STATUS::SAVE );
 
             // Show form and hide button panel
             node_form_->show();
