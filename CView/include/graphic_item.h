@@ -19,6 +19,7 @@ namespace Polaris
         bool IsSelected() const;
         Id GetId() const;
         int8_t GetFloor() const;
+//        virtual bool OnTheFloor( const int8_t floor ) const;
         Role GetRole() const;
         QColor GetColor() const;
         virtual QPolygonF GetSize() const { return QPolygonF(); };

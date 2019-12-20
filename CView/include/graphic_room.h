@@ -21,6 +21,7 @@ public:
     std::string GetInfo() const;
     std::string GetRoom() const;
     QPolygonF GetSize() const override;
+//    bool OnTheFloor( const int8_t floor ) const;
     void SetColor( const QColor & color ) override;
     void SetSelection() override;
     void SetMeta( const Meta & nw_meta );

@@ -4,12 +4,11 @@
 using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & pos )
-: GraphicItem()
+: GraphicItem(),
+size_( -6, -6, 12, 12 )
 {
     ResetColor();
     this->setPos( pos );
-    this->size_.setWidth(20);
-    this->size_.setHeight(20);
     this->show();
 }
 
@@ -42,7 +41,7 @@ void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsIte
 {
     painter->setPen( Qt::black );
     painter->setBrush( cur_color_ );
-    painter->drawRect( size_ );
+    painter->drawEllipse( size_ );
 //    painter->drawText( QRectF( left_, right_ ), Qt::AlignCenter, QString::number( cost_ ) );
 
     Q_UNUSED(option);

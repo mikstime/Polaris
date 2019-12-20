@@ -112,10 +112,10 @@ bool Renderer::RedrawFloor(const int8_t step )
     {
         // каст к кастомному элементу
         // TODO заменить на разбиение по этажам
-        GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
+        GraphicItem * cur_item = static_cast< GraphicItem * >( items_list[ i ] );
 
         // если элемент на этаже, показать, иначе спрятать
-        if( cur_item->GetFloor() != current_floor_ )
+        if( cur_item->GetFloor() != current_floor_ || cur_item->GetRole() != Role::STAIR )
         {
             cur_item->hide();
         }

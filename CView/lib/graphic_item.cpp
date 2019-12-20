@@ -34,6 +34,11 @@ int8_t GraphicItem::GetFloor() const
     return floor_;
 }
 
+//bool GraphicItem::OnTheFloor( const int8_t floor ) const
+//{
+//    return floor_ == floor;
+//}
+
 Polaris::Role GraphicItem::GetRole() const
 {
     return role_;
