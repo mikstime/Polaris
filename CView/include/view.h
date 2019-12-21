@@ -7,6 +7,7 @@
 #include <memory>
 #include <QPoint>
 #include <QHBoxLayout>
+#define QT_NO_DEBUG_OUTPUT
 
 namespace Polaris
 {

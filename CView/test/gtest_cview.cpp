@@ -57,14 +57,14 @@ TEST( Connection, Init )
     QPointF point( 50, 50 );
     GraphicConnection connection( point );
 
-    EXPECT_EQ( connection.GetId(), 1 );
-    EXPECT_EQ( connection.GetFloor(), 2 );
+    EXPECT_EQ( connection.GetId(), 0 );
+    EXPECT_EQ( connection.GetFloor(), 0 );
     EXPECT_EQ( connection.GetRole(), Polaris::Role::CONNECTION );
 }
 
 TEST( Room, Color )
 {
-    Meta meta = { 1, "805", QPointF( 1, 1 ),
+    Meta meta = { 1, "805", "Лаборатория", QPointF( 1, 1 ),
                   QPolygonF( 0 ), 5, Role::ROOM };
     GraphicRoom room( meta );
 
@@ -126,8 +126,8 @@ protected:
 
         for( size_t i = 0; i < 10; i++ )
         {
-            Meta meta = { i, "805ю", QPointF( 20, 20 ),
-                          QPolygonF( 0 ), 1, Role::ROOM };
+            Meta meta = { i, "805", "Лаборатория", QPointF( 1, 1 ),
+                          QPolygonF( 0 ), 5, Role::ROOM};
             meta_.push_back( meta );
         }
         for( size_t i = 1; i < 5; i++ )
@@ -150,16 +150,16 @@ TEST_F( Parser, BuildItems )
 {
     graph_parser_->BuildItems( meta_, graph_ );
 
-    EXPECT_EQ( item_controller_->items().size(), 15 );
+    EXPECT_EQ( item_controller_->items().size(), 14 );
 }
 
 TEST_F( Parser, AddRoom )
 {
     graph_parser_->OnRoomAdded( meta_[ 0 ] );
-    EXPECT_EQ( item_controller_->items().size(), 2 );
+    EXPECT_EQ( item_controller_->items().size(), 1 );
 
     graph_parser_->OnRoomRemoved( meta_[ 0 ] );
-    EXPECT_EQ( item_controller_->items().size(), 1 );
+    EXPECT_EQ( item_controller_->items().size(), 0 );
 }
 
 TEST_F( Parser, AddConnection )
@@ -167,10 +167,10 @@ TEST_F( Parser, AddConnection )
     graph_parser_->OnRoomAdded( meta_[ 1 ] );
     graph_parser_->OnRoomAdded( meta_[ 2 ] );
     graph_parser_->OnConnectionAdded( graph_[ 0 ] );
-    EXPECT_EQ( item_controller_->items().size(), 4 );
+    EXPECT_EQ( item_controller_->items().size(), 3 );
 
     graph_parser_->OnConnectionRemoved( graph_[ 0 ] );
-    EXPECT_EQ( item_controller_->items().size(), 3 );
+    EXPECT_EQ( item_controller_->items().size(), 2 );
 }
 
 class GraphView : public ::testing::Test

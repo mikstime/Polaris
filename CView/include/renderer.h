@@ -2,6 +2,7 @@
 #define MAINAPP_RENDERER_H
 
 #include <QGraphicsView>
+#define QT_NO_DEBUG_OUTPUT
 
 namespace Polaris
 {

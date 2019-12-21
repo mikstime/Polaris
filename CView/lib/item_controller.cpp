@@ -2,8 +2,6 @@
 #include <string>
 #include <QGraphicsSceneMouseEvent>
 
-#include <QDebug>
-
 using std::string_literals::operator""s;
 using Polaris::GraphicRoom;
 using Polaris::ItemController;
