@@ -191,7 +191,13 @@ public:
      * model - initial state of model.
      *************************************************************************/
     explicit ModelInterface( Model a_model )
-    :proxy_(), observer_(), model_( std::move( a_model ) ) {};
+    :proxy_(), observer_(), model_( std::move( a_model ) ) {
+        __triggerModelEvents();
+    };
+    void clearModel();
+private:
+    void __triggerModelEvents();
+
 };
 } //namespace Polaris
 
