@@ -1,7 +1,5 @@
 #include "include/button_click_handler.h"
 
-#include <QDebug>
-
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
         ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button, QLabel * floor_label ) :
         node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ),
@@ -16,8 +14,6 @@ void Polaris::ButtonClickHandler::AddButtonClick()
 
     if( ids.first != EMPTY && ids.second != EMPTY )
     {
-        qInfo() << "Add button: Two node selected";
-
         // Set current nodes to form
         connection_form_->SetNodes( ids.first, ids.second );
 
@@ -33,8 +29,6 @@ void Polaris::ButtonClickHandler::AddButtonClick()
 
         if( coordinates.rx() != EMPTY && coordinates.ry() != EMPTY )
         {
-            qInfo() << "Add button: One node selected";
-
             // Set current node params
             node_form_->SetNode( 0, STATUS::SAVE );
 
@@ -42,8 +36,6 @@ void Polaris::ButtonClickHandler::AddButtonClick()
             node_form_->show();
             button_panel_->hide();
         }
-        else
-            qInfo() << "Add button: Nodes not selected";
     }
 }
 
@@ -57,35 +49,16 @@ void Polaris::ButtonClickHandler::DeleteButtonClick()
     {
         if ( ids.second != EMPTY )
         {
-            qInfo() << "Delete button: Two nodes selected";
-
             // Delete connection
             graph_controller_->DeleteConnection( ids.first, ids.second );
         }
         else
         {
-            qInfo() << "Delete button: One node selected";
-
             // Delete room
             graph_controller_->DeleteNode( ids.first );
         }
     }
-    else
-        qInfo() << "Delete button: Nodes not selected";
 }
-
-//void Polaris::ButtonClickHandler::MoveButtonClick()
-//{
-//    int first_id = view_controller_->GetNodeIds().first;
-//    if( first_id != EMPTY )
-//    {
-//        qInfo() << "Move button: Node selected";
-//        std::pair< Coordinate, Coordinate > first_coords = view_controller_->GetNodeCoords();
-//        graph_controller_->MoveNode( first_id, first_coords );
-//    }
-//    else
-//        qInfo() << "Move button: Node not selected";
-//}
 
 void Polaris::ButtonClickHandler::ChangeButtonClick()
 {
@@ -95,8 +68,6 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
 
     if( id != EMPTY )
     {
-        qInfo() << "Change button: Node selected";
-
         // Set node params
         node_form_->SetNode( id, STATUS::CHANGE );
 
@@ -104,8 +75,6 @@ void Polaris::ButtonClickHandler::ChangeButtonClick()
         node_form_->show();
         button_panel_->hide();
     }
-    else
-        qInfo() << "Change button: Node not selected";
 }
 
 void Polaris::ButtonClickHandler::FindRouteButtonClick()
@@ -114,13 +83,7 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
     std::pair< Id, Id > ids = view_controller_->GetNodeIds();
 
     if( ids.first != EMPTY && ids.second != EMPTY )
-    {
-        qInfo() << "Find route button: Two node selected";
-
         graph_controller_->FindRoute( ids.first, ids.second );
-    }
-    else
-        qInfo() << "Find route button: Two node not selected";
 }
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()
