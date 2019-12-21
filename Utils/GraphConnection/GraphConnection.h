@@ -49,8 +49,8 @@ public:
     /**************************************************************************
      * GraphConnection copy constructor.
      *************************************************************************/
-    GraphConnection( const GraphConnection & c ): GraphElement( c.GetId() )
-    { to = c.to; from = c.from; cost = c.cost; };
+    GraphConnection( const GraphConnection & c ): GraphElement( c.GetId() ),
+    to ( c.to ), from( c.from ), cost( c.cost ) {};
     /**************************************************************************
      * GraphConnection move constructor.
      *************************************************************************/

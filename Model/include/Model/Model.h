@@ -14,7 +14,7 @@ namespace Polaris
  * Model structure is used for storing data about the room graph
  * and it's meta information. All logic is provided in ModelInterface.
  *****************************************************************************/
-class Model
+struct Model
 {
 public:
     GraphInterface graph;
