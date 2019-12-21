@@ -5,8 +5,6 @@
 #include "include/item_controller.h"
 #include <memory>
 
-#include <QDebug>
-
 using Polaris::GraphicView;
 using Polaris::GraphicRoom;
 using Polaris::GraphConnection;

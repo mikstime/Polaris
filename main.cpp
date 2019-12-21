@@ -3,6 +3,8 @@
 #include "Main/include/mainwindow.h"
 #include "Controller/include/graph_controller.h"
 
+#define QT_NO_DEBUG_OUTPUT
+
 int main( int argc, char * argv[] )
 {
     QApplication app( argc, argv );

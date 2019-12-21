@@ -2,10 +2,6 @@
 #include "include/renderer.h"
 #include <QWheelEvent>
 
-#include <QDebug>
-
-const int8_t WHEEL_STEP = 100;
-
 using Polaris::Renderer;
 
 Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
@@ -104,8 +100,6 @@ bool Renderer::RedrawFloor(const int8_t step )
     current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
-
-    qInfo() << current_floor_;
 
     for( size_t i = 0; i < items_list.size(); ++i )
     {

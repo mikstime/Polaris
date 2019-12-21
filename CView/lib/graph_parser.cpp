@@ -4,8 +4,6 @@
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
 
-#include <QDebug>
-
 using Polaris::GraphicDoor;
 using Polaris::GraphicItem;
 using Polaris::GraphParser;
@@ -30,18 +28,16 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     {
         this->OnRoomAdded( k );
     }
+    for( const auto & k : graph )
+    {
+        this->OnConnectionAdded( k );
+    }
 }
 
 // TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
-    qInfo() << "Path";
-    for( auto k : nodes )
-    {
-        qInfo() << k.room_number.c_str();
-    }
-
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
@@ -81,8 +77,6 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
-    qInfo() << "Removed";
-
     item_controller_->ResetCurrentNode();
     item_controller_->ResetPreviousNode();
     EraseItem( meta.graph_node_id );

@@ -5,8 +5,6 @@
 #include <QPainter>
 #include <QPainterPath>
 
-#include <QDebug>
-
 using std::string;
 using Polaris::GraphicRoom;
 
@@ -38,7 +36,6 @@ GraphicRoom::GraphicRoom( const Meta & node )
     }
 
     setPos( node.coordinates );
-    qInfo() << node.info.c_str() << " !";
     setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
 
     this->show();
