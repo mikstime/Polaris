@@ -2,8 +2,6 @@
 #include <string>
 #include <QGraphicsSceneMouseEvent>
 
-#include <QDebug>
-
 using std::string_literals::operator""s;
 using Polaris::GraphicRoom;
 using Polaris::ItemController;
@@ -59,7 +57,7 @@ void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 
     for( const auto & k : cur_path_ )
     {
-        k->SetColor( Qt::red );
+        k->SetColor( "#FF5D5D" );
     }
 
     this->update();

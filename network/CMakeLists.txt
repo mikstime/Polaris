@@ -1,6 +1,4 @@
-cmake_minimum_required( VERSION 3.15 )
-
-project( network )
+cmake_minimum_required( VERSION 3.13 )
 
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
 
@@ -13,7 +11,9 @@ find_package( GTest REQUIRED )
 set( HEADERS include/Client.h )
 set( SOURCES lib/Client.cpp )
 
-add_executable(network Client.cpp Client.h)
+add_library(network STATIC ${HEADERS} ${SOURCES})
+
+target_include_directories(network PUBLIC .)
 
 include_directories( ${GTEST_INCLUDE_DIRS} )
 

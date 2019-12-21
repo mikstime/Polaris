@@ -27,7 +27,7 @@ void GraphicConnection::SetColor( const QColor & color )
 void GraphicConnection::SetSelection()
 {
     connection_number_ = ++ connection_number_counter_;
-    SetColor( Qt::yellow );
+    SetColor( "#FFC700" );
 }
 
 QPolygonF GraphicConnection::GetSize() const
@@ -37,7 +37,7 @@ QPolygonF GraphicConnection::GetSize() const
 
 void GraphicConnection::ResetColor()
 {
-    def_color_ = cur_color_ = Qt::black;
+    def_color_ = cur_color_ = "#595959";
 }
 
 void GraphicConnection::ResetSelection()

@@ -4,8 +4,6 @@
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
 
-#include <QDebug>
-
 using Polaris::GraphicDoor;
 using Polaris::GraphicItem;
 using Polaris::GraphParser;
@@ -30,18 +28,16 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     {
         this->OnRoomAdded( k );
     }
+    for( const auto & k : graph )
+    {
+        this->OnConnectionAdded( k );
+    }
 }
 
 // TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
-    qInfo() << "Path";
-    for( auto k : nodes )
-    {
-        qInfo() << k.room_number.c_str();
-    }
-
     // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
@@ -81,8 +77,6 @@ void GraphParser::OnRoomAdded( const Meta & meta )
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
-    qInfo() << "Removed";
-
     item_controller_->ResetCurrentNode();
     item_controller_->ResetPreviousNode();
     EraseItem( meta.graph_node_id );
@@ -90,6 +84,9 @@ void GraphParser::OnRoomRemoved( const Meta & meta )
 
 void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 {
+    if( items_in_controller_->FindById( connection.id_ ) != nullptr )
+        return;
+
     GraphicItem * from_room = items_in_controller_->FindById( connection.from );
     GraphicItem * to_room = items_in_controller_->FindById( connection.to );
 
@@ -129,6 +126,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     }
 
     GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
+        nw_connection->SetDefaultColor( from_room->GetDefColor() );
     nw_connection->setPos( from_room->pos() );
     item_controller_->addItem( nw_connection );
     items_in_controller_->AddItem(  nw_connection, connection.GetId() );

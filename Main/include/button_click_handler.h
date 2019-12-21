@@ -24,7 +24,7 @@ public:
      * @paran button_panel - pointer to button panel
      */
     ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form, ViewController * controller,
-            GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button );
+            GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button, QLabel * floor_label );
 
 private:
     // Pointers to other objects
@@ -35,6 +35,7 @@ private:
     std::shared_ptr< GraphController > graph_controller_;
 
     QPushButton * change_mode_button_;
+    QLabel * floor_label_;
 
 public slots:
     /**
@@ -66,6 +67,8 @@ public slots:
      */
     void FloorDownButtonClick();
     void ChangeModeButtonClick();
+    void DownloadButtonClick();
+    void SaveButtonClick();
 };
 
 } // namespace Polaris
