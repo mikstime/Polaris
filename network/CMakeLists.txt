@@ -17,4 +17,4 @@ target_include_directories(network PUBLIC .)
 
 include_directories( ${GTEST_INCLUDE_DIRS} )
 
-add_executable( ClientTest test/test.cpp )
+
