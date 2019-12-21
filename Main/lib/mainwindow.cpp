@@ -46,15 +46,13 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     // Creating buttons
     buttons_["add"] = new QPushButton( "Добавить" );
     buttons_["delete"] = new QPushButton( "Удалить" );
-//    buttons_["move"] = new QPushButton( "Переместить" );
     buttons_["change"] = new QPushButton( "Изменить" );
     buttons_["find_route"] = new QPushButton( "Найти маршрут" );
     buttons_["floor_up"] = new QPushButton( "Вверх" );
     buttons_["floor_down"] = new QPushButton( "Вниз" );
     buttons_["change_mode"] = new QPushButton( "Режим редактирования" );
-
-//    buttons_["floor_up"]->setFixedSize(100, 30);
-//    buttons_["floor_down"]->setFixedSize(100, 30);
+    buttons_["download"] = new QPushButton( "Загрузить" );
+    buttons_["save"] = new QPushButton( "Сохранить" );
 
     // Floor layout
     auto * floor_layout = new QHBoxLayout;
@@ -95,4 +93,6 @@ void Polaris::MainWindow::ConnectButtons()
     connect( buttons_["floor_up"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );
     connect( buttons_["floor_down"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorDownButtonClick() ) );
     connect( buttons_["change_mode"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( ChangeModeButtonClick() ) );
+    connect( buttons_["download"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( DownloadButtonClick() ) );
+    connect( buttons_["save"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( SaveButtonClick() ) );
 }

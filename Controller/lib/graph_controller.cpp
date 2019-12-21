@@ -9,7 +9,6 @@ Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
 
 int Polaris::GraphController::AddNode()
 {
-    qInfo() << "GraphController: In AddNode";
     // Creating node
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
