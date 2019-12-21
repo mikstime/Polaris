@@ -101,7 +101,6 @@ bool Renderer::ChangeFloor( const int8_t step )
 bool Renderer::RedrawFloor(const int8_t step )
 {
     // TODO отображать текущий этаж в фоне
-    // новый этаж и лист всех элементов
     current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
@@ -110,12 +109,11 @@ bool Renderer::RedrawFloor(const int8_t step )
 
     for( size_t i = 0; i < items_list.size(); ++i )
     {
-        // каст к кастомному элементу
         // TODO заменить на разбиение по этажам
-        GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
+        // TODO лестница на несколько этажей
+        GraphicItem * cur_item = static_cast< GraphicItem * >( items_list[ i ] );
 
-        // если элемент на этаже, показать, иначе спрятать
-        if( cur_item->GetFloor() != current_floor_ )
+        if( cur_item->GetFloor() != current_floor_ && cur_item->GetRole() != Role::STAIR )
         {
             cur_item->hide();
         }

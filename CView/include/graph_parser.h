@@ -9,7 +9,6 @@
 #include <unordered_map>
 #include <vector>
 
-// TODO выделить интерфейс
 namespace Polaris
 {
     class GraphParser
@@ -34,7 +33,6 @@ namespace Polaris
 
     private:
         std::shared_ptr< ItemController >item_controller_;
-        // TODO обернуть в отдельный класс
         std::shared_ptr< ItemCollaction > items_in_controller_;
 
         bool EraseItem( const Id id );
