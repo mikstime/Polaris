@@ -19,12 +19,16 @@ namespace Polaris
         bool IsSelected() const;
         Id GetId() const;
         int8_t GetFloor() const;
+//        virtual bool OnTheFloor( const int8_t floor ) const;
         Role GetRole() const;
         QColor GetColor() const;
         virtual QPolygonF GetSize() const { return QPolygonF(); };
         void SetDefaultColor();
+        void SetDefaultColor( const QColor & nw_def_color );
         virtual void SetColor( const QColor & color ) { return; }
         virtual void SetSelection() { return; }
+        virtual void SetReacheble( bool reach ) { return; };
+        virtual bool IsReacheble() const { return true; };
         virtual void ResetSelection() { return; }
 
     protected:

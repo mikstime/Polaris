@@ -34,6 +34,11 @@ int8_t GraphicItem::GetFloor() const
     return floor_;
 }
 
+//bool GraphicItem::OnTheFloor( const int8_t floor ) const
+//{
+//    return floor_ == floor;
+//}
+
 Polaris::Role GraphicItem::GetRole() const
 {
     return role_;
@@ -47,4 +52,9 @@ QColor GraphicItem::GetColor() const
 void GraphicItem::SetDefaultColor()
 {
     cur_color_ =  def_color_;
+}
+
+void GraphicItem::SetDefaultColor( const QColor & nw_def_color )
+{
+    def_color_ = cur_color_ = nw_def_color;
 }
