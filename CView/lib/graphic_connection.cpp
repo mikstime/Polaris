@@ -4,13 +4,19 @@
 using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & pos )
-: GraphicItem()
+: GraphicItem(),
+size_( -6, -6, 12, 12 ),
+connection_number_( 0 )
 {
     ResetColor();
     this->setPos( pos );
-    this->size_.setWidth(20);
-    this->size_.setHeight(20);
     this->show();
+}
+
+GraphicConnection::~GraphicConnection()
+{
+    if( connection_number_ != 0 )
+        connection_number_counter_--;
 }
 
 void GraphicConnection::SetColor( const QColor & color )
@@ -20,6 +26,7 @@ void GraphicConnection::SetColor( const QColor & color )
 
 void GraphicConnection::SetSelection()
 {
+    connection_number_ = ++ connection_number_counter_;
     SetColor( Qt::yellow );
 }
 
@@ -35,6 +42,12 @@ void GraphicConnection::ResetColor()
 
 void GraphicConnection::ResetSelection()
 {
+    if(  connection_number_ != 0)
+    {
+        connection_number_ = 0;
+        connection_number_counter_--;
+    }
+
     SetDefaultColor();
 }
 
@@ -42,8 +55,9 @@ void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsIte
 {
     painter->setPen( Qt::black );
     painter->setBrush( cur_color_ );
-    painter->drawRect( size_ );
-//    painter->drawText( QRectF( left_, right_ ), Qt::AlignCenter, QString::number( cost_ ) );
+    painter->drawEllipse( size_ );
+    if( connection_number_ != 0 )
+        painter->drawText(size_, Qt::AlignCenter, QString::number( connection_number_ ) );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -61,3 +75,5 @@ QPainterPath GraphicConnection::shape() const
     path.addRect( size_ );
     return path;
 }
+
+size_t GraphicConnection::connection_number_counter_ = 0;

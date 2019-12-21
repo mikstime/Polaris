@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "include/editor.h"
+#include <QDebug>
 
 using Polaris::Editor;
 
@@ -40,20 +41,45 @@ void Editor::AddConnection( QPointF & pos )
 
 void Editor::SelectConnection( GraphicItem * const item )
 {
+    qInfo() << selected_.size() << ' ' << connections_.size();
     if( item->IsSelected() )
     {
-        item->ResetSelection();
-        selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
+        QPointF pos = item->pos();
+        auto erase_from = std::find( selected_.begin(), selected_.end(), pos );
+        for( auto k = erase_from; k < selected_.end(); k++ )
+        {
+            std::for_each( connections_.begin(), connections_.end(), [ & k ]( GraphicItem * a )
+            {
+                if( a->pos() == * k )
+                    a->ResetSelection();
+            }  );
+        }
+        selected_.erase( erase_from, selected_.end() );
     }
     else
     {
         item->SetSelection();
         selected_ << item->pos();
     }
+    qInfo() << selected_.size() << ' ' << connections_.size();
 }
 
 void Editor::EraseItem( GraphicItem * const item )
 {
+    if( item->IsSelected() ) {
+        QPointF pos = item->pos();
+        auto erase_from = std::find( selected_.begin(), selected_.end(), pos );
+        for( auto k = erase_from; k < selected_.end(); k++ )
+        {
+            std::for_each( connections_.begin(), connections_.end(), [ & k ]( GraphicItem * a )
+            {
+                if( a->pos() == * k )
+                    a->ResetSelection();
+            }  );
+        }
+        selected_.erase( erase_from, selected_.end() );
+    }
+
     scene_->removeItem( item );
     selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
     connections_.remove( item );
@@ -103,10 +129,10 @@ public:
 
 QPolygonF Editor::GetNewForm()
 {
-    if( selected_.size() > 3 )
-        std::sort( selected_.begin(), selected_.end(),
-                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
-  
+//    if( selected_.size() > 3 )
+//        std::sort( selected_.begin(), selected_.end(),
+//                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+    selected_ << selected_[ 0 ];
     return selected_.translated( - GetPos() );
 }
 
