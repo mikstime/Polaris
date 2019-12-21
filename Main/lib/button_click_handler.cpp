@@ -3,9 +3,9 @@
 #include <QDebug>
 
 Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form,
-        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button ) :
+        ViewController * view_controller, GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button, QLabel * floor_label ) :
         node_form_( node_form ), connection_form_( connection_form ), view_controller_( view_controller ),
-        graph_controller_( graph_controller ), button_panel_( button_panel ), change_mode_button_( change_mode_button )
+        graph_controller_( graph_controller ), button_panel_( button_panel ), change_mode_button_( change_mode_button ), floor_label_( floor_label )
 {
 }
 
@@ -125,12 +125,14 @@ void Polaris::ButtonClickHandler::FindRouteButtonClick()
 
 void Polaris::ButtonClickHandler::FloorUpButtonClick()
 {
-    view_controller_->FloorUp();
+    int floor = view_controller_->FloorUp();
+    floor_label_->setText( "Этаж: " + QString::number( floor ) );
 }
 
 void Polaris::ButtonClickHandler::FloorDownButtonClick()
 {
-    view_controller_->FloorDown();
+    int floor = view_controller_->FloorDown();
+    floor_label_->setText( "Этаж: " + QString::number( floor ) );
 }
 
 void Polaris::ButtonClickHandler::ChangeModeButtonClick()
