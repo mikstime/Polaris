@@ -21,7 +21,8 @@ namespace Polaris
         int8_t GetFloor() const;
 //        virtual bool OnTheFloor( const int8_t floor ) const;
         Role GetRole() const;
-        QColor GetColor() const;
+        QColor GetCurColor() const;
+        QColor GetDefColor() const;
         virtual QPolygonF GetSize() const { return QPolygonF(); };
         void SetDefaultColor();
         void SetDefaultColor( const QColor & nw_def_color );

@@ -126,6 +126,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     }
 
     GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
+        nw_connection->SetDefaultColor( from_room->GetDefColor() );
     nw_connection->setPos( from_room->pos() );
     item_controller_->addItem( nw_connection );
     items_in_controller_->AddItem(  nw_connection, connection.GetId() );
