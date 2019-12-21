@@ -1,12 +1,11 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "include/graphic_connection.h"
 #include "include/item_collaction.h"
-#include "mock_controller.h"
-#include "mock_graphic_item.h"
-#include "mock_parser.h"
-#include "mock_renderer.h"
-#include "mock_view.h"
+#include "include/item_controller.h"
+#include "include/graphic_item.h"
+#include "include/graph_parser.h"
+#include "include/renderer.h"
+#include "include/graphic_view.h"
 #include <memory>
 #include <QApplication>
 
@@ -23,12 +22,6 @@ using Polaris::Renderer;
 using Polaris::Role;
 
 using std::shared_ptr;
-
-using ::testing::AtLeast;
-using ::testing::DoAll;
-using ::testing::SetArgReferee;
-using ::testing::Return;
-using ::testing::_;
 
 TEST( Item, Init )
 {
@@ -68,20 +61,20 @@ TEST( Room, Color )
                   QPolygonF( 0 ), 5, Role::ROOM };
     GraphicRoom room( meta );
 
-    QColor cur_color = room.GetColor();
+    QColor cur_color = room.GetCurColor();
 
     room.SetColor( Qt::black );
-    EXPECT_NE( room.GetColor(), cur_color );
-    EXPECT_EQ( room.GetColor(), Qt::black );
+    EXPECT_NE( room.GetCurColor(), cur_color );
+    EXPECT_EQ( room.GetCurColor(), Qt::black );
 
     room.SetDefaultColor();
-    EXPECT_EQ( room.GetColor(), cur_color );
+    EXPECT_EQ( room.GetCurColor(), cur_color );
 
     room.SetSelection();
-    EXPECT_NE( room.GetColor(), cur_color );
+    EXPECT_NE( room.GetCurColor(), cur_color );
 
     room.ResetSelection();
-    EXPECT_EQ( room.GetColor(), cur_color );
+    EXPECT_EQ( room.GetCurColor(), cur_color );
 }
 
 TEST( Connection, Color )
@@ -89,19 +82,19 @@ TEST( Connection, Color )
     QPointF point( 50, 50 );
     GraphicConnection connection( point );
 
-    QColor cur_color = connection.GetColor();
+    QColor cur_color = connection.GetCurColor();
     connection.SetColor( Qt::blue );
-    EXPECT_NE( connection.GetColor(), cur_color );
-    EXPECT_EQ( connection.GetColor(), Qt::blue );
+    EXPECT_NE( connection.GetCurColor(), cur_color );
+    EXPECT_EQ( connection.GetCurColor(), Qt::blue );
 
     connection.SetDefaultColor();
-    EXPECT_EQ( connection.GetColor(), cur_color );
+    EXPECT_EQ( connection.GetCurColor(), cur_color );
 
     connection.SetSelection();
-    EXPECT_NE( connection.GetColor(), cur_color );
+    EXPECT_NE( connection.GetCurColor(), cur_color );
 
     connection.ResetSelection();
-    EXPECT_EQ( connection.GetColor(), cur_color );
+    EXPECT_EQ( connection.GetCurColor(), cur_color );
 }
 
 TEST( Renderer, Floor )
@@ -173,27 +166,27 @@ TEST_F( Parser, AddConnection )
     EXPECT_EQ( item_controller_->items().size(), 2 );
 }
 
-class GraphView : public ::testing::Test
-{
-protected:
-    void SetUp()
-    {
-        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
-        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
-        // TODO моки
-    }
-
-    std::shared_ptr< GraphicView > graphic_view_;
-    std::shared_ptr< MockGraphParser > graph_parser_;
-};
-
-TEST_F( GraphView, Parser )
-{
+//class GraphView : public ::testing::Test
+//{
+//protected:
+//    void SetUp()
+//    {
+//        graphic_view_ = shared_ptr< GraphicView >( new GraphicView() );
+//        graph_parser_ = shared_ptr< MockGraphParser >( new MockGraphParser() );
+//        // TODO моки
+//    }
+//
+//    std::shared_ptr< GraphicView > graphic_view_;
+//    std::shared_ptr< MockGraphParser > graph_parser_;
+//};
+//
+//TEST_F( GraphView, Parser )
+//{
 //    EXPECT_CALL( *( graph_parser_.get() ), OnRoomChanged( _ ) ).Times( 1 );
 //    Meta meta = {};
 //    graphic_view_->AddRoom( meta );
-}
-
+//}
+//
 //class MouseInteraction : public ::testing::Test
 //{
 //protected:
@@ -203,9 +196,9 @@ TEST_F( GraphView, Parser )
 //    }
 //};
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     QApplication a(argc, argv, false );
-    ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
