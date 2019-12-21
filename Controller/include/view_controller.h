@@ -47,8 +47,8 @@ public:
 
     void ChangeMode( bool is_editing );
     int GetFloorNumber();
-    void FloorUp();
-    void FloorDown();
+    int FloorUp();
+    int FloorDown();
 
 private:
     // Pointer to View object
