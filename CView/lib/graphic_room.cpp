@@ -95,32 +95,32 @@ void GraphicRoom::ResetColor()
     //TODO цвет зависит от роли
     if( ! reachebele_ )
     {
-        def_color_ = cur_color_ = Qt::darkGray;
+        def_color_ = cur_color_ = "#b9b9b9";
         return;
     }
 
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
     {
-        def_color_ = Qt::black;
+        def_color_ = "#FF5D5D";
     } else if( role == Polaris::Role::ROOM )
     {
-        def_color_ = Qt::green;
+        def_color_ = "#5B659B";
     }
     else if( role == Polaris::Role::STAIR )
     {
-        def_color_ = Qt::red;
+        def_color_ = "#3BE300";
     }
     else if( role == Polaris::Role::HALL )
     {
-        def_color_ = Qt::blue;
+        def_color_ = "#284680";
     }
     cur_color_ = def_color_;
 }
 
 void GraphicRoom::SetSelection()
 {
-    SetColor( Qt::yellow );
+    SetColor( "#FFC700" );
 }
 
 void GraphicRoom::ResetSelection()
