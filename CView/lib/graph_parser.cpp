@@ -14,7 +14,6 @@ GraphParser::GraphParser( const shared_ptr< ItemController > & item_controller,
 : item_controller_( item_controller ),
 items_in_controller_( items_in_controller )
 {
-
 }
 
 GraphParser::~GraphParser()
@@ -23,7 +22,6 @@ GraphParser::~GraphParser()
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-    // TODO потоки
     for( const auto & k : meta )
     {
         this->OnRoomAdded( k );
@@ -34,11 +32,9 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     }
 }
 
-// TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
-    // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
     {
@@ -59,7 +55,7 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 
     if( cur_room != nullptr )
     {
-        GraphicRoom * cast_room = static_cast< GraphicRoom * >( cur_room );
+        GraphicRoom * cast_room = qgraphicsitem_cast< GraphicRoom * >( cur_room );
         cast_room->SetMeta( meta );
         item_controller_->update();
     } else
@@ -92,7 +88,6 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
     if( from_room == nullptr || to_room == nullptr )
         return;
-
     if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
         return;
 
@@ -113,7 +108,6 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     {
         for( size_t j = 1; j < to_polygon.size(); j++ )
         {
-//TODO  сделать оптимальнее
             if ( ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) &&
                     ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) ) ||
                  ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) &&
@@ -126,9 +120,9 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     }
 
     GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    nw_connection->setPos( from_room->pos() );
     if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
         nw_connection->SetDefaultColor( from_room->GetDefColor() );
-    nw_connection->setPos( from_room->pos() );
     item_controller_->addItem( nw_connection );
     items_in_controller_->AddItem(  nw_connection, connection.GetId() );
     item_controller_->update();

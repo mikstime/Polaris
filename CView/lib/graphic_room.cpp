@@ -9,22 +9,21 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
-        :GraphicItem( 0, 0, Polaris::Role::MARK ),
-         size_( QRectF(-10, -10, 20, 20) ),
-         reachebele_( false )
+:GraphicItem( 0, 0, Polaris::Role::MARK ),
+size_( QRectF(-10, -10, 20, 20) ),
+reachebele_( false )
 {
-    // TODO инициализация
     ResetColor();
     setPos( 40, 40 );
     this->hide();
 }
 
 GraphicRoom::GraphicRoom( const Meta & node )
-        : GraphicItem( node.graph_node_id, node.floor, node.role ),
-          room_number_( node.room_number ),
-          info_( node.info ),
-          size_( node.size ),
-          reachebele_( false )
+: GraphicItem( node.graph_node_id, node.floor, node.role ),
+room_number_( node.room_number ),
+info_( node.info ),
+size_( node.size ),
+reachebele_( false )
 {
     if( role_ == Role::STAIR )
     {
@@ -89,7 +88,6 @@ bool GraphicRoom::IsReacheble() const
 
 void GraphicRoom::ResetColor()
 {
-    //TODO цвет зависит от роли
     if( ! reachebele_ )
     {
         def_color_ = cur_color_ = "#b9b9b9";

@@ -5,7 +5,6 @@ using Polaris::ViewSub;
 ViewSub::ViewSub( std::shared_ptr< View > view )
 : view_( view )
 {
-
 }
 
 //void ViewSub::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )

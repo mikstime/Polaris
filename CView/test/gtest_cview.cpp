@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "include/graphic_connection.h"
+#include "include/graphic_room.h"
 #include "include/item_collaction.h"
 #include "include/item_controller.h"
 #include "include/graphic_item.h"

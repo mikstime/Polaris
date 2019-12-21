@@ -71,7 +71,6 @@ QRectF GraphicConnection::boundingRect() const
 
 QPainterPath GraphicConnection::shape() const
 {
-    // TODO проверить
     QPainterPath path;
     path.addRect( size_ );
     return path;

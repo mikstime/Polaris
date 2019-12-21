@@ -8,7 +8,6 @@ using Polaris::GraphConnection;
 Editor::Editor( std::shared_ptr< QGraphicsScene > scene )
 : scene_( scene )
 {
-
 }
 
 Editor::~Editor()
@@ -21,7 +20,7 @@ void Editor::AddConnections( const QPolygonF & polygon, const QPointF & pos )
     for( const auto & k : polygon )
     {
         QPointF nw_pos = k + pos;
-        GraphicItem * cur_item = static_cast< GraphicItem * >( scene_->itemAt( nw_pos, QTransform() ) );
+        GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( scene_->itemAt( nw_pos, QTransform() ) );
         if( cur_item == nullptr || cur_item->GetRole() != Role::CONNECTION )
         {
             GraphicItem * nw_connection = new GraphicConnection( nw_pos );
@@ -95,6 +94,9 @@ void Editor::ResetEditing()
     selected_.erase( selected_.begin(), selected_.end() );
 }
 
+/**
+ * Компоратор для сортировки по углу
+ */
 class AngleComparator
 {
     QPointF origin_;
@@ -127,9 +129,12 @@ public:
 
 QPolygonF Editor::GetNewForm()
 {
-//    if( selected_.size() > 3 )
-//        std::sort( selected_.begin(), selected_.end(),
-//                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+    /** Сортировка по углу
+         if( selected_.size() > 3 )
+        std::sort( selected_.begin(), selected_.end(),
+                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+     */
+
     selected_ << selected_[ 0 ];
     return selected_.translated( - GetPos() );
 }
