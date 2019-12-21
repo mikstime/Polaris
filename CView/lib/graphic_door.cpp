@@ -50,6 +50,7 @@ void GraphicDoor::ResetSelection()
 
 void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     QPen nw_pen( cur_color_ );
     nw_pen.setWidth( 4 );
 

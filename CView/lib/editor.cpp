@@ -1,9 +1,11 @@
 #include <algorithm>
+#include "include/graphic_connection.h"
 #include "include/editor.h"
 
 using Polaris::Editor;
+using Polaris::GraphConnection;
 
-Editor::Editor( QGraphicsScene * scene )
+Editor::Editor( std::shared_ptr< QGraphicsScene > scene )
 : scene_( scene )
 {
 
@@ -12,7 +14,6 @@ Editor::Editor( QGraphicsScene * scene )
 Editor::~Editor()
 {
     ResetEditing();
-    scene_.release();
 }
 
 void Editor::AddConnections( const QPolygonF & polygon, const QPointF & pos )

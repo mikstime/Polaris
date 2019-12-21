@@ -14,9 +14,10 @@ using Polaris::Meta;
 // Размер окна и выкладка, на которой будет размещен виджет
 GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
 {
-    std::shared_ptr< ItemCollaction > collaction( new ItemCollaction );
+    std::shared_ptr< ItemCollection > collaction(new ItemCollection );
     item_controller_ = std::make_shared< ItemController >( QRect( 0, 0, size.width(),
                                                            size.height() ), collaction );
+    item_controller_->InitEditor();
     graph_parser_ = std::make_unique< GraphParser >( item_controller_, collaction );
     renderer_ = std::make_unique< Renderer >( item_controller_.get() );
     renderer_->setMaximumSize( size );

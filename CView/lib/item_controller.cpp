@@ -3,20 +3,17 @@
 #include <QGraphicsSceneMouseEvent>
 
 using std::string_literals::operator""s;
-using Polaris::GraphicRoom;
 using Polaris::ItemController;
 
-ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollaction > items_in_controller,
+ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollection > items_in_controller,
                                 QObject * parent )
 : QGraphicsScene( scene_rect, parent ),
-editor_( std::make_unique< Editor >( this ) ),
 items_in_controller_( items_in_controller ),
 current_node_( nullptr ),
 previous_node_( nullptr ),
 path_drawn_( false ),
 is_edit_( false )
 {
-//    this->addItem( & mark_down_ );
 }
 
 ItemController::~ItemController()
@@ -50,6 +47,12 @@ QPolygonF ItemController::GetNewForm() const
         return QPolygonF();
     }
 }
+
+void ItemController::InitEditor()
+{
+    editor_ = std::make_unique< Editor >( shared_from_this() );
+}
+
 
 void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 {
