@@ -61,7 +61,9 @@ Polaris::Model Polaris::ModelToString::fromString( const std::string & str ) {
         Id id, from, to;
         Price cost;
         s >> id >> from >> to >> cost;
-        m.graph.getGraph().connections.emplace( id, from, to, cost );
+        GraphConnection c( id, from, to, cost );
+        std::pair< Id, Id > key( from, to );
+        m.graph.getGraph().connections[ key ] = c;
     }
     s >> nodes_size;
     for( int i = 0; i < nodes_size; i++ )
