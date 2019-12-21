@@ -23,9 +23,9 @@ public:
     Model():graph(),meta(){};
     explicit Model(Graph a_graph)
     : graph(a_graph), meta() {};
-    Model( Model const & ) = default;
-    Model( Model && ) noexcept = default;
-    ~Model() = default;
+//    Model( Model const & ) = default;
+//    Model( Model && ) noexcept = default;
+//    ~Model() = default;
 };
 } //namespace Polaris
 
