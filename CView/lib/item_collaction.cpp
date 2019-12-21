@@ -1,5 +1,5 @@
 #include "include/item_collaction.h"
-
+#include <QDebug>
 using Polaris::ItemCollaction;
 using Polaris::GraphicItem;
 
@@ -16,6 +16,7 @@ void ItemCollaction::EraseItems()
 
 bool ItemCollaction::AddItem( GraphicItem * const item, Id id )
 {
+    qInfo() << "id in add " << id;
     GraphicItem * cur_item_ptr = this->FindById( id );
     Id cur_item_id = this->FindByPointer( item );
     if( cur_item_id == 0 && cur_item_ptr == nullptr )
@@ -60,6 +61,7 @@ GraphicItem * ItemCollaction::EraseItemById( const Id cur_id )
     {
         GraphicItem * pointer = ( * cur_item ).second;
         pointer_to_id_.erase( pointer );
+        id_to_pointer_.erase( cur_item );
         return pointer;
     }
 

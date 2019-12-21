@@ -35,7 +35,7 @@ void GraphicDoor::SetColor(const QColor & color )
 
 void GraphicDoor::ResetColor()
 {
-    cur_color_ = def_color_ = Qt::darkRed;
+    cur_color_ = def_color_ = "#a83636";
 }
 
 void GraphicDoor::SetSelection()

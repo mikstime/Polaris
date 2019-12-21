@@ -90,6 +90,9 @@ void GraphParser::OnRoomRemoved( const Meta & meta )
 
 void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 {
+    if( items_in_controller_->FindById( connection.id_ ) != nullptr )
+        return;
+
     GraphicItem * from_room = items_in_controller_->FindById( connection.from );
     GraphicItem * to_room = items_in_controller_->FindById( connection.to );
 
