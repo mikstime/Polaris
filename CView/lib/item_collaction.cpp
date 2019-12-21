@@ -1,5 +1,5 @@
 #include "include/item_collaction.h"
-#include <QDebug>
+
 using Polaris::ItemCollection;
 using Polaris::GraphicItem;
 
@@ -16,9 +16,9 @@ void ItemCollection::EraseItems()
 
 bool ItemCollection::AddItem(GraphicItem * const item, Id id )
 {
-    qInfo() << "id in add " << id;
     GraphicItem * cur_item_ptr = this->FindById( id );
     Id cur_item_id = this->FindByPointer( item );
+
     if( cur_item_id == 0 && cur_item_ptr == nullptr )
     {
         id_to_pointer_.insert( std::make_pair( id, item ) );

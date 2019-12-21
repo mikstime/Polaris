@@ -69,15 +69,13 @@ void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 
 void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    // выбранный итем
     QPointF cur_pos = mouse_event->scenePos();
-    GraphicItem * cast_item = static_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
+    GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
 
     if( path_drawn_ )
         ResetPath();
 
-    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton )
-    //TODO еренести в хэндлклик
+    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton ) // для редоктирования
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION )
         {
@@ -98,7 +96,7 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
             editor_->AddConnection( cur_pos );
         }
     }
-    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // для нередактирование
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION ) // выбор комнаты
         {
