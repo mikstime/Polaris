@@ -1,7 +1,5 @@
 #include "include/graphic_item.h"
 
-#include <QDebug>
-
 using Polaris::GraphicItem;
 
 GraphicItem::GraphicItem()

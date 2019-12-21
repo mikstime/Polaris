@@ -1,6 +1,5 @@
 #include <algorithm>
 #include "include/editor.h"
-#include <QDebug>
 
 using Polaris::Editor;
 
@@ -41,7 +40,6 @@ void Editor::AddConnection( QPointF & pos )
 
 void Editor::SelectConnection( GraphicItem * const item )
 {
-    qInfo() << selected_.size() << ' ' << connections_.size();
     if( item->IsSelected() )
     {
         QPointF pos = item->pos();
@@ -61,7 +59,6 @@ void Editor::SelectConnection( GraphicItem * const item )
         item->SetSelection();
         selected_ << item->pos();
     }
-    qInfo() << selected_.size() << ' ' << connections_.size();
 }
 
 void Editor::EraseItem( GraphicItem * const item )
