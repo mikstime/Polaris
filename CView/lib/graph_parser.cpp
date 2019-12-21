@@ -9,8 +9,8 @@ using Polaris::GraphicItem;
 using Polaris::GraphParser;
 using std::shared_ptr;
 
-GraphParser::GraphParser( shared_ptr< ItemController > & item_controller,
-                          shared_ptr< ItemCollaction > items_in_controller )
+GraphParser::GraphParser( const shared_ptr< ItemController > & item_controller,
+                          const shared_ptr< ItemCollection > & items_in_controller )
 : item_controller_( item_controller ),
 items_in_controller_( items_in_controller )
 {
@@ -143,7 +143,7 @@ void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 
 bool GraphParser::EraseItem( const Id cur_id )
 {
-    GraphicItem * cur_item = items_in_controller_->EraseItemById( cur_id );
+    GraphicItem * cur_item = items_in_controller_->DeleteItemById(cur_id);
 
     if( cur_item != nullptr )
     {

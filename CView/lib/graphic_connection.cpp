@@ -53,6 +53,7 @@ void GraphicConnection::ResetSelection()
 
 void GraphicConnection::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget )
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     painter->setPen( Qt::black );
     painter->setBrush( cur_color_ );
     painter->drawEllipse( size_ );

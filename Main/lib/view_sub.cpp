@@ -10,7 +10,7 @@ ViewSub::ViewSub( std::shared_ptr< View > view )
 
 //void ViewSub::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 //{
-//    view_->BuildItems( meta, graph );
+//    view_->InitMap( meta, graph );
 //}
 
 void ViewSub::onPathFound( std::vector< Meta > & nodes,

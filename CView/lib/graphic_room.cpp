@@ -127,6 +127,7 @@ void GraphicRoom::ResetSelection()
 
 void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     QPen nw_pen( Qt::black );
     nw_pen.setWidth( 4 );
 
