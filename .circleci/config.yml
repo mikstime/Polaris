@@ -1,0 +1,59 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: "debian:stretch"
+    steps:
+      - checkout
+      - run:
+          name: Installing SUDO
+          command: 'apt-get update && apt-get install -y sudo && rm -rf /var/include/apt/lists/*'
+      - run:
+          name: Installing GCC
+          command: 'apt-get update && apt-get install -y gcc g++'
+      - run:
+          name: Install g++
+          command: 'sudo apt-get install -y build-essential'
+      - run:
+          name: Install qt creator
+          command: 'sudo apt-get install -y qtcreator'
+      - run:
+          name: Install QT5
+          command: 'sudo apt-get install -y qt5-default'
+      - run:
+          name: Install PIP
+          command: 'sudo apt-get update && apt-get install python3-pip -y'
+      - run:
+          name: Install CMAKE
+          command: 'pip3 install cmake --upgrade'
+      - run:
+          name: Installing Valgrind
+          command: 'apt-get update && apt-get install valgrind -y'
+      - run:
+          name: Installing CppCheck
+          command: 'apt-get update && sudo apt-get install cppcheck -y'
+      - run:
+          name: CppCheck
+          command: 'cppcheck .'
+      - run:
+          name: Gtest
+          command: 'apt-get update && sudo apt-get install -y libgtest-dev'
+      - run:
+          name: Gtes2
+          command: 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/local/lib'
+      - run:
+          name: Creating Build Files
+          command: 'cmake -H. -Bbuild'
+      - run:
+          name: Creating Binary Files
+          command: 'cmake --build build'
+      - run:
+          name: Utils Testing
+          command: './bin/utils_tests'
+      - run:
+          name: Model Testing
+          command: './bin/model_tests'
+      - run:
+          name: View Testing
+          command: './bin/view_tests -platform offscreen'
