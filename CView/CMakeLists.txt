@@ -19,7 +19,7 @@ find_package( Threads REQUIRED )
 # find_package( Boost 1.65.1 REQUIRED )
 
 include_directories(${GTEST_INCLUDE_DIRS})
-#include_directories(${GMOCK_INCLUDE_DIRS})
+include_directories(${GMOCK_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
