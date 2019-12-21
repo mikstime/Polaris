@@ -122,11 +122,11 @@ bool ModelProxy::RemoveNode( Id nodeId, Model & model,
             observer->ConnectionRemoved(
                     model.graph.getConnection( nodeId, n ) );
         }
-        if( model.graph.AreConnected( n, nodeId ) )
-        {
-            observer->ConnectionRemoved(
-                    model.graph.getConnection( n, nodeId ) );
-        }
+//        if( model.graph.AreConnected( n, nodeId ) )
+//        {
+//            observer->ConnectionRemoved(
+//                    model.graph.getConnection( n, nodeId ) );
+//        }
     }
     // Try to remove node
     if( model.graph.RemoveNode( nodeId ) )
@@ -159,7 +159,7 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
 {
     // Find path
     std::vector< GraphNode > path = Search::FindPath(
-            model.graph, firstNodeId, lastNodeId );
+            model.graph, model.meta, firstNodeId, lastNodeId );
     // Retrieve graph
     Graph g = model.graph.getGraph();
     // To store transformed path and connections

@@ -14,7 +14,8 @@ bool GraphInterface::AddConnection(
         const Id & lastNodeId,
         const ConnectionParams & params )
 {
-    if( AreConnected( firstNodeId, lastNodeId ) )
+    if( AreConnected( firstNodeId, lastNodeId ) ||
+        AreConnected( lastNodeId, firstNodeId ) )
     {
         // Connection already exists.
         return false;
@@ -52,15 +53,14 @@ bool GraphInterface::RemoveConnection(
     // Connection does not exists
     if( !AreConnected( firstNodeId, lastNodeId ) )
         return false;
-    // key
-    std::pair< Id, Id > key( firstNodeId, lastNodeId );
     // Remove neighbour from first node
     if( HasNode( firstNodeId ) )
     {
         GraphNode & n1 = getNode( firstNodeId );
         auto it = std::find( n1.neighbors.begin(),
                              n1.neighbors.end(), lastNodeId );
-        n1.neighbors.erase( it );
+        if( it != n1.neighbors.end() )
+            n1.neighbors.erase( it );
     }
     // Remove neighbour from second node
     if( HasNode( lastNodeId ) )
@@ -69,9 +69,14 @@ bool GraphInterface::RemoveConnection(
         // Remove connection from second one
         auto it = std::find( n2.neighbors.begin(),
                              n2.neighbors.end(), firstNodeId );
-        n2.neighbors.erase( it );
+        if( it != n2.neighbors.end() )
+            n2.neighbors.erase( it );
     }
-    graph_.connections.erase( key );
+    // key
+    std::pair< Id, Id > key1( firstNodeId, lastNodeId );
+    std::pair< Id, Id > key2( lastNodeId, firstNodeId );
+    graph_.connections.erase( key1 );
+    graph_.connections.erase( key2 );
     return true;
 }
 

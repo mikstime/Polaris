@@ -1,7 +1,7 @@
 #ifndef DEV_SEARCH_H
 #define DEV_SEARCH_H
 
-#include <vector>
+#include <map>
 #include "include/Graph/Graph.h"
 #include "GraphNode/GraphNode.h"
 #include "include/GraphInterface/GraphInterface.h"
@@ -27,8 +27,10 @@ public:
     static Path FindPath( GraphInterface &, const Id & , const Id & );
     //@TODO A* algorithm.
     //@TODO heuristic function based on distance between nodes (x, y, floor in Meta).
-//    Path FindPath( Graph &, const std::vector< Meta > & meta, const GraphNode &, const GraphNode & );
-//    Path FindPath( Graph &, const std::vector< Meta > & meta, const ID & , const ID & );
+    static Path FindPath( GraphInterface &, std::map< Id, Meta > & meta,
+                   const GraphNode &, const GraphNode & );
+    static Path FindPath( GraphInterface &, std::map< Id, Meta > & meta,
+                   const Id & , const Id & );
 };
 }//namespace Polaris
 
