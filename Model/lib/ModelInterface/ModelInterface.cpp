@@ -20,14 +20,16 @@ bool Polaris::ModelInterface::AddConnection(
         const Polaris::Id & lastNodeId,
         const Polaris::ConnectionParams & params )
 {
-    GraphConnection new_connection( firstNodeId, lastNodeId, params );
-    return proxy_->AddConnection( new_connection, model_, observer_ );
+    return proxy_->AddConnection( firstNodeId, lastNodeId, params ,
+                                model_, observer_ );
 }
 
 bool Polaris::ModelInterface::AddConnection(
         const Polaris::GraphConnection & new_connection )
 {
-    return proxy_->AddConnection( new_connection, model_, observer_ );
+    ConnectionParams c;
+    c.cost = new_connection.cost;
+    return proxy_->AddConnection( new_connection.from, new_connection.to, c,  model_, observer_ );
 }
 /******************************************************************************
  * RemoveConnection Methods

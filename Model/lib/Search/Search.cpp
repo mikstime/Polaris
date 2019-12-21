@@ -41,7 +41,8 @@ Path Search::FindPath( GraphInterface & graph, GraphNode & from, GraphNode & to)
         for( Id next_id : current.neighbors )
         {
             GraphNode next = graph.getNode( next_id );
-            cur_price = graph.getConnection( current.GetId(), next_id ).cost;
+            auto cur_con = graph.getConnection( current.GetId(), next_id );
+            cur_price = cur_con.cost;
             new_cost = cost_so_far[ current.GetId() ] + cur_price;
             // If point has not been processed yet or a cheaper path is found
             if( cost_so_far.find( next_id ) == cost_so_far.end() ||

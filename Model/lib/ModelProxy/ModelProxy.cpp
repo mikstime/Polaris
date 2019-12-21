@@ -167,7 +167,7 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
     std::vector< GraphConnection > newConnections;
     if( !path.empty() ) {
         // Prepare meta and connections.
-        for( auto it = path.begin(); it != path.end() - 1; it++ )
+        for( auto it = path.begin(); it < path.end() - 1; it++ )
         {
             newPath.push_back( model.meta[ it->GetId() ] );
             newConnections.push_back(

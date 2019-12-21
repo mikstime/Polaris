@@ -29,9 +29,11 @@ bool GraphInterface::AddConnection(
     n1.neighbors.push_back( lastNodeId );
     n2.neighbors.push_back( firstNodeId );
     // Create a key ( pair ).
-    std::pair< Id, Id > key( firstNodeId, lastNodeId );
+    std::pair< Id, Id > key1( firstNodeId, lastNodeId );
+    std::pair< Id, Id > key2( lastNodeId, firstNodeId );
     // store connection
-    graph_.connections[ key ] = new_connection;
+    graph_.connections[ key1 ] = new_connection;
+    graph_.connections[ key2 ] = new_connection;
     return true;
 }
 
@@ -172,7 +174,8 @@ bool GraphInterface::SetConnectionParams(
 bool GraphInterface::AddConnection(
         const GraphConnection & connection )
 {
-    std::pair< Id, Id > key( connection.from, connection.to );
+    std::pair< Id, Id > key1( connection.from, connection.to );
+    std::pair< Id, Id > key2( connection.to, connection.from );
 
     if( AreConnected( connection.from, connection.to ) )
         return false;
@@ -184,7 +187,8 @@ bool GraphInterface::AddConnection(
     n1.neighbors.push_back( connection.to );
     n2.neighbors.push_back( connection.from );
     // Insert new connection
-    graph_.connections[ key ] = connection;
+    graph_.connections[ key1 ] = connection;
+    graph_.connections[ key2 ] = connection;
     return true;
 }
 
