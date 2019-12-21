@@ -68,13 +68,13 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
 
 bool GraphicView::FloorUp() 
 {
-    item_controller_->ChangeMode( false );
+    item_controller_->ResetEditing();
     return renderer_->FloorUp();
 }
 
 bool GraphicView::FloorDown()
 {
-    item_controller_->ChangeMode( false );
+    item_controller_->ResetEditing();
     return renderer_->FloorDown();
 }
 
@@ -127,5 +127,7 @@ void GraphicView::SetLayout( QHBoxLayout * const layout )
 
 bool GraphicView::ChangeMode( bool edit )
 {
+    item_controller_->ResetCurrentNode();
+    item_controller_->ResetPreviousNode();
     return item_controller_->ChangeMode( edit );
 }

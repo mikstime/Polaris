@@ -132,7 +132,7 @@ QPolygonF Editor::GetNewForm()
 //    if( selected_.size() > 3 )
 //        std::sort( selected_.begin(), selected_.end(),
 //                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
-  
+    selected_ << selected_[ 0 ];
     return selected_.translated( - GetPos() );
 }
 

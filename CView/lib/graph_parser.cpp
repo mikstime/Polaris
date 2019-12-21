@@ -1,10 +1,12 @@
 #include <algorithm>
 #include "include/graphic_connection.h"
+#include "include/graphic_door.h"
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
 
 #include <QDebug>
 
+using Polaris::GraphicDoor;
 using Polaris::GraphicItem;
 using Polaris::GraphParser;
 using std::shared_ptr;
@@ -94,6 +96,9 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     if( from_room == nullptr || to_room == nullptr )
         return;
 
+    if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
+        return;
+
     if( from_room->IsReacheble() && ! to_room->IsReacheble() )
     {
         to_room->SetReacheble( true );
@@ -103,21 +108,38 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         from_room->SetReacheble( true );
     }
 
-//    GraphicItem * nw_connection =  new GraphicConnection( from_room->pos(),
-//                                                          to_room->pos(),
-//                                                          connection.GetId(),
-//                                                          std::min( from_room->GetFloor(),
-//                                                                    to_room->GetFloor() ),
-//                                                                    connection.cost );
-//    item_controller_->addItem(nw_connection );
-//    items_in_controller_->AddItem(  nw_connection, connection.GetId() );
+    const QPolygonF from_polygon = from_room->GetSize();
+    const QPolygonF to_polygon = to_room->GetSize();
+
+    QPointF left = { 0, 0 }, right = { 0, 0 };
+    for( size_t i = 1; i < from_polygon.size(); i++ )
+    {
+        for( size_t j = 1; j < to_polygon.size(); j++ )
+        {
+//TODO  сделать оптимальнее
+            if ( ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) &&
+                    ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) ) ||
+                 ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) &&
+                   ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) ) )
+            {
+                left = from_polygon[ i - 1 ];
+                right = from_polygon[ i ];
+            }
+        }
+    }
+
+    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    nw_connection->setPos( from_room->pos() );
+    item_controller_->addItem( nw_connection );
+    items_in_controller_->AddItem(  nw_connection, connection.GetId() );
+    item_controller_->update();
 }
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
     item_controller_->ResetCurrentNode();
     item_controller_->ResetPreviousNode();
-//    EraseItem( connection.GetId() );
+    EraseItem( connection.GetId() );
 }
 
 bool GraphParser::EraseItem( const Id cur_id )
@@ -126,13 +148,8 @@ bool GraphParser::EraseItem( const Id cur_id )
 
     if( cur_item != nullptr )
     {
-        // TODO проверить
-        item_controller_->removeItem(cur_item );
-//        auto pair = * cur_item;
-//        item_cotroller_->removeItem( pair.second );
-//        // TODO смартпоинтер?
-//        delete pair.second;
-//        items_in_controller_.erase( cur_item );
+        item_controller_->removeItem( cur_item );
+        item_controller_->update();
         delete cur_item;
 
         return true;

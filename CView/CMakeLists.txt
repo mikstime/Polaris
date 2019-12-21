@@ -24,10 +24,10 @@ INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
 set(VIEW_HEADERS include/graph_parser.h include/graphic_connection.h include/graphic_item.h include/graphic_room.h
-        include/graphic_view.h include/item_controller.h include/renderer.h include/view.h include/graphic_polygon.h
+        include/graphic_view.h include/item_controller.h include/renderer.h include/view.h include/graphic_door.h
         include/editor.h include/item_collaction.h )
 set(VIEW_SOURCES lib/graph_parser.cpp lib/graphic_connection.cpp  lib/graphic_item.cpp lib/graphic_room.cpp
-        lib/graphic_view.cpp lib/item_controller.cpp lib/renderer.cpp lib/graphic_polygon.cpp lib/editor.cpp
+        lib/graphic_view.cpp lib/item_controller.cpp lib/renderer.cpp lib/graphic_door.cpp lib/editor.cpp
         lib/item_collaction.cpp)
 
 add_library(CView STATIC ${VIEW_SOURCES} ${VIEW_HEADERS})

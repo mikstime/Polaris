@@ -74,6 +74,7 @@ void GraphicRoom::SetMeta( const Meta & nw_meta )
         reachebele_ = true;
     room_number_ = nw_meta.room_number;
     info_ = nw_meta.info;
+    setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
 
     ResetColor();
 }
@@ -129,8 +130,11 @@ void GraphicRoom::ResetSelection()
 
 void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-    painter->setPen( Qt::black );
-    painter->setBrush(cur_color_ );
+    QPen nw_pen( Qt::black );
+    nw_pen.setWidth( 4 );
+
+    painter->setPen( nw_pen );
+    painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
     QPointF text_pos = this->pos();
     painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
