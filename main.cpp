@@ -19,5 +19,7 @@ int main( int argc, char * argv[] )
     auto * main_window = new Polaris::MainWindow( graph_controller, model );
     main_window->show();
 
+    main_window->showMaximized();
+
     return app.exec();
 }

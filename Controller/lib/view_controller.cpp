@@ -76,14 +76,16 @@ int Polaris::ViewController::GetFloorNumber()
     return view_->GetFloorNumber();
 }
 
-void Polaris::ViewController::FloorUp()
+int Polaris::ViewController::FloorUp()
 {
     if( view_->FloorUp() )
         ++floor_number_;
+    return floor_number_;
 }
 
-void Polaris::ViewController::FloorDown()
+int Polaris::ViewController::FloorDown()
 {
     if( view_->FloorDown() )
         --floor_number_;
+    return floor_number_;
 }
