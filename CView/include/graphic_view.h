@@ -47,15 +47,14 @@ public:
     QPolygonF GetNewForm() const override;
 // задать выкладку
     void SetLayout( QHBoxLayout * const layout );
-    void SetParser( std::shared_ptr< GraphParser > graphic_parser );
+//    void SetParser( std::unique_ptr< GraphParser > graphic_parser );
     // войти в режим редактирования
     bool ChangeMode( bool edit ) override;
 
 private:
-    // TODO будут ли работать указатели?
     std::shared_ptr< ItemController > item_controller_;
-    std::shared_ptr< GraphParser > graph_parser_;
-    std::shared_ptr< Renderer > renderer_;
+    std::unique_ptr< GraphParser > graph_parser_;
+    std::unique_ptr< Renderer > renderer_;
 
 };
 } // namespace Polaris

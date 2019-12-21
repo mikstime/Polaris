@@ -17,12 +17,10 @@ using Polaris::Meta;
 GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
 {
     std::shared_ptr< ItemCollaction > collaction( new ItemCollaction );
-    item_controller_ = std::shared_ptr< ItemController >( new ItemController( QRect( 0, 0,
-                                                                                             size.width(),
-                                                                                             size.height() ),
-                                                                            collaction ) );
-    graph_parser_ = std::shared_ptr< GraphParser >( new GraphParser( item_controller_, collaction ) );
-    renderer_ = std::shared_ptr< Renderer >( new Renderer( item_controller_.get() ) );
+    item_controller_ = std::make_shared< ItemController >( QRect( 0, 0, size.width(),
+                                                           size.height() ), collaction );
+    graph_parser_ = std::make_unique< GraphParser >( item_controller_, collaction );
+    renderer_ = std::make_unique< Renderer >( item_controller_.get() );
     renderer_->setMaximumSize( size );
 
     if( layout != nullptr )
@@ -122,10 +120,10 @@ void GraphicView::SetLayout( QHBoxLayout * const layout )
         layout->addWidget( renderer_.get() );
 }
 
-void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
-{
-    graph_parser_ = graph_parser;
-}
+//void GraphicView::SetParser( std::unique_ptr< GraphParser > graph_parser )
+//{
+//    graph_parser_ = graph_parser;
+//}
 
 bool GraphicView::ChangeMode( bool edit )
 {

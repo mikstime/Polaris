@@ -14,20 +14,23 @@ namespace Polaris
         GraphicConnection( const GraphicConnection && ) = delete;
         GraphicConnection & operator = ( const GraphicConnection & ) = delete;
         GraphicConnection & operator = ( const GraphicConnection && ) = delete;
+        ~GraphicConnection();
 
-    void SetColor( const QColor & color ) override;
-    void SetSelection() override;
-    QPolygonF GetSize() const override;
-    void ResetSelection() override;
+        void SetColor( const QColor & color ) override;
+        void SetSelection() override;
+        QPolygonF GetSize() const override;
+        void ResetSelection() override;
 
-private:
-    QRectF size_;
+        static size_t connection_number_counter_;
+    private:
+        QRectF size_;
+        size_t connection_number_;
 
-    void ResetColor() override;
-    void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
-    QRectF boundingRect() const override final;
-    QPainterPath shape() const override final;
-};
+        void ResetColor() override;
+        void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
+        QRectF boundingRect() const override final;
+        QPainterPath shape() const override final;
+    };
 } // namespace Polaris
 
 #endif // CGRAPHICS_CONNECTION_H
