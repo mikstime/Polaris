@@ -67,6 +67,8 @@ public slots:
      */
     void FloorDownButtonClick();
     void ChangeModeButtonClick();
+    void DownloadButtonClick();
+    void SaveButtonClick();
 };
 
 } // namespace Polaris

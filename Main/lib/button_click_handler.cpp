@@ -111,3 +111,11 @@ void Polaris::ButtonClickHandler::ChangeModeButtonClick()
         change_mode_button_->setText( "Режим редактирования" );
     }
 }
+
+void Polaris::ButtonClickHandler::DownloadButtonClick()
+{
+}
+
+void Polaris::ButtonClickHandler::SaveButtonClick()
+{
+}

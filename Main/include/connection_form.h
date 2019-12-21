@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <cmath>
 
 #include "Meta/Meta.h"
 #include "include/graph_controller.h"
