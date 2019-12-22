@@ -69,10 +69,9 @@ bool Renderer::RedrawFloor(const int8_t step )
 
     for( size_t i = 0; i < items_list.size(); ++i )
     {
-        // TODO лестница на несколько этажей
         GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
 
-        if( cur_item->GetFloor() != current_floor_ && cur_item->GetRole() != Role::STAIR )
+        if( cur_item->GetFloor() != current_floor_ )
         {
             cur_item->hide();
         }
