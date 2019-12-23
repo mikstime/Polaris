@@ -1,102 +1,214 @@
+#include <algorithm>
+#include <cstdlib>
+#include <deque>
 #include <iostream>
-#include <string>
+#include <list>
+#include <set>
+#include <boost/bind.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
-#include <limits>
-#include <boost/filesystem.hpp>
-using namespace std::placeholders;
-using tcp = boost::asio::ip::tcp;
-namespace fs = boost::filesystem;
+#include "include/data.h"
 
-boost::asio::io_service io;
-tcp::socket sock{ io };
-std::ifstream ifs;
-unsigned long long fileSize;
-unsigned long long sentFileBody = 0;
-char buf[4096];
-boost::asio::streambuf sBuf;
-std::istream istr{ &sBuf };
+using boost::asio::ip::tcp;
 
-
-void handleWriteBody(boost::system::error_code const& ec, std::size_t bytesTransferred)
+class User
 {
-    if (ec)
+public:
+    virtual ~User() {}
+    virtual void Deliver(const Data& msg) = 0;
+};
+
+
+class ClientNet
+{
+public:
+    void Join(boost::shared_ptr<User> member);
+    void Disconect(boost::shared_ptr<User> member);
+    void Deliver(const Data& msg);
+
+private:
+    std::set<boost::shared_ptr<User>> members;
+    enum { recent_msgs = 100 };
+    std::deque<Data> recentMsgs;
+};
+
+void ClientNet::Join(boost::shared_ptr<User> member)
+{
+    members.insert(member);
+    std::for_each(recentMsgs.begin(), recentMsgs.end(),
+                  boost::bind(&User::Deliver, member, _1));
+}
+
+void ClientNet::Disconect(boost::shared_ptr<User> member)
+{
+    members.erase(member);
+}
+
+void ClientNet::Deliver(const Data& msg)
+{
+    recentMsgs.push_back(msg);
+    while (recentMsgs.size() > recent_msgs)
+        recentMsgs.pop_front();
+
+    std::for_each(members.begin(), members.end(),
+                  boost::bind(&User::Deliver, _1, boost::ref(msg)));
+}
+
+class Session: public User, public boost::enable_shared_from_this<Session>
+{
+public:
+    Session(boost::asio::io_service& io_service, ClientNet& friends);
+    tcp::socket& Socket();
+    void Start();
+    void Deliver(const Data& msg);
+    void ReadHeader(const boost::system::error_code& error);
+    void ReadBody(const boost::system::error_code& error);
+    void Write(const boost::system::error_code& error);
+
+private:
+    tcp::socket sock;
+    ClientNet& net;
+    Data readMsg;
+    std::deque<Data> writeMsgs;
+};
+
+Session::Session(boost::asio::io_service& io_service, ClientNet& friends):
+                sock(io_service), net(friends) {}
+
+tcp::socket& Session::Socket()
+{
+    return sock;
+}
+
+void Session::Start()
+{
+    net.Join(shared_from_this());
+    boost::asio::async_read(sock, boost::asio::buffer(readMsg.GetData(),
+            Data::header_length),boost::bind(&Session::ReadHeader,
+                    shared_from_this(), boost::asio::placeholders::error));
+}
+
+void Session::Deliver(const Data& msg)
+{
+    bool write_in_progress = !writeMsgs.empty();
+    writeMsgs.push_back(msg);
+    if (!write_in_progress)
     {
-        throw std::runtime_error{ "handleWriteBody() : " + std::to_string(ec.value()) + ", " + ec.message() };
+        boost::asio::async_write(sock, boost::asio::buffer(writeMsgs.front().GetData(),
+                writeMsgs.front().GetLength()), boost::bind(&Session::Write, shared_from_this(),
+                        boost::asio::placeholders::error));
     }
-    sentFileBody += bytesTransferred;
-    if (ifs)
+}
+
+void Session::ReadHeader(const boost::system::error_code& error)
+{
+    if (!error && readMsg.Decode())
     {
-        //ifs.read(buf, std::size(buf));
-        ifs.read(buf, 4096);
-        boost::asio::async_write(sock, boost::asio::buffer(buf, ifs.gcount()), handleWriteBody);
+        boost::asio::async_read(sock, boost::asio::buffer(readMsg.GetBody(),
+                readMsg.GetBodyLength()),boost::bind(&Session::ReadBody,
+                        shared_from_this(), boost::asio::placeholders::error));
     }
     else
     {
-        if (sentFileBody != fileSize)
+        net.Disconect(shared_from_this());
+    }
+}
+
+void Session::ReadBody(const boost::system::error_code& error)
+{
+    if (!error)
+    {
+        net.Deliver(readMsg);
+        boost::asio::async_read(sock, boost::asio::buffer(readMsg.GetData(),
+                Data::header_length), boost::bind(&Session::ReadHeader,
+                        shared_from_this(), boost::asio::placeholders::error));
+    }
+    else
+    {
+        net.Disconect(shared_from_this());
+    }
+}
+
+void Session::Write(const boost::system::error_code& error)
+{
+    if (!error)
+    {
+        writeMsgs.pop_front();
+        if (!writeMsgs.empty())
         {
-            throw std::runtime_error{ "handleWriteBody(): sentFileBody != fileSize\n" };
+            boost::asio::async_write(sock, boost::asio::buffer(writeMsgs.front().GetData(),
+                    writeMsgs.front().GetLength()),boost::bind(&Session::Write,
+                            shared_from_this(), boost::asio::placeholders::error));
         }
-        std::cout << "OK" << std::endl;
     }
-
+    else
+    {
+        net.Disconect(shared_from_this());
+    }
 }
 
-void handleWriteHeader(boost::system::error_code const& ec, std::size_t bytesTransferred)
+class Server
 {
-    if (ec)
-    {
-        throw std::runtime_error{ "handleWriteHeader() : " + std::to_string(ec.value()) + ", " + ec.message() };
-    }
-    ifs.read(buf, 4096);
-    boost::asio::async_write(sock, boost::asio::buffer(buf, ifs.gcount()), handleWriteBody);
-}
+public:
+    Server(boost::asio::io_service& io, const tcp::endpoint& endpoint);
+    void Accept();
+    void UserAccept(boost::shared_ptr<Session> session, const boost::system::error_code& error);
 
-void handleReadUntil(boost::system::error_code const& ec, std::size_t bytesTransferred)
+private:
+    boost::asio::io_service& serverIO;
+    tcp::acceptor acceptor;
+    ClientNet net;
+};
+
+Server::Server(boost::asio::io_service& io,
+const tcp::endpoint& endpoint)
+: serverIO(io),
+acceptor(io, endpoint)
 {
-    if (ec && ec != boost::asio::error::eof)
-    {
-        throw std::runtime_error{ "handleReadUntil() : " + std::to_string(ec.value()) + ", " + ec.message() };
-    }
-
-    std::string filePath;
-    std::getline(istr, filePath, '\r');
-    istr.ignore(std::numeric_limits<std::streamsize>::max());
-
-    ifs.open(filePath.c_str(), std::ios::binary);
-    if (!ifs.is_open())
-    {
-        throw std::runtime_error{ "handleReadUntil() : Unable to open input file: " + filePath };
-    }
-    fileSize = fs::file_size(filePath);
-    std::stringstream ss{ "FileName: " + fs::path{ filePath }.filename().string() + "\r\n" + "FileSize: " + std::to_string(fileSize) + "\r\n\r\n" };
-    ss.getline(buf, 4096, '*');
-    boost::asio::async_write(sock, boost::asio::buffer(buf, ss.str().size()), handleWriteHeader);
+    Accept();
 }
 
-void handleAccept(boost::system::error_code const& ec)
+void Server::Accept()
 {
-    if (ec)
-    {
-        throw std::runtime_error{ "handleAccept() : " + std::to_string(ec.value()) + ", " + ec.message() };
-    }
-    boost::asio::async_read_until(sock, sBuf, "\r\n\r\n", handleReadUntil);
+    boost::shared_ptr<Session> new_session(new Session(serverIO, net));
+    acceptor.async_accept(new_session->Socket(), boost::bind(&Server::UserAccept,
+            this, new_session, boost::asio::placeholders::error));
 }
 
-int main()
+void Server::UserAccept(boost::shared_ptr<Session> session,
+                const boost::system::error_code& error)
+{
+    if (!error)
+    {
+        session->Start();
+    }
+    Accept();
+}
+
+typedef boost::shared_ptr<Server> server_ptr;
+
+int main(int argc, char* argv[])
 {
     try
     {
-        tcp::acceptor acc{ io, tcp::endpoint{ tcp::v4(), 8080 } };
-        acc.async_accept(sock, handleAccept);
+        if (argc < 2)
+        {
+            return 1;
+        }
+        boost::asio::io_service io;
+        std::list<server_ptr> servers;
+        for (int i = 1; i < argc; ++i)
+        {
+            tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
+            server_ptr server(new Server(io, endpoint));
+            servers.push_back(server);
+        }
         io.run();
-
-        sock.shutdown(tcp::socket::shutdown_both);
-        sock.close();
-        acc.close();
-        ifs.close();
     }
-    catch (std::exception const& ex)
+    catch (std::exception& e)
     {
-        std::cerr << "Exception: " << ex.what() << std::endl;
+        std::cerr << "Exception: " << e.what() << "\n";
     }
+    return 0;
 }
