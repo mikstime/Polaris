@@ -17,4 +17,4 @@ set( NET_SOURCES lib/Client.cpp lib/data.cpp)
 add_library(network STATIC ${NET_HEADERS} ${NET_SOURCES})
 target_include_directories(network PUBLIC .)
 
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+target_link_libraries(network ${Boost_LIBRARIES})
