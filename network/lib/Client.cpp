@@ -276,8 +276,8 @@ void BClient::ReadBody(const boost::system::error_code& error)
         std::cout.write(readMsg.GetBody(), readMsg.GetBodyLength());
         std::cout << std::endl;
         boost::asio::async_read(sock,boost::asio::buffer(readMsg.GetData(),
-                                                         Data::header_length), boost::bind(&BClient::ReadHeader,
-                                                                                           this, boost::asio::placeholders::error));
+                                Data::header_length), boost::bind(&BClient::ReadHeader,
+                                this, boost::asio::placeholders::error));
     }
     else
     {
@@ -292,8 +292,8 @@ void BClient::DoWrite(Data msg)
     if (!isWriting)
     {
         boost::asio::async_write(sock,boost::asio::buffer(writeMsgs.front().GetData(),
-                                                          writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite,
-                                                                                                      this, boost::asio::placeholders::error));
+                                 writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite,
+                                 this, boost::asio::placeholders::error));
     }
 }
 
@@ -305,8 +305,8 @@ void BClient::BWrite(const boost::system::error_code& error)
         if (!writeMsgs.empty())
         {
             boost::asio::async_write(sock, boost::asio::buffer(writeMsgs.front().GetData(),
-                                                               writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite, this,
-                                                                                                           boost::asio::placeholders::error));
+                                     writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite, this,
+                                     boost::asio::placeholders::error));
         }
     }
     else
