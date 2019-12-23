@@ -1,22 +1,19 @@
 #include "include/item_controller.h"
-#include "include/graphic_item.h"
-#include "include/graphic_room.h"
 #include <string>
 #include <QGraphicsSceneMouseEvent>
 
-#include <QDebug>
-
 using std::string_literals::operator""s;
-using Polaris::GraphicRoom;
 using Polaris::ItemController;
 
-ItemController::ItemController( const QRect & scene_rect, QObject * parent )
+ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollection > items_in_controller,
+                                QObject * parent )
 : QGraphicsScene( scene_rect, parent ),
+items_in_controller_( items_in_controller ),
 current_node_( nullptr ),
 previous_node_( nullptr ),
-path_drawn_( false )
+path_drawn_( false ),
+is_edit_( false )
 {
-    this->addItem( & mark_down_ );
 }
 
 ItemController::~ItemController()
@@ -25,9 +22,7 @@ ItemController::~ItemController()
 
 size_t ItemController::GetCurrentNode() const
 {
-    qInfo() << current_node_;
     return current_node_ != nullptr ? current_node_->GetId() : 0;
-
 }
 
 size_t ItemController::GetPreviousNode() const
@@ -37,8 +32,27 @@ size_t ItemController::GetPreviousNode() const
 
 QPointF ItemController::GetMarkDownPos() const
 {
-    return mark_down_.isVisible() ? mark_down_.pos() : QPointF( -1, -1 );
+
+    return editor_->GetPos();
 }
+
+QPolygonF ItemController::GetNewForm() const
+{
+    if( is_edit_ )
+    {
+        return editor_->GetNewForm();
+    }
+    else
+    {
+        return QPolygonF();
+    }
+}
+
+void ItemController::InitEditor()
+{
+    editor_ = std::make_unique< Editor >( shared_from_this() );
+}
+
 
 void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 {
@@ -46,106 +60,76 @@ void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 
     for( const auto & k : cur_path_ )
     {
-        k->SetColor( Qt::red );
+        k->SetColor( "#FF5D5D" );
     }
 
+    this->update();
     path_drawn_ = true;
 }
 
 void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    // выбранный итем
     QPointF cur_pos = mouse_event->scenePos();
-    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
-    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
-    qInfo() << mouse_event->scenePos() << " : " << cast_item;
+    GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
 
-    if( ! path_drawn_ )
+    if( path_drawn_ )
         ResetPath();
 
-    // TODO разбить на фукнции по событиям разных кликов
-    if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton ) // для редоктирования
     {
-        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
-                                      cast_item->GetRole() == Polaris::Role::HALL ||
-                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // выбор комнаты
+        if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION )
         {
-            SelectCurrentNode( cast_item );
-            ResetPreviousNode();
-            mark_down_.hide();
+            editor_->AddConnections( cast_item->GetSize(), cast_item->pos() );
         }
-        else if( cast_item != nullptr && cast_item->GetRole() == Polaris::Role::MARK ) // выбор марки
+        else if( cast_item != nullptr )
         {
-            mark_down_.hide();
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                editor_->SelectConnection( cast_item );
+            }
+            else
+            {
+                editor_->EraseItem( cast_item );
+            }
+        } else if( cast_item == nullptr )
+        {
+            editor_->AddConnection( cur_pos );
+        }
+    }
+    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // для нередактирование
+    {
+        if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION ) // выбор комнаты
+        {
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                RoomPressedLeftCtrl(cast_item, cur_pos);
+            }
+            else
+            {
+                RoomPressedLeft(cast_item, cur_pos);
+            }
         }
         else if( cast_item == nullptr ) // клик по постому пространству экрана
         {
-            // TODO reset all nodes
-            ResetPreviousNode();
-            mark_down_.setPos( cur_pos );
-            mark_down_.show();
+            if( mouse_event->modifiers() & Qt::ControlModifier )
+            {
+                EmptyPressedLeftCtrl(cast_item, cur_pos);
+            }
+            else
+            {
+                EmptyPressedLeft(cur_pos);
+            }
         }
     }
-    else if ( mouse_event->button() == Qt::MouseButton::RightButton && cur_item == nullptr ) // правая кнопка
+    else if ( mouse_event->button() == Qt::MouseButton::RightButton && cast_item == nullptr ) // правая кнопка
     {
-        ResetCurrentNode();
-        ResetPreviousNode();
+        EmptyPressedRight( cur_pos );
     }
+    this->update();
 }
 
 void ItemController::mouseReleaseEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    QPointF cur_pos = mouse_event->scenePos();
-    QGraphicsItem * cur_item = this->itemAt( cur_pos, QTransform() );
-    GraphicItem * cast_item = static_cast< GraphicItem * >( cur_item );
-    qInfo() << cur_pos << " : " << cast_item;
-
-    // TODO разбить на фукнции по событиям разных кликов
-    if( mouse_event->button() == Qt::MouseButton::LeftButton )
-    {
-        if( cast_item != nullptr && ( cast_item->GetRole() == Polaris::Role::ROOM ||
-                                      cast_item->GetRole() == Polaris::Role::HALL ||
-                                      cast_item->GetRole() == Polaris::Role::STAIR ) ) // соединить ноды
-        {
-            if( cur_item != current_node_ ) // если соединение не с самим собой
-            {
-                SelectPreviousNode( cast_item );
-                mark_down_.hide();
-            }
-        }
-        else // сбросить соединение
-        {
-            ResetCurrentNode();
-            ResetPreviousNode();
-            // TODO метку не прячем. Когда перемещать метку
-        }
-    }
-    // обновить сцену
-    qInfo() << current_node_ << " : " << previous_node_;
-    this->update();
-}
-
-void ItemController::SelectCurrentNode( GraphicItem * const new_current )
-{
-    if( current_node_ != nullptr )
-    {
-        current_node_->ResetSelection();
-    }
-
-    current_node_ = new_current;
-    current_node_->SetSelection();
-}
-
-void ItemController::SelectPreviousNode( GraphicItem * const new_current )
-{
-    if( previous_node_ != nullptr )
-    {
-        previous_node_->ResetSelection();
-        return;
-    }
-
-    previous_node_ = new_current;
-    previous_node_->SetSelection();
 }
 
 void ItemController::ResetCurrentNode()
@@ -166,6 +150,50 @@ void ItemController::ResetPreviousNode()
     }
 }
 
+bool ItemController::ChangeMode( bool edit )
+{
+    if( is_edit_ && edit == false )
+        editor_->ResetEditing();
+
+    return  is_edit_ = edit;
+}
+
+void ItemController::SelectCurrentNode( GraphicItem * const new_current )
+{
+    if( current_node_ != nullptr )
+    {
+        current_node_->ResetSelection();
+    }
+
+    current_node_ = new_current;
+    current_node_->SetSelection();
+}
+
+void ItemController::SelectPreviousNode( GraphicItem * const new_current )
+{
+    if( previous_node_ != nullptr )
+    {
+        previous_node_->ResetSelection();
+    }
+
+    if( current_node_ != nullptr )
+    {
+        previous_node_ = new_current;
+        previous_node_->SetSelection();
+    }
+    else
+    {
+        current_node_ = new_current;
+        current_node_->SetSelection();
+    }
+}
+
+void ItemController::ResetEditing()
+{
+    if( is_edit_ )
+        editor_->ResetEditing();
+}
+
 void ItemController::ResetPath()
 {
     for( auto & k : cur_path_ )
@@ -175,4 +203,57 @@ void ItemController::ResetPath()
 
     cur_path_.erase( cur_path_.begin(), cur_path_.end() );
     path_drawn_ =false;
+}
+
+void ItemController::RoomPressedLeft(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    SelectCurrentNode( cur_item );
+    ResetPreviousNode();
+}
+
+void ItemController::EmptyPressedLeft(const QPointF & cur_pos )
+{
+    ResetPreviousNode();
+    ResetCurrentNode();
+}
+
+void ItemController::RoomPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    SelectPreviousNode( cur_item );
+}
+
+void ItemController::EmptyPressedLeftCtrl(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    ResetPreviousNode();
+}
+
+void ItemController::EmptyPressedRight(const QPointF & cur_pos )
+{
+    ResetCurrentNode();
+    ResetPreviousNode();
+}
+
+void ItemController::RoomReleaseLeft(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    if( cur_item != current_node_ ) // если соединение не с самим собой
+    {
+        SelectPreviousNode( cur_item );
+    }
+}
+
+void ItemController::EmptyReleaseLeft(const QPointF & cur_pos )
+{
+
+}
+
+void ItemController::RoomReleaseRight(GraphicItem * const cur_item, const QPointF & cur_pos )
+{
+    if( cur_item != current_node_ ) // если соединение не с самим собой
+    {
+        SelectPreviousNode( cur_item );
+    }
+}
+
+void ItemController::EmptyReleaseRight(const QPointF & cur_pos )
+{
 }

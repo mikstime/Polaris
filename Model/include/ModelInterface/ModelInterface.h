@@ -9,7 +9,7 @@
 #include <cstddef>//std::size_t
 #include <utility>//std::move
 #include <memory>
-//@TODO getMeta method
+
 namespace Polaris
 {
 class ModelProxy;
@@ -169,22 +169,35 @@ public:
      *************************************************************************/
     ModelInterface( std::shared_ptr< ModelProxy > & a_proxy,
                     std::shared_ptr< ModelObserver > & a_obs,
-                    Model  a_model )
+                    Model a_model )
     :proxy_( a_proxy ), observer_( a_obs ), model_( std::move( a_model ) ){};
     /**************************************************************************
      * ModelInterface(proxy)
      * Arguments:
      * proxy - custom proxy can be set. Must inherit from ModelProxy.
      *************************************************************************/
-    explicit ModelInterface( ModelProxy * a_proxy )
+    explicit ModelInterface( std::shared_ptr< ModelProxy > & a_proxy )
     :proxy_( a_proxy ), observer_(), model_() {};
+    /**************************************************************************
+     * ModelInterface(observer)
+     * Arguments:
+     * observer - custom observer can be set. Must inherit from ModelObserver.
+     *************************************************************************/
+    explicit ModelInterface( std::shared_ptr< ModelObserver > & a_observer )
+    :proxy_(), observer_( a_observer ), model_() {};
     /**************************************************************************
      * ModelInterface(model)
      * Arguments:
      * model - initial state of model.
      *************************************************************************/
     explicit ModelInterface( Model a_model )
-    :proxy_(), observer_(), model_( std::move( a_model ) ) {};
+    :proxy_(), observer_(), model_( std::move( a_model ) ) {
+        __triggerModelEvents();
+    };
+    void clearModel();
+private:
+    void __triggerModelEvents();
+
 };
 } //namespace Polaris
 

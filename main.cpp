@@ -3,6 +3,8 @@
 #include "Main/include/mainwindow.h"
 #include "Controller/include/graph_controller.h"
 
+#define QT_NO_DEBUG_OUTPUT
+
 int main( int argc, char * argv[] )
 {
     QApplication app( argc, argv );
@@ -16,6 +18,8 @@ int main( int argc, char * argv[] )
     // Creating MainWindow object
     auto * main_window = new Polaris::MainWindow( graph_controller, model );
     main_window->show();
+
+    main_window->showMaximized();
 
     return app.exec();
 }

@@ -1,25 +1,22 @@
-#include "include/graphic_connection.h"
-#include "include/graphic_room.h"
 #include "include/graphic_view.h"
 #include "include/graph_parser.h"
 #include "include/item_controller.h"
 #include <memory>
 
-#include <QDebug>
-
 using Polaris::GraphicView;
-using Polaris::GraphicRoom;
 using Polaris::GraphConnection;
-using Polaris::GraphicConnection;
 using Polaris::Meta;
 
-// Размер окна и выкладка, на которой будет размещен виджет
 GraphicView::GraphicView( const QSize & size, QHBoxLayout * const layout, QWidget * parent )
-: item_controller_( new ItemController( QRect( 0, 0, size.width(), size.height() ) ) ),
-  renderer_( new Renderer( item_controller_.get() ) ),
-  graph_parser_( new GraphParser( item_controller_ ) )
 {
+    std::shared_ptr< ItemCollection > collaction(new ItemCollection );
+    item_controller_ = std::make_shared< ItemController >( QRect( 0, 0, size.width(),
+                                                           size.height() ), collaction );
+    item_controller_->InitEditor();
+    graph_parser_ = std::make_unique< GraphParser >( item_controller_, collaction );
+    renderer_ = std::make_unique< Renderer >( item_controller_.get() );
     renderer_->setMaximumSize( size );
+
     if( layout != nullptr )
         layout->addWidget( renderer_.get() );
 }
@@ -38,12 +35,13 @@ void GraphicView::DrawThePath(const std::vector< Meta > & nodes,
 void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
+    renderer_->SetFloor( meta.floor );
+    item_controller_->ResetEditing();
 }
 
 void GraphicView::AddRoom(const Meta & meta )
 {
     graph_parser_->OnRoomAdded(meta);
-    renderer_->SetFloor( meta.floor );
 }
 
 void GraphicView::RemoveRoom(const Meta & meta )
@@ -63,11 +61,13 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
 
 bool GraphicView::FloorUp() 
 {
+    item_controller_->ResetEditing();
     return renderer_->FloorUp();
 }
 
 bool GraphicView::FloorDown()
 {
+    item_controller_->ResetEditing();
     return renderer_->FloorDown();
 }
 
@@ -102,13 +102,20 @@ int8_t GraphicView::GetFloorNumber() const
     return renderer_->GetFloor();
 }
 
+QPolygonF GraphicView::GetNewForm() const
+{
+    return item_controller_->GetNewForm();
+}
+
 void GraphicView::SetLayout( QHBoxLayout * const layout )
 {
     if( layout != nullptr )
         layout->addWidget( renderer_.get() );
 }
 
-void GraphicView::SetParser( std::shared_ptr< GraphParser > graph_parser )
+bool GraphicView::ChangeMode( bool edit )
 {
-    graph_parser_ = graph_parser;
+    item_controller_->ResetCurrentNode();
+    item_controller_->ResetPreviousNode();
+    return item_controller_->ChangeMode( edit );
 }

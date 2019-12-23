@@ -7,9 +7,8 @@ Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
 {
 }
 
-int Polaris::GraphController::AddNode( const std::pair< int, int > & node_coords )
+int Polaris::GraphController::AddNode()
 {
-    qInfo() << "GraphController: In AddNode";
     // Creating node
     GraphNode new_node = GraphNode();
     model_->AddNode( new_node );
@@ -30,8 +29,8 @@ void Polaris::GraphController::MoveNode( const Polaris::Id & node_id, const std:
 {
     Meta meta;
     meta.graph_node_id = node_id;
-    meta.x = node_coords.first;
-    meta.y = node_coords.second;
+    meta.coordinates.setX(node_coords.first);
+    meta.coordinates.setY(node_coords.second);
     model_->ChangeMeta( node_id, meta );
 }
 

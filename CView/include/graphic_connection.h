@@ -1,29 +1,56 @@
 #ifndef CGRAPHICS_CONNECTION_H
 #define CGRAPHICS_CONNECTION_H
 
-#include "graphic_item.h"
+#include "include/graphic_item.h"
 #include "GraphConnection/GraphConnection.h"
 
 namespace Polaris
 {
-    class GraphicConnection : public GraphicItem
-    {
-    public:
-        explicit GraphicConnection( const QPointF & left, const QPointF & right, const size_t id,
-                                    const size_t floor, const double cost );
-        GraphicConnection( const GraphicConnection & ) = delete;
-        GraphicConnection( const GraphicConnection && ) = delete;
-        GraphicConnection & operator = ( const GraphicConnection & ) = delete;
-        GraphicConnection & operator = ( const GraphicConnection && ) = delete;
+/**
+* Графический элемент точки-соединителя
+*/
+class GraphicConnection : public GraphicItem
+{
+public:
+    /**
+     * @param pos - позиция точки
+     */
+    explicit GraphicConnection( const QPointF & pos );
+    GraphicConnection( const GraphicConnection & ) = delete;
+    GraphicConnection( const GraphicConnection && ) = delete;
+    GraphicConnection & operator = ( const GraphicConnection & ) = delete;
+    GraphicConnection & operator = ( const GraphicConnection && ) = delete;
+    ~GraphicConnection();
 
+    /**
+     * Установить цвет
+     * @param color - новый цвет
+     */
     void SetColor( const QColor & color ) override;
+
+    /**
+     * Установить выделение
+     */
     void SetSelection() override;
+
+    /**
+     * Получить размер соединения
+     * @return - полигон, задающий размер
+     */
+    QPolygonF GetSize() const override;
+
+    /**
+     * Сбросить выделение
+     */
     void ResetSelection() override;
 
+    /**
+     * Счетчик выбранных точек
+     */
+    static size_t connection_number_counter_;
 private:
-    QPointF left_;
-    QPointF right_;
-    double cost_;
+    QRectF size_;
+    size_t connection_number_;
 
     void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;

@@ -20,14 +20,16 @@ bool Polaris::ModelInterface::AddConnection(
         const Polaris::Id & lastNodeId,
         const Polaris::ConnectionParams & params )
 {
-    GraphConnection new_connection( firstNodeId, lastNodeId, params );
-    return proxy_->AddConnection( new_connection, model_, observer_ );
+    return proxy_->AddConnection( firstNodeId, lastNodeId, params ,
+                                model_, observer_ );
 }
 
 bool Polaris::ModelInterface::AddConnection(
         const Polaris::GraphConnection & new_connection )
 {
-    return proxy_->AddConnection( new_connection, model_, observer_ );
+    ConnectionParams c;
+    c.cost = new_connection.cost;
+    return proxy_->AddConnection( new_connection.from, new_connection.to, c,  model_, observer_ );
 }
 /******************************************************************************
  * RemoveConnection Methods
@@ -124,4 +126,36 @@ bool Polaris::ModelInterface::hasMeta( const Polaris::Id & metaId )
 Polaris::Meta Polaris::ModelInterface::getMeta( const Polaris::Id & metaId )
 {
     return model_.meta[ metaId ];
+}
+
+void Polaris::ModelInterface::__triggerModelEvents()
+{
+    for( auto & node : model_.graph.getGraph().nodes )
+    {
+        observer_->NodeAdded( node );
+    }
+    for( auto & connection : model_.graph.getGraph().connections )
+    {
+        observer_->ConnectionAdded( connection.second );
+    }
+    for( auto & meta : model_.meta )
+    {
+        observer_->MetaAdded( meta.second );
+    }
+}
+void Polaris::ModelInterface::clearModel()
+{
+    for( auto & node : model_.graph.getGraph().nodes )
+    {
+        observer_->NodeRemoved( node );
+    }
+    for( auto & connection : model_.graph.getGraph().connections )
+    {
+        observer_->ConnectionRemoved( connection.second );
+    }
+    for( auto & meta : model_.meta )
+    {
+        observer_->MetaRemoved( meta.second );
+    }
+    model_ = Model();
 }

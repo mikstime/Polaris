@@ -3,6 +3,8 @@
 
 #include <string>
 #include "typedefs.h"
+#include "qpoint.h"
+#include "qpolygon.h"
 
 namespace Polaris
 {
@@ -17,7 +19,9 @@ struct Meta
 public:
     Id graph_node_id;
     std::string room_number;
-    Coordinate x, y;
+    std::string info;
+    QPointF coordinates;
+    QPolygonF size;
     int8_t floor;
     Role role;
 };

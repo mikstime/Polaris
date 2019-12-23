@@ -3,11 +3,10 @@
 
 #include <utility>
 #include <memory>
-
+#include <QGraphicsItem>
 #include "GraphNode/GraphNode.h"
 #include "Meta/Meta.h"
 #include "GraphConnection/GraphConnection.h"
-#include "include/node_form.h"
 #include "include/ModelInterface/ModelInterface.h"
 #include "typedefs.h"
 
@@ -26,7 +25,7 @@ public:
      * Add node to Model
      * @param node_coords - New node coordinates
      */
-    int AddNode( const std::pair< int, int > & node_coords );
+    int AddNode();
     /**
      * Delete node from Model
      * @param node_id - Deleted node id

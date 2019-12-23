@@ -8,64 +8,75 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QRadioButton>
+#include <QString>
 #include <memory>
+#include <cassert>
 
 #include "Meta/Meta.h"
 #include "typedefs.h"
 #include "include/ModelInterface/ModelInterface.h"
 #include "include/view_controller.h"
+#include "include/graph_controller.h"
 
 namespace Polaris
 {
+
+enum STATUS
+{
+    SAVE,
+    CHANGE
+};
 
 class NodeForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    /**
-     * Constructor
-     * @param button_panel - Pointer to button panel
-     * @param model - Pointer to Model object
-     * @param view_controller - Pointer to ViewController object
-     */
-    explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller );
-    /**
-     * Set current node id
-     * @param id - Node id
-     */
-    void SetCurrentNodeParams( const Id & id );
-    /**
-     * Set current node id and coordinates
-     * @param id - Node id
-     * @param x - Node x-coordinate
-     * @param y - Node y-coordinate
-     */
-    void SetCurrentNodeParams( const Id & id, const Coordinate & x, const Coordinate & y );
+    explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller, GraphController * graph_controller );
+    void SetNode( Id id, STATUS status );
 
 private:
-    Polaris::Meta ConstructMeta( const std::string & room_number, const int8_t & floor, const Role & role );
+    Polaris::Meta ConstructMeta( Id room_id = 0, std::string room_number = "", std::string room_info = "",
+            QPointF room_coords = QPointF(), QPolygonF room_form = QPolygonF(), int8_t room_floor_number = 1,
+            Role room_role = Role::ROOM );
 
+    /**
+     * Pointers to other classes
+     */
     std::shared_ptr< QWidget > button_panel_;
     std::shared_ptr< ModelInterface > model_;
     std::shared_ptr< ViewController > view_controller_;
+    std::shared_ptr< GraphController > graph_controller_;
 
-    // Current node constant params
-    Id id_;
-    Coordinate x_, y_;
+    /**
+     * Node id
+     */
+    Id room_id_;
 
+    /**
+     * Main layout
+     */
     QVBoxLayout * main_layout_;
 
-    // Inputs
+    /**
+     * Inputs
+     */
     QLineEdit * room_number_input_;
+    QLineEdit * room_info_input_;
 
-    // Role radio buttons
     std::array< QRadioButton *, ROLE_COUNT > role_buttons_;
 
+    /**
+     * Action buttons
+     */
     QPushButton * save_button_;
+    QPushButton * change_button_;
+    QPushButton * cancel_button_;
 
 public slots:
     void SaveButtonClick();
+    void ChangeButtonCLick();
+    void CancelButtonClick();
 };
 
 } // namespace Polaris

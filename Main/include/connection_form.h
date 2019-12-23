@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <cmath>
 
 #include "Meta/Meta.h"
 #include "include/graph_controller.h"
@@ -44,12 +45,17 @@ private:
     QVBoxLayout * main_layout_;
 
     QPushButton * save_button_;
+    QPushButton * cancel_button_;
 
 public slots:
     /**
      * Save button click handler
      */
     void SaveButtonClick();
+    /**
+     * Cancel button click handler
+     */
+    void CancelButtonClick();
 };
 
 } // namespace Polaris

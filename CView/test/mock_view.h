@@ -2,7 +2,7 @@
 #define MAINAPP_MOCK_VIEW_H
 
 #include "gmock/gmock.h"
-#include "include/view.h"
+#include "include/graphic_view.h"
 
 using Polaris::GraphConnection;
 using Polaris::View;

@@ -1,28 +1,27 @@
 #include <algorithm>
 #include "include/graphic_connection.h"
+#include "include/graphic_door.h"
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
 
-#include <QDebug>
-
+using Polaris::GraphicDoor;
 using Polaris::GraphicItem;
 using Polaris::GraphParser;
 using std::shared_ptr;
 
-GraphParser::GraphParser( shared_ptr< ItemController > & item_controller )
-: item_cotroller_( item_controller )
+GraphParser::GraphParser( const shared_ptr< ItemController > & item_controller,
+                          const shared_ptr< ItemCollection > & items_in_controller )
+: item_controller_( item_controller ),
+items_in_controller_( items_in_controller )
 {
-
 }
 
 GraphParser::~GraphParser()
 {
-    this->EraseItems();
 }
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-    // TODO потоки
     for( const auto & k : meta )
     {
         this->OnRoomAdded( k );
@@ -33,54 +32,32 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     }
 }
 
-// TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
-    qInfo() << "Path";
-    for( auto k : nodes )
-    {
-        qInfo() << k.room_number.c_str();
-    }
-    qInfo() << "Con";
-    for( auto k : connections )
-    {
-        qInfo() << k.GetId();
-    }
-
-    // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
     {
-        auto cur_item = items_in_controller_.find( k.graph_node_id );
+        GraphicItem * cur_item = items_in_controller_->FindById( k.graph_node_id );
 
-        if( cur_item != items_in_controller_.end() )
+        if( cur_item != nullptr )
         {
-            path.push_back( ( * cur_item ).second );
+            path.push_back( cur_item );
         }
     }
 
-    for( const auto & k : connections )
-    {
-        auto cur_item = items_in_controller_.find( k.GetId() );
-
-        if( cur_item != items_in_controller_.end() )
-        {
-            path.push_back( ( * cur_item ).second );
-        }
-    }
-
-    item_cotroller_->SetCurPath( path );
+    item_controller_->SetCurPath(path );
 }
 
 void GraphParser::OnRoomChanged( const Meta & meta )
 {
-    auto cur_room = items_in_controller_.find( meta.graph_node_id );
+    GraphicItem * cur_room = items_in_controller_->FindById( meta.graph_node_id );
 
-    if( cur_room != items_in_controller_.end() )
+    if( cur_room != nullptr )
     {
-        * static_cast< GraphicRoom * >( ( * cur_room ).second ) = GraphicRoom( meta );
-        item_cotroller_->update();
+        GraphicRoom * cast_room = qgraphicsitem_cast< GraphicRoom * >( cur_room );
+        cast_room->SetMeta( meta );
+        item_controller_->update();
     } else
     {
         OnRoomAdded( meta );
@@ -90,70 +67,83 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 void GraphParser::OnRoomAdded( const Meta & meta )
 {
     GraphicItem * nw_room =  new GraphicRoom( meta );
-    item_cotroller_->addItem( nw_room );
-    items_in_controller_.insert( std::make_pair( meta.graph_node_id, nw_room ) );
+    item_controller_->addItem( nw_room );
+    items_in_controller_->AddItem( nw_room, meta.graph_node_id );
 }
 
 void GraphParser::OnRoomRemoved( const Meta & meta )
 {
-    item_cotroller_->ResetCurrentNode();
-    item_cotroller_->ResetPreviousNode();
-    EraseItemById( meta.graph_node_id );
+    item_controller_->ResetCurrentNode();
+    item_controller_->ResetPreviousNode();
+    EraseItem( meta.graph_node_id );
 }
 
 void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 {
-    // TODO проверить
-    auto from_room = items_in_controller_.find( connection.from );
-    auto to_room = items_in_controller_.find( connection.to );
-
-    if( from_room == items_in_controller_.end() || to_room == items_in_controller_.end() )
+    if( items_in_controller_->FindById( connection.id_ ) != nullptr )
         return;
 
-    GraphicItem * nw_connection =  new GraphicConnection( ( * from_room ).second->pos(),
-                                                          ( * to_room ).second->pos(),
-                                                          connection.GetId(),
-                                                          std::min( ( * from_room ).second->GetFloor(),
-                                                                    ( * to_room ).second->GetFloor() ),
-                                                                    connection.cost );
-    item_cotroller_->addItem( nw_connection );
-    items_in_controller_.insert( std::make_pair( connection.GetId(), nw_connection ) );
+    GraphicItem * from_room = items_in_controller_->FindById( connection.from );
+    GraphicItem * to_room = items_in_controller_->FindById( connection.to );
+
+    if( from_room == nullptr || to_room == nullptr )
+        return;
+    if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
+        return;
+
+    if( from_room->IsReacheble() && ! to_room->IsReacheble() )
+    {
+        to_room->SetReacheble( true );
+    }
+    else if( ! from_room->IsReacheble() && to_room->IsReacheble() )
+    {
+        from_room->SetReacheble( true );
+    }
+
+    const QPolygonF from_polygon = from_room->GetSize();
+    const QPolygonF to_polygon = to_room->GetSize();
+
+    QPointF left = { 0, 0 }, right = { 0, 0 };
+    for( size_t i = 1; i < from_polygon.size(); i++ )
+    {
+        for( size_t j = 1; j < to_polygon.size(); j++ )
+        {
+            if ( ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) &&
+                    ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) ) ||
+                 ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) &&
+                   ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) ) )
+            {
+                left = from_polygon[ i - 1 ];
+                right = from_polygon[ i ];
+            }
+        }
+    }
+
+    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    nw_connection->setPos( from_room->pos() );
+    if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
+        nw_connection->SetDefaultColor( from_room->GetDefColor() );
+    item_controller_->addItem( nw_connection );
+    items_in_controller_->AddItem(  nw_connection, connection.GetId() );
+    item_controller_->update();
 }
 
 void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 {
-    item_cotroller_->ResetCurrentNode();
-    item_cotroller_->ResetPreviousNode();
-    EraseItemById( connection.GetId() );
+    item_controller_->ResetCurrentNode();
+    item_controller_->ResetPreviousNode();
+    EraseItem( connection.GetId() );
 }
 
-std::unordered_map< Polaris::Id, GraphicItem * >::iterator GraphParser::FindByPointer( const GraphicItem * const cur_pointer )
+bool GraphParser::EraseItem( const Id cur_id )
 {
-    auto cur_item = std::find_if( items_in_controller_.begin(),
-                                  items_in_controller_.end(),
-                                  [ & cur_pointer ]( std::pair< Id, GraphicItem * > value )
-                                  {
-                                      return value.second == cur_pointer;
-                                  });
-    return cur_item;
-}
+    GraphicItem * cur_item = items_in_controller_->DeleteItemById(cur_id);
 
-void GraphParser::EraseItems()
-{
-    items_in_controller_.erase( items_in_controller_.begin(), items_in_controller_.end() );
-}
-
-bool GraphParser::EraseItemById( const Id cur_id )
-{
-    auto cur_item = items_in_controller_.find( cur_id );
-
-    if( cur_item != items_in_controller_.end() )
+    if( cur_item != nullptr )
     {
-        auto pair = * cur_item;
-        item_cotroller_->removeItem( pair.second );
-        // TODO смартпоинтер?
-        delete pair.second;
-        items_in_controller_.erase( cur_item );
+        item_controller_->removeItem( cur_item );
+        item_controller_->update();
+        delete cur_item;
 
         return true;
     }

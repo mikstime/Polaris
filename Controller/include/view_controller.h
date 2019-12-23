@@ -28,6 +28,7 @@ public:
      * Update selected node coordinates
      */
     void UpdateNodeCoordinates();
+    QPolygonF GetNodeForm();
     /**
      * Get current floor
      * @return - Floor number
@@ -42,7 +43,12 @@ public:
      * Get node coordinates
      * @return - Two pairs of node coordinates
      */
-    std::pair< Coordinate, Coordinate > GetNodeCoords();
+    QPointF GetNodeCoords();
+
+    void ChangeMode( bool is_editing );
+    int GetFloorNumber();
+    int FloorUp();
+    int FloorDown();
 
 private:
     // Pointer to View object
@@ -53,7 +59,7 @@ private:
     Id first_node_;
     Id second_node_;
 
-    std::pair< Coordinate, Coordinate > coords_;
+    QPointF coords_;
 };
 
 } // namespace Polaris

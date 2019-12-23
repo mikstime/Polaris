@@ -7,9 +7,12 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
     auto * price_label = new QLabel( "Стоимость" );
     price_edit_ = new QLineEdit;
 
-    // Creating save button
+    // Creating buttons
     save_button_ = new QPushButton( "Сохранить" );
     connect( save_button_, SIGNAL( clicked() ), this, SLOT( SaveButtonClick() ) );
+
+    cancel_button_ = new QPushButton( "Отменить" );
+    connect( cancel_button_, SIGNAL( clicked() ), this, SLOT( CancelButtonClick() ) );
 
     // Init and set layout
     main_layout_ = new QVBoxLayout;
@@ -18,6 +21,7 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
     main_layout_->addWidget( price_label );
     main_layout_->addWidget( price_edit_ );
     main_layout_->addWidget( save_button_ );
+    main_layout_->addWidget( cancel_button_ );
     main_layout_->addStretch();
 
     this->setLayout( main_layout_ );
@@ -37,9 +41,26 @@ void Polaris::ConnectionForm::SaveButtonClick()
     // Getting price
     Price price = price_edit_->text().toDouble();
 
+    if( price == 0 )
+    {
+        Meta first_meta = model_->getMeta( first_node_ );
+        QPointF first_pos = first_meta.coordinates;
+
+        Meta second_meta = model_->getMeta( second_node_ );
+        QPointF second_pos = second_meta.coordinates;
+
+        price = sqrt( pow( std::abs( first_pos.rx() - second_pos.rx() ), 2 ) + pow( std::abs( first_pos.ry() - second_pos.ry() ), 2 ) );
+    }
+
     GraphConnection new_connection = GraphConnection( first_node_, second_node_, price );
     model_->AddConnection( new_connection );
 
+    this->hide();
+    button_panel_->show();
+}
+
+void Polaris::ConnectionForm::CancelButtonClick()
+{
     this->hide();
     button_panel_->show();
 }

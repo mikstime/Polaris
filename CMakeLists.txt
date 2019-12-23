@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-
+set(Qt5_DIR "~/Qt/5.13.2/clang_64/lib/cmake/Qt5")
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin )
 project(MainApp LANGUAGES CXX)
 
@@ -19,7 +19,8 @@ add_subdirectory(CView)
 add_subdirectory(Main)
 add_subdirectory(Model)
 add_subdirectory(Utils)
+add_subdirectory(network)
 
 add_executable(MainApp main.cpp)
 
-target_link_libraries(MainApp PRIVATE Main Controller CView Model Utils Qt5::Widgets)
+target_link_libraries(MainApp PRIVATE Main Controller CView Model Utils network Qt5::Widgets)
