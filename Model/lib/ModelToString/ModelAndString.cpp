@@ -1,6 +1,6 @@
-#include "include/ModelToString/ModelToString.h"
+#include "include/ModelToString/ModelAndString.h"
 
-std::string Polaris::ModelToString::toString( Polaris::Model & m ) {
+std::string Polaris::ModelAndString::toString( Polaris::Model & m ) {
 
     std::stringstream s;
     // graph to string
@@ -25,8 +25,9 @@ std::string Polaris::ModelToString::toString( Polaris::Model & m ) {
     for( const auto & me_ : m.meta )
     {
         auto me = me_.second;
-        s << me.graph_node_id << me.room_number <<
-               me.info << me.coordinates.x() << me.coordinates.y();
+        s << me.graph_node_id << me.room_number << std::endl <<
+               me.info << std::endl <<
+               me.coordinates.x() << me.coordinates.y();
         s << me.size.size();
 
         for( auto it : me.size )
@@ -48,7 +49,7 @@ std::string Polaris::ModelToString::toString( Polaris::Model & m ) {
 }
 
 
-Polaris::Model Polaris::ModelToString::fromString( const std::string & str ) {
+Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
 
     std::stringstream s;
     s << str;
@@ -85,7 +86,8 @@ Polaris::Model Polaris::ModelToString::fromString( const std::string & str ) {
     for( int i = 0; i < meta_size; i++ )
     {
         Meta me;
-        s >> me.graph_node_id >> me.room_number >> me.info;
+        s >> me.graph_node_id >> me.room_number;
+        std::getline( s, me.info );
         float x, y;
         s >> x >> y;
         QPointF p(x, y );

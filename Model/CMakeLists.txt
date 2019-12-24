@@ -22,14 +22,14 @@ set(HEADERS include/Graph/Graph.h
             include/ModelObserver/ModelObserver.h
             include/Search/Search.h
             include/Search/PriorityQueue.h
-            include/ModelToString/ModelToString.h )
+        include/ModelToString/ModelAndString.h)
 
 set(SOURCE  lib/GraphInterface/GraphInterface.cpp
             lib/ModelProxy/ModelProxy.cpp
             lib/ModelObserver/ModelObserver.cpp
             lib/ModelInterface/ModelInterface.cpp
             lib/Search/Search.cpp
-            lib/ModelToString/ModelToString.cpp
+        lib/ModelToString/ModelAndString.cpp
         )
 
 set( SOURCE_TESTS   lib/GraphInterface/graph_interface_tests.cpp

@@ -1,5 +1,5 @@
-#ifndef MAINAPP_MODELTOSTRINGN_H
-#define MAINAPP_MODELTOSTRINGN_H
+#ifndef MAINAPP_MODELANDSTRINGN_H
+#define MAINAPP_MODELANDSTRINGN_H
 
 #include <string>
 #include "include/Model/Model.h"
@@ -7,7 +7,7 @@
 #include <sstream>
 namespace Polaris
 {
-class ModelToString
+class ModelAndString
 {
     static std::string toString( Model & );
     static Model fromString( const std::string & );
