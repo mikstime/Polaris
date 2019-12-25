@@ -127,3 +127,35 @@ Polaris::Meta Polaris::ModelInterface::getMeta( const Polaris::Id & metaId )
 {
     return model_.meta[ metaId ];
 }
+
+void Polaris::ModelInterface::__triggerModelEvents()
+{
+    for( auto & node : model_.graph.getGraph().nodes )
+    {
+        observer_->NodeAdded( node );
+    }
+    for( auto & connection : model_.graph.getGraph().connections )
+    {
+        observer_->ConnectionAdded( connection.second );
+    }
+    for( auto & meta : model_.meta )
+    {
+        observer_->MetaAdded( meta.second );
+    }
+}
+void Polaris::ModelInterface::clearModel()
+{
+    for( auto & node : model_.graph.getGraph().nodes )
+    {
+        observer_->NodeRemoved( node );
+    }
+    for( auto & connection : model_.graph.getGraph().connections )
+    {
+        observer_->ConnectionRemoved( connection.second );
+    }
+    for( auto & meta : model_.meta )
+    {
+        observer_->MetaRemoved( meta.second );
+    }
+    model_ = Model();
+}

@@ -12,7 +12,6 @@ using Polaris::GraphicDoor;
 GraphicDoor::GraphicDoor()
 : GraphicItem( 0, 0, Polaris::Role::POLYGON )
 {
-    // TODO инициализация стандартной формы
     ResetColor();
     setPos( 40, 40 );
     this->show();
@@ -23,7 +22,6 @@ GraphicDoor::GraphicDoor( const size_t  id, const size_t floor, const QPointF & 
 left_( left ),
 right_( right )
 {
-    // TODO инициализация
     ResetColor();
     this->show();
 }
@@ -40,7 +38,6 @@ void GraphicDoor::ResetColor()
 
 void GraphicDoor::SetSelection()
 {
-//    SetColor( Qt::yellow );
 }
 
 void GraphicDoor::ResetSelection()
@@ -50,6 +47,7 @@ void GraphicDoor::ResetSelection()
 
 void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     QPen nw_pen( cur_color_ );
     nw_pen.setWidth( 4 );
 
@@ -62,17 +60,11 @@ void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
 
 QRectF GraphicDoor::boundingRect() const
 {
-    //TODO rect
-//    QPointF left = * std::min_element( form_.begin(), form_.end() );
-//    QPointF right = * std::max_element( form_.begin(), form_.end() );
-    QPointF left( -20, -20 );
-    QPointF right( 20, 20 );
-    return QRectF( left, right ).normalized();
+    return QRectF( left_, right_ ).normalized();
 }
 
 QPainterPath GraphicDoor::shape() const
 {
     QPainterPath path;
-//    path( QVector< QPointF >().fromStdVector( form_ ) );
     return path;
 }
