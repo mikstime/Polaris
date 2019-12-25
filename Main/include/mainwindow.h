@@ -33,9 +33,17 @@ public:
      */
     MainWindow( GraphController * graph_controller, ModelInterface * model, QWidget * parent = nullptr );
     /**
-     * Default destructor
+     * Destructor
      */
-    ~MainWindow() = default;
+    ~MainWindow();
+    /**
+     * Copy constructor
+     */
+    MainWindow( const MainWindow & ) = delete;
+    /**
+     * Copy assignment operator
+     */
+    MainWindow & operator=( const MainWindow & ) = delete;
 
 private:
     // Pointers to other objects

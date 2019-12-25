@@ -7,6 +7,12 @@ Polaris::ButtonClickHandler::ButtonClickHandler( NodeForm * node_form, Connectio
 {
 }
 
+Polaris::ButtonClickHandler::~ButtonClickHandler()
+{
+    delete change_mode_button_;
+    delete floor_label_;
+}
+
 void Polaris::ButtonClickHandler::AddButtonClick()
 {
     // Pair of selected nodes ids

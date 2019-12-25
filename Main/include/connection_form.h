@@ -27,6 +27,18 @@ public:
      */
     ConnectionForm( QWidget * button_panel, ModelInterface * model );
     /**
+     * Destructor
+     */
+    ~ConnectionForm();
+    /**
+     * Copy constructor
+     */
+    ConnectionForm( const ConnectionForm & ) = delete;
+    /**
+     * Copy assignment operator
+     */
+    ConnectionForm & operator=( const ConnectionForm & ) = delete;
+    /**
      * Set current nodes
      * @param first_node - First node
      * @param second_node - Second node
