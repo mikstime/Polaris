@@ -54,7 +54,7 @@ namespace Polaris
     public:
         Client( const Operation & operation, const Location & location );
         ~Client() = default;
-        bool FileSharing( const std::string & path );
+        bool FileSharing( std::string & path );
 
     private:
         ClientAbstr * client;
@@ -66,7 +66,7 @@ namespace Polaris
     public:
         ClientAbstr( const Location & location, const Operation & operation );
         virtual ~ClientAbstr() = default;
-        virtual bool Exchange(  const std::string & path  ) = 0;
+        virtual bool Exchange( std::string & path ) = 0;
 
     protected:
         ClientImple * data;
@@ -121,7 +121,7 @@ namespace Polaris
     public:
         Reader( const Location & location, const Operation & operation  ):
                 ClientAbstr( location, operation ) {}
-        bool Exchange( const std::string & path  ) override;
+        bool Exchange( std::string & path  ) override;
 
     };
 
@@ -130,7 +130,7 @@ namespace Polaris
     public:
         Writer( const Location & location, const Operation & operation ) :
                 ClientAbstr( location, operation ) {}
-        bool Exchange( const std::string & path  ) override;
+        bool Exchange( std::string & path  ) override;
 
     };
 
