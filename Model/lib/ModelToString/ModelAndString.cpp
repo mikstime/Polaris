@@ -5,44 +5,48 @@ std::string Polaris::ModelAndString::toString( Polaris::Model & m ) {
     std::stringstream s;
     // graph to string
     auto g = m.graph.getGraph();
-    s << g.connections.size();
+    s << g.connections.size() << std::endl;
     for( const auto & e : g.connections )
     {
-        s << e.second.GetId() << e.second.from << e.second.to << e.second.cost;
+        s << e.second.GetId() << std::endl << e.second.from  << std::endl <<
+        e.second.to << std::endl << e.second.cost << std::endl;
     }
-    s << g.nodes.size();
+    s << g.nodes.size() << std::endl;
     for( const auto & e : g.nodes )
     {
-        s << e.GetId();
-        s << e.neighbors.size();
+        s << e.GetId() << std::endl;
+        s << e.neighbors.size() << std::endl;
         for( const auto & n : e.neighbors )
         {
-            s << n;
+            s << n << std::endl;
         }
     }
     // meta
-    s << m.meta.size();
+    s << m.meta.size() << std::endl;
     for( const auto & me_ : m.meta )
     {
         auto me = me_.second;
-        s << me.graph_node_id << me.room_number << std::endl <<
-               me.info << std::endl <<
-               me.coordinates.x() << me.coordinates.y();
-        s << me.size.size();
+        s << me.graph_node_id << std::endl <<
+             me.room_number << std::endl <<
+             me.info << std::endl <<
+             me.coordinates.x() << std::endl <<
+             me.coordinates.y() << std::endl;
+        s << me.size.size() << std::endl;
 
         for( auto it : me.size )
-            s << it.x() << it.y();
+            s << it.x() << std::endl << it.y() << std::endl;
 
-        s << me.floor;
+        s << me.floor << std::endl;
 
         switch( me.role )
         {
-            case( Role::MARK ): s << "MARK"; break;
-            case( Role::ROOM ): s << "ROOM"; break;
-            case( Role::HALL ): s << "HALL"; break;
-            case( Role::STAIR ): s << "STAIR"; break;
-            case( Role::CONNECTION ): s << "CONNECTION"; break;
-            case( Role::POLYGON ): s << "POLYGON"; break;
+            case( Role::MARK ): s << "MARK" << std::endl; break;
+            case( Role::ROOM ): s << "ROOM" << std::endl; break;
+            case( Role::HALL ): s << "HALL" << std::endl; break;
+            case( Role::STAIR ): s << "STAIR" << std::endl; break;
+            case( Role::CONNECTION ): s << "CONNECTION" << std::endl; break;
+            case( Role::POLYGON ): s << "POLYGON" << std::endl; break;
+            default: s << "MARK" << std::endl; break;
         }
     }
     return s.str();
@@ -53,6 +57,8 @@ Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
 
     std::stringstream s;
     s << str;
+//    s.ignore (7777, ' ');
+//    s.ignore (7777, '\0');
     Model m;
     //graph
     int cons_size = 0, nodes_size = 0, meta_size = 0;
@@ -62,7 +68,7 @@ Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
         Id id, from, to;
         Price cost;
         s >> id >> from >> to >> cost;
-        GraphConnection c( id, from, to, cost );
+        GraphConnection c( from, to, cost, id );
         std::pair< Id, Id > key( from, to );
         m.graph.getGraph().connections[ key ] = c;
     }
@@ -86,12 +92,16 @@ Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
     for( int i = 0; i < meta_size; i++ )
     {
         Meta me;
-        s >> me.graph_node_id >> me.room_number;
+        s >> me.graph_node_id;
+        std::getline( s, me.room_number );
+        std::getline( s, me.room_number );
         std::getline( s, me.info );
+
         float x, y;
         s >> x >> y;
         QPointF p(x, y );
         me.coordinates = p;
+
         int s_size = 0;
         s >> s_size;
         for( int j = 0; j < s_size; j++ )
@@ -101,7 +111,8 @@ Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
         }
         s >> me.floor;
         std::string a;
-        s >> a;
+        s >> std::skipws >> a;
+
         if( a == "MARK" )
             me.role = Role::MARK;
         else if( a == "ROOM" )

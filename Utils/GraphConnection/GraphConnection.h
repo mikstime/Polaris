@@ -73,6 +73,15 @@ public:
                      const Price & a_cost );
     GraphConnection( const Id & a_from, const Id & a_to,
                      const Price & a_cost, const Id & self_id );
+
+    friend bool operator==(
+            const GraphConnection & a, const GraphConnection & b )
+    {
+        return a.GetId() == b.GetId() &&
+               a.from == b.from &&
+               a.to == b.to &&
+               a.cost == b.cost;
+    }
 };
 } //namespace Polaris
 

@@ -9,7 +9,10 @@ namespace Polaris
 {
 class ModelAndString
 {
+
+public:
     static std::string toString( Model & );
+
     static Model fromString( const std::string & );
 };
 }

@@ -59,3 +59,5 @@ target_link_libraries( Model ${Boost_LIBRARIES} Utils Qt5::Widgets)
 #Model tests
 add_executable( model_tests model_tests.cpp )
 target_link_libraries( model_tests ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} Model )
+add_executable( model_and_string_tests lib/ModelToString/model_and_string_test.cpp )
+target_link_libraries( model_and_string_tests ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} Model )
