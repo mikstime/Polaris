@@ -108,11 +108,11 @@ bool GraphicRoom::IsReacheble() const
 
 void GraphicRoom::ResetColor()
 {
-    if( ! reachebele_ )
-    {
-        def_color_ = cur_color_ = "#b9b9b9";
-        return;
-    }
+//    if( ! reachebele_ )
+//    {
+//        def_color_ = cur_color_ = "#b9b9b9";
+//        return;
+//    }
 
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
@@ -120,7 +120,8 @@ void GraphicRoom::ResetColor()
         def_color_ = "#FF5D5D";
     } else if( role == Polaris::Role::ROOM )
     {
-        def_color_ = "#5B659B";
+//        def_color_ = "#5B659B";
+        def_color_ = "#b9b9b9";
     }
     else if( role == Polaris::Role::STAIR )
     {
@@ -128,7 +129,8 @@ void GraphicRoom::ResetColor()
     }
     else if( role == Polaris::Role::HALL )
     {
-        def_color_ = "#284680";
+//        def_color_ = "#284680";
+        def_color_ = "#b9b9b9";
     }
     cur_color_ = def_color_;
 }
