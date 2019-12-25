@@ -11,6 +11,7 @@ current_floor_( 1 ),
 min_floor_( 1 ),
 max_floor_( 1 )
 {
+    this->setBackgroundBrush(QBrush( "#2E2E2E", Qt::SolidPattern ) );
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
