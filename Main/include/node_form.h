@@ -32,7 +32,22 @@ class NodeForm : public QWidget
     Q_OBJECT
 
 public:
+    /**
+     * Constructor
+     * @param button_panel - pointer to button panel
+     * @param model - pointer to Model object
+     * @param view_controller - pointer to ViewController object
+     * @param graph_controller - pointer to GraphController object
+     */
     explicit NodeForm( QWidget * button_panel, ModelInterface * model, ViewController * view_controller, GraphController * graph_controller );
+    ~NodeForm();
+    NodeForm( const NodeForm & ) = delete;
+    NodeForm & operator=( const NodeForm & ) = delete;
+    /**
+     * Set current node
+     * @param id - Node id
+     * @param status - Save or change status
+     */
     void SetNode( Id id, STATUS status );
 
 private:
@@ -74,8 +89,17 @@ private:
     QPushButton * cancel_button_;
 
 public slots:
+    /**
+     * Save button click handler
+     */
     void SaveButtonClick();
+    /**
+     * Change button click handler
+     */
     void ChangeButtonCLick();
+    /**
+     * Cancel button click handler
+     */
     void CancelButtonClick();
 };
 

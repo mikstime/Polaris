@@ -63,6 +63,18 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     this->hide();
 }
 
+Polaris::NodeForm::~NodeForm()
+{
+    delete main_layout_;
+
+    delete room_number_input_;
+    delete room_info_input_;
+
+    delete save_button_;
+    delete change_button_;
+    delete cancel_button_;
+}
+
 void Polaris::NodeForm::SetNode( Id id, STATUS status )
 {
     room_id_ = id;

@@ -30,6 +30,14 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
     this->hide();
 }
 
+Polaris::ConnectionForm::~ConnectionForm()
+{
+    delete price_edit_;
+    delete main_layout_;
+    delete save_button_;
+    delete cancel_button_;
+}
+
 void Polaris::ConnectionForm::SetNodes( Polaris::Id first_node, Polaris::Id second_node )
 {
     first_node_ = first_node;
