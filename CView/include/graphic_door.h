@@ -37,17 +37,24 @@ public:
     void SetSelection() override;
 
     /**
+     * Установить картинку для графического элемента
+     * @param pic - ссылка на объект картинки
+     */
+    void SetPic( const QPixmap & pic );
+
+    /**
      * Сбросить выделение
      */
     void ResetSelection() override;
 private:
-    QPointF left_;
-    QPointF right_;
+    QLineF line_;
+    QPixmap pic_;
 
     void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;
     QRectF boundingRect() const override final;
     QPainterPath shape() const override final;
+    void SetSize( const QPointF & left, const QPointF & right );
 
 };
 } // namespace Polaris

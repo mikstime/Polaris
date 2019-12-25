@@ -81,6 +81,17 @@ void GraphicRoom::SetReacheble( bool reach )
     ResetColor();
 }
 
+void GraphicRoom::SetPic( const QPixmap & pic )
+{
+    pic_ = pic;
+
+    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
+    {
+        pic_pos_ += * k;
+    }
+    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
+}
+
 bool GraphicRoom::IsReacheble() const
 {
     return reachebele_;
@@ -132,8 +143,18 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setPen( nw_pen );
     painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
-    QPointF text_pos = this->pos();
-    painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+    if( role_ == Role::ROOM )
+    {
+        painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+    }
+    else
+    {
+        nw_pen.setWidth( 2 );
+        painter->setPen( nw_pen );
+        painter->setBrush( QColor( "#b9b9b9" ) );
+        painter->drawEllipse( pic_pos_.toPoint().x() - 15, pic_pos_.toPoint().y() - 15, 30, 30 );
+        painter->drawPixmap( pic_pos_.toPoint().x() - 10, pic_pos_.toPoint().y() - 10, 20, 20, pic_ );
+    }
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
