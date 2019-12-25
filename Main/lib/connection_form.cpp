@@ -4,7 +4,7 @@ Polaris::ConnectionForm::ConnectionForm( QWidget * button_panel, ModelInterface 
         button_panel_( button_panel ), model_( model ), first_node_( EMPTY ), second_node_( EMPTY )
 {
     // Init price widgets
-    auto * price_label = new QLabel( "Стоимость" );
+    auto * price_label = new QLabel( "Время в пути" );
     price_edit_ = new QLineEdit;
 
     // Creating buttons

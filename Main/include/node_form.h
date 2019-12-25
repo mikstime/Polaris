@@ -79,6 +79,9 @@ private:
     QLineEdit * room_number_input_;
     QLineEdit * room_info_input_;
 
+    QLabel * height_label_;
+    QLineEdit * height_input_;
+
     std::array< QRadioButton *, ROLE_COUNT > role_buttons_;
 
     /**
