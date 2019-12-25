@@ -92,6 +92,12 @@ void GraphicRoom::SetPic( const QPixmap & pic )
                        res = a;
                } );
     pic_pos_ = res + QPointF( 40, 40 );
+
+//    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
+//    {
+//        pic_pos_ += * k;
+//    }
+//    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
 }
 
 bool GraphicRoom::IsReacheble() const

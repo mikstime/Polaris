@@ -24,6 +24,7 @@ set(VIEW_SOURCES lib/graph_parser.cpp lib/graphic_connection.cpp  lib/graphic_it
         lib/graphic_view.cpp lib/item_controller.cpp lib/renderer.cpp lib/graphic_door.cpp lib/editor.cpp
         lib/item_collaction.cpp lib/pic_handler.cpp)
 
+
 add_library(CView STATIC ${VIEW_SOURCES} ${VIEW_HEADERS})
 target_include_directories(CView PUBLIC .)
 
