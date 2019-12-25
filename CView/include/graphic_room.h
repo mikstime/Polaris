@@ -88,6 +88,7 @@ private:
     std::string room_number_;
     QPolygonF size_;
     QPixmap pic_;
+    QPointF pic_pos_;
     bool reachebele_;
 
     void ResetColor() override;

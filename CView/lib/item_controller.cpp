@@ -1,7 +1,7 @@
 #include "include/item_controller.h"
 #include <string>
 #include <QGraphicsSceneMouseEvent>
-
+#include <QDebug>
 using std::string_literals::operator""s;
 using Polaris::ItemController;
 
@@ -71,6 +71,8 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
     QPointF cur_pos = mouse_event->scenePos();
     GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
+
+    qInfo() << "pos:" << cur_pos;
 
     if( path_drawn_ )
         ResetPath();
