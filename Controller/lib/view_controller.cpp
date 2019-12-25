@@ -73,7 +73,8 @@ void Polaris::ViewController::ChangeMode( bool is_editing )
 
 int Polaris::ViewController::GetFloorNumber()
 {
-    return view_->GetFloorNumber();
+    floor_number_ = view_->GetFloorNumber();
+    return floor_number_;
 }
 
 int Polaris::ViewController::FloorUp()
