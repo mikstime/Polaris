@@ -104,7 +104,7 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
     if( from_room == nullptr || to_room == nullptr )
         return;
-    if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
+    if( from_room->GetFloor() != to_room->GetFloor() )
         return;
 
     if( from_room->IsReacheble() && ! to_room->IsReacheble() )
