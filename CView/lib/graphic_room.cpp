@@ -4,7 +4,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 using std::string;
 using Polaris::GraphicRoom;
 
@@ -85,19 +85,20 @@ void GraphicRoom::SetPic( const QPixmap & pic )
 {
     pic_ = pic;
     QPointF res = ! size_.isEmpty() ? size_[ 0 ] : QPointF( 0, 0 );
-    std::for_each( size_.begin(), size_.end(),
-               [ & res ]( const QPointF & a )
-               {
-                   if( a.x() < res.x() && a.y() < res.y() )
-                       res = a;
-               } );
-    pic_pos_ = res + QPointF( 40, 40 );
 
-//    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
-//    {
-//        pic_pos_ += * k;
-//    }
-//    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
+    size_t i = 0;
+    for( ; i < size_.size(); i++ )
+    {
+        if( size_[ i ].x() < res.x() && size_[ i ].y() < res.y() )
+            res = size_[ i ];
+    }
+
+    for( size_t k = 0; k < 3; k++ )
+    {
+        res += size_[ ( i + k - 1) % size_.size() ];
+        qInfo() << i << ": " << size_[ ( i + k -1 ) % size_.size() ];
+    }
+    pic_pos_ = res / 3;
 }
 
 bool GraphicRoom::IsReacheble() const
@@ -151,9 +152,10 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setPen( nw_pen );
     painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
+
     if( role_ == Role::ROOM )
     {
-        painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+        painter->drawText( boundingRect(), Qt::AlignCenter, room_number_.c_str() );
     }
     else
     {
