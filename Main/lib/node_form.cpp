@@ -172,11 +172,15 @@ void Polaris::NodeForm::SaveButtonClick()
             Id prev_room_id = room_id_;
             room_id_ = graph_controller_->AddNode();
 
+            meta.graph_node_id = room_id_;
             meta.floor += 1;
             model_->ChangeMeta( room_id_, meta );
 
-            GraphConnection connection = GraphConnection( prev_room_id, room_id_, 0 );
-            model_->AddConnection( connection );
+//            int price = 0;
+//            if( room_role == Role::STAIR )
+//                price = 1;
+//            GraphConnection connection = GraphConnection( prev_room_id, room_id_, price );
+//            model_->AddConnection( connection );
         }
     }
 
