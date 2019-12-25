@@ -1,6 +1,7 @@
 #include "include/graphic_item.h"
 #include "include/renderer.h"
 #include <QWheelEvent>
+#include <QDebug>
 
 using Polaris::Renderer;
 
@@ -30,7 +31,6 @@ void Renderer::SetFloor( const int8_t floor )
     {
         max_floor_ = floor;
     }
-    current_floor_ = floor;
 }
 
 bool Renderer::FloorUp()
@@ -63,16 +63,16 @@ bool Renderer::ChangeFloor( const int8_t step )
 
 bool Renderer::RedrawFloor(const int8_t step )
 {
+    qInfo() << current_floor_;
     current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
 
     for( size_t i = 0; i < items_list.size(); ++i )
     {
-        // TODO лестница на несколько этажей
         GraphicItem * cur_item = qgraphicsitem_cast< GraphicItem * >( items_list[ i ] );
 
-        if( cur_item->GetFloor() != current_floor_ && cur_item->GetRole() != Role::STAIR )
+        if( cur_item->GetFloor() != current_floor_ )
         {
             cur_item->hide();
         }

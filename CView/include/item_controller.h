@@ -104,6 +104,7 @@ private:
     std::vector< GraphicItem * > cur_path_;
     bool path_drawn_;
 
+
     void SelectCurrentNode(GraphicItem * const new_current );
     void SelectPreviousNode(GraphicItem * const new_previous );
     void ResetPath();

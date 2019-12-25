@@ -85,11 +85,11 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             if( mouse_event->modifiers() & Qt::ControlModifier )
             {
-                editor_->SelectConnection( cast_item );
+                editor_->EraseItem( cast_item );
             }
             else
             {
-                editor_->EraseItem( cast_item );
+                editor_->SelectConnection( cast_item );
             }
         } else if( cast_item == nullptr )
         {

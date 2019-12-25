@@ -67,6 +67,12 @@ public:
     void SetReacheble( bool reach );
 
     /**
+     * Установить картинку для графического элемента
+     * @param pic - ссылка на объект картинки
+     */
+    void SetPic( const QPixmap & pic );
+
+    /**
      * Элемент достижим?
      * @return - достижим
      */
@@ -81,6 +87,7 @@ private:
     std::string info_;
     std::string room_number_;
     QPolygonF size_;
+    QPixmap pic_;
     bool reachebele_;
 
     void ResetColor() override;

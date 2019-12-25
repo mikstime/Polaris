@@ -4,6 +4,7 @@
 #include "include/item_controller.h"
 #include "GraphConnection/GraphConnection.h"
 #include "Meta/Meta.h"
+#include "include/pick_handler.h"
 
 namespace Polaris
 {
@@ -75,6 +76,7 @@ public:
 private:
     std::shared_ptr< ItemController >item_controller_;
     std::shared_ptr< ItemCollection > items_in_controller_;
+    PickHandler pick_handler;
 
     bool EraseItem( const Id id );
 
