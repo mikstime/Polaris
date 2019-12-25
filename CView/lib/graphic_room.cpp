@@ -84,6 +84,7 @@ void GraphicRoom::SetReacheble( bool reach )
 void GraphicRoom::SetPic( const QPixmap & pic )
 {
     pic_ = pic;
+
     for( auto k = size_.begin(); k < size_.end() - 1; k++ )
     {
         pic_pos_ += * k;
