@@ -1,24 +1,24 @@
 #include "include/item_collaction.h"
-#include <QDebug>
-using Polaris::ItemCollaction;
+
+using Polaris::ItemCollection;
 using Polaris::GraphicItem;
 
-ItemCollaction::~ItemCollaction()
+ItemCollection::~ItemCollection()
 {
     this->EraseItems();
 }
 
-void ItemCollaction::EraseItems()
+void ItemCollection::EraseItems()
 {
     id_to_pointer_.erase( id_to_pointer_.begin(), id_to_pointer_.end() );
     pointer_to_id_.erase( pointer_to_id_.begin(), pointer_to_id_.end() );
 }
 
-bool ItemCollaction::AddItem( GraphicItem * const item, Id id )
+bool ItemCollection::AddItem(GraphicItem * const item, Id id )
 {
-    qInfo() << "id in add " << id;
     GraphicItem * cur_item_ptr = this->FindById( id );
     Id cur_item_id = this->FindByPointer( item );
+
     if( cur_item_id == 0 && cur_item_ptr == nullptr )
     {
         id_to_pointer_.insert( std::make_pair( id, item ) );
@@ -29,7 +29,7 @@ bool ItemCollaction::AddItem( GraphicItem * const item, Id id )
     return false;
 }
 
-GraphicItem * ItemCollaction::FindById( const Id id )
+GraphicItem * ItemCollection::FindById(const Id id )
 {
     auto cur_item = id_to_pointer_.find( id );
 
@@ -41,7 +41,7 @@ GraphicItem * ItemCollaction::FindById( const Id id )
     return nullptr;
 }
 
-Polaris::Id ItemCollaction::FindByPointer( GraphicItem * const cur_pointer )
+Polaris::Id ItemCollection::FindByPointer(GraphicItem * const cur_pointer )
 {
     auto cur_item = pointer_to_id_.find( cur_pointer );
 
@@ -53,7 +53,7 @@ Polaris::Id ItemCollaction::FindByPointer( GraphicItem * const cur_pointer )
     return 0;
 }
 
-GraphicItem * ItemCollaction::EraseItemById( const Id cur_id )
+GraphicItem * ItemCollection::DeleteItemById(const Id cur_id )
 {
     auto cur_item = id_to_pointer_.find( cur_id );
 

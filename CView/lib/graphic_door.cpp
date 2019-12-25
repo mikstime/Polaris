@@ -4,7 +4,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 using std::vector;
 
 using Polaris::GraphicDoor;
@@ -12,18 +12,15 @@ using Polaris::GraphicDoor;
 GraphicDoor::GraphicDoor()
 : GraphicItem( 0, 0, Polaris::Role::POLYGON )
 {
-    // TODO инициализация стандартной формы
     ResetColor();
     setPos( 40, 40 );
     this->show();
 }
 
 GraphicDoor::GraphicDoor( const size_t  id, const size_t floor, const QPointF & left, const QPointF & right )
-: GraphicItem( id, floor, Polaris::Role::POLYGON  ),
-left_( left ),
-right_( right )
+: GraphicItem( id, floor, Polaris::Role::POLYGON  )
 {
-    // TODO инициализация
+    SetSize( left, right );
     ResetColor();
     this->show();
 }
@@ -35,12 +32,17 @@ void GraphicDoor::SetColor(const QColor & color )
 
 void GraphicDoor::ResetColor()
 {
-    cur_color_ = def_color_ = "#a83636";
+//    cur_color_ = def_color_ = "#a83636";
+    cur_color_ = def_color_ = "#b9b9b9";
 }
 
 void GraphicDoor::SetSelection()
 {
-//    SetColor( Qt::yellow );
+}
+
+void GraphicDoor::SetPic( const QPixmap & pic )
+{
+    pic_ = pic;
 }
 
 void GraphicDoor::ResetSelection()
@@ -50,11 +52,14 @@ void GraphicDoor::ResetSelection()
 
 void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     QPen nw_pen( cur_color_ );
-    nw_pen.setWidth( 4 );
+    nw_pen.setWidth( 6 );
 
     painter->setPen( nw_pen );
-    painter->drawLine( left_, right_ );
+    painter->drawLine( line_ );
+    QPoint pos = QRect( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).center() - QPoint( 10, 10 );
+    painter->drawPixmap( pos.x(), pos.y(), 20, 20, pic_ );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -62,17 +67,18 @@ void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
 
 QRectF GraphicDoor::boundingRect() const
 {
-    //TODO rect
-//    QPointF left = * std::min_element( form_.begin(), form_.end() );
-//    QPointF right = * std::max_element( form_.begin(), form_.end() );
-    QPointF left( -20, -20 );
-    QPointF right( 20, 20 );
-    return QRectF( left, right ).normalized();
+    return QRectF( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).normalized();
 }
 
 QPainterPath GraphicDoor::shape() const
 {
     QPainterPath path;
-//    path( QVector< QPointF >().fromStdVector( form_ ) );
     return path;
+}
+
+void GraphicDoor::SetSize( const QPointF & left, const QPointF & right )
+{
+    QPointF buf = QPointF( right.x() / 3,  right.y() / 3 );
+    setPos( left + buf );
+    line_ = QLineF( 0, 0, buf.x(), buf.y() );
 }

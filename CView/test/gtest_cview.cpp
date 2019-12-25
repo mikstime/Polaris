@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "include/graphic_connection.h"
+#include "include/graphic_room.h"
 #include "include/item_collaction.h"
 #include "include/item_controller.h"
 #include "include/graphic_item.h"
@@ -16,7 +17,7 @@ using Polaris::GraphicItem;
 using Polaris::GraphicRoom;
 using Polaris::GraphicView;
 using Polaris::ItemController;
-using Polaris::ItemCollaction;
+using Polaris::ItemCollection;
 using Polaris::Meta;
 using Polaris::Renderer;
 using Polaris::Role;
@@ -112,7 +113,7 @@ class Parser : public ::testing::Test
 protected:
     void SetUp()
     {
-        items_in_controller_ = std::shared_ptr< ItemCollaction >( new ItemCollaction );
+        items_in_controller_ = std::shared_ptr< ItemCollection >(new ItemCollection );
         item_controller_ = std::shared_ptr< ItemController >( new ItemController( QRect( 0, 0,
                                                                                      500, 500 ), items_in_controller_ ) );
         graph_parser_ = std::shared_ptr< GraphParser >( new GraphParser( item_controller_, items_in_controller_ ) );
@@ -136,7 +137,7 @@ protected:
     std::vector< GraphConnection > graph_;
     std::shared_ptr< GraphParser > graph_parser_;
     std::shared_ptr< ItemController > item_controller_;
-    std::shared_ptr< ItemCollaction > items_in_controller_;
+    std::shared_ptr< ItemCollection > items_in_controller_;
 };
 
 TEST_F( Parser, BuildItems )
@@ -196,7 +197,7 @@ TEST_F( Parser, AddConnection )
 //    }
 //};
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
     QApplication a(argc, argv, false );
     ::testing::InitGoogleTest(&argc, argv);

@@ -9,12 +9,11 @@ using Polaris::GraphicItem;
 using Polaris::GraphParser;
 using std::shared_ptr;
 
-GraphParser::GraphParser( shared_ptr< ItemController > & item_controller,
-                          shared_ptr< ItemCollaction > items_in_controller )
+GraphParser::GraphParser( const shared_ptr< ItemController > & item_controller,
+                          const shared_ptr< ItemCollection > & items_in_controller )
 : item_controller_( item_controller ),
 items_in_controller_( items_in_controller )
 {
-
 }
 
 GraphParser::~GraphParser()
@@ -23,7 +22,6 @@ GraphParser::~GraphParser()
 
 void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph )
 {
-    // TODO потоки
     for( const auto & k : meta )
     {
         this->OnRoomAdded( k );
@@ -34,11 +32,9 @@ void GraphParser::BuildItems( const std::vector< Meta > & meta, const std::vecto
     }
 }
 
-// TODO не объект нод, а объект меты
 void GraphParser::DrawThePath( const std::vector< Meta > & nodes,
                                const std::vector< GraphConnection > & connections )
 {
-    // TODO полиморфизм. один вектор родительских объектов?
     std::vector< GraphicItem * > path;
     for( const auto & k : nodes )
     {
@@ -59,8 +55,16 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 
     if( cur_room != nullptr )
     {
-        GraphicRoom * cast_room = static_cast< GraphicRoom * >( cur_room );
+        GraphicRoom * cast_room = qgraphicsitem_cast< GraphicRoom * >( cur_room );
         cast_room->SetMeta( meta );
+        switch ( meta.role )
+        {
+            case Role::HALL :
+                cur_room->SetPic( pick_handler.GetHallPic() );
+                break;
+            case Role::STAIR :
+                cur_room->SetPic( pick_handler.GetStairPic() );
+        }
         item_controller_->update();
     } else
     {
@@ -71,6 +75,14 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 void GraphParser::OnRoomAdded( const Meta & meta )
 {
     GraphicItem * nw_room =  new GraphicRoom( meta );
+    switch ( meta.role )
+    {
+        case Role::HALL :
+            nw_room->SetPic( pick_handler.GetHallPic() );
+            break;
+        case Role::STAIR :
+            nw_room->SetPic( pick_handler.GetStairPic() );
+    }
     item_controller_->addItem( nw_room );
     items_in_controller_->AddItem( nw_room, meta.graph_node_id );
 }
@@ -92,8 +104,7 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
     if( from_room == nullptr || to_room == nullptr )
         return;
-
-    if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
+    if( from_room->GetFloor() != to_room->GetFloor() )
         return;
 
     if( from_room->IsReacheble() && ! to_room->IsReacheble() )
@@ -113,7 +124,6 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     {
         for( size_t j = 1; j < to_polygon.size(); j++ )
         {
-//TODO  сделать оптимальнее
             if ( ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j - 1 ] + to_room->pos() ) &&
                     ( from_polygon[ i ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) ) ||
                  ( ( from_polygon[ i - 1 ] + from_room->pos() ) == ( to_polygon[ j ] + to_room->pos() ) &&
@@ -125,10 +135,10 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         }
     }
 
-    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
+    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), from_room->pos() + left, right - left );
+    nw_connection->SetPic( pick_handler.GetDoorPic() );
     if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
         nw_connection->SetDefaultColor( from_room->GetDefColor() );
-    nw_connection->setPos( from_room->pos() );
     item_controller_->addItem( nw_connection );
     items_in_controller_->AddItem(  nw_connection, connection.GetId() );
     item_controller_->update();
@@ -143,7 +153,7 @@ void GraphParser::OnConnectionRemoved( const GraphConnection & connection )
 
 bool GraphParser::EraseItem( const Id cur_id )
 {
-    GraphicItem * cur_item = items_in_controller_->EraseItemById( cur_id );
+    GraphicItem * cur_item = items_in_controller_->DeleteItemById(cur_id);
 
     if( cur_item != nullptr )
     {

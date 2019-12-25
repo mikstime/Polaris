@@ -9,22 +9,21 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
-        :GraphicItem( 0, 0, Polaris::Role::MARK ),
-         size_( QRectF(-10, -10, 20, 20) ),
-         reachebele_( false )
+:GraphicItem( 0, 0, Polaris::Role::MARK ),
+size_( QRectF(-10, -10, 20, 20) ),
+reachebele_( false )
 {
-    // TODO инициализация
     ResetColor();
     setPos( 40, 40 );
     this->hide();
 }
 
 GraphicRoom::GraphicRoom( const Meta & node )
-        : GraphicItem( node.graph_node_id, node.floor, node.role ),
-          room_number_( node.room_number ),
-          info_( node.info ),
-          size_( node.size ),
-          reachebele_( false )
+: GraphicItem( node.graph_node_id, node.floor, node.role ),
+room_number_( node.room_number ),
+info_( node.info ),
+size_( node.size ),
+reachebele_( false )
 {
     if( role_ == Role::STAIR )
     {
@@ -82,6 +81,17 @@ void GraphicRoom::SetReacheble( bool reach )
     ResetColor();
 }
 
+void GraphicRoom::SetPic( const QPixmap & pic )
+{
+    pic_ = pic;
+
+    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
+    {
+        pic_pos_ += * k;
+    }
+    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
+}
+
 bool GraphicRoom::IsReacheble() const
 {
     return reachebele_;
@@ -89,7 +99,6 @@ bool GraphicRoom::IsReacheble() const
 
 void GraphicRoom::ResetColor()
 {
-    //TODO цвет зависит от роли
     if( ! reachebele_ )
     {
         def_color_ = cur_color_ = "#b9b9b9";
@@ -127,14 +136,25 @@ void GraphicRoom::ResetSelection()
 
 void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    painter->setRenderHints( QPainter::Antialiasing );
     QPen nw_pen( Qt::black );
     nw_pen.setWidth( 4 );
 
     painter->setPen( nw_pen );
     painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
-    QPointF text_pos = this->pos();
-    painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+    if( role_ == Role::ROOM )
+    {
+        painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+    }
+    else
+    {
+        nw_pen.setWidth( 2 );
+        painter->setPen( nw_pen );
+        painter->setBrush( QColor( "#b9b9b9" ) );
+        painter->drawEllipse( pic_pos_.toPoint().x() - 15, pic_pos_.toPoint().y() - 15, 30, 30 );
+        painter->drawPixmap( pic_pos_.toPoint().x() - 10, pic_pos_.toPoint().y() - 10, 20, 20, pic_ );
+    }
 
     Q_UNUSED(option);
     Q_UNUSED(widget);

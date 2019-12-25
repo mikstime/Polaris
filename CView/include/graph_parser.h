@@ -1,43 +1,86 @@
 #ifndef MAINAPP_GRAPHPARSER_H
 #define MAINAPP_GRAPHPARSER_H
 
-#include "item_controller.h"
-#include "item_collaction.h"
-#include "graphic_connection.h"
-#include <unordered_map>
-#include <memory>
-#include <unordered_map>
-#include <vector>
+#include "include/item_controller.h"
+#include "GraphConnection/GraphConnection.h"
+#include "Meta/Meta.h"
+#include "include/pick_handler.h"
 
 namespace Polaris
 {
-    class GraphParser
-    {
-    public:
-        explicit GraphParser() = default;
-        explicit GraphParser( std::shared_ptr< ItemController > & item_controller,
-                              std::shared_ptr< ItemCollaction > items_in_controller );
-        virtual ~GraphParser();
-        GraphParser( const GraphParser & ) = delete;
-        GraphParser( const GraphParser && ) = delete;
-        GraphParser & operator = ( const GraphParser & ) = delete;
-        GraphParser & operator = ( const GraphParser && ) = delete;
-        virtual void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
-        virtual void DrawThePath( const std::vector< Meta > & nodes,
-                                       const std::vector< GraphConnection > & connections );
-        virtual void OnRoomChanged( const Meta & meta );
-        virtual void OnRoomAdded( const Meta & meta );
-        virtual void OnRoomRemoved( const Meta & meta );
-        virtual void OnConnectionAdded( const GraphConnection & connection );
-        virtual void OnConnectionRemoved( const GraphConnection & connection );
+/**
+ * Обрабатывает запросы от модели, выполняет создание графических элементов по их представлению в модели
+ */
+class GraphParser
+{
+public:
+    explicit GraphParser() = default;
 
-    private:
-        std::shared_ptr< ItemController >item_controller_;
-        std::shared_ptr< ItemCollaction > items_in_controller_;
+    /**
+     * @param item_controller - указатель на контроллер графических элементов, владеющий ими
+     * @param items_in_controller - указатель на структуру, хранящую соответствие указателя на элемент и его айди
+     */
+    explicit GraphParser( const std::shared_ptr< ItemController > & item_controller,
+                          const std::shared_ptr< ItemCollection > & items_in_controller );
+    ~GraphParser();
+    GraphParser( const GraphParser & ) = delete;
+    GraphParser( const GraphParser && ) = delete;
+    GraphParser & operator = ( const GraphParser & ) = delete;
+    GraphParser & operator = ( const GraphParser && ) = delete;
 
-        bool EraseItem( const Id id );
+    /**
+     * Добавляет на карту элементы, используется при инициализации новой карты
+     * @param meta - информация о комнатах
+     * @param graph - информация о соединениях
+     */
+    void BuildItems( const std::vector< Meta > & meta, const std::vector< GraphConnection > & graph );
 
-    };
+    /**
+     * Выделяет помещения на пути
+     * @param nodes - помещения
+     * @param connections - соединения
+     */
+    void DrawThePath( const std::vector< Meta > & nodes,
+                              const std::vector< GraphConnection > & connections );
+
+    /**
+     * Вызывается при изменении информации о помещении в модели
+     * @param meta - информация о помещении
+     */
+    void OnRoomChanged( const Meta & meta );
+
+    /**
+     * Вызывается при создании помещения в модели
+     * @param meta - информация о помещении
+     */
+    void OnRoomAdded( const Meta & meta );
+
+    /**
+     * Вызывается при удалении помещения из модели
+     * @param meta - информация о помещении
+     */
+    void OnRoomRemoved( const Meta & meta );
+
+    /**
+     * Вызывается при создании перехода в модели
+     * @param connection - информация о переходе
+     */
+    void OnConnectionAdded( const GraphConnection & connection );
+
+    /**
+     * Вызывается при удалении перехода из модели
+     * @param connection - информация о переходе
+     */
+    void OnConnectionRemoved( const GraphConnection & connection );
+
+private:
+    std::shared_ptr< ItemController >item_controller_;
+    std::shared_ptr< ItemCollection > items_in_controller_;
+    PickHandler pick_handler;
+
+    bool EraseItem( const Id id );
+
+};
 } // namespace Polaris
 
 #endif //MAINAPP_GRAPHPARSER_H

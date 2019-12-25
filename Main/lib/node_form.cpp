@@ -21,6 +21,13 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     room_info_layout->addWidget( room_info_label );
     room_info_layout->addWidget( room_info_input_ );
 
+    auto * height_layout = new QHBoxLayout;
+    height_label_ = new QLabel("Высота");
+    height_input_ = new QLineEdit( "1" );
+
+    height_layout->addWidget(height_label_);
+    height_layout->addWidget(height_input_);
+
     // Init role radio buttons
     auto * role_layout = new QVBoxLayout;
 
@@ -53,6 +60,7 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     main_layout_->addStretch();
     main_layout_->addLayout( room_number_layout );
     main_layout_->addLayout( room_info_layout );
+    main_layout_->addLayout( height_layout );
     main_layout_->addLayout( role_layout );
     main_layout_->addWidget( save_button_ );
     main_layout_->addWidget( change_button_ );
@@ -63,6 +71,18 @@ Polaris::NodeForm::NodeForm( QWidget * button_panel, ModelInterface * model, Vie
     this->hide();
 }
 
+Polaris::NodeForm::~NodeForm()
+{
+    delete main_layout_;
+
+    delete room_number_input_;
+    delete room_info_input_;
+
+    delete save_button_;
+    delete change_button_;
+    delete cancel_button_;
+}
+
 void Polaris::NodeForm::SetNode( Id id, STATUS status )
 {
     room_id_ = id;
@@ -71,6 +91,9 @@ void Polaris::NodeForm::SetNode( Id id, STATUS status )
     {
         save_button_->show();
         change_button_->hide();
+
+        height_label_->show();
+        height_input_->show();
     }
     else if( status == STATUS::CHANGE )
     {
@@ -87,6 +110,9 @@ void Polaris::NodeForm::SetNode( Id id, STATUS status )
             role_buttons_[1]->setChecked( true );
         else if( old_meta.role == Role::STAIR )
             role_buttons_[2]->setChecked( true );
+
+        height_label_->hide();
+        height_input_->hide();
     }
     else
         assert( false );
@@ -136,6 +162,27 @@ void Polaris::NodeForm::SaveButtonClick()
             room_floor_number, room_role );
 
     model_->ChangeMeta( room_id_, meta );
+
+    int height = height_input_->text().toInt();
+
+    if( height > 1 )
+    {
+        for( int i = 0; i < height - 1; ++i )
+        {
+            Id prev_room_id = room_id_;
+            room_id_ = graph_controller_->AddNode();
+
+            meta.graph_node_id = room_id_;
+            meta.floor += 1;
+            model_->ChangeMeta( room_id_, meta );
+
+//            int price = 0;
+//            if( room_role == Role::STAIR )
+//                price = 1;
+//            GraphConnection connection = GraphConnection( prev_room_id, room_id_, price );
+//            model_->AddConnection( connection );
+        }
+    }
 
     this->hide();
     button_panel_->show();

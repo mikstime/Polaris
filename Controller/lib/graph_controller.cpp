@@ -7,6 +7,10 @@ Polaris::GraphController::GraphController( Polaris::ModelInterface * model ) :
 {
 }
 
+Polaris::GraphController::~GraphController()
+{
+}
+
 int Polaris::GraphController::AddNode()
 {
     // Creating node

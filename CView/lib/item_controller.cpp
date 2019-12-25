@@ -1,22 +1,19 @@
 #include "include/item_controller.h"
 #include <string>
 #include <QGraphicsSceneMouseEvent>
-
+#include <QDebug>
 using std::string_literals::operator""s;
-using Polaris::GraphicRoom;
 using Polaris::ItemController;
 
-ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollaction > items_in_controller,
+ItemController::ItemController( const QRect & scene_rect, std::shared_ptr< ItemCollection > items_in_controller,
                                 QObject * parent )
 : QGraphicsScene( scene_rect, parent ),
-editor_( std::make_unique< Editor >( this ) ),
 items_in_controller_( items_in_controller ),
 current_node_( nullptr ),
 previous_node_( nullptr ),
 path_drawn_( false ),
 is_edit_( false )
 {
-//    this->addItem( & mark_down_ );
 }
 
 ItemController::~ItemController()
@@ -51,6 +48,12 @@ QPolygonF ItemController::GetNewForm() const
     }
 }
 
+void ItemController::InitEditor()
+{
+    editor_ = std::make_unique< Editor >( shared_from_this() );
+}
+
+
 void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 {
     cur_path_ = std::move( cur_path );
@@ -66,15 +69,15 @@ void ItemController::SetCurPath( std::vector< GraphicItem * > & cur_path )
 
 void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
 {
-    // выбранный итем
     QPointF cur_pos = mouse_event->scenePos();
-    GraphicItem * cast_item = static_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
+    GraphicItem * cast_item = qgraphicsitem_cast< GraphicItem * >( this->itemAt( cur_pos, QTransform() ) );
+
+    qInfo() << "pos:" << cur_pos;
 
     if( path_drawn_ )
         ResetPath();
 
-    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton )
-    //TODO еренести в хэндлклик
+    if( is_edit_ && mouse_event->button() == Qt::MouseButton::LeftButton ) // для редоктирования
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION )
         {
@@ -84,18 +87,18 @@ void ItemController::mousePressEvent( QGraphicsSceneMouseEvent * mouse_event )
         {
             if( mouse_event->modifiers() & Qt::ControlModifier )
             {
-                editor_->SelectConnection( cast_item );
+                editor_->EraseItem( cast_item );
             }
             else
             {
-                editor_->EraseItem( cast_item );
+                editor_->SelectConnection( cast_item );
             }
         } else if( cast_item == nullptr )
         {
             editor_->AddConnection( cur_pos );
         }
     }
-    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // левая кнопка мыши
+    else if( mouse_event->button() == Qt::MouseButton::LeftButton ) // для нередактирование
     {
         if( cast_item != nullptr && cast_item->GetRole() != Polaris::Role::CONNECTION ) // выбор комнаты
         {
