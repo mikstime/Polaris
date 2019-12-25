@@ -4,7 +4,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 using std::string;
 using Polaris::GraphicRoom;
 
@@ -84,12 +84,21 @@ void GraphicRoom::SetReacheble( bool reach )
 void GraphicRoom::SetPic( const QPixmap & pic )
 {
     pic_ = pic;
+    QPointF res = ! size_.isEmpty() ? size_[ 0 ] : QPointF( 0, 0 );
 
-    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
+    size_t i = 0;
+    for( ; i < size_.size(); i++ )
     {
-        pic_pos_ += * k;
+        if( size_[ i ].x() < res.x() && size_[ i ].y() < res.y() )
+            res = size_[ i ];
     }
-    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
+
+    for( size_t k = 0; k < 3; k++ )
+    {
+        res += size_[ ( i + k - 1) % size_.size() ];
+        qInfo() << i << ": " << size_[ ( i + k -1 ) % size_.size() ];
+    }
+    pic_pos_ = res / 3;
 }
 
 bool GraphicRoom::IsReacheble() const
@@ -99,11 +108,11 @@ bool GraphicRoom::IsReacheble() const
 
 void GraphicRoom::ResetColor()
 {
-    if( ! reachebele_ )
-    {
-        def_color_ = cur_color_ = "#b9b9b9";
-        return;
-    }
+//    if( ! reachebele_ )
+//    {
+//        def_color_ = cur_color_ = "#b9b9b9";
+//        return;
+//    }
 
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
@@ -111,7 +120,8 @@ void GraphicRoom::ResetColor()
         def_color_ = "#FF5D5D";
     } else if( role == Polaris::Role::ROOM )
     {
-        def_color_ = "#5B659B";
+//        def_color_ = "#5B659B";
+        def_color_ = "#b9b9b9";
     }
     else if( role == Polaris::Role::STAIR )
     {
@@ -119,7 +129,8 @@ void GraphicRoom::ResetColor()
     }
     else if( role == Polaris::Role::HALL )
     {
-        def_color_ = "#284680";
+//        def_color_ = "#284680";
+        def_color_ = "#b9b9b9";
     }
     cur_color_ = def_color_;
 }
@@ -143,9 +154,10 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setPen( nw_pen );
     painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
+
     if( role_ == Role::ROOM )
     {
-        painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+        painter->drawText( boundingRect(), Qt::AlignCenter, room_number_.c_str() );
     }
     else
     {
