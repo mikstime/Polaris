@@ -81,6 +81,11 @@ void GraphicRoom::SetReacheble( bool reach )
     ResetColor();
 }
 
+void GraphicRoom::SetPic( const QPixmap & pic )
+{
+    pic_ = pic;
+}
+
 bool GraphicRoom::IsReacheble() const
 {
     return reachebele_;

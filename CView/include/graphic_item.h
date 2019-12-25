@@ -95,6 +95,12 @@ public:
     virtual void SetReacheble( bool reach ) { return; }
 
     /**
+     * Установить картинку для графического элемента
+     * @param pic - ссылка на объект картинки
+     */
+    virtual void SetPic( const QPixmap & pic ) { return; }
+
+    /**
      * Элемент достижим?
      * @return - достижим
      */
