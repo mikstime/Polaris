@@ -47,8 +47,7 @@ public:
      */
     void ResetSelection() override;
 private:
-    QPointF left_;
-    QPointF right_;
+    QLineF line_;
     QPixmap pic_;
 
     void ResetColor() override;

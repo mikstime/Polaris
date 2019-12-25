@@ -63,7 +63,6 @@ bool Renderer::ChangeFloor( const int8_t step )
 
 bool Renderer::RedrawFloor(const int8_t step )
 {
-    qInfo() << current_floor_;
     current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();

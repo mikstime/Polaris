@@ -135,8 +135,7 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         }
     }
 
-    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
-    nw_connection->setPos( from_room->pos() );
+    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), from_room->pos() + left, right - left );
     nw_connection->SetPic( pick_handler.GetDoorPic() );
     if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
         nw_connection->SetDefaultColor( from_room->GetDefColor() );

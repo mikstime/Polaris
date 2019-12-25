@@ -4,7 +4,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 using std::vector;
 
 using Polaris::GraphicDoor;
@@ -57,8 +57,8 @@ void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
     nw_pen.setWidth( 6 );
 
     painter->setPen( nw_pen );
-    painter->drawLine( left_, right_ );
-    QPoint pos = boundingRect().center().toPoint() - QPoint( -10, -10 );
+    painter->drawLine( line_ );
+    QPoint pos = QRect( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).center() - QPoint( 10, 10 );
     painter->drawPixmap( pos.x(), pos.y(), 20, 20, pic_ );
 
     Q_UNUSED(option);
@@ -67,7 +67,7 @@ void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
 
 QRectF GraphicDoor::boundingRect() const
 {
-    return QRectF( left_, right_ ).normalized();
+    return QRectF( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).normalized();
 }
 
 QPainterPath GraphicDoor::shape() const
@@ -78,11 +78,7 @@ QPainterPath GraphicDoor::shape() const
 
 void GraphicDoor::SetSize( const QPointF & left, const QPointF & right )
 {
-    QPointF rel_cords = right - left;
-//    float angle = rel_cords.x() / rel_cords.y();
-
-    left_ = QPointF( rel_cords.x() / 3,  rel_cords.y() / 3 );
-    right_ = QPointF( rel_cords.x() * 2 / 3, rel_cords.y() * 2 / 3 );
-    left_ += left;
-    right_ += left;
+    QPointF buf = QPointF( right.x() / 3,  right.y() / 3 );
+    setPos( left + buf );
+    line_ = QLineF( 0, 0, buf.x(), buf.y() );
 }

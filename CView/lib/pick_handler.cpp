@@ -8,7 +8,6 @@ PickHandler::PickHandler()
     pics_[ 0 ] = QPixmap( "../pics/door.png" );
     pics_[ 1 ] = QPixmap( "../pics/hall.png" );
     pics_[ 2 ] = QPixmap( "../pics/stair.png" );
-    qInfo() << pics_[0] << pics_[1] << pics_[2];
 }
 
 PickHandler::~PickHandler()
