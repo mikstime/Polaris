@@ -22,6 +22,18 @@ public:
      */
     explicit GraphController( ModelInterface * model );
     /**
+     * Destructor
+     */
+    ~GraphController();
+    /**
+     * Copy constructor
+     */
+    GraphController( const GraphController & ) = delete;
+    /**
+     * Copy assignment operator
+     */
+    GraphController & operator=( const GraphController & ) = delete;
+    /**
      * Add node to Model
      * @param node_coords - New node coordinates
      */

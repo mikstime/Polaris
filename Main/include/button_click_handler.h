@@ -25,6 +25,18 @@ public:
      */
     ButtonClickHandler( NodeForm * node_form, ConnectionForm * connection_form, ViewController * controller,
             GraphController * graph_controller, QWidget * button_panel, QPushButton * change_mode_button, QLabel * floor_label );
+    /**
+     * Destructor
+     */
+    ~ButtonClickHandler();
+    /**
+     * Copy constructor
+     */
+    ButtonClickHandler( const ButtonClickHandler & ) = delete;
+    /**
+     * Copy assignment operator
+     */
+    ButtonClickHandler & operator=( const ButtonClickHandler & ) = delete;
 
 private:
     // Pointers to other objects
@@ -66,8 +78,17 @@ public slots:
      * Floor down button click handler
      */
     void FloorDownButtonClick();
+    /**
+     * Change mode button click handler
+     */
     void ChangeModeButtonClick();
+    /**
+     * Download map button click handler
+     */
     void DownloadButtonClick();
+    /**
+     * Save map button click handler
+     */
     void SaveButtonClick();
 };
 

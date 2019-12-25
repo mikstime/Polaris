@@ -25,6 +25,9 @@ jobs:
           name: Install PIP
           command: 'sudo apt-get update && apt-get install python3-pip -y'
       - run:
+          name: Install Boost
+          command: 'sudo apt-get install libboost-all-dev -y'          
+      - run:
           name: Install CMAKE
           command: 'pip3 install cmake --upgrade'
       - run:

@@ -84,6 +84,17 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     setCentralWidget( window );
 }
 
+Polaris::MainWindow::~MainWindow()
+{
+    view_.reset();
+    view_controller_.reset();
+    node_form_.reset();
+    connection_form_.reset();
+    view_sub_.reset();
+    button_panel_.reset();
+    button_click_handler_.reset();
+}
+
 void Polaris::MainWindow::ConnectButtons()
 {
     connect( buttons_["add"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( AddButtonClick() ) );

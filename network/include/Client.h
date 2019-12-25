@@ -16,6 +16,13 @@
 #include <cstdio>
 #include <cstdlib>
 #include <tuple>
+#include <deque>
+#include <boost/bind.hpp>
+#include <boost/asio.hpp>
+#include "data.h"
+#include <thread>
+
+using boost::asio::ip::tcp;
 
 namespace Polaris
 {
@@ -27,8 +34,8 @@ namespace Polaris
     class Reader;
     class Writer;
 
-    #define PORT 8080
-    #define HOST "127.0.0.1"
+#define PORT "8080"
+#define HOST "127.0.0.1"
 
     enum class Location
     {
@@ -88,10 +95,10 @@ namespace Polaris
     class Network : public ClientImple
     {
     public:
-        explicit Network( const Operation & operation );
+        explicit Network( const Operation & operation ) : ClientImple( operation ){}
         ~Network() override = default;
-        void OpenConnection() override;
-        void CloseConnection() override;
+        void OpenConnection() override{}
+        void CloseConnection() override{}
 
     private:
 
@@ -100,7 +107,7 @@ namespace Polaris
     class Localhost : public ClientImple
     {
     public:
-        explicit Localhost( const Operation & operation );
+        explicit Localhost( const Operation & operation ) : ClientImple( operation ){}
         ~Localhost() override = default;
         void OpenConnection() override;
         void CloseConnection() override;
@@ -113,7 +120,7 @@ namespace Polaris
     {
     public:
         Reader( const Location & location, const Operation & operation  ):
-                                    ClientAbstr( location, operation ) {}
+                ClientAbstr( location, operation ) {}
         bool Exchange( const std::string & path  ) override;
 
     };
@@ -122,9 +129,32 @@ namespace Polaris
     {
     public:
         Writer( const Location & location, const Operation & operation ) :
-                                    ClientAbstr( location, operation ) {}
+                ClientAbstr( location, operation ) {}
         bool Exchange( const std::string & path  ) override;
 
+    };
+
+    class BClient
+    {
+    public:
+        BClient(boost::asio::io_service& io_service,
+                tcp::resolver::iterator endpoint_iterator);
+        void Write(const Data& msg);
+        void Close();
+
+    private:
+
+        void Connect(const boost::system::error_code& error);
+        void ReadHeader(const boost::system::error_code& error);
+        void ReadBody(const boost::system::error_code& error);
+        void DoWrite(Data msg);
+        void BWrite(const boost::system::error_code& error);
+        void SocketClose();
+
+        boost::asio::io_service& io;
+        tcp::socket sock;
+        Data readMsg;
+        std::deque<Data> writeMsgs;
     };
 
 }
