@@ -84,11 +84,14 @@ void GraphicRoom::SetReacheble( bool reach )
 void GraphicRoom::SetPic( const QPixmap & pic )
 {
     pic_ = pic;
-    for( auto k = size_.begin(); k < size_.end() - 1; k++ )
-    {
-        pic_pos_ += * k;
-    }
-    pic_pos_ = pic_pos_ / ( size_.size() - 1 );
+    QPointF res = ! size_.isEmpty() ? size_[ 0 ] : QPointF( 0, 0 );
+    std::for_each( size_.begin(), size_.end(),
+               [ & res ]( const QPointF & a )
+               {
+                   if( a.x() < res.x() && a.y() < res.y() )
+                       res = a;
+               } );
+    pic_pos_ = res + QPointF( 40, 40 );
 }
 
 bool GraphicRoom::IsReacheble() const

@@ -135,6 +135,9 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         }
     }
 
+    if( left.isNull() || right.isNull() )
+        return;
+
     GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), from_room->pos() + left, right - left );
     nw_connection->SetPic( pick_handler.GetDoorPic() );
     if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
