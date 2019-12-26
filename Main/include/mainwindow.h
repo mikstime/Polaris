@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QSpacerItem>
+#include <QFileDialog>
 
 #include "include/view_controller.h"
 #include "include/graph_controller.h"
@@ -13,6 +14,8 @@
 #include "include/connection_form.h"
 #include "include/view_sub.h"
 #include "include/ModelSubscriber/ModelSubscriber.h"
+#include "include/ModelToString/ModelAndString.h"
+#include "fstream"
 
 namespace Polaris
 {
@@ -60,6 +63,10 @@ private:
     std::unordered_map< std::string, QPushButton * > buttons_;
 
     void ConnectButtons();
+
+public slots:
+    void Download();
+    void Save();
 };
 
 } // namespace Polaris
