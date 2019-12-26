@@ -67,7 +67,8 @@ void GraphParser::OnRoomChanged( const Meta & meta )
         }
         if( item_controller_->sceneRect().width() < meta.coordinates.x() ||
             item_controller_->sceneRect().height() < meta.coordinates.y() )
-            item_controller_->setSceneRect( 0, 0, meta.coordinates.x() + 300, meta.coordinates.y() + 300 );
+            item_controller_->setSceneRect( 0, 0, meta.coordinates.x() + meta.size.boundingRect().x() + 200,
+                                         meta.coordinates.y() + meta.size.boundingRect().y() + 200 );
         item_controller_->update();
     } else
     {
