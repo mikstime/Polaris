@@ -71,8 +71,7 @@ Path Search::FindPath( GraphInterface & graph, GraphNode & from, GraphNode & to)
     std::reverse( path.begin(), path.end() );
     return path;
 }
-//@TODO implement A* search algorithm
-//
+
 Path Search::FindPath( GraphInterface & graph, std::map< Id, Meta > & meta,
                        const GraphNode & from, const GraphNode & to ) {
 // Store currennt path
@@ -112,6 +111,7 @@ Path Search::FindPath( GraphInterface & graph, std::map< Id, Meta > & meta,
                 came_from[ next_id ] = current;
                 // Put vertex in queue to process
                 int heurostic = meta[ next_id ].coordinates.x() - meta[ current.GetId() ].coordinates.x() + meta[ next_id ].coordinates.y() - meta[ current.GetId() ].coordinates.y();
+                heurostic = heurostic / 4;
                 frontier.put( next, new_cost + heurostic );
             }
         }
