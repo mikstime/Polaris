@@ -67,10 +67,17 @@ public:
      */
     QPointF GetPos() const;
 
+    /**
+     * Проверяет полигон на самопересечение
+     * @return полигон валиден?
+     */
+
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;
     QPolygonF selected_;
+
+    bool IsNotValidPolygon();
 };
 } // namespace Polaris
 

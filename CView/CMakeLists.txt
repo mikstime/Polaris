@@ -8,13 +8,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/")
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package( Qt5 COMPONENTS Widgets REQUIRED )
 find_package( GTest REQUIRED )
 find_package( Threads REQUIRED )
+find_package( Boost 1.62 REQUIRED )
 
 include_directories(${GTEST_INCLUDE_DIRS})
 #include_directories(${GMOCK_INCLUDE_DIRS})
-
+include_directories( ${Boost_INCLUDE_DIR} )
 include_directories(${PROJECT_SOURCE_DIR}/Utils)
 
 set(VIEW_HEADERS include/graph_parser.h include/graphic_connection.h include/graphic_item.h include/graphic_room.h
@@ -28,7 +29,7 @@ set(VIEW_SOURCES lib/graph_parser.cpp lib/graphic_connection.cpp  lib/graphic_it
 add_library(CView STATIC ${VIEW_SOURCES} ${VIEW_HEADERS})
 target_include_directories(CView PUBLIC .)
 
-target_link_libraries(CView PRIVATE Utils Qt5::Widgets )
+target_link_libraries(CView PRIVATE ${Boost_LIBRARIES} Utils Qt5::Widgets )
 
 set(VIEW_TEST_SOURCES test/gtest_cview.cpp)
 

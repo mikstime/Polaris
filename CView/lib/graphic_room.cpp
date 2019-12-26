@@ -87,18 +87,28 @@ void GraphicRoom::SetPic( const QPixmap & pic )
     QPointF res = ! size_.isEmpty() ? size_[ 0 ] : QPointF( 0, 0 );
 
     size_t i = 0;
+    size_t top_left = 0;
     for( ; i < size_.size(); i++ )
     {
         if( size_[ i ].x() < res.x() && size_[ i ].y() < res.y() )
+        {
             res = size_[ i ];
+            top_left = i;
+        }
     }
 
+    res.setX( 0 );
+    res.setY( 0 );
+    if( i < size_.size() - 1 )
+    {
+        top_left = 0;
+    }
     for( size_t k = 0; k < 3; k++ )
     {
-        res += size_[ ( i + k - 1) % size_.size() ];
-        qInfo() << i << ": " << size_[ ( i + k -1 ) % size_.size() ];
+        res += size_[ ( top_left + k ) % size_.size() ];
     }
-    pic_pos_ = res / 3;
+    pic_pos_.setX( res.x() / 3 );
+    pic_pos_.setY( res.y() / 3 );
 }
 
 bool GraphicRoom::IsReacheble() const

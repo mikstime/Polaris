@@ -1,7 +1,6 @@
 #include "include/graphic_item.h"
 #include "include/renderer.h"
 #include <QWheelEvent>
-#include <QDebug>
 
 using Polaris::Renderer;
 
@@ -11,6 +10,7 @@ current_floor_( 1 ),
 min_floor_( 1 ),
 max_floor_( 1 )
 {
+    this->setBackgroundBrush(QBrush( "#2E2E2E", Qt::SolidPattern ) );
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -63,7 +63,6 @@ bool Renderer::ChangeFloor( const int8_t step )
 
 bool Renderer::RedrawFloor(const int8_t step )
 {
-    qInfo() << current_floor_;
     current_floor_ += step;
     bool floor_exists = false;
     QList< QGraphicsItem * > && items_list = this->scene()->items();
