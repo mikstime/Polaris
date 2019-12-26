@@ -5,9 +5,10 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & pos )
 : GraphicItem(),
-size_( -6, -6, 12, 12 ),
+size_( -7, -7, 14, 14 ),
 connection_number_( 0 )
 {
+    this->setFlag( QGraphicsItem::ItemIgnoresTransformations, true );
     ResetColor();
     this->setPos( pos );
     this->show();
