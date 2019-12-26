@@ -13,7 +13,7 @@ Client::Client( const Operation & operation, const Location & location )
         client = nullptr;
 }
 
-bool Client::FileSharing( const std::string& path )
+bool Client::FileSharing( std::string& path )
 {
     return client->Exchange( path );
 }
@@ -79,7 +79,7 @@ void Localhost::CloseConnection()
     close(sock);
 }
 
-bool Reader::Exchange( const std::string & path )
+bool Reader::Exchange( std::string & path )
 {
 
     if( lct == Location::LOCALHOST )
@@ -114,11 +114,12 @@ bool Reader::Exchange( const std::string & path )
                     std::get< 1 >( info ) ) + " timeouted" );
 
         std::string returned_msg( buffer, buffer + n );
-        std::ofstream fout;
+        path = returned_msg;
+        /*std::ofstream fout;
         fout.open( path );
         fout.write(returned_msg.c_str(), returned_msg.size());
         fout.close();
-        returned_msg.clear();
+        returned_msg.clear();*/
         data->CloseConnection();
     }
     else if (lct == Location::NETWORK)
@@ -151,7 +152,7 @@ bool Reader::Exchange( const std::string & path )
     return true;
 }
 
-bool Writer::Exchange( const std::string & path )
+bool Writer::Exchange( std::string & msg )
 {
     if(lct == Location::LOCALHOST)
     {
@@ -164,16 +165,15 @@ bool Writer::Exchange( const std::string & path )
             return false;
         }
         std::tuple<std::string, int, int> info = data->CollectInfo();
-        std::string msg;
         int num_bytes;
-        std::ifstream fin;
+        /*std::ifstream fin;
         fin.open( path );
         std::string tmp;
         while( getline( fin, tmp ) )
         {
             msg += tmp + "\n";
         }
-        msg.pop_back();
+        msg.pop_back();*/
         num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
         if ( num_bytes < 0 )
         {
@@ -276,8 +276,8 @@ void BClient::ReadBody(const boost::system::error_code& error)
         std::cout.write(readMsg.GetBody(), readMsg.GetBodyLength());
         std::cout << std::endl;
         boost::asio::async_read(sock,boost::asio::buffer(readMsg.GetData(),
-                                Data::header_length), boost::bind(&BClient::ReadHeader,
-                                this, boost::asio::placeholders::error));
+                                                         Data::header_length), boost::bind(&BClient::ReadHeader,
+                                                                                           this, boost::asio::placeholders::error));
     }
     else
     {
@@ -292,8 +292,8 @@ void BClient::DoWrite(Data msg)
     if (!isWriting)
     {
         boost::asio::async_write(sock,boost::asio::buffer(writeMsgs.front().GetData(),
-                                 writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite,
-                                 this, boost::asio::placeholders::error));
+                                                          writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite,
+                                                                                                      this, boost::asio::placeholders::error));
     }
 }
 
@@ -305,8 +305,8 @@ void BClient::BWrite(const boost::system::error_code& error)
         if (!writeMsgs.empty())
         {
             boost::asio::async_write(sock, boost::asio::buffer(writeMsgs.front().GetData(),
-                                     writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite, this,
-                                     boost::asio::placeholders::error));
+                                                               writeMsgs.front().GetLength()), boost::bind(&BClient::BWrite, this,
+                                                                                                           boost::asio::placeholders::error));
         }
     }
     else
