@@ -2,6 +2,7 @@
 #include "include/renderer.h"
 #include <QScrollBar>
 #include <QWheelEvent>
+#include <QDebug>
 
 using Polaris::Renderer;
 
@@ -73,7 +74,7 @@ void Renderer::wheelEvent( QWheelEvent *event)
         double w = this->viewport()->width();
         double h = this->viewport()->height();
 
-        double wf = this->mapToScene( QPoint( w-1, 0 ) ).x()
+        double wf = this->mapToScene( QPoint( w - 1, 0 ) ).x()
                     - this->mapToScene(QPoint( 0,0 ) ).x();
         double hf = this->mapToScene(QPoint( 0, h - 1 ) ).y()
                     - this->mapToScene( QPoint( 0,0 ) ).y();
@@ -90,15 +91,15 @@ void Renderer::wheelEvent( QWheelEvent *event)
 
        event->accept();
     }
-    else
-    {
-        QGraphicsView::wheelEvent( event );
-    }
+//    else
+//    {
+//        QGraphicsView::wheelEvent( event );
+//    }
 }
 
 void Renderer::mousePressEvent( QMouseEvent * event )
 {
-    if ( event->button() == Qt::RightButton )
+    if( event->button() == Qt::MiddleButton )
     {
         middle_mouse_pressed_ = true;
         start_point_ = event->pos();
@@ -113,7 +114,7 @@ void Renderer::mousePressEvent( QMouseEvent * event )
 
 void Renderer::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::RightButton)
+    if( event->button() == Qt::MiddleButton )
     {
         middle_mouse_pressed_ = false;
         setCursor( Qt::ArrowCursor );
@@ -127,7 +128,7 @@ void Renderer::mouseReleaseEvent(QMouseEvent *event)
 
 void Renderer::mouseMoveEvent(QMouseEvent *event)
 {
-    if ( middle_mouse_pressed_ )
+    if( middle_mouse_pressed_ )
     {
         horizontalScrollBar()->setValue( horizontalScrollBar()->value() - ( event->x() - start_point_.x() ) );
         verticalScrollBar()->setValue( verticalScrollBar()->value() - ( event->y() - start_point_.y() ) );

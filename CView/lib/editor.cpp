@@ -63,7 +63,7 @@ void Editor::SelectConnection( GraphicItem * const item )
     else
     {
         item->SetSelection();
-        selected_ << item->pos();
+        selected_ << item->pos().toPoint();
     }
 }
 
@@ -133,7 +133,7 @@ public:
     }
 };
 
-QPolygonF Editor::GetNewForm()
+QPolygon Editor::GetNewForm()
 {
      /* Сортировка по углу */
 
@@ -148,13 +148,13 @@ QPolygonF Editor::GetNewForm()
     return selected_.translated( - GetPos() );
 }
 
-QPointF Editor::GetPos() const
+QPoint Editor::GetPos() const
 {
     if( selected_.empty() )
     {
-        return QPointF( 0, 0 );
+        return QPoint( 0, 0 );
     }
-    QPointF res = selected_[ 0 ];
+    QPoint res = selected_[ 0 ];
     for( const auto & k : selected_ )
     {
         if( k.x() < res.x() )

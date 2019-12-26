@@ -65,6 +65,9 @@ void GraphParser::OnRoomChanged( const Meta & meta )
             case Role::STAIR :
                 cur_room->SetPic( pick_handler.GetStairPic() );
         }
+        if( item_controller_->sceneRect().width() < meta.coordinates.x() ||
+            item_controller_->sceneRect().height() < meta.coordinates.y() )
+            item_controller_->setSceneRect( 0, 0, meta.coordinates.x() + 300, meta.coordinates.y() + 300 );
         item_controller_->update();
     } else
     {
