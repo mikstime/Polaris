@@ -65,6 +65,12 @@ void GraphParser::OnRoomChanged( const Meta & meta )
             case Role::STAIR :
                 cur_room->SetPic( pick_handler.GetStairPic() );
         }
+
+        float nw_x = meta.coordinates.x() + meta.size.boundingRect().x() + 200;
+        float nw_y = meta.coordinates.y() + meta.size.boundingRect().y() + 200;
+        if( item_controller_->sceneRect().width() < nw_x ||
+            item_controller_->sceneRect().height() < nw_y )
+            item_controller_->setSceneRect( 0, 0, nw_x, nw_y );
         item_controller_->update();
     } else
     {

@@ -63,7 +63,7 @@ private:
     int8_t current_floor_;
     int8_t min_floor_;
     int8_t max_floor_;
-    bool right_mouse_pressed_;
+    bool middle_mouse_pressed_;
     QPoint start_point_;
 
     bool ChangeFloor( const int8_t step );
