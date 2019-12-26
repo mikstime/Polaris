@@ -61,13 +61,13 @@ void GraphicView::RemoveConnection(const GraphConnection & connection )
 
 bool GraphicView::FloorUp() 
 {
-    item_controller_->ResetEditing();
+//    item_controller_->ResetEditing();
     return renderer_->FloorUp();
 }
 
 bool GraphicView::FloorDown()
 {
-    item_controller_->ResetEditing();
+//    item_controller_->ResetEditing();
     return renderer_->FloorDown();
 }
 

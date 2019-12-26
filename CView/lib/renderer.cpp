@@ -90,10 +90,10 @@ void Renderer::wheelEvent( QWheelEvent *event)
 
        event->accept();
     }
-//    else
-//    {
-//        QGraphicsView::wheelEvent( event );
-//    }
+    else
+    {
+        QGraphicsView::wheelEvent( event );
+    }
 }
 
 void Renderer::mousePressEvent( QMouseEvent * event )
