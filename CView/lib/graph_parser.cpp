@@ -124,6 +124,8 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         from_room->SetReacheble( true );
     }
 
+    qInfo() << "@";
+
     const QPolygonF from_polygon = from_room->GetSize();
     const QPolygonF to_polygon = to_room->GetSize();
 
@@ -145,6 +147,7 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
     if( left.isNull() || right.isNull() )
         return;
+    qInfo() << left << ": " << right;
 
     GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), from_room->pos() + left, right - left );
     nw_connection->SetPic( pick_handler.GetDoorPic() );
