@@ -1,9 +1,17 @@
 #include <algorithm>
 #include "include/graphic_connection.h"
 #include "include/editor.h"
+#include <boost/geometry/geometries/geometries.hpp>
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/polygon.hpp>
+#include <boost/geometry/algorithms/is_valid.hpp>
+#include <QDebug>
 
 using Polaris::Editor;
 using Polaris::GraphConnection;
+typedef boost::geometry::model::d2::point_xy< double > point_t;
+typedef boost::geometry::model::polygon<point_t> polygon_t;
 
 Editor::Editor( std::shared_ptr< QGraphicsScene > scene )
 : scene_( scene )
@@ -130,12 +138,16 @@ public:
 QPolygonF Editor::GetNewForm()
 {
      /* Сортировка по углу
-         if( selected_.size() > 3 )
-        std::sort( selected_.begin(), selected_.end(),
-                 AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+
      */
 
-//    selected_ << selected_[ 0 ];
+    selected_ << selected_[ 0 ];
+    if( ! ValidatePolygon() )
+    {
+        if( selected_.size() > 3 )
+            std::sort( selected_.begin(), selected_.end(),
+                       AngleComparator( selected_.boundingRect().center(), selected_[0]) );
+    }
     return selected_.translated( - GetPos() );
 }
 
@@ -158,4 +170,17 @@ QPointF Editor::GetPos() const
         }
     }
     return res;
+}
+
+bool Editor::ValidatePolygon()
+{
+    polygon_t polygon;
+    boost::geometry::validity_failure_type failure;
+    for( const auto & k : selected_ )
+    {
+        boost::geometry::append( polygon.outer(),
+                                 point_t( static_cast< double >( k.x() ), static_cast< double >( k.y() ) ) );
+    }
+    bool fail = boost::geometry::is_valid( polygon, failure );
+    return ( failure != boost::geometry::failure_self_intersections );
 }

@@ -67,6 +67,12 @@ public:
      */
     QPointF GetPos() const;
 
+    /**
+     * Проверяет полигон на самопересечение
+     * @return полигон валиден?
+     */
+    bool ValidatePolygon();
+
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;

@@ -99,7 +99,7 @@ void GraphicRoom::SetPic( const QPixmap & pic )
 
     res.setX( 0 );
     res.setY( 0 );
-    if( i == size_.size() )
+    if( i < size_.size() - 1 )
     {
         top_left = 0;
     }
