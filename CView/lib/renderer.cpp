@@ -9,7 +9,8 @@ Renderer::Renderer( QGraphicsScene * scene, QWidget * parent )
 : QGraphicsView( scene, parent ),
 current_floor_( 1 ),
 min_floor_( 1 ),
-max_floor_( 1 )
+max_floor_( 1 ),
+middle_mouse_pressed_( false )
 {
     this->setBackgroundBrush(QBrush( "#2E2E2E", Qt::SolidPattern ) );
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
@@ -46,7 +47,8 @@ bool Renderer::FloorDown()
 
 void Renderer::wheelEvent( QWheelEvent *event)
 {
-    if ( event->modifiers() == Qt::ControlModifier /*&& event->angleDelta().x() == 0*/ ) {
+    if ( event->modifiers() == Qt::ControlModifier /*&& event->angleDelta().x() == 0*/ )
+    {
         QPoint pos = event->pos();
         QPointF posf = this->mapToScene( pos );
 
@@ -71,40 +73,36 @@ void Renderer::wheelEvent( QWheelEvent *event)
         double w = this->viewport()->width();
         double h = this->viewport()->height();
 
-        double wf = this->mapToScene(QPoint(w-1, 0)).x()
-                    - this->mapToScene(QPoint(0,0)).x();
-        double hf = this->mapToScene(QPoint(0, h-1)).y()
-                    - this->mapToScene(QPoint(0,0)).y();
+        double wf = this->mapToScene( QPoint( w - 1, 0 ) ).x()
+                    - this->mapToScene(QPoint( 0,0 ) ).x();
+        double hf = this->mapToScene(QPoint( 0, h - 1 ) ).y()
+                    - this->mapToScene( QPoint( 0,0 ) ).y();
 
         double lf = posf.x() - pos.x() * wf / w;
         double tf = posf.y() - pos.y() * hf / h;
 
-        /* try to set viewport properly */
-        this->ensureVisible(lf, tf, wf, hf, 0, 0);
+        this->ensureVisible( lf, tf, wf, hf, 0, 0 );
 
-        QPointF newPos = this->mapToScene(pos);
+        QPointF newPos = this->mapToScene( pos );
 
-        /* readjust according to the still remaining offset/drift
-         * I don't know how to do this any other way */
-        this->ensureVisible(QRectF(QPointF(lf, tf) - newPos + posf,
-                                   QSizeF(wf, hf)), 0, 0);
+        this->ensureVisible( QRectF( QPointF( lf, tf ) - newPos + posf,
+                                   QSizeF( wf, hf) ), 0, 0 );
 
        event->accept();
     }
-
-    if ((event->modifiers()&Qt::ControlModifier) != Qt::ControlModifier) {
-        /* no scrolling while control is held */
-        QGraphicsView::wheelEvent(event );
+    else
+    {
+        QGraphicsView::wheelEvent( event );
     }
 }
 
-void Renderer::mousePressEvent(QMouseEvent *event)
+void Renderer::mousePressEvent( QMouseEvent * event )
 {
-    if (event->button() == Qt::RightButton)
+    if( event->button() == Qt::MiddleButton )
     {
-        right_mouse_pressed_ = true;
+        middle_mouse_pressed_ = true;
         start_point_ = event->pos();
-        setCursor(Qt::ClosedHandCursor);
+        setCursor( Qt::ClosedHandCursor );
         event->accept();
     }
     else
@@ -115,10 +113,10 @@ void Renderer::mousePressEvent(QMouseEvent *event)
 
 void Renderer::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::RightButton)
+    if( event->button() == Qt::MiddleButton )
     {
-        right_mouse_pressed_ = false;
-        setCursor(Qt::ArrowCursor);
+        middle_mouse_pressed_ = false;
+        setCursor( Qt::ArrowCursor );
         event->accept();
     }
     else
@@ -129,10 +127,10 @@ void Renderer::mouseReleaseEvent(QMouseEvent *event)
 
 void Renderer::mouseMoveEvent(QMouseEvent *event)
 {
-    if (right_mouse_pressed_)
+    if( middle_mouse_pressed_ )
     {
-        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - (event->x() - start_point_.x() ));
-        verticalScrollBar()->setValue(verticalScrollBar()->value() - (event->y() - start_point_.y()));
+        horizontalScrollBar()->setValue( horizontalScrollBar()->value() - ( event->x() - start_point_.x() ) );
+        verticalScrollBar()->setValue( verticalScrollBar()->value() - ( event->y() - start_point_.y() ) );
         start_point_ = event->pos();
         event->accept();
     }
