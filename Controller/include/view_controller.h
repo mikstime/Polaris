@@ -21,6 +21,19 @@ public:
      */
     explicit ViewController( GraphicView * view );
     /**
+     * Destructor
+     */
+    ~ViewController();
+    /**
+     * Copy constructor
+     */
+    ViewController( const ViewController & ) = delete;
+    /**
+     * Copy assignment operator
+     * @return
+     */
+    ViewController & operator=( const ViewController & ) = delete;
+    /**
      * Update selected nodes data
      */
     void UpdateSelectedNodes();
@@ -28,12 +41,11 @@ public:
      * Update selected node coordinates
      */
     void UpdateNodeCoordinates();
-    QPolygonF GetNodeForm();
     /**
-     * Get current floor
-     * @return - Floor number
+     * Get node form
+     * @return node form
      */
-    int8_t GetCurrentFloor();
+    QPolygonF GetNodeForm();
     /**
      * Get node ids
      * @return - Two ids of selected nodes or EMPTY if not selected
@@ -44,10 +56,25 @@ public:
      * @return - Two pairs of node coordinates
      */
     QPointF GetNodeCoords();
-
+    /**
+     * Change app mode
+     * @param is_editing - True for edit mode
+     */
     void ChangeMode( bool is_editing );
+    /**
+     * Get current floor number
+     * @return - Floor number
+     */
     int GetFloorNumber();
+    /**
+     * Floor up and return floor
+     * @return - New floor number
+     */
     int FloorUp();
+    /**
+     * Floor down and return floor
+     * @return - New floor number
+     */
     int FloorDown();
 
 private:

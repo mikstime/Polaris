@@ -4,7 +4,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 using std::string;
 using Polaris::GraphicRoom;
 
@@ -81,6 +81,36 @@ void GraphicRoom::SetReacheble( bool reach )
     ResetColor();
 }
 
+void GraphicRoom::SetPic( const QPixmap & pic )
+{
+    pic_ = pic;
+    QPointF res = ! size_.isEmpty() ? size_[ 0 ] : QPointF( 0, 0 );
+
+    size_t i = 0;
+    size_t top_left = 0;
+    for( ; i < size_.size(); i++ )
+    {
+        if( size_[ i ].x() < res.x() && size_[ i ].y() < res.y() )
+        {
+            res = size_[ i ];
+            top_left = i;
+        }
+    }
+
+    res.setX( 0 );
+    res.setY( 0 );
+    if( i < size_.size() - 1 )
+    {
+        top_left = 0;
+    }
+    for( size_t k = 0; k < 3; k++ )
+    {
+        res += size_[ ( top_left + k ) % size_.size() ];
+    }
+    pic_pos_.setX( res.x() / 3 );
+    pic_pos_.setY( res.y() / 3 );
+}
+
 bool GraphicRoom::IsReacheble() const
 {
     return reachebele_;
@@ -88,11 +118,11 @@ bool GraphicRoom::IsReacheble() const
 
 void GraphicRoom::ResetColor()
 {
-    if( ! reachebele_ )
-    {
-        def_color_ = cur_color_ = "#b9b9b9";
-        return;
-    }
+//    if( ! reachebele_ )
+//    {
+//        def_color_ = cur_color_ = "#b9b9b9";
+//        return;
+//    }
 
     Polaris::Role role = this->GetRole();
     if( role == Polaris::Role::MARK )
@@ -100,7 +130,8 @@ void GraphicRoom::ResetColor()
         def_color_ = "#FF5D5D";
     } else if( role == Polaris::Role::ROOM )
     {
-        def_color_ = "#5B659B";
+//        def_color_ = "#5B659B";
+        def_color_ = "#b9b9b9";
     }
     else if( role == Polaris::Role::STAIR )
     {
@@ -108,7 +139,8 @@ void GraphicRoom::ResetColor()
     }
     else if( role == Polaris::Role::HALL )
     {
-        def_color_ = "#284680";
+//        def_color_ = "#284680";
+        def_color_ = "#b9b9b9";
     }
     cur_color_ = def_color_;
 }
@@ -132,8 +164,19 @@ void GraphicRoom::paint( QPainter * painter, const QStyleOptionGraphicsItem * op
     painter->setPen( nw_pen );
     painter->setBrush( cur_color_ );
     painter->drawPolygon( size_ );
-    QPointF text_pos = this->pos();
-    painter->drawText( size_.boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+
+    if( role_ == Role::ROOM )
+    {
+        painter->drawText( boundingRect(), Qt::AlignCenter, room_number_.c_str() );
+    }
+    else
+    {
+        nw_pen.setWidth( 2 );
+        painter->setPen( nw_pen );
+        painter->setBrush( QColor( "#b9b9b9" ) );
+        painter->drawEllipse( pic_pos_.toPoint().x() - 15, pic_pos_.toPoint().y() - 15, 30, 30 );
+        painter->drawPixmap( pic_pos_.toPoint().x() - 10, pic_pos_.toPoint().y() - 10, 20, 20, pic_ );
+    }
 
     Q_UNUSED(option);
     Q_UNUSED(widget);

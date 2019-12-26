@@ -57,6 +57,14 @@ void GraphParser::OnRoomChanged( const Meta & meta )
     {
         GraphicRoom * cast_room = qgraphicsitem_cast< GraphicRoom * >( cur_room );
         cast_room->SetMeta( meta );
+        switch ( meta.role )
+        {
+            case Role::HALL :
+                cur_room->SetPic( pick_handler.GetHallPic() );
+                break;
+            case Role::STAIR :
+                cur_room->SetPic( pick_handler.GetStairPic() );
+        }
         item_controller_->update();
     } else
     {
@@ -67,6 +75,14 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 void GraphParser::OnRoomAdded( const Meta & meta )
 {
     GraphicItem * nw_room =  new GraphicRoom( meta );
+    switch ( meta.role )
+    {
+        case Role::HALL :
+            nw_room->SetPic( pick_handler.GetHallPic() );
+            break;
+        case Role::STAIR :
+            nw_room->SetPic( pick_handler.GetStairPic() );
+    }
     item_controller_->addItem( nw_room );
     items_in_controller_->AddItem( nw_room, meta.graph_node_id );
 }
@@ -88,7 +104,7 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
 
     if( from_room == nullptr || to_room == nullptr )
         return;
-    if( from_room->GetRole() == Role::STAIR && to_room->GetRole() == Role::STAIR  )
+    if( from_room->GetFloor() != to_room->GetFloor() )
         return;
 
     if( from_room->IsReacheble() && ! to_room->IsReacheble() )
@@ -119,8 +135,11 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         }
     }
 
-    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), left, right );
-    nw_connection->setPos( from_room->pos() );
+    if( left.isNull() || right.isNull() )
+        return;
+
+    GraphicItem * nw_connection =  new GraphicDoor( connection.id_, from_room->GetFloor(), from_room->pos() + left, right - left );
+    nw_connection->SetPic( pick_handler.GetDoorPic() );
     if( from_room->GetRole() == Role::HALL && to_room->GetRole() == Role::HALL  )
         nw_connection->SetDefaultColor( from_room->GetDefColor() );
     item_controller_->addItem( nw_connection );

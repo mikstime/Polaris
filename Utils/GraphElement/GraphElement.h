@@ -1,6 +1,7 @@
 #ifndef GRAPHELEMENT_HPP
 #define GRAPHELEMENT_HPP
 
+#include <iostream>
 #include "typedefs.h"
 
 namespace Polaris
@@ -28,6 +29,18 @@ public:
      * GetId - returns id of element
      *************************************************************************/
     Id GetId() const { return id_; };
+
+    friend std::ostream & operator<<( std::ostream & os, GraphElement & g )
+    {
+        os << g.id_;
+        return os;
+    }
+
+    friend std::istream & operator>>( std::istream & is, GraphElement & g )
+    {
+        is >> g.id_;
+        return is;
+    }
 };
 }//namespace Polaris
 

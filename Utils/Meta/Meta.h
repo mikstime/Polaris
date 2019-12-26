@@ -3,8 +3,9 @@
 
 #include <string>
 #include "typedefs.h"
-#include "qpoint.h"
-#include "qpolygon.h"
+#include <qpoint.h>
+#include <qpolygon.h>
+#include <iostream>
 
 namespace Polaris
 {
@@ -24,7 +25,19 @@ public:
     QPolygonF size;
     int8_t floor;
     Role role;
+
+    friend bool operator==( const Meta & a, const Meta & b )
+    {
+        return a.graph_node_id == b.graph_node_id &&
+               a.room_number == b.room_number &&
+               a.info == b.info &&
+               a.coordinates == b.coordinates &&
+               a.size == b.size &&
+               a.floor == b.floor &&
+               a.role == b.role;
+    }
 };
+
 } //namespace Polaris
 
 #endif //META_HPP

@@ -5,6 +5,11 @@ Polaris::ViewController::ViewController( GraphicView * view ) : view_( view ), f
 {
 }
 
+Polaris::ViewController::~ViewController()
+{
+    delete view_;
+}
+
 void Polaris::ViewController::UpdateSelectedNodes()
 {
     // Pair of selected nodes ids,
@@ -43,11 +48,6 @@ QPolygonF Polaris::ViewController::GetNodeForm()
     return view_->GetNewForm();
 }
 
-int8_t Polaris::ViewController::GetCurrentFloor()
-{
-    return view_->GetFloorNumber();
-}
-
 std::pair< int, int > Polaris::ViewController::GetNodeIds()
 {
     // Update selected nodes data
@@ -73,7 +73,8 @@ void Polaris::ViewController::ChangeMode( bool is_editing )
 
 int Polaris::ViewController::GetFloorNumber()
 {
-    return view_->GetFloorNumber();
+    floor_number_ = view_->GetFloorNumber();
+    return floor_number_;
 }
 
 int Polaris::ViewController::FloorUp()
