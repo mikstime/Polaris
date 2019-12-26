@@ -1,5 +1,5 @@
-#ifndef MAINAPP_PICK_HANDLER_H
-#define MAINAPP_PICK_HANDLER_H
+#ifndef MAINAPP_PIC_HANDLER_H
+#define MAINAPP_PIC_HANDLER_H
 
 #include <QtGui/QPixmap>
 

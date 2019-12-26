@@ -105,7 +105,10 @@ TEST( Renderer, Floor )
     Renderer renderer( & item_controller );
 
     renderer.SetFloor( 5 );
-    EXPECT_EQ( renderer.GetFloor(), 5 );
+    EXPECT_EQ(static_cast< int >( renderer.GetFloor() ), 1 );
+    for( size_t i = 0; i < 4; i++ )
+        renderer.FloorUp();
+    EXPECT_EQ( static_cast< int >( renderer.GetFloor() ), 5 );
 }
 
 class Parser : public ::testing::Test
@@ -144,7 +147,7 @@ TEST_F( Parser, BuildItems )
 {
     graph_parser_->BuildItems( meta_, graph_ );
 
-    EXPECT_EQ( item_controller_->items().size(), 14 );
+    EXPECT_EQ( item_controller_->items().size(), 10 );
 }
 
 TEST_F( Parser, AddRoom )
@@ -161,7 +164,7 @@ TEST_F( Parser, AddConnection )
     graph_parser_->OnRoomAdded( meta_[ 1 ] );
     graph_parser_->OnRoomAdded( meta_[ 2 ] );
     graph_parser_->OnConnectionAdded( graph_[ 0 ] );
-    EXPECT_EQ( item_controller_->items().size(), 3 );
+    EXPECT_EQ( item_controller_->items().size(), 2 );
 
     graph_parser_->OnConnectionRemoved( graph_[ 0 ] );
     EXPECT_EQ( item_controller_->items().size(), 2 );

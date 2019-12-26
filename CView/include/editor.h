@@ -59,18 +59,30 @@ public:
      * Получить форму созданного помещения
      * @return - полигон нового помещения
      */
-    QPolygonF GetNewForm();
+    QPolygon GetNewForm();
 
     /**
      * Получить позицию создаваемого полигона
      * @return - точка на карте
      */
-    QPointF GetPos() const;
+    QPoint GetPos() const;
+
+    /**
+     * Проверяет полигон на самопересечение
+     * @return полигон валиден?
+     */
+
+    /**
+     * Проверяет полигон на самопересечение
+     * @return полигон валиден?
+     */
 
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;
-    QPolygonF selected_;
+    QPolygon selected_;
+
+    bool IsNotValidPolygon();
 };
 } // namespace Polaris
 

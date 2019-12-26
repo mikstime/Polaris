@@ -58,8 +58,8 @@ void GraphicDoor::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
 
     painter->setPen( nw_pen );
     painter->drawLine( line_ );
-    QPoint pos = QRect( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).center() - QPoint( 10, 10 );
-    painter->drawPixmap( pos.x(), pos.y(), 20, 20, pic_ );
+    QPoint pos = QRect( line_.p1().x(), line_.p1().y(), line_.p2().x(), line_.p2().y() ).center() - QPoint( 15, 15 );
+    painter->drawPixmap( pos.x(), pos.y(), 30, 30, pic_ );
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
