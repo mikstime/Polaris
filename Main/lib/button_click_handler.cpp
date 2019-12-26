@@ -120,6 +120,7 @@ void Polaris::ButtonClickHandler::ChangeModeButtonClick()
 
 void Polaris::ButtonClickHandler::DownloadButtonClick()
 {
+    QString filename = QFileDialog::getOpenFileName();
 }
 
 void Polaris::ButtonClickHandler::SaveButtonClick()
