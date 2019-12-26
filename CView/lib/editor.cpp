@@ -1,12 +1,10 @@
 #include <algorithm>
 #include "include/graphic_connection.h"
 #include "include/editor.h"
+#include <boost/geometry/algorithms/intersects.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
-#include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
-#include <boost/geometry/algorithms/is_valid.hpp>
-#include <QDebug>
 
 using Polaris::Editor;
 using Polaris::GraphConnection;
@@ -140,7 +138,7 @@ QPolygonF Editor::GetNewForm()
      /* Сортировка по углу */
 
     selected_ << selected_[ 0 ];
-    if( ! ValidatePolygon() )
+    if(IsNotValidPolygon() )
     {
         if( selected_.size() > 3 )
             std::sort( selected_.begin(), selected_.end(),
@@ -171,15 +169,14 @@ QPointF Editor::GetPos() const
     return res;
 }
 
-bool Editor::ValidatePolygon()
+bool Editor::IsNotValidPolygon()
 {
     polygon_t polygon;
-    boost::geometry::validity_failure_type failure;
     for( const auto & k : selected_ )
     {
         boost::geometry::append( polygon.outer(),
                                  point_t( static_cast< double >( k.x() ), static_cast< double >( k.y() ) ) );
     }
-    bool fail = boost::geometry::is_valid( polygon, failure );
-    return ( failure != boost::geometry::failure_self_intersections );
+    bool fail = boost::geometry::intersects( polygon );
+    return ( fail );
 }

@@ -71,12 +71,13 @@ public:
      * Проверяет полигон на самопересечение
      * @return полигон валиден?
      */
-    bool ValidatePolygon();
 
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;
     QPolygonF selected_;
+
+    bool IsNotValidPolygon();
 };
 } // namespace Polaris
 
