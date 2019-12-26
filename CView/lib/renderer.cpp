@@ -2,7 +2,6 @@
 #include "include/renderer.h"
 #include <QScrollBar>
 #include <QWheelEvent>
-#include <QDebug>
 
 using Polaris::Renderer;
 

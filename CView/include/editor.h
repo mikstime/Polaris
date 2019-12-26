@@ -72,6 +72,11 @@ public:
      * @return полигон валиден?
      */
 
+    /**
+     * Проверяет полигон на самопересечение
+     * @return полигон валиден?
+     */
+
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;
