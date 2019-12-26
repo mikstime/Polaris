@@ -107,6 +107,36 @@ void Polaris::MainWindow::ConnectButtons()
     connect( buttons_["floor_up"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorUpButtonClick() ) );
     connect( buttons_["floor_down"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( FloorDownButtonClick() ) );
     connect( buttons_["change_mode"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( ChangeModeButtonClick() ) );
-    connect( buttons_["download"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( DownloadButtonClick() ) );
-    connect( buttons_["save"], SIGNAL( clicked() ), button_click_handler_.get(), SLOT( SaveButtonClick() ) );
+    connect( buttons_["download"], SIGNAL( clicked() ), this, SLOT( Download() ) );
+    connect( buttons_["save"], SIGNAL( clicked() ), this, SLOT( Save() ) );
+}
+
+void Polaris::MainWindow::Download()
+{
+    QString filename = QFileDialog::getOpenFileName( this, "Загрузить файл", QDir::currentPath() );
+
+    std::ifstream file( filename.toStdString().c_str() );
+
+    std::string str;
+    std::string temp;
+
+    while( file >> temp )
+    {
+        str += temp;
+        str += "\n";
+    }
+
+    model_->setModel( Polaris::ModelAndString::fromString( str ) );
+    model_->updateModel();
+}
+
+void Polaris::MainWindow::Save()
+{
+    QString filename = QFileDialog::getSaveFileName( this, "Сохранить файл", QDir::currentPath() );
+
+    std::string str = Polaris::ModelAndString::toString( model_->getModel() );
+
+    std::ofstream file( filename.toStdString().c_str() );
+    file << str;
+    file.close();
 }
