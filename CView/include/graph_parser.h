@@ -4,7 +4,7 @@
 #include "include/item_controller.h"
 #include "GraphConnection/GraphConnection.h"
 #include "Meta/Meta.h"
-#include "include/pick_handler.h"
+#include "include/pic_handler.h"
 
 namespace Polaris
 {

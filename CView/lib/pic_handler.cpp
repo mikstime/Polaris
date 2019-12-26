@@ -1,4 +1,4 @@
-#include "include/pick_handler.h"
+#include "include/pic_handler.h"
 #include <QDebug>
 using Polaris::PickHandler;
 

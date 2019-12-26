@@ -53,10 +53,18 @@ public:
      */
     void wheelEvent( QWheelEvent * event ) override;
 
+    void mousePressEvent( QMouseEvent * event ) override;
+
+    void mouseReleaseEvent( QMouseEvent * event ) override;
+
+    void mouseMoveEvent( QMouseEvent * event ) override;
+
 private:
     int8_t current_floor_;
     int8_t min_floor_;
     int8_t max_floor_;
+    bool right_mouse_pressed_;
+    QPoint start_point_;
 
     bool ChangeFloor( const int8_t step );
     bool RedrawFloor(const int8_t step );
