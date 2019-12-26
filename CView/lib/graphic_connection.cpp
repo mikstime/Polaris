@@ -5,7 +5,7 @@ using Polaris::GraphicConnection;
 
 GraphicConnection::GraphicConnection( const QPointF & pos )
 : GraphicItem(),
-size_( -7, -7, 14, 14 ),
+size_( -8, -8, 16, 16 ),
 connection_number_( 0 )
 {
     this->setFlag( QGraphicsItem::ItemIgnoresTransformations, true );

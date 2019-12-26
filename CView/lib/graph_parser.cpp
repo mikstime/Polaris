@@ -3,6 +3,7 @@
 #include "include/graphic_door.h"
 #include "include/graphic_room.h"
 #include "include/graph_parser.h"
+#include <QDebug>
 
 using Polaris::GraphicDoor;
 using Polaris::GraphicItem;
@@ -68,9 +69,10 @@ void GraphParser::OnRoomChanged( const Meta & meta )
 
         float nw_x = meta.coordinates.x() + meta.size.boundingRect().x() + 200;
         float nw_y = meta.coordinates.y() + meta.size.boundingRect().y() + 200;
-        if( item_controller_->sceneRect().width() < nw_x ||
-            item_controller_->sceneRect().height() < nw_y )
-            item_controller_->setSceneRect( 0, 0, nw_x, nw_y );
+        if( item_controller_->sceneRect().width() < nw_x )
+            item_controller_->setSceneRect( 0, 0, nw_x, item_controller_->sceneRect().height() );
+        if( item_controller_->sceneRect().height() < nw_y )
+            item_controller_->setSceneRect( 0, 0, item_controller_->sceneRect().width(), nw_y );
         item_controller_->update();
     } else
     {
