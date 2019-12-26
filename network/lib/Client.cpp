@@ -95,7 +95,7 @@ bool Reader::Exchange( std::string & path )
         std::tuple<std::string, int, int> info = data->CollectInfo();
         std::string msg = "G";
         int num_bytes;
-        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+        num_bytes = send( std::get< 1 >( info ), msg.c_str(), msg.size(), 0 );
         if ( num_bytes < 0 )
         {
             throw std::runtime_error( "write failed: " +
@@ -174,7 +174,8 @@ bool Writer::Exchange( std::string & msg )
             msg += tmp + "\n";
         }
         msg.pop_back();*/
-        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+        num_bytes = send( std::get< 1 >( info ), msg.c_str(), msg.size(), 0 );
+        std::cerr << num_bytes << " sended" << std::endl;
         if ( num_bytes < 0 )
         {
             throw std::runtime_error( "write failed: " +

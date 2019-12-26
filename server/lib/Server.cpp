@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/Server.h"
 
 using namespace Polaris;
@@ -73,7 +74,7 @@ void Server::Prepare( fd_set *read_fds )
 
 void Server::EventLoop()
 {
-    char buf[ 1024 ];
+    char buf[ 10240 ];
     int size_of_data = 1;
     while ( true )
     {
@@ -107,7 +108,8 @@ void Server::EventLoop()
         {
             if ( FD_ISSET( client, & read_fds ) )
             {
-                size_of_data = recv( client, buf, 1024, 0);
+                int count = 0;
+                size_of_data = recv( client, buf, 10240, 0);
                 if ( size_of_data <= 0 )
                 {
                     close( client );
@@ -123,6 +125,14 @@ void Server::EventLoop()
                     std::string msg;
                     std::string tmp;
                     char c;
+                    //ssize_t sent = 0;
+                    /*while( getline( fin, tmp ) )
+                    {
+                        sent = ::send( client, tmp.data() + sent,
+                                       tmp.size() - sent, 0 );
+                        if ( -1 == sent )
+                            throw std::runtime_error( std::string( strerror( errno ) ) );
+                    }*/
                     while( getline( fin, tmp ) )
                     {
                         msg += tmp + "\n";
@@ -141,10 +151,10 @@ void Server::EventLoop()
                 }
                 else
                 {
-                    std::string data_from_socket( buf, buf + size_of_data );
+                    std::string data_from_socket( buf, buf + size_of_data + 1 );
                     data_from_socket.pop_back();
                     std::ofstream fout;
-                    fout.open( "data.txt" );
+                    fout.open( "data.txt", std::ofstream::app);
                     if( !fout.is_open() )
                     {
                         perror( "file" );
