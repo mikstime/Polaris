@@ -72,6 +72,9 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_layout_->addStretch();
     button_layout_->addLayout( floor_layout );
     button_layout_->addStretch();
+    button_layout_->addWidget( buttons_["download"] );
+    button_layout_->addWidget( buttons_["save"] );
+    button_layout_->addStretch();
 
     button_panel_->setLayout( button_layout_ );
 
