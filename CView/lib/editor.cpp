@@ -137,9 +137,7 @@ public:
 
 QPolygonF Editor::GetNewForm()
 {
-     /* Сортировка по углу
-
-     */
+     /* Сортировка по углу */
 
     selected_ << selected_[ 0 ];
     if( ! ValidatePolygon() )
@@ -148,6 +146,7 @@ QPolygonF Editor::GetNewForm()
             std::sort( selected_.begin(), selected_.end(),
                        AngleComparator( selected_.boundingRect().center(), selected_[0]) );
     }
+
     return selected_.translated( - GetPos() );
 }
 
