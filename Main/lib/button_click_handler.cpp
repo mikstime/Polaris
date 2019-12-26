@@ -117,12 +117,3 @@ void Polaris::ButtonClickHandler::ChangeModeButtonClick()
         change_mode_button_->setText( "Режим редактирования" );
     }
 }
-
-void Polaris::ButtonClickHandler::DownloadButtonClick()
-{
-    QString filename = QFileDialog::getOpenFileName();
-}
-
-void Polaris::ButtonClickHandler::SaveButtonClick()
-{
-}
