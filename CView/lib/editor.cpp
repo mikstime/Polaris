@@ -5,7 +5,7 @@
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
-
+#include <QDebug>
 using Polaris::Editor;
 using Polaris::GraphConnection;
 typedef boost::geometry::model::d2::point_xy< double > point_t;
@@ -48,13 +48,13 @@ void Editor::SelectConnection( GraphicItem * const item )
 {
     if( item->IsSelected() )
     {
-        QPointF pos = item->pos();
+        QPointF pos = item->point_pos_;
         auto erase_from = std::find( selected_.begin(), selected_.end(), pos );
         for( auto k = erase_from; k < selected_.end(); k++ )
         {
             std::for_each( connections_.begin(), connections_.end(), [ & k ]( GraphicItem * a )
             {
-                if( a->pos() == * k )
+                if( a->point_pos_ == * k )
                     a->ResetSelection();
             }  );
         }
@@ -63,20 +63,20 @@ void Editor::SelectConnection( GraphicItem * const item )
     else
     {
         item->SetSelection();
-        selected_ << item->pos().toPoint();
+        selected_ << item->point_pos_;
     }
 }
 
 void Editor::EraseItem( GraphicItem * const item )
 {
     if( item->IsSelected() ) {
-        QPointF pos = item->pos();
+        QPointF pos = item->point_pos_;
         auto erase_from = std::find( selected_.begin(), selected_.end(), pos );
         for( auto k = erase_from; k < selected_.end(); k++ )
         {
             std::for_each( connections_.begin(), connections_.end(), [ & k ]( GraphicItem * a )
             {
-                if( a->pos() == * k )
+                if( a->point_pos_ == * k )
                     a->ResetSelection();
             }  );
         }
@@ -84,7 +84,7 @@ void Editor::EraseItem( GraphicItem * const item )
     }
 
     scene_->removeItem( item );
-    selected_.erase( std::remove( selected_.begin(), selected_.end(), item->pos() ), selected_.end() );
+    selected_.erase( std::remove( selected_.begin(), selected_.end(), item->point_pos_ ), selected_.end() );
     connections_.remove( item );
     delete item;
 }
@@ -133,7 +133,7 @@ public:
     }
 };
 
-QPolygon Editor::GetNewForm()
+QPolygonF Editor::GetNewForm()
 {
      /* Сортировка по углу */
 
@@ -148,13 +148,13 @@ QPolygon Editor::GetNewForm()
     return selected_.translated( - GetPos() );
 }
 
-QPoint Editor::GetPos() const
+QPointF Editor::GetPos() const
 {
     if( selected_.empty() )
     {
         return QPoint( 0, 0 );
     }
-    QPoint res = selected_[ 0 ];
+    QPointF res = selected_[ 0 ];
     for( const auto & k : selected_ )
     {
         if( k.x() < res.x() )

@@ -110,6 +110,7 @@ public:
      * Сбросить выделение
      */
     virtual void ResetSelection() { return; }
+    QPointF point_pos_;
 
 protected:
     Id id_;
