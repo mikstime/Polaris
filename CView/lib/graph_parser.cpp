@@ -115,13 +115,13 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     if( from_room->GetFloor() != to_room->GetFloor() )
         return;
 
-    if( from_room->IsReacheble() && ! to_room->IsReacheble() )
+    if(from_room->IsReachable() && !to_room->IsReachable() )
     {
-        to_room->SetReacheble( true );
+        to_room->SetReachable(true);
     }
-    else if( ! from_room->IsReacheble() && to_room->IsReacheble() )
+    else if(!from_room->IsReachable() && to_room->IsReachable() )
     {
-        from_room->SetReacheble( true );
+        from_room->SetReachable(true);
     }
 
     qInfo() << "@";

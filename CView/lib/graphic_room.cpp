@@ -9,9 +9,9 @@ using std::string;
 using Polaris::GraphicRoom;
 
 GraphicRoom::GraphicRoom()
-:GraphicItem( 0, 0, Polaris::Role::MARK ),
-size_( QRectF(-10, -10, 20, 20) ),
-reachebele_( false )
+: GraphicItem( 0, 0, Polaris::Role::MARK ),
+  size_( QRectF(-10, -10, 20, 20) ),
+  reachable_(false )
 {
     ResetColor();
     setPos( 40, 40 );
@@ -20,14 +20,14 @@ reachebele_( false )
 
 GraphicRoom::GraphicRoom( const Meta & node )
 : GraphicItem( node.graph_node_id, node.floor, node.role ),
-room_number_( node.room_number ),
-info_( node.info ),
-size_( node.size ),
-reachebele_( false )
+  room_number_( node.room_number ),
+  info_( node.info ),
+  size_( node.size ),
+  reachable_(false )
 {
     if( role_ == Role::STAIR )
     {
-        SetReacheble( true );
+        SetReachable(true);
     }
     else
     {
@@ -67,7 +67,7 @@ void GraphicRoom::SetMeta( const Meta & nw_meta )
     floor_ = nw_meta.floor;
     role_ = nw_meta.role;
     if( role_ == Role::STAIR )
-        reachebele_ = true;
+        reachable_ = true;
     room_number_ = nw_meta.room_number;
     info_ = nw_meta.info;
     setToolTip( QString::fromUtf8( info_.c_str(), info_.size() ) );
@@ -75,9 +75,9 @@ void GraphicRoom::SetMeta( const Meta & nw_meta )
     ResetColor();
 }
 
-void GraphicRoom::SetReacheble( bool reach )
+void GraphicRoom::SetReachable(bool reach )
 {
-    reachebele_ = reach;
+    reachable_ = reach;
     ResetColor();
 }
 
@@ -111,14 +111,14 @@ void GraphicRoom::SetPic( const QPixmap & pic )
     pic_pos_.setY( res.y() / 3 );
 }
 
-bool GraphicRoom::IsReacheble() const
+bool GraphicRoom::IsReachable() const
 {
-    return reachebele_;
+    return reachable_;
 }
 
 void GraphicRoom::ResetColor()
 {
-//    if( ! reachebele_ )
+//    if( ! reachable_ )
 //    {
 //        def_color_ = cur_color_ = "#b9b9b9";
 //        return;
