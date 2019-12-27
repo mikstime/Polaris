@@ -92,7 +92,7 @@ public:
      * Сделать достижимым - есть связь (напрямую или через другие помещения) с лестницей
      * @param reach - достижим
      */
-    virtual void SetReacheble( bool reach ) { return; }
+    virtual void SetReachable(bool reach ) { return; }
 
     /**
      * Установить картинку для графического элемента
@@ -104,12 +104,13 @@ public:
      * Элемент достижим?
      * @return - достижим
      */
-    virtual bool IsReacheble() const { return true; }
+    virtual bool IsReachable() const { return true; }
 
     /**
      * Сбросить выделение
      */
     virtual void ResetSelection() { return; }
+    QPointF point_pos_;
 
 protected:
     Id id_;

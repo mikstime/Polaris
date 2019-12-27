@@ -64,7 +64,7 @@ public:
      * Сделать достижимым - есть связь (напрямую или через другие помещения) с лестницей
      * @param reach - достижим
      */
-    void SetReacheble( bool reach );
+    void SetReachable(bool reach );
 
     /**
      * Установить картинку для графического элемента
@@ -76,7 +76,7 @@ public:
      * Элемент достижим?
      * @return - достижим
      */
-    bool IsReacheble() const;
+    bool IsReachable() const;
 
     /**
      * Сбросить выделение
@@ -89,7 +89,7 @@ private:
     QPolygonF size_;
     QPixmap pic_;
     QPointF pic_pos_;
-    bool reachebele_;
+    bool reachable_;
 
     void ResetColor() override;
     void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ) override final;

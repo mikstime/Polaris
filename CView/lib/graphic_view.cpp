@@ -36,7 +36,8 @@ void GraphicView::ChangeRoom(const Meta & meta )
 {
     graph_parser_->OnRoomChanged(meta);
     renderer_->SetFloor( meta.floor );
-//    item_controller_->ResetEditing();
+    renderer_->ChangeFloor( 0 );
+    item_controller_->ResetEditing();
 }
 
 void GraphicView::AddRoom(const Meta & meta )

@@ -8,6 +8,7 @@ GraphicConnection::GraphicConnection( const QPointF & pos )
 size_( -8, -8, 16, 16 ),
 connection_number_( 0 )
 {
+    point_pos_ = pos;
     this->setFlag( QGraphicsItem::ItemIgnoresTransformations, true );
     ResetColor();
     this->setPos( pos );

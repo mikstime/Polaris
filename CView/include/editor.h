@@ -59,18 +59,18 @@ public:
      * Получить форму созданного помещения
      * @return - полигон нового помещения
      */
-    QPolygon GetNewForm();
+    QPolygonF GetNewForm();
 
     /**
      * Получить позицию создаваемого полигона
      * @return - точка на карте
      */
-    QPoint GetPos() const;
+    QPointF GetPos() const;
 
 private:
     std::shared_ptr< QGraphicsScene > scene_;
     std::list< GraphicItem * > connections_;
-    QPolygon selected_;
+    QPolygonF selected_;
 
     /**
      * Проверяет полигон на самопересечение

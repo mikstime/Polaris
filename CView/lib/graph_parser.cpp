@@ -67,8 +67,8 @@ void GraphParser::OnRoomChanged( const Meta & meta )
                 cur_room->SetPic( pick_handler.GetStairPic() );
         }
 
-        float nw_x = meta.coordinates.x() + meta.size.boundingRect().x() + 200;
-        float nw_y = meta.coordinates.y() + meta.size.boundingRect().y() + 200;
+        float nw_x = meta.coordinates.x() + meta.size.boundingRect().x() * 3 / 2;
+        float nw_y = meta.coordinates.y() + meta.size.boundingRect().y() * 3 / 2;
         if( item_controller_->sceneRect().width() < nw_x )
             item_controller_->setSceneRect( 0, 0, nw_x, item_controller_->sceneRect().height() );
         if( item_controller_->sceneRect().height() < nw_y )
@@ -92,6 +92,7 @@ void GraphParser::OnRoomAdded( const Meta & meta )
             nw_room->SetPic( pick_handler.GetStairPic() );
     }
     item_controller_->addItem( nw_room );
+//  TODO Check floors
     items_in_controller_->AddItem( nw_room, meta.graph_node_id );
 }
 
@@ -113,16 +114,19 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
     if( from_room == nullptr || to_room == nullptr )
         return;
     if( from_room->GetFloor() != to_room->GetFloor() )
+    {
+        qInfo() << "floors are different";
         return;
+    }
 
-    if( from_room->IsReacheble() && ! to_room->IsReacheble() )
-    {
-        to_room->SetReacheble( true );
-    }
-    else if( ! from_room->IsReacheble() && to_room->IsReacheble() )
-    {
-        from_room->SetReacheble( true );
-    }
+//    if(from_room->IsReachable() && !to_room->IsReachable() )
+//    {
+//        to_room->SetReachable(true);
+//    }
+//    else if(!from_room->IsReachable() && to_room->IsReachable() )
+//    {
+//        from_room->SetReachable(true);
+//    }
 
     qInfo() << "@";
 
