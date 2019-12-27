@@ -59,6 +59,8 @@ public:
 
     void mouseMoveEvent( QMouseEvent * event ) override;
 
+    bool ChangeFloor( const int8_t step );
+
 private:
     int8_t current_floor_;
     int8_t min_floor_;
@@ -66,7 +68,6 @@ private:
     bool middle_mouse_pressed_;
     QPoint start_point_;
 
-    bool ChangeFloor( const int8_t step );
     bool RedrawFloor(const int8_t step );
     bool NextFloorEmpty( const int8_t step );
     void RaiseEmptyFloor();
