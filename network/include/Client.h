@@ -71,7 +71,7 @@ namespace Polaris
     protected:
         ClientImple * data;
         Location lct;
-        char buffer[1024];
+        char buffer[10240];
 
     };
 
@@ -141,6 +141,7 @@ namespace Polaris
                 tcp::resolver::iterator endpoint_iterator);
         void Write(const Data& msg);
         void Close();
+        std::stringstream ss;
 
     private:
 

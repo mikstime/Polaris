@@ -95,7 +95,7 @@ bool Reader::Exchange( std::string & path )
         std::tuple<std::string, int, int> info = data->CollectInfo();
         std::string msg = "G";
         int num_bytes;
-        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+        num_bytes = send( std::get< 1 >( info ), msg.c_str(), msg.size(), 0 );
         if ( num_bytes < 0 )
         {
             throw std::runtime_error( "write failed: " +
@@ -124,8 +124,7 @@ bool Reader::Exchange( std::string & path )
     }
     else if (lct == Location::NETWORK)
     {
-        try
-        {
+        try {
             boost::asio::io_service io;
             tcp::resolver Resolver(io);
             tcp::resolver::query Query(HOST, PORT);
@@ -133,8 +132,11 @@ bool Reader::Exchange( std::string & path )
             BClient client(io, it);
             std::thread thread(boost::bind(&boost::asio::io_service::run, &io));
             char line[Data::max_length + 1];
-            while (std::cin.getline(line, Data::max_length + 1))
+
+            size_t sent = 0;
+            while (sent < path.size())
             {
+                memcpy(line, path.data() + sent, 1025);
                 Data msg;
                 msg.SetBodyLength(std::strlen(line));
                 std::memcpy(msg.GetBody(), line, msg.GetBodyLength());
@@ -143,8 +145,9 @@ bool Reader::Exchange( std::string & path )
             }
             client.Close();
             thread.join();
+            path = client.ss.str();
         }
-        catch (std::exception& e)
+        catch (std::exception &e)
         {
             std::cerr << "Exception: " << e.what() << "\n";
         }
@@ -156,25 +159,26 @@ bool Writer::Exchange( std::string & msg )
 {
     if(lct == Location::LOCALHOST)
     {
-        try
-        {
-            data->OpenConnection();
-        }
-        catch (std::runtime_error & exception)
-        {
-            return false;
-        }
-        std::tuple<std::string, int, int> info = data->CollectInfo();
-        int num_bytes;
-        /*std::ifstream fin;
-        fin.open( path );
-        std::string tmp;
-        while( getline( fin, tmp ) )
-        {
-            msg += tmp + "\n";
-        }
-        msg.pop_back();*/
-        num_bytes = write( std::get< 1 >( info ), msg.c_str(), msg.size() );
+    try
+    {
+        data->OpenConnection();
+    }
+    catch (std::runtime_error & exception)
+    {
+        return false;
+    }
+    std::tuple<std::string, int, int> info = data->CollectInfo();
+    int num_bytes;
+    /*std::ifstream fin;
+    fin.open( path );
+    std::string tmp;
+    while( getline( fin, tmp ) )
+    {
+        msg += tmp + "\n";
+    }
+    msg.pop_back();*/
+        num_bytes = send( std::get< 1 >( info ), msg.c_str(), msg.size(), 0 );
+        std::cerr << num_bytes << " sended" << std::endl;
         if ( num_bytes < 0 )
         {
             throw std::runtime_error( "write failed: " +
@@ -207,8 +211,10 @@ bool Writer::Exchange( std::string & msg )
             BClient client(io, it);
             std::thread thread(boost::bind(&boost::asio::io_service::run, &io));
             char line[Data::max_length + 1];
-            while (std::cin.getline(line, Data::max_length + 1))
+            size_t sent = 0;
+            while (sent < msg.size())
             {
+                memcpy(line, msg.data() + sent, 1025);
                 Data msg;
                 msg.SetBodyLength(std::strlen(line));
                 std::memcpy(msg.GetBody(), line, msg.GetBodyLength());
@@ -217,6 +223,7 @@ bool Writer::Exchange( std::string & msg )
             }
             client.Close();
             thread.join();
+            msg = client.ss.str();
         }
         catch (std::exception& e)
         {
@@ -273,8 +280,8 @@ void BClient::ReadBody(const boost::system::error_code& error)
 {
     if (!error)
     {
-        std::cout.write(readMsg.GetBody(), readMsg.GetBodyLength());
-        std::cout << std::endl;
+        ss.write(readMsg.GetBody(), readMsg.GetBodyLength());
+        ss << std::endl;
         boost::asio::async_read(sock,boost::asio::buffer(readMsg.GetData(),
                                                          Data::header_length), boost::bind(&BClient::ReadHeader,
                                                                                            this, boost::asio::placeholders::error));
