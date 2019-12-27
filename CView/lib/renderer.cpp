@@ -16,7 +16,7 @@ middle_mouse_pressed_( false )
     this->setAlignment( Qt::AlignLeft | Qt::AlignTop );
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    this->setSceneRect( 0, 0, this->size().width() - 5, this->size().height() - 5 );
+//    this->setSceneRect( 0, 0, this->size().width() * 2, this->size().height() * 2 );
 }
 
 int8_t Renderer::GetFloor() const
