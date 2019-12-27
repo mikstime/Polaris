@@ -119,7 +119,6 @@ void GraphParser::OnConnectionAdded( const GraphConnection & connection )
         return;
     }
 
-
 //    if(from_room->IsReachable() && !to_room->IsReachable() )
 //    {
 //        to_room->SetReachable(true);

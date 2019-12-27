@@ -82,14 +82,6 @@ public slots:
      * Change mode button click handler
      */
     void ChangeModeButtonClick();
-    /**
-     * Download map button click handler
-     */
-    void DownloadButtonClick();
-    /**
-     * Save map button click handler
-     */
-    void SaveButtonClick();
 };
 
 } // namespace Polaris

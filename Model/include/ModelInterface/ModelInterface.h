@@ -195,6 +195,8 @@ public:
         __triggerModelEvents();
     };
     void clearModel();
+    void setModel( Model m) { model_ = m; };
+    void updateModel() { __triggerModelEvents(); }
     Model & getModel() { return model_; };
 private:
     void __triggerModelEvents();
