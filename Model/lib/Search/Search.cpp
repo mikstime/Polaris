@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <include/GraphInterface/GraphInterface.h>
 #include <algorithm>
+#include <cmath>
 
 using namespace Polaris;
 using Path = std::vector< GraphNode >;
@@ -93,7 +94,7 @@ Path Search::FindPath( GraphInterface & graph, std::map< Id, Meta > & meta,
         if(current == to)
             break;
         /**********************************************************************
-         * Dijkstra search.
+         * A* search.
          *********************************************************************/
         double new_cost = 0, cur_price = 0;
         for( Id next_id : current.neighbors )
@@ -110,8 +111,11 @@ Path Search::FindPath( GraphInterface & graph, std::map< Id, Meta > & meta,
                 cost_so_far[ next_id ] = new_cost;
                 came_from[ next_id ] = current;
                 // Put vertex in queue to process
-                int heurostic = meta[ next_id ].coordinates.x() - meta[ current.GetId() ].coordinates.x() + meta[ next_id ].coordinates.y() - meta[ current.GetId() ].coordinates.y();
-                heurostic = heurostic / 4;
+                int heurostic = meta[ next_id ].coordinates.x() -
+                                meta[ current.GetId() ].coordinates.x() +
+                                meta[ next_id ].coordinates.y() -
+                                meta[ current.GetId() ].coordinates.y();
+                heurostic = std::sqrt( heurostic );
                 frontier.put( next, new_cost + heurostic );
             }
         }

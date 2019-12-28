@@ -105,7 +105,8 @@ void GraphicRoom::SetPic( const QPixmap & pic )
     }
     for( size_t k = 0; k < 3; k++ )
     {
-        res += size_[ ( top_left + k ) % size_.size() ];
+        if( size_.size() != 0 )
+         res += size_[ ( top_left + k ) % size_.size() ];
     }
     pic_pos_.setX( res.x() / 3 );
     pic_pos_.setY( res.y() / 3 );

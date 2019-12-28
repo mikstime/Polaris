@@ -93,9 +93,11 @@ Polaris::Model Polaris::ModelAndString::fromString( const std::string & str ) {
     {
         Meta me;
         s >> me.graph_node_id;
-        std::getline( s, me.room_number );
-        std::getline( s, me.room_number );
-        std::getline( s, me.info );
+//        std::getline( s, me.room_number );
+        s >> me.room_number;
+        s >> me.info;
+//        std::getline( s, me.room_number );
+//        std::getline( s, me.info );
 
         float x, y;
         s >> x >> y;

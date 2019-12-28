@@ -126,6 +126,7 @@ void Polaris::MainWindow::Download()
         str += "\n";
     }
 
+    model_->clearModel();
     model_->setModel( Polaris::ModelAndString::fromString( str ) );
     model_->updateModel();
 }
