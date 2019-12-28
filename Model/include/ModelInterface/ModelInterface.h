@@ -195,7 +195,7 @@ public:
         __triggerModelEvents();
     };
     void clearModel();
-    void setModel( Model m) { model_ = m; };
+    void setModel( Model m) { model_ = std::move(m); };
     void updateModel() { __triggerModelEvents(); }
     Model & getModel() { return model_; };
 private:

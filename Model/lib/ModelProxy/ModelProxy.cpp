@@ -159,7 +159,7 @@ bool ModelProxy::FindPath( Id firstNodeId, Id lastNodeId,
 {
     // Find path
     std::vector< GraphNode > path = Search::FindPath(
-            model.graph, /*model.meta,*/ firstNodeId, lastNodeId );
+            model.graph, model.meta, firstNodeId, lastNodeId );
     // Retrieve graph
     Graph g = model.graph.getGraph();
     // To store transformed path and connections
