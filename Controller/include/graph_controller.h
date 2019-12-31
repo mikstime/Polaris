@@ -69,7 +69,7 @@ public:
 
 private:
     // Pointer to Model object
-    std::shared_ptr< ModelInterface > model_;
+    ModelInterface * model_;
 };
 
 } // namespace Polaris

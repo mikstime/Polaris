@@ -49,7 +49,7 @@ private:
     Id first_node_, second_node_;
 
     std::shared_ptr< QWidget > button_panel_;
-    std::shared_ptr< ModelInterface > model_;
+    ModelInterface * model_;
 
     // Price input field
     QLineEdit * price_edit_;

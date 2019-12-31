@@ -23,11 +23,11 @@ Polaris::MainWindow::MainWindow( GraphController * graph_controller, ModelInterf
     button_panel_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating NodeForm object
-    node_form_ = std::make_shared< NodeForm >( button_panel_.get(), model_.get(), view_controller_.get(), graph_controller );
+    node_form_ = std::make_shared< NodeForm >( button_panel_.get(), model_, view_controller_.get(), graph_controller );
     node_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Creating ConnectionForm object
-    connection_form_ = std::make_shared< ConnectionForm >( button_panel_.get(), model_.get() );
+    connection_form_ = std::make_shared< ConnectionForm >( button_panel_.get(), model_ );
     connection_form_->setFixedSize( SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT );
 
     // Init main layout
@@ -126,6 +126,7 @@ void Polaris::MainWindow::Download()
         str += "\n";
     }
 
+    model_->clearModel();
     model_->setModel( Polaris::ModelAndString::fromString( str ) );
     model_->updateModel();
 }

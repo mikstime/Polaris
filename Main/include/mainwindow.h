@@ -54,7 +54,7 @@ private:
     std::shared_ptr< ViewController > view_controller_;
     std::shared_ptr< NodeForm > node_form_;
     std::shared_ptr< ConnectionForm > connection_form_;
-    std::shared_ptr< ModelInterface > model_;
+    ModelInterface * model_;
 
     std::shared_ptr< ModelSubscriber > view_sub_;
     std::shared_ptr< QWidget > button_panel_;
